@@ -1,0 +1,63 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "ancient_extensions-winter-snom",
+      "pokemon": "snom",
+      "presets": ["natural"],
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "8-22",
+      "weight": 1.5,
+      "condition": {
+        "biomes": [
+          "terralith:snowy_shield",
+          "terralith:frozen_cliffs",
+          "regions_unexplored:frozen_tundra",
+          "regions_unexplored:icy_heights",
+          "regions_unexplored:cold_boreal_taiga"
+        ]
+      }
+    },
+    {
+      "id": "ancient_extensions-winter-cubchoo",
+      "pokemon": "cubchoo",
+      "presets": ["natural"],
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "10-24",
+      "weight": 1.2,
+      "condition": {
+        "biomes": [
+          "minecraft:ice_spikes",
+          "minecraft:snowy_taiga",
+          "regions_unexplored:icy_heights",
+          "regions_unexplored:frozen_pine_taiga",
+          "regions_unexplored:frozen_tundra"
+        ]
+      }
+    },
+    {
+      "id": "ancient_extensions-winter-spheal",
+      "pokemon": "spheal",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "12-26",
+      "weight": 1.0,
+      "condition": {
+        "biomes": [
+          "terralith:frozen_cliffs",
+          "minecraft:frozen_ocean",
+          "regions_unexplored:cold_river",
+          "regions_unexplored:chalk_cliffs",
+          "regions_unexplored:gravel_beach"
+        ]
+      }
+    }
+  ]
+}

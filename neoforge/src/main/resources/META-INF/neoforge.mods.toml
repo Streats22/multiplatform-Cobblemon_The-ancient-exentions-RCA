@@ -1,0 +1,34 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+license = "MIT"
+
+[[mods]]
+modId = "ancient_extensions"
+version = "${version}"
+displayName = "The Ancient Extensions"
+authors = "Streats1"
+description = '''
+Rubius Cobblemon glue mod: Ancient Professor's Field Kit, Regional Survey (custom dex rewards),
+and seasonal migration hooks for Cobblemon 1.7.x.
+'''
+
+[[dependencies.ancient_extensions]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.21.1]"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.ancient_extensions]]
+modId = "neoforge"
+mandatory = true
+versionRange = "[21.1.182,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.ancient_extensions]]
+modId = "cobblemon"
+mandatory = true
+versionRange = "[1.7.3,)"
+ordering = "AFTER"
+side = "BOTH"

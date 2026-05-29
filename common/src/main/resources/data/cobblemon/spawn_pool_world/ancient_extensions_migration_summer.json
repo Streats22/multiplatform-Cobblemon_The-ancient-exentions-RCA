@@ -1,0 +1,59 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "ancient_extensions-summer-wingull",
+      "pokemon": "wingull",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "10-26",
+      "weight": 1.5,
+      "condition": {
+        "biomes": [
+          "minecraft:warm_ocean",
+          "minecraft:beach",
+          "regions_unexplored:grassy_beach",
+          "regions_unexplored:gravel_beach",
+          "regions_unexplored:tropical_river"
+        ]
+      }
+    },
+    {
+      "id": "ancient_extensions-summer-corphish",
+      "pokemon": "corphish",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "12-28",
+      "weight": 1.2,
+      "condition": {
+        "biomes": [
+          "terralith:red_oasis",
+          "terralith:arid_highlands",
+          "regions_unexplored:outback",
+          "regions_unexplored:baobab_savanna",
+          "regions_unexplored:joshua_desert"
+        ]
+      }
+    },
+    {
+      "id": "ancient_extensions-summer-remoraid",
+      "pokemon": "remoraid",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "8-24",
+      "weight": 1.0,
+      "condition": {
+        "biomes": [
+          "minecraft:warm_ocean",
+          "regions_unexplored:tropical_river",
+          "regions_unexplored:rocky_reef"
+        ]
+      }
+    }
+  ]
+}

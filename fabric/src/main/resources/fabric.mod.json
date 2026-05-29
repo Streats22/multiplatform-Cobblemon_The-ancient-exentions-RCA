@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "ancient_extensions",
+  "version": "${version}",
+  "name": "The Ancient Extensions",
+  "description": "Rubius Cobblemon glue mod (Fabric stub — full features on NeoForge).",
+  "authors": ["Streats1"],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.streats.ancientextensions.fabric.AncientExtensionsFabric"]
+  },
+  "depends": {
+    "minecraft": "1.21.1",
+    "cobblemon": ">=1.7.3 <1.8.0"
+  }
+}

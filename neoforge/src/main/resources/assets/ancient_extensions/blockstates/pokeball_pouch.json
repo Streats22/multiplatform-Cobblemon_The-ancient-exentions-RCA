@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "ancient_extensions:block/pokeball_pouch", "y": 180 },
+    "facing=south": { "model": "ancient_extensions:block/pokeball_pouch" },
+    "facing=west": { "model": "ancient_extensions:block/pokeball_pouch", "y": 90 },
+    "facing=east": { "model": "ancient_extensions:block/pokeball_pouch", "y": 270 }
+  }
+}

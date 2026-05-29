@@ -1,0 +1,62 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "ancient_extensions-spring-hoppip",
+      "pokemon": "hoppip",
+      "presets": ["natural"],
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "8-22",
+      "weight": 1.5,
+      "condition": {
+        "biomes": [
+          "terralith:blooming_valley",
+          "terralith:lavender_forest",
+          "regions_unexplored:flower_fields",
+          "regions_unexplored:clover_plains",
+          "regions_unexplored:temperate_grove"
+        ]
+      }
+    },
+    {
+      "id": "ancient_extensions-spring-burmy",
+      "pokemon": "burmy",
+      "presets": ["natural"],
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "6-20",
+      "weight": 1.2,
+      "condition": {
+        "biomes": [
+          "terralith:orchid_swamp",
+          "terralith:blooming_valley",
+          "regions_unexplored:marsh",
+          "regions_unexplored:bayou",
+          "regions_unexplored:magnolia_woodland"
+        ]
+      }
+    },
+    {
+      "id": "ancient_extensions-spring-combee",
+      "pokemon": "combee",
+      "presets": ["natural"],
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "10-24",
+      "weight": 1.0,
+      "condition": {
+        "biomes": [
+          "terralith:lavender_forest",
+          "regions_unexplored:magnolia_woodland",
+          "regions_unexplored:orchard"
+        ]
+      }
+    }
+  ]
+}

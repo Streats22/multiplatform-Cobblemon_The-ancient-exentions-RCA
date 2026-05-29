@@ -1,0 +1,62 @@
+{
+  "enabled": true,
+  "neededInstalledMods": [],
+  "neededUninstalledMods": [],
+  "spawns": [
+    {
+      "id": "ancient_extensions-autumn-seedot",
+      "pokemon": "seedot",
+      "presets": ["natural"],
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "8-22",
+      "weight": 1.5,
+      "condition": {
+        "biomes": [
+          "terralith:maple_forest",
+          "terralith:cloud_forest",
+          "regions_unexplored:autumnal_maple_forest",
+          "regions_unexplored:maple_forest",
+          "regions_unexplored:deciduous_forest"
+        ]
+      }
+    },
+    {
+      "id": "ancient_extensions-autumn-shroomish",
+      "pokemon": "shroomish",
+      "presets": ["natural"],
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "10-24",
+      "weight": 1.2,
+      "condition": {
+        "biomes": [
+          "terralith:cloud_forest",
+          "regions_unexplored:redwoods",
+          "regions_unexplored:deciduous_forest",
+          "regions_unexplored:boreal_taiga"
+        ]
+      }
+    },
+    {
+      "id": "ancient_extensions-autumn-patrat",
+      "pokemon": "patrat",
+      "presets": ["natural"],
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "6-20",
+      "weight": 1.0,
+      "condition": {
+        "biomes": [
+          "minecraft:sunflower_plains",
+          "regions_unexplored:prairie",
+          "regions_unexplored:barley_fields",
+          "regions_unexplored:grassland"
+        ]
+      }
+    }
+  ]
+}

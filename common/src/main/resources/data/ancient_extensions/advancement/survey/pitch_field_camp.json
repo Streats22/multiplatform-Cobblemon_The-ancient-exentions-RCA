@@ -1,0 +1,21 @@
+{
+  "display": {
+    "icon": {
+      "id": "ancient_extensions:ancient_professors_kit"
+    },
+    "title": {
+      "translate": "ancient_extensions.advancement.pitch_field_camp.title"
+    },
+    "description": {
+      "translate": "ancient_extensions.advancement.pitch_field_camp.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "pitched_camp": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

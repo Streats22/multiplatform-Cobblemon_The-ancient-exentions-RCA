@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LSL",
+    "L L"
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "S": {
+      "item": "minecraft:string"
+    }
+  },
+  "result": {
+    "id": "ancient_extensions:pokeball_pouch",
+    "count": 1
+  }
+}
