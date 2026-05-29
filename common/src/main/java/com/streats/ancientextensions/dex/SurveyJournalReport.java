@@ -75,6 +75,14 @@ public final class SurveyJournalReport {
                 data.getResearchPoints(),
                 data.getTier().displayName()
         ).withStyle(ChatFormatting.BLACK));
+        data.getSurveyOrigin().ifPresentOrElse(
+                region -> lines.add(Component.translatable("ancient_extensions.journal.origin")
+                        .withStyle(ChatFormatting.DARK_PURPLE)
+                        .append(" ")
+                        .append(region.labeledName())),
+                () -> lines.add(Component.translatable("ancient_extensions.journal.origin_pending")
+                        .withStyle(ChatFormatting.GRAY))
+        );
         lines.add(Component.empty());
         lines.add(Component.translatable("ancient_extensions.journal.section_goals")
                 .withStyle(ChatFormatting.DARK_GREEN, ChatFormatting.BOLD));

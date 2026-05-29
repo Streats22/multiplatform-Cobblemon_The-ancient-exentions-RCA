@@ -3,6 +3,7 @@ package com.streats.ancientextensions.neoforge.registry;
 import com.streats.ancientextensions.AncientExtensionsConstants;
 import com.streats.ancientextensions.neoforge.item.AncientProfessorsKitItem;
 import com.streats.ancientextensions.neoforge.item.PokeballPouchItem;
+import com.streats.ancientextensions.neoforge.item.RegionalPassportItem;
 import com.streats.ancientextensions.neoforge.item.RegionalSurveyJournalItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -23,6 +24,11 @@ public final class ModItems {
     public static final DeferredItem<Item> REGIONAL_SURVEY_JOURNAL = ITEMS.register(
             "regional_survey_journal",
             () -> new RegionalSurveyJournalItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON))
+    );
+
+    public static final DeferredItem<Item> REGIONAL_PASSPORT = ITEMS.register(
+            "regional_passport",
+            () -> new RegionalPassportItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON))
     );
 
     public static final DeferredItem<Item> POKEBALL_POUCH = ITEMS.register(

@@ -23,6 +23,7 @@ public final class ModCreativeTabs {
                     .displayItems((params, output) -> {
                         output.accept(ModItems.ANCIENT_PROFESSORS_KIT.get());
                         output.accept(ModItems.REGIONAL_SURVEY_JOURNAL.get());
+                        output.accept(ModItems.REGIONAL_PASSPORT.get());
                         output.accept(ModItems.POKEBALL_POUCH.get());
                     })
                     .build()
@@ -40,11 +41,13 @@ public final class ModCreativeTabs {
         if (event.getTabKey() == CreativeModeTabs.SEARCH) {
             event.accept(ModItems.ANCIENT_PROFESSORS_KIT);
             event.accept(ModItems.REGIONAL_SURVEY_JOURNAL);
+            event.accept(ModItems.REGIONAL_PASSPORT);
             event.accept(ModItems.POKEBALL_POUCH);
         }
         if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             event.accept(ModItems.ANCIENT_PROFESSORS_KIT);
             event.accept(ModItems.REGIONAL_SURVEY_JOURNAL);
+            event.accept(ModItems.REGIONAL_PASSPORT);
             event.accept(ModItems.POKEBALL_POUCH);
         }
     }

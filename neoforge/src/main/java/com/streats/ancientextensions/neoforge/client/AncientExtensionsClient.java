@@ -10,5 +10,6 @@ public final class AncientExtensionsClient {
 
     public static void registerScreens(RegisterMenuScreensEvent event) {
         event.register(ModMenus.POKEBALL_POUCH.get(), PokeballPouchScreen::new);
+        event.register(ModMenus.REGIONAL_PASSPORT.get(), RegionalPassportScreen::new);
     }
 }

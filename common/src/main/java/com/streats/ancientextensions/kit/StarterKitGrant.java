@@ -1,6 +1,7 @@
 package com.streats.ancientextensions.kit;
 
 import com.streats.ancientextensions.AncientExtensionsConstants;
+import com.streats.ancientextensions.dex.PassportInventorySync;
 import com.streats.ancientextensions.dex.RegionalSurveyData;
 import com.streats.ancientextensions.dex.RegionalSurveyService;
 import net.minecraft.core.registries.Registries;
@@ -19,6 +20,7 @@ public final class StarterKitGrant {
 
     public static void tryGrantOnFirstJoin(ServerPlayer player) {
         grantJournalIfMissing(player);
+        grantPassportIfMissing(player);
 
         RegionalSurveyData data = RegionalSurveyService.get(player);
         if (data.hasStarterKitGranted() || data.hasDeployedProfessorsKit()) {
@@ -49,6 +51,22 @@ public final class StarterKitGrant {
         player.sendSystemMessage(Component.translatable("ancient_extensions.kit.welcome"));
         player.sendSystemMessage(Component.translatable("ancient_extensions.kit.welcome_hint"));
         player.sendSystemMessage(Component.translatable("ancient_extensions.journal.welcome"));
+        player.sendSystemMessage(Component.translatable("ancient_extensions.passport.welcome"));
+    }
+
+    public static void grantPassportIfMissing(ServerPlayer player) {
+        Item passportItem = player.registryAccess()
+                .registryOrThrow(Registries.ITEM)
+                .get(AncientExtensionsConstants.id("regional_passport"));
+        if (passportItem == null || hasItemInInventory(player, passportItem)) {
+            return;
+        }
+        ItemStack passport = new ItemStack(passportItem);
+        if (!player.getInventory().add(passport)) {
+            player.drop(passport, false);
+        }
+        RegionalSurveyService.get(player).getSurveyOrigin()
+                .ifPresent(region -> PassportInventorySync.applyOriginToPassports(player, region));
     }
 
     public static void grantJournalIfMissing(ServerPlayer player) {

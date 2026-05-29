@@ -7,6 +7,7 @@ import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public final class SurveyGoals {
 
@@ -18,6 +19,15 @@ public final class SurveyGoals {
     public static List<SurveyGoal> build(RegionalSurveyData data, MigrationSeason season) {
         List<SurveyGoal> goals = new ArrayList<>();
         var route = MigrationRoutes.routeFor(season);
+
+        Optional<SurveyRegion> origin = data.getSurveyOrigin();
+        goals.add(new SurveyGoal(
+                "register_origin",
+                Component.translatable("ancient_extensions.journal.goal.register_origin"),
+                origin.isPresent(),
+                origin.map(SurveyRegion::displayName)
+                        .orElse(Component.translatable("ancient_extensions.journal.progress.origin_pending"))
+        ));
 
         goals.add(new SurveyGoal(
                 "pitch_camp",

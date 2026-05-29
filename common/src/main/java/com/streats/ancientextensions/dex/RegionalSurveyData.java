@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -25,6 +26,8 @@ public class RegionalSurveyData {
     private boolean professorsKitDeployed;
     /** True after the starter kit item was granted on first join to this world. */
     private boolean starterKitGranted;
+    /** Empty until the player registers their survey origin via the passport. */
+    private String surveyOrigin = "";
 
     private String trackedMigrationSeason = MigrationSeason.SPRING.name();
     private int migrationLegIndex;
@@ -42,6 +45,9 @@ public class RegionalSurveyData {
             data.professorsKitDeployed = true;
         }
         data.starterKitGranted = tag.getBoolean("starterKitGranted");
+        if (tag.contains("surveyOrigin")) {
+            data.surveyOrigin = tag.getString("surveyOrigin");
+        }
         data.trackedMigrationSeason = tag.getString("trackedMigrationSeason");
         data.migrationLegIndex = tag.getInt("migrationLegIndex");
         data.currentLegCatches = tag.getInt("currentLegCatches");
@@ -65,6 +71,9 @@ public class RegionalSurveyData {
         tag.putInt("researchPoints", researchPoints);
         tag.putBoolean("professorsKitDeployed", professorsKitDeployed);
         tag.putBoolean("starterKitGranted", starterKitGranted);
+        if (!surveyOrigin.isEmpty()) {
+            tag.putString("surveyOrigin", surveyOrigin);
+        }
         tag.putString("trackedMigrationSeason", trackedMigrationSeason);
         tag.putInt("migrationLegIndex", migrationLegIndex);
         tag.putInt("currentLegCatches", currentLegCatches);
@@ -124,6 +133,14 @@ public class RegionalSurveyData {
 
     public void markStarterKitGranted() {
         starterKitGranted = true;
+    }
+
+    public Optional<SurveyRegion> getSurveyOrigin() {
+        return SurveyRegion.fromId(surveyOrigin);
+    }
+
+    public void setSurveyOrigin(SurveyRegion region) {
+        surveyOrigin = region.getId();
     }
 
     public MigrationSeason getTrackedMigrationSeason() {

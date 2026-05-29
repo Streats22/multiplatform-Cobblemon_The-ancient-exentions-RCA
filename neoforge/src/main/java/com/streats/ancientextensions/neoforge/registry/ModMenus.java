@@ -1,6 +1,7 @@
 package com.streats.ancientextensions.neoforge.registry;
 
 import com.streats.ancientextensions.AncientExtensionsConstants;
+import com.streats.ancientextensions.neoforge.passport.RegionalPassportMenu;
 import com.streats.ancientextensions.neoforge.pouch.PokeballPouchMenu;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.MenuType;
@@ -17,6 +18,11 @@ public final class ModMenus {
     public static final DeferredHolder<MenuType<?>, MenuType<PokeballPouchMenu>> POKEBALL_POUCH = MENUS.register(
             "pokeball_pouch",
             () -> IMenuTypeExtension.create(PokeballPouchMenu::new)
+    );
+
+    public static final DeferredHolder<MenuType<?>, MenuType<RegionalPassportMenu>> REGIONAL_PASSPORT = MENUS.register(
+            "regional_passport",
+            () -> IMenuTypeExtension.create(RegionalPassportMenu::new)
     );
 
     private ModMenus() {

@@ -35,7 +35,7 @@ import java.util.List;
 public class PokeballPouchBlock extends BaseEntityBlock {
 
     public static final MapCodec<PokeballPouchBlock> CODEC = simpleCodec(PokeballPouchBlock::new);
-    private static final VoxelShape SHAPE = Block.box(3.0, 0.0, 3.0, 13.0, 7.0, 13.0);
+    private static final VoxelShape SHAPE = Block.box(4.0, 0.0, 4.0, 12.0, 8.5, 12.0);
 
     public PokeballPouchBlock(BlockBehaviour.Properties properties) {
         super(properties);

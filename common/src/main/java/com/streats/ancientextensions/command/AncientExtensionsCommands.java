@@ -4,6 +4,8 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.streats.ancientextensions.dex.RegionalSurveyData;
 import com.streats.ancientextensions.dex.RegionalSurveyService;
+import com.streats.ancientextensions.dex.SurveyOriginHooks;
+import com.streats.ancientextensions.dex.SurveyRegion;
 import com.streats.ancientextensions.AncientExtensionsConstants;
 import com.streats.ancientextensions.kit.ProfessorsKitLogic;
 import net.minecraft.core.registries.Registries;
@@ -15,6 +17,7 @@ import com.streats.ancientextensions.migration.MigrationSeasonClock;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -52,7 +55,42 @@ public final class AncientExtensionsCommands {
                 .then(literal("givejournal")
                         .then(Commands.argument("player", EntityArgument.player())
                                 .requires(source -> source.hasPermission(2))
-                                .executes(ctx -> giveJournal(EntityArgument.getPlayer(ctx, "player")))));
+                                .executes(ctx -> giveJournal(EntityArgument.getPlayer(ctx, "player")))))
+                .then(literal("region").executes(ctx -> showRegion(ctx.getSource().getPlayerOrException())))
+                .then(literal("region")
+                        .then(literal("set")
+                                .requires(source -> source.hasPermission(2))
+                                .then(Commands.argument("region", StringArgumentType.word())
+                                        .suggests((ctx, builder) -> {
+                                            for (SurveyRegion region : SurveyRegion.values()) {
+                                                builder.suggest(region.getId());
+                                            }
+                                            return builder.buildFuture();
+                                        })
+                                        .executes(ctx -> setRegion(
+                                                ctx.getSource().getPlayerOrException(),
+                                                StringArgumentType.getString(ctx, "region")
+                                        )))
+                                .then(Commands.argument("player", EntityArgument.player())
+                                        .requires(source -> source.hasPermission(2))
+                                        .then(Commands.argument("region", StringArgumentType.word())
+                                                .suggests((ctx, builder) -> {
+                                                    for (SurveyRegion region : SurveyRegion.values()) {
+                                                        builder.suggest(region.getId());
+                                                    }
+                                                    return builder.buildFuture();
+                                                })
+                                                .executes(ctx -> setRegion(
+                                                        EntityArgument.getPlayer(ctx, "player"),
+                                                        StringArgumentType.getString(ctx, "region")
+                                                ))))))
+                .then(literal("givepassport")
+                        .requires(source -> source.hasPermission(2))
+                        .executes(ctx -> givePassport(ctx.getSource().getPlayerOrException())))
+                .then(literal("givepassport")
+                        .then(Commands.argument("player", EntityArgument.player())
+                                .requires(source -> source.hasPermission(2))
+                                .executes(ctx -> givePassport(EntityArgument.getPlayer(ctx, "player")))));
 
         dispatcher.register(root);
     }
@@ -66,6 +104,34 @@ public final class AncientExtensionsCommands {
                 data.getTier().displayName(),
                 data.hasDeployedProfessorsKit()
         ));
+        sendRegionLine(player, data);
+        return 1;
+    }
+
+    private static int showRegion(ServerPlayer player) {
+        RegionalSurveyData data = RegionalSurveyService.get(player);
+        sendRegionLine(player, data);
+        return 1;
+    }
+
+    private static void sendRegionLine(ServerPlayer player, RegionalSurveyData data) {
+        Component origin = data.getSurveyOrigin()
+                .map(SurveyRegion::labeledName)
+                .orElse(Component.translatable("ancient_extensions.command.region_unset"));
+        player.sendSystemMessage(Component.translatable("ancient_extensions.command.region", origin));
+    }
+
+    private static int setRegion(ServerPlayer player, String regionId) {
+        SurveyRegion region = SurveyRegion.fromId(regionId).orElse(null);
+        if (region == null) {
+            player.sendSystemMessage(Component.translatable("ancient_extensions.origin.invalid"));
+            return 0;
+        }
+        RegionalSurveyData data = RegionalSurveyService.get(player);
+        data.setSurveyOrigin(region);
+        RegionalSurveyService.save(player, data);
+        SurveyOriginHooks.notifyApplied(player, region, false);
+        player.sendSystemMessage(Component.translatable("ancient_extensions.origin.chosen", region.displayName()));
         return 1;
     }
 
@@ -115,6 +181,22 @@ public final class AncientExtensionsCommands {
             player.drop(stack, false);
         }
         player.sendSystemMessage(Component.translatable("ancient_extensions.journal.given"));
+        return 1;
+    }
+
+    private static int givePassport(ServerPlayer player) {
+        var passport = player.registryAccess()
+                .registryOrThrow(Registries.ITEM)
+                .get(AncientExtensionsConstants.id("regional_passport"));
+        if (passport == null) {
+            player.sendSystemMessage(Component.literal("Regional Passport is not registered."));
+            return 0;
+        }
+        ItemStack stack = new ItemStack(passport);
+        if (!player.getInventory().add(stack)) {
+            player.drop(stack, false);
+        }
+        player.sendSystemMessage(Component.translatable("ancient_extensions.passport.given"));
         return 1;
     }
 

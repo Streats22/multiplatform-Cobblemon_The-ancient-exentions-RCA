@@ -3,6 +3,8 @@ package com.streats.ancientextensions.neoforge;
 import com.streats.ancientextensions.AncientExtensionsConstants;
 import com.streats.ancientextensions.command.AncientExtensionsCommands;
 import com.streats.ancientextensions.dex.PlayerSurveyStorage;
+import com.streats.ancientextensions.dex.SurveyOriginHooks;
+import com.streats.ancientextensions.neoforge.display.SurveyOriginEffects;
 import com.streats.ancientextensions.neoforge.data.ModAttachments;
 import com.streats.ancientextensions.neoforge.data.NeoForgeSurveyBackend;
 import com.streats.ancientextensions.neoforge.client.AncientExtensionsClient;
@@ -11,6 +13,7 @@ import com.streats.ancientextensions.neoforge.registry.ModBlockEntities;
 import com.streats.ancientextensions.neoforge.registry.ModBlocks;
 import com.streats.ancientextensions.neoforge.registry.ModCreativeTabs;
 import com.streats.ancientextensions.neoforge.registry.ModItems;
+import com.streats.ancientextensions.neoforge.network.ModNetworking;
 import com.streats.ancientextensions.neoforge.registry.ModMenus;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
@@ -21,11 +24,13 @@ import net.neoforged.neoforge.event.RegisterCommandsEvent;
 public class AncientExtensionsNeoForge {
 
     public AncientExtensionsNeoForge(IEventBus modBus) {
+        SurveyOriginHooks.setHandler(SurveyOriginEffects::apply);
         ModAttachments.ATTACHMENTS.register(modBus);
         ModBlocks.register(modBus);
         ModBlockEntities.register(modBus);
         ModItems.register(modBus);
         ModMenus.register(modBus);
+        modBus.addListener(ModNetworking::register);
         modBus.addListener(AncientExtensionsClient::registerScreens);
         ModCreativeTabs.register(modBus);
         PlayerSurveyStorage.setBackend(new NeoForgeSurveyBackend());
