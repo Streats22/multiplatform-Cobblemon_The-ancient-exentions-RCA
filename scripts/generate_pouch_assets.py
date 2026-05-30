@@ -1,4 +1,4 @@
-"""Generate Poké Ball Pouch GUI texture + flat inventory item icon."""
+"""Generate Poké Ball Pouch container GUI texture (item icon is a hand-authored PNG)."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -8,51 +8,20 @@ try:
 except ImportError:
     raise SystemExit("Install Pillow: pip install pillow")
 
-try:
-    from pixel_art import render_grid
-except ImportError:
-    from scripts.pixel_art import render_grid  # type: ignore[no-redef]
-
-ASSETS = Path(__file__).resolve().parents[1] / "common" / "src" / "main" / "resources" / "assets" / "ancient_extensions" / "textures"
-GUI_ROOT = ASSETS / "gui"
-ITEM_ROOT = ASSETS / "item"
+GUI_ROOT = (
+    Path(__file__).resolve().parents[1]
+    / "common"
+    / "src"
+    / "main"
+    / "resources"
+    / "assets"
+    / "ancient_extensions"
+    / "textures"
+    / "gui"
+)
 
 WIDTH = 176
 HEIGHT = 166
-
-POUCH_ITEM_PALETTE = {
-    ".": (0, 0, 0, 0),
-    "o": (45, 30, 16, 255),
-    "s": (58, 38, 20, 255),
-    "d": (82, 54, 30, 255),
-    "m": (118, 80, 46, 255),
-    "l": (150, 106, 62, 255),
-    "h": (184, 136, 82, 255),
-    "c": (204, 186, 142, 255),
-    "R": (214, 46, 40, 255),
-    "W": (244, 244, 244, 255),
-    "k": (28, 28, 28, 255),
-}
-
-# Drawstring pouch with front Poké Ball — crisp 16x16 (placed block stays 3D)
-POUCH_ITEM = [
-    "................",
-    "....cc....cc....",
-    "...occcccccco...",
-    "..odmmmmmmmmdo..",
-    ".odmlhhhhhhlmdo.",
-    ".odmloRRRRRomdo.",
-    ".odmloWkkkWomdo.",
-    ".odmloWWWWomdo..",
-    ".odmllWWWWlmdo..",
-    "..odmmmmmmmmdo..",
-    "...osssssssso...",
-    "....oooooooo....",
-    "................",
-    "................",
-    "................",
-    "................",
-]
 
 
 def rgb(hex_color: str) -> tuple[int, int, int, int]:
@@ -126,11 +95,5 @@ def draw_pouch_gui(path: Path) -> None:
     print(f"Wrote {path}")
 
 
-def draw_pouch_item(path: Path) -> None:
-    render_grid(POUCH_ITEM, POUCH_ITEM_PALETTE).save(path)
-    print(f"Wrote {path}")
-
-
 if __name__ == "__main__":
     draw_pouch_gui(GUI_ROOT / "pokeball_pouch.png")
-    draw_pouch_item(ITEM_ROOT / "pokeball_pouch.png")

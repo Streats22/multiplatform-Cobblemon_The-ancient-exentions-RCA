@@ -1,4 +1,4 @@
-"""Generate Regional Survey Journal GUI + aged book item icon."""
+"""Generate Regional Survey Journal GUI texture (item icons are hand-authored PNGs)."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -8,48 +8,9 @@ try:
 except ImportError:
     raise SystemExit("Install Pillow: pip install pillow")
 
-try:
-    from pixel_art import render_grid
-except ImportError:
-    from scripts.pixel_art import render_grid  # type: ignore[no-redef]
-
 ASSETS = Path(__file__).resolve().parents[1] / "common" / "src" / "main" / "resources" / "assets" / "ancient_extensions" / "textures"
 GUI_W = 220
 GUI_H = 220
-
-JOURNAL_ITEM_PALETTE = {
-    ".": (0, 0, 0, 0),
-    "o": (32, 20, 12, 255),
-    "s": (48, 30, 18, 255),
-    "d": (68, 42, 24, 255),
-    "l": (96, 58, 32, 255),
-    "h": (118, 72, 40, 255),
-    "p": (224, 206, 168, 255),
-    "a": (204, 184, 144, 255),
-    "e": (176, 154, 114, 255),
-    "g": (188, 152, 44, 255),
-    "k": (56, 40, 24, 255),
-}
-
-# Closed field log — leather cover, page edge, gold strap, spine shadow
-JOURNAL_ITEM = [
-    "................",
-    "....pppppppp....",
-    "...oppppppppo...",
-    "..odllllllhpo...",
-    "..odllllllhpo...",
-    "..odllggllhpo...",
-    "..odllllllhpo...",
-    "..odllllllhpo...",
-    "..odllllllhpo...",
-    "...oppppppppo...",
-    "...osssssssso...",
-    "....oooooooo....",
-    "................",
-    "................",
-    "................",
-    "................",
-]
 
 
 def rgb(hex_color: str) -> tuple[int, int, int, int]:
@@ -101,11 +62,5 @@ def draw_journal_gui(path: Path) -> None:
     print(f"Wrote {path}")
 
 
-def draw_journal_item(path: Path) -> None:
-    render_grid(JOURNAL_ITEM, JOURNAL_ITEM_PALETTE).save(path)
-    print(f"Wrote {path}")
-
-
 if __name__ == "__main__":
     draw_journal_gui(ASSETS / "gui" / "regional_survey_journal.png")
-    draw_journal_item(ASSETS / "item" / "regional_survey_journal.png")
