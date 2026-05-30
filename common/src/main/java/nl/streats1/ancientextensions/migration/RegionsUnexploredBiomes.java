@@ -14,11 +14,11 @@ public final class RegionsUnexploredBiomes {
 
     public static final String NAMESPACE = "regions_unexplored";
 
-    private static final List<ResourceLocation> ALL = buildAll();
     private static final List<ResourceLocation> SPRING = buildSpring();
     private static final List<ResourceLocation> SUMMER = buildSummer();
     private static final List<ResourceLocation> AUTUMN = buildAutumn();
     private static final List<ResourceLocation> WINTER = buildWinter();
+    private static final List<ResourceLocation> ALL = buildAll();
 
     private RegionsUnexploredBiomes() {
     }
@@ -64,10 +64,10 @@ public final class RegionsUnexploredBiomes {
 
     private static List<ResourceLocation> buildAll() {
         List<ResourceLocation> biomes = new ArrayList<>();
-        biomes.addAll(SPRING);
-        biomes.addAll(SUMMER);
-        biomes.addAll(AUTUMN);
-        biomes.addAll(WINTER);
+        biomes.addAll(buildSpring());
+        biomes.addAll(buildSummer());
+        biomes.addAll(buildAutumn());
+        biomes.addAll(buildWinter());
         return Collections.unmodifiableList(biomes);
     }
 
