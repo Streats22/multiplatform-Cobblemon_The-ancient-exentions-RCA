@@ -20,8 +20,14 @@ public class PokeballPouchInventory implements Container {
     }
 
     public static PokeballPouchInventory forItemStack(ItemStack pouchStack) {
+        PouchTier tier = PouchTierData.getTier(pouchStack);
         NonNullList<ItemStack> items = PokeballPouchContents.load(pouchStack);
-        return new PokeballPouchInventory(items, () -> PokeballPouchContents.save(pouchStack, items));
+        PokeballPouchInventory inventory = new PokeballPouchInventory(
+                items,
+                () -> PokeballPouchContents.save(pouchStack, items)
+        );
+        inventory.ensureCapacity(tier);
+        return inventory;
     }
 
     public static PokeballPouchInventory create(PouchTier tier) {
@@ -38,6 +44,12 @@ public class PokeballPouchInventory implements Container {
         }
         this.items = resized;
         setChanged();
+    }
+
+    public void ensureCapacity(PouchTier tier) {
+        if (items.size() != tier.slotCount()) {
+            resize(tier, items);
+        }
     }
 
     @Override

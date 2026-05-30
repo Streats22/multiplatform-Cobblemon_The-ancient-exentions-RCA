@@ -8,6 +8,8 @@ import nl.streats1.ancientextensions.pouch.PokeballFilter;
 import nl.streats1.ancientextensions.pouch.PokeballPouchConstants;
 import nl.streats1.ancientextensions.pouch.PokeballPouchLayout;
 import nl.streats1.ancientextensions.pouch.PokeballPouchInventory;
+import nl.streats1.ancientextensions.pouch.PouchTier;
+import nl.streats1.ancientextensions.pouch.PouchTierData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -52,18 +54,20 @@ public class PokeballPouchMenu extends AbstractContainerMenu {
             this.hand = InteractionHand.MAIN_HAND;
             this.pouchStack = ItemStack.EMPTY;
             BlockEntity blockEntity = playerInventory.player.level().getBlockEntity(blockPos);
-            if (blockEntity instanceof PokeballPouchBlockEntity entity) {
-                this.pouch = entity.container();
+            PokeballPouchBlockEntity pouchEntity = blockEntity instanceof PokeballPouchBlockEntity entity ? entity : null;
+            if (pouchEntity != null) {
+                this.pouch = pouchEntity.container();
             } else {
-                this.pouch = PokeballPouchInventory.create(nl.streats1.ancientextensions.pouch.PouchTier.POKE);
+                this.pouch = PokeballPouchInventory.create(PouchTier.POKE);
             }
+            this.pouchSlotCount = resolvePouchSlotCount(this.pouch, this.pouchStack, pouchEntity);
         } else {
             this.hand = data.hand();
             this.pouchStack = playerInventory.player.getItemInHand(hand);
             this.blockPos = BlockPos.ZERO;
             this.pouch = PokeballPouchInventory.forItemStack(pouchStack);
+            this.pouchSlotCount = resolvePouchSlotCount(this.pouch, this.pouchStack, null);
         }
-        this.pouchSlotCount = pouch.getContainerSize();
         this.imageHeight = PokeballPouchConstants.menuHeight(pouchSlotCount);
         addPouchAndPlayerSlots(playerInventory);
     }
@@ -83,7 +87,7 @@ public class PokeballPouchMenu extends AbstractContainerMenu {
         this.pouchStack = pouchStack;
         this.blockPos = BlockPos.ZERO;
         this.pouch = PokeballPouchInventory.forItemStack(pouchStack);
-        this.pouchSlotCount = pouch.getContainerSize();
+        this.pouchSlotCount = resolvePouchSlotCount(this.pouch, this.pouchStack, null);
         this.imageHeight = PokeballPouchConstants.menuHeight(pouchSlotCount);
         addPouchAndPlayerSlots(playerInventory);
     }
@@ -96,14 +100,30 @@ public class PokeballPouchMenu extends AbstractContainerMenu {
         this.pouchStack = ItemStack.EMPTY;
         Level level = playerInventory.player.level();
         BlockEntity blockEntity = level.getBlockEntity(pos);
-        if (blockEntity instanceof PokeballPouchBlockEntity entity) {
-            this.pouch = entity.container();
+        PokeballPouchBlockEntity pouchEntity = blockEntity instanceof PokeballPouchBlockEntity entity ? entity : null;
+        if (pouchEntity != null) {
+            this.pouch = pouchEntity.container();
         } else {
-            this.pouch = PokeballPouchInventory.create(nl.streats1.ancientextensions.pouch.PouchTier.POKE);
+            this.pouch = PokeballPouchInventory.create(PouchTier.POKE);
         }
-        this.pouchSlotCount = pouch.getContainerSize();
+        this.pouchSlotCount = resolvePouchSlotCount(this.pouch, this.pouchStack, pouchEntity);
         this.imageHeight = PokeballPouchConstants.menuHeight(pouchSlotCount);
         addPouchAndPlayerSlots(playerInventory);
+    }
+
+    private static int resolvePouchSlotCount(Container pouch, ItemStack pouchStack, PokeballPouchBlockEntity blockEntity) {
+        PouchTier tier;
+        if (blockEntity != null) {
+            tier = blockEntity.tier();
+        } else if (!pouchStack.isEmpty()) {
+            tier = PouchTierData.getTier(pouchStack);
+        } else {
+            tier = PouchTier.POKE;
+        }
+        if (pouch instanceof PokeballPouchInventory inventory) {
+            inventory.ensureCapacity(tier);
+        }
+        return tier.slotCount();
     }
 
     public int getImageHeight() {

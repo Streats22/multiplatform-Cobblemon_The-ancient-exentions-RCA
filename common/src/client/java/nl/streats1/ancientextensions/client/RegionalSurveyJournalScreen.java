@@ -29,8 +29,11 @@ public class RegionalSurveyJournalScreen extends AbstractContainerScreen<Regiona
     private static final int LINE_HEIGHT = 10;
     private static final int LINES_PER_PAGE = 17;
 
-    private static final int FOOTER_TOP = 224;
-    private static final int FOOTER_H = 26;
+    private static final int FOOTER_TOP = 226;
+    private static final int FOOTER_H = 24;
+
+    private static final int PAGE_BTN_W = 20;
+    private static final int PAGE_BTN_H = 16;
 
     private static final int COLOR_HEADER = 0xFFF0E2CC;
     private static final int COLOR_HEADER_SHADOW = 0xFF1A1008;
@@ -93,14 +96,14 @@ public class RegionalSurveyJournalScreen extends AbstractContainerScreen<Regiona
     }
 
     private void addPageButtons() {
-        int footerCenterY = this.topPos + FOOTER_TOP + FOOTER_H / 2 - 8;
+        int footerCenterY = this.topPos + FOOTER_TOP + FOOTER_H / 2;
         int centerX = this.leftPos + this.imageWidth / 2;
 
         addRenderableWidget(Button.builder(Component.literal("◀"), button -> changePage(-1))
-                .bounds(centerX - 92, footerCenterY, 24, 18)
+                .bounds(centerX - 56, footerCenterY - PAGE_BTN_H / 2, PAGE_BTN_W, PAGE_BTN_H)
                 .build());
         addRenderableWidget(Button.builder(Component.literal("▶"), button -> changePage(1))
-                .bounds(centerX + 68, footerCenterY, 24, 18)
+                .bounds(centerX + 36, footerCenterY - PAGE_BTN_H / 2, PAGE_BTN_W, PAGE_BTN_H)
                 .build());
 
         if (this.menu.getUnclaimedRewardCount() > 0) {
@@ -141,8 +144,7 @@ public class RegionalSurveyJournalScreen extends AbstractContainerScreen<Regiona
         List<FormattedCharSequence> page = pages.get(pageIndex);
         int y = CONTENT_Y;
         for (FormattedCharSequence line : page) {
-            graphics.drawString(this.font, line, CONTENT_X + 1, y + 1, COLOR_BODY_SHADOW, false);
-            graphics.drawString(this.font, line, CONTENT_X, y, COLOR_BODY, false);
+            GuiTextRender.drawStyled(this.font, graphics, line, CONTENT_X, y);
             y += LINE_HEIGHT;
         }
 
@@ -155,7 +157,7 @@ public class RegionalSurveyJournalScreen extends AbstractContainerScreen<Regiona
         Component pageLabel = pages.size() > 1
                 ? Component.translatable("ancient_extensions.journal.page", pageIndex + 1, pages.size())
                 : Component.translatable("ancient_extensions.journal.page_single");
-        int labelY = FOOTER_TOP + 8;
+        int labelY = FOOTER_TOP + (FOOTER_H - this.font.lineHeight) / 2;
         graphics.drawCenteredString(this.font, pageLabel, cx + 1, labelY + 1, COLOR_PAGE_SHADOW);
         graphics.drawCenteredString(this.font, pageLabel, cx, labelY, COLOR_PAGE);
     }

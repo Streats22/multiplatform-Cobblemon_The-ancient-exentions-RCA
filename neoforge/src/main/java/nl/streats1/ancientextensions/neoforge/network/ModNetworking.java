@@ -36,7 +36,7 @@ public final class ModNetworking {
         if (!(context.player() instanceof ServerPlayer serverPlayer)) {
             return;
         }
-        context.enqueueWork(() -> {
+        serverPlayer.server.execute(() -> {
             if (AncientExtensionsContext.get().origins().trySetOrigin(serverPlayer, payload.regionId(), payload.townId())) {
                 PassportMenuOpener.open(serverPlayer);
             }
@@ -47,6 +47,6 @@ public final class ModNetworking {
         if (!(context.player() instanceof ServerPlayer serverPlayer)) {
             return;
         }
-        context.enqueueWork(() -> TierRewardNetworking.handleClaim(serverPlayer, payload));
+        serverPlayer.server.execute(() -> TierRewardNetworking.handleClaim(serverPlayer, payload));
     }
 }

@@ -15,6 +15,14 @@ public final class PouchDisplayStacks {
     public static ItemStack tierSample(Item pouchItem, PouchTier tier) {
         ItemStack stack = new ItemStack(pouchItem);
         PouchTierData.writeFromStored(stack, tier, PouchTierData.defaultBallId(tier));
+        if (tier != PouchTier.POKE) {
+            stack.set(
+                    net.minecraft.core.component.DataComponents.CUSTOM_NAME,
+                    net.minecraft.network.chat.Component.translatable(
+                            "item.ancient_extensions.pokeball_pouch.tier." + tier.getId()
+                    )
+            );
+        }
         return stack;
     }
 

@@ -82,12 +82,18 @@ public final class SurveyJournalReport {
         TierRewardService rewards = AncientExtensionsContext.get().tierRewards();
 
         lines.add(Component.translatable("ancient_extensions.journal.section_record")
-                .withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD));
+                .withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.BOLD));
         lines.add(Component.translatable(
-                "ancient_extensions.journal.stats",
-                data.getCaughtSpeciesCount(),
-                data.getResearchPoints(),
-                tier.displayName()
+                        "ancient_extensions.journal.stats_caught_prefix",
+                        data.getCaughtSpeciesCount()
+                ).withStyle(ChatFormatting.DARK_GRAY)
+                .append(Component.translatable(
+                        "ancient_extensions.journal.stats_rp_suffix",
+                        data.getResearchPoints()
+                ).withStyle(ChatFormatting.DARK_GREEN)));
+        lines.add(Component.translatable(
+                "ancient_extensions.journal.stats_rank",
+                tier.displayName().copy().withStyle(ChatFormatting.GOLD)
         ).withStyle(ChatFormatting.DARK_GRAY));
         ResearchTier nextTier = tier.nextTier();
         if (nextTier != null) {
@@ -114,15 +120,15 @@ public final class SurveyJournalReport {
 
         data.getSurveyOrigin().ifPresentOrElse(
                 region -> {
-                    lines.add(Component.translatable("ancient_extensions.journal.origin")
-                            .withStyle(ChatFormatting.DARK_GRAY)
-                            .append(" ")
+                    lines.add(Component.empty()
+                            .append(Component.translatable("ancient_extensions.journal.origin_prefix")
+                                    .withStyle(ChatFormatting.DARK_GRAY))
                             .append(region.labeledName()));
                     data.getSurveyOriginTown().ifPresent(town -> lines.add(
-                            Component.translatable("ancient_extensions.journal.hometown")
-                                    .withStyle(ChatFormatting.DARK_GRAY)
-                                    .append(" ")
-                                    .append(town.displayName())
+                            Component.empty()
+                                    .append(Component.translatable("ancient_extensions.journal.hometown_prefix")
+                                            .withStyle(ChatFormatting.DARK_GRAY))
+                                    .append(town.displayName().copy().withStyle(ChatFormatting.DARK_BLUE))
                     ));
                 },
                 () -> lines.add(Component.translatable("ancient_extensions.journal.origin_pending")
@@ -130,7 +136,7 @@ public final class SurveyJournalReport {
         );
         lines.add(Component.empty());
         lines.add(Component.translatable("ancient_extensions.journal.section_goals")
-                .withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD));
+                .withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.BOLD));
 
         for (SurveyGoal goal : SurveyGoals.build(data, season)) {
             lines.add(journalGoalLine(goal));
@@ -141,7 +147,7 @@ public final class SurveyJournalReport {
 
         lines.add(Component.empty());
         lines.add(Component.translatable("ancient_extensions.journal.section_migration")
-                .withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD));
+                .withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.BOLD));
         lines.add(Component.translatable(
                 "ancient_extensions.journal.migration_summary",
                 season.displayName(),
@@ -191,7 +197,7 @@ public final class SurveyJournalReport {
             TierRewardService rewards
     ) {
         lines.add(Component.translatable("ancient_extensions.journal.section_rewards")
-                .withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD));
+                .withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.BOLD));
 
         int unclaimed = rewards.unclaimedCount(data);
         int claimed = 0;
@@ -243,9 +249,9 @@ public final class SurveyJournalReport {
     private static Component journalGoalLine(SurveyGoal goal) {
         Component line = goal.statusLine();
         if (goal.complete()) {
-            return line.copy().withStyle(ChatFormatting.DARK_GRAY);
+            return line.copy().withStyle(ChatFormatting.DARK_GREEN, ChatFormatting.STRIKETHROUGH);
         }
-        return line.copy().withStyle(ChatFormatting.BLACK);
+        return line.copy().withStyle(ChatFormatting.DARK_GRAY);
     }
 
     private static List<Filterable<Component>> paginate(List<Component> lines) {

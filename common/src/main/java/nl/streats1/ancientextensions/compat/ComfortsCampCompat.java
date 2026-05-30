@@ -29,10 +29,8 @@ public final class ComfortsCampCompat {
         return resolveSleepingBag(WHITE_BAG) != null || resolveSleepingBag(BROWN_BAG) != null;
     }
 
-    /**
-     * Places a Comforts sleeping bag (foot + head). Returns false if Comforts blocks are unavailable.
-     */
-    public static boolean placeSleepingBag(
+    /** Places a Comforts sleeping bag (foot + head) when the mod blocks are registered. */
+    public static void placeSleepingBag(
             ServerLevel level,
             BlockPos footPos,
             BlockPos headPos,
@@ -41,20 +39,19 @@ public final class ComfortsCampCompat {
             ServerPlayer builder
     ) {
         Block bagBlock = pickSleepingBagBlock(random);
-        if (bagBlock == null) {
-            return false;
+        if (!(bagBlock instanceof BedBlock bedBlock)) {
+            return;
         }
 
-        BlockState foot = bagBlock.defaultBlockState()
+        BlockState foot = bedBlock.defaultBlockState()
                 .setValue(BedBlock.FACING, forward)
                 .setValue(BedBlock.PART, BedPart.FOOT);
-        BlockState head = bagBlock.defaultBlockState()
+        BlockState head = bedBlock.defaultBlockState()
                 .setValue(BedBlock.FACING, forward)
                 .setValue(BedBlock.PART, BedPart.HEAD);
 
         placeIfClear(level, footPos, foot, builder);
         placeIfClear(level, headPos, head, builder);
-        return true;
     }
 
     private static Block pickSleepingBagBlock(RandomSource random) {
@@ -70,11 +67,11 @@ public final class ComfortsCampCompat {
     }
 
     private static Block resolveSleepingBag(ResourceLocation id) {
-        Block block = BuiltInRegistries.BLOCK.get(id);
-        if (block == null || block == Blocks.AIR) {
+        if (!BuiltInRegistries.BLOCK.containsKey(id)) {
             return null;
         }
-        return block;
+        Block block = BuiltInRegistries.BLOCK.get(id);
+        return block == Blocks.AIR ? null : block;
     }
 
     private static void placeIfClear(ServerLevel level, BlockPos pos, BlockState state, ServerPlayer builder) {

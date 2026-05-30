@@ -7,7 +7,8 @@ public final class PokeballPouchLayout {
 
     public static final int WIDTH = 176;
     public static final int POUCH_START_X = 8;
-    public static final int POUCH_START_Y = 18;
+    /** Matches slot art in {@code textures/gui/pokeball_pouch.png}. */
+    public static final int POUCH_START_Y = 30;
     public static final int PLAYER_INV_GAP = 12;
     public static final int MIN_HEIGHT = 166;
 

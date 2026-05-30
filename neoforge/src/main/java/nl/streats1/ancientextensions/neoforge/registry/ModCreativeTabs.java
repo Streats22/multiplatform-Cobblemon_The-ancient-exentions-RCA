@@ -1,7 +1,7 @@
 package nl.streats1.ancientextensions.neoforge.registry;
 
 import nl.streats1.ancientextensions.AncientExtensionsConstants;
-import nl.streats1.ancientextensions.pouch.PouchDisplayStacks;
+import nl.streats1.ancientextensions.registry.ModCreativeEntries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -21,12 +21,7 @@ public final class ModCreativeTabs {
             CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.ancient_extensions"))
                     .icon(() -> new ItemStack(ModItems.ANCIENT_PROFESSORS_KIT.get()))
-                    .displayItems((params, output) -> {
-                        output.accept(ModItems.ANCIENT_PROFESSORS_KIT.get());
-                        output.accept(ModItems.REGIONAL_SURVEY_JOURNAL.get());
-                        output.accept(ModItems.REGIONAL_PASSPORT.get());
-                        PouchDisplayStacks.acceptAllTiers(output::accept, ModItems.POKEBALL_POUCH.get());
-                    })
+                    .displayItems((params, output) -> ModCreativeEntries.acceptAll(output::accept))
                     .build()
     );
 
@@ -40,10 +35,7 @@ public final class ModCreativeTabs {
 
     private static void addToVanillaTabs(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.SEARCH || event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
-            event.accept(ModItems.ANCIENT_PROFESSORS_KIT);
-            event.accept(ModItems.REGIONAL_SURVEY_JOURNAL);
-            event.accept(ModItems.REGIONAL_PASSPORT);
-            PouchDisplayStacks.acceptAllTiers(event::accept, ModItems.POKEBALL_POUCH.get());
+            ModCreativeEntries.acceptAll(event::accept);
         }
     }
 }

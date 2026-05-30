@@ -38,11 +38,11 @@ public final class NeoForgeCampConfig {
     }
 
     public static void sync() {
-        CampConfig.apply(
-                STARTER_SUPPLIES_IN_CHEST_ONLY.get(),
-                CAMP_BED_SETS_SPAWN.get(),
-                USE_LOOTR_CAMP_CHEST.get()
-        );
-        PassportConfig.apply(OPEN_ORIGIN_PICKER_ON_JOIN.get());
+        boolean chestOnly = STARTER_SUPPLIES_IN_CHEST_ONLY.get();
+        boolean bedSetsSpawn = CAMP_BED_SETS_SPAWN.get();
+        boolean lootrChest = USE_LOOTR_CAMP_CHEST.get();
+        boolean openOriginPicker = OPEN_ORIGIN_PICKER_ON_JOIN.get();
+        CampConfig.apply(chestOnly, bedSetsSpawn, lootrChest);
+        PassportConfig.apply(openOriginPicker);
     }
 }

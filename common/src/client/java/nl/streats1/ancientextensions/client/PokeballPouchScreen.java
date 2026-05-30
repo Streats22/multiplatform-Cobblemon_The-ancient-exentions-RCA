@@ -41,19 +41,17 @@ public class PokeballPouchScreen extends AbstractContainerScreen<PokeballPouchMe
 
         int stretchHeight = this.imageHeight - HEADER_HEIGHT - FOOTER_HEIGHT;
         graphics.blit(TEXTURE, left, top, 0, 0, this.imageWidth, HEADER_HEIGHT, TEX_WIDTH, TEX_HEIGHT);
-        if (stretchHeight > 0) {
-            graphics.blit(
-                    TEXTURE,
-                    left,
-                    top + HEADER_HEIGHT,
-                    0,
-                    HEADER_HEIGHT,
-                    this.imageWidth,
-                    stretchHeight,
-                    TEX_WIDTH,
-                    TEX_HEIGHT
-            );
-        }
+        graphics.blit(
+                TEXTURE,
+                left,
+                top + HEADER_HEIGHT,
+                0,
+                HEADER_HEIGHT,
+                this.imageWidth,
+                stretchHeight,
+                TEX_WIDTH,
+                TEX_HEIGHT
+        );
         graphics.blit(
                 TEXTURE,
                 left,

@@ -36,11 +36,13 @@ public class RegionalPassportScreen extends AbstractContainerScreen<RegionalPass
     private static final int FRAME_H = 44;
 
     private static final int SEAL_CENTER_X = 168;
-    private static final int SEAL_CENTER_Y = 52;
+    private static final int SEAL_CENTER_Y = 48;
+    private static final int SEAL_TEXT_Y = 76;
+    private static final int SEAL_TOWN_Y = 86;
 
     private static final int LEFT_COL_X = 14;
     private static final int BLURB_WIDTH = 130;
-    private static final int BLURB_START_Y = 78;
+    private static final int BLURB_START_Y = 82;
 
     private static final int STATS_PANEL_X = 12;
     private static final int STATS_PANEL_W = 196;
@@ -52,14 +54,13 @@ public class RegionalPassportScreen extends AbstractContainerScreen<RegionalPass
 
     private static final int SELECTION_PANEL_X = 10;
     private static final int SELECTION_PANEL_W = 200;
-    private static final int SELECTION_TITLE_Y = 28;
-    private static final int SELECTION_HINT_Y = 40;
-    private static final int SELECTION_GRID_Y = 54;
+    private static final int SELECTION_TITLE_Y = 24;
+    private static final int SELECTION_GRID_Y = 72;
 
     private static final int REGION_BTN_W = 62;
     private static final int REGION_BTN_H = 18;
     private static final int REGION_COLS = 3;
-    private static final int TOWN_BTN_W = 94;
+    private static final int TOWN_BTN_W = 98;
     private static final int TOWN_BTN_H = 18;
     private static final int TOWN_COLS = 2;
 
@@ -148,12 +149,8 @@ public class RegionalPassportScreen extends AbstractContainerScreen<RegionalPass
             int row = index / REGION_COLS;
             int x = startX + col * (REGION_BTN_W + 4);
             int y = startY + row * (REGION_BTN_H + 4);
-            String label = region.pickerButtonLabel();
-            if (label.length() > 8) {
-                label = label.substring(0, 7) + "…";
-            }
             addRenderableWidget(Button.builder(
-                            Component.literal(label).withStyle(region.nameColor()),
+                            region.displayName().copy().withStyle(region.nameColor()),
                             button -> chooseRegion(region)
                     )
                     .bounds(x, y, REGION_BTN_W, REGION_BTN_H)
@@ -181,7 +178,7 @@ public class RegionalPassportScreen extends AbstractContainerScreen<RegionalPass
         int rows = (towns.size() + TOWN_COLS - 1) / TOWN_COLS;
         int gridW = TOWN_COLS * TOWN_BTN_W + (TOWN_COLS - 1) * 4;
         int startX = this.leftPos + (this.imageWidth - gridW) / 2;
-        int startY = this.topPos + SELECTION_GRID_Y + 10;
+        int startY = this.topPos + SELECTION_GRID_Y;
 
         for (int index = 0; index < towns.size(); index++) {
             SurveyOriginTown town = towns.get(index);
@@ -189,12 +186,8 @@ public class RegionalPassportScreen extends AbstractContainerScreen<RegionalPass
             int row = index / TOWN_COLS;
             int x = startX + col * (TOWN_BTN_W + 4);
             int y = startY + row * (TOWN_BTN_H + 4);
-            String label = town.displayName().getString();
-            if (label.length() > 11) {
-                label = label.substring(0, 10) + "…";
-            }
             addRenderableWidget(Button.builder(
-                            Component.literal(label).withStyle(pendingRegion.nameColor()),
+                            town.displayName().copy().withStyle(pendingRegion.nameColor()),
                             button -> stamp(pendingRegion, town)
                     )
                     .bounds(x, y, TOWN_BTN_W, TOWN_BTN_H)
@@ -275,73 +268,69 @@ public class RegionalPassportScreen extends AbstractContainerScreen<RegionalPass
         PassportFaceRenderer.draw(graphics, PHOTO_X + 1, PHOTO_Y + 1, PHOTO_SIZE - 2);
 
         int nameX = PHOTO_X + PHOTO_SIZE + 6;
-        drawShadowedString(
+        drawStyledString(
                 graphics,
                 Component.translatable("ancient_extensions.passport.gui.holder_label")
-                        .withStyle(ChatFormatting.ITALIC),
+                        .withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY),
                 nameX,
-                PHOTO_Y + 4,
-                COLOR_LABEL
+                PHOTO_Y + 4
         );
         String name = this.menu.getHolderName();
         if (name.length() > 14) {
             name = name.substring(0, 13) + "…";
         }
-        drawShadowedString(graphics, Component.literal(name), nameX, PHOTO_Y + 14, COLOR_INK);
+        drawStyledString(graphics, Component.literal(name).withStyle(ChatFormatting.DARK_GRAY), nameX, PHOTO_Y + 14);
     }
 
     private void renderSelectionContent(GuiGraphics graphics) {
-        graphics.fill(SELECTION_PANEL_X, 22, SELECTION_PANEL_X + SELECTION_PANEL_W, SELECTION_GRID_Y - 4, COLOR_PANEL);
+        graphics.fill(SELECTION_PANEL_X, 20, SELECTION_PANEL_X + SELECTION_PANEL_W, SELECTION_GRID_Y - 8, COLOR_PANEL);
 
+        int y = SELECTION_TITLE_Y;
         Component title = selectionStep == SelectionStep.TOWN && pendingRegion != null
-                ? Component.translatable("ancient_extensions.passport.gui.choose_town").copy().withStyle(ChatFormatting.BOLD)
-                : Component.translatable("ancient_extensions.passport.gui.choose_region").copy().withStyle(ChatFormatting.BOLD);
-        drawWrappedCentered(graphics, title, SELECTION_TITLE_Y, COLOR_INK);
+                ? Component.translatable("ancient_extensions.passport.gui.choose_town")
+                        .copy().withStyle(ChatFormatting.BOLD, ChatFormatting.DARK_PURPLE)
+                : Component.translatable("ancient_extensions.passport.gui.choose_region")
+                        .copy().withStyle(ChatFormatting.BOLD, ChatFormatting.DARK_PURPLE);
+        y = drawWrappedCentered(graphics, title, y) + 4;
 
         if (selectionStep == SelectionStep.TOWN && pendingRegion != null) {
-            drawWrappedCentered(
+            y = drawWrappedCentered(
                     graphics,
-                    Component.translatable(
-                            "ancient_extensions.passport.gui.selected_region",
-                            pendingRegion.displayName()
-                    ).copy().withStyle(pendingRegion.nameColor()),
-                    SELECTION_HINT_Y,
-                    COLOR_INK
-            );
+                    Component.empty()
+                            .append(Component.translatable("ancient_extensions.passport.gui.region_prefix")
+                                    .withStyle(ChatFormatting.GRAY))
+                            .append(pendingRegion.labeledName()),
+                    y
+            ) + 6;
         } else {
+            y = drawWrappedCentered(
+                    graphics,
+                    Component.translatable("ancient_extensions.passport.gui.unstamped_hint")
+                            .withStyle(ChatFormatting.GRAY),
+                    y
+            ) + 4;
             drawWrappedCentered(
                     graphics,
-                    Component.translatable("ancient_extensions.passport.gui.unstamped_hint"),
-                    SELECTION_HINT_Y,
-                    COLOR_MUTED
+                    Component.translatable("ancient_extensions.passport.gui.hover_hint")
+                            .withStyle(ChatFormatting.ITALIC, ChatFormatting.DARK_GRAY),
+                    y
             );
         }
+    }
 
-        drawWrappedCentered(
+    private int drawWrappedCentered(GuiGraphics graphics, Component text, int y) {
+        return GuiTextRender.drawWrappedCentered(
+                this.font,
                 graphics,
-                Component.translatable("ancient_extensions.passport.gui.hover_hint")
-                        .copy().withStyle(ChatFormatting.ITALIC, ChatFormatting.DARK_GRAY),
-                SELECTION_HINT_Y + 10,
-                COLOR_MUTED
+                text,
+                this.imageWidth / 2,
+                y,
+                SELECTION_PANEL_W - 8
         );
     }
 
-    private void drawWrappedCentered(GuiGraphics graphics, Component text, int y, int color) {
-        List<FormattedCharSequence> lines = this.font.split(text, SELECTION_PANEL_W - 8);
-        int lineY = y;
-        int cx = this.imageWidth / 2;
-        for (FormattedCharSequence line : lines) {
-            int lineW = this.font.width(line);
-            int x = cx - lineW / 2;
-            graphics.drawString(this.font, line, x + 1, lineY + 1, COLOR_INK_SHADOW, false);
-            graphics.drawString(this.font, line, x, lineY, color, false);
-            lineY += 10;
-        }
-    }
-
-    private void drawShadowedString(GuiGraphics graphics, Component text, int x, int y, int color) {
-        graphics.drawString(this.font, text, x + 1, y + 1, COLOR_INK_SHADOW, false);
-        graphics.drawString(this.font, text, x, y, color, false);
+    private void drawStyledString(GuiGraphics graphics, Component text, int x, int y) {
+        GuiTextRender.drawStyled(this.font, graphics, text, x, y);
     }
 
     private void renderStampedContent(GuiGraphics graphics) {
@@ -350,27 +339,29 @@ public class RegionalPassportScreen extends AbstractContainerScreen<RegionalPass
             return;
         }
         SurveyRegion region = regionOpt.get();
-        int stampColor = region.nameColor().getColor() != null ? region.nameColor().getColor() : 0xFFFFFF;
 
-        drawShadowedString(graphics, region.displayName(), SEAL_CENTER_X - this.font.width(region.displayName()) / 2, SEAL_CENTER_Y + 22, stampColor);
-        this.menu.getTown().ifPresent(town -> drawShadowedString(
+        drawStyledString(
                 graphics,
-                town.displayName(),
+                region.displayName().copy().withStyle(region.nameColor(), ChatFormatting.BOLD),
+                SEAL_CENTER_X - this.font.width(region.displayName()) / 2,
+                SEAL_TEXT_Y
+        );
+        this.menu.getTown().ifPresent(town -> drawStyledString(
+                graphics,
+                town.displayName().copy().withStyle(ChatFormatting.DARK_BLUE),
                 SEAL_CENTER_X - this.font.width(town.displayName()) / 2,
-                SEAL_CENTER_Y + 32,
-                COLOR_LABEL
+                SEAL_TOWN_Y
         ));
 
         int blurbY = BLURB_START_Y;
-        List<FormattedCharSequence> blurbLines = this.font.split(region.passportBlurb(), BLURB_WIDTH);
-        for (FormattedCharSequence line : blurbLines) {
-            if (blurbY > STATS_DIVIDER_Y - 12) {
-                break;
-            }
-            graphics.drawString(this.font, line, LEFT_COL_X + 1, blurbY + 1, COLOR_INK_SHADOW, false);
-            graphics.drawString(this.font, line, LEFT_COL_X, blurbY, COLOR_BLURB, false);
-            blurbY += 10;
-        }
+        GuiTextRender.drawWrapped(
+                this.font,
+                graphics,
+                region.passportBlurb().copy().withStyle(ChatFormatting.DARK_GRAY),
+                LEFT_COL_X,
+                blurbY,
+                BLURB_WIDTH
+        );
 
         drawStatsPanel(graphics);
     }
@@ -378,58 +369,57 @@ public class RegionalPassportScreen extends AbstractContainerScreen<RegionalPass
     private void drawStatsPanel(GuiGraphics graphics) {
         graphics.hLine(STATS_PANEL_X, STATS_PANEL_X + STATS_PANEL_W, STATS_DIVIDER_Y, 0xFFC9A227);
 
-        drawShadowedString(
+        drawStyledString(
                 graphics,
                 Component.translatable("ancient_extensions.passport.gui.stats_label")
-                        .withStyle(ChatFormatting.BOLD),
+                        .withStyle(ChatFormatting.BOLD, ChatFormatting.DARK_PURPLE),
                 STATS_PANEL_X + 2,
-                STATS_LABEL_Y,
-                COLOR_LABEL
+                STATS_LABEL_Y
         );
 
-        drawShadowedString(
+        drawStyledString(
                 graphics,
                 Component.translatable(
-                        "ancient_extensions.passport.gui.stats_caught",
-                        this.menu.getCaughtSpecies(),
-                        this.menu.getResearchPoints()
-                ),
+                                "ancient_extensions.journal.stats_caught_prefix",
+                                this.menu.getCaughtSpecies()
+                        ).withStyle(ChatFormatting.DARK_GRAY)
+                        .append(Component.translatable(
+                                "ancient_extensions.journal.stats_rp_suffix",
+                                this.menu.getResearchPoints()
+                        ).withStyle(ChatFormatting.DARK_GREEN)),
                 STATS_PANEL_X + 2,
-                STATS_LINE_Y,
-                COLOR_STATS
+                STATS_LINE_Y
         );
 
-        drawShadowedString(
+        drawStyledString(
                 graphics,
                 Component.translatable(
                         "ancient_extensions.passport.gui.stats_tier",
-                        this.menu.getTier().displayName()
-                ),
+                        this.menu.getTier().displayName().copy().withStyle(ChatFormatting.GOLD)
+                ).withStyle(ChatFormatting.DARK_GRAY),
                 STATS_PANEL_X + 2,
-                STATS_LINE_Y + 10,
-                COLOR_STATS
+                STATS_LINE_Y + 10
         );
 
-        List<FormattedCharSequence> footerLines = this.font.split(
+        GuiTextRender.drawWrapped(
+                this.font,
+                graphics,
                 Component.translatable("ancient_extensions.passport.gui.footer")
-                        .withStyle(ChatFormatting.ITALIC),
+                        .withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY),
+                STATS_PANEL_X + 2,
+                FOOTER_Y,
                 STATS_PANEL_W - 6
         );
-        int footerY = FOOTER_Y;
-        for (FormattedCharSequence line : footerLines) {
-            graphics.drawString(this.font, line, STATS_PANEL_X + 2, footerY, COLOR_LABEL, false);
-            footerY += 9;
-        }
 
-        List<FormattedCharSequence> officialLines = this.font.split(
-                Component.translatable("ancient_extensions.passport.gui.official_footer"),
+        GuiTextRender.drawWrapped(
+                this.font,
+                graphics,
+                Component.translatable("ancient_extensions.passport.gui.official_footer")
+                        .withStyle(ChatFormatting.DARK_GRAY),
+                STATS_PANEL_X + 2,
+                OFFICIAL_Y,
                 STATS_PANEL_W - 6
         );
-        int officialY = OFFICIAL_Y;
-        for (FormattedCharSequence line : officialLines) {
-            graphics.drawString(this.font, line, STATS_PANEL_X + 2, officialY, COLOR_MUTED, false);
-            officialY += 9;
-        }
     }
 
     @Override
