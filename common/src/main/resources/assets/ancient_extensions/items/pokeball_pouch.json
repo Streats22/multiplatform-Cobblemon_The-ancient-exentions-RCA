@@ -1,0 +1,33 @@
+{
+  "model": {
+    "type": "minecraft:range_dispatch",
+    "property": "ancient_extensions:pouch_tier",
+    "entries": [
+      {
+        "threshold": 0.3333333,
+        "model": {
+          "type": "minecraft:model",
+          "model": "ancient_extensions:item/pokeball_pouch_great"
+        }
+      },
+      {
+        "threshold": 0.6666667,
+        "model": {
+          "type": "minecraft:model",
+          "model": "ancient_extensions:item/pokeball_pouch_ultra"
+        }
+      },
+      {
+        "threshold": 1.0,
+        "model": {
+          "type": "minecraft:model",
+          "model": "ancient_extensions:item/pokeball_pouch_master"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "ancient_extensions:item/pokeball_pouch"
+    }
+  }
+}

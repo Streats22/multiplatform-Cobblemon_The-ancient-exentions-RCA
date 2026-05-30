@@ -1,6 +1,7 @@
 package nl.streats1.ancientextensions.neoforge.registry;
 
 import nl.streats1.ancientextensions.AncientExtensionsConstants;
+import nl.streats1.ancientextensions.menu.MigrationRouteChartMenu;
 import nl.streats1.ancientextensions.menu.PokeballPouchMenu;
 import nl.streats1.ancientextensions.menu.RegionalPassportMenu;
 import nl.streats1.ancientextensions.menu.RegionalSurveyJournalMenu;
@@ -32,6 +33,11 @@ public final class ModMenus {
             () -> IMenuTypeExtension.create(RegionalSurveyJournalMenu::new)
     );
 
+    public static final DeferredHolder<MenuType<?>, MenuType<MigrationRouteChartMenu>> MIGRATION_ROUTE_CHART = MENUS.register(
+            "migration_route_chart",
+            () -> IMenuTypeExtension.create(MigrationRouteChartMenu::new)
+    );
+
     private ModMenus() {
     }
 
@@ -45,6 +51,7 @@ public final class ModMenus {
             ModMenuTypes.POKEBALL_POUCH = POKEBALL_POUCH.get();
             ModMenuTypes.REGIONAL_PASSPORT = REGIONAL_PASSPORT.get();
             ModMenuTypes.REGIONAL_SURVEY_JOURNAL = REGIONAL_SURVEY_JOURNAL.get();
+            ModMenuTypes.MIGRATION_ROUTE_CHART = MIGRATION_ROUTE_CHART.get();
         }
     }
 }

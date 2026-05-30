@@ -21,7 +21,7 @@ def lighten(color: tuple[int, int, int], factor: float) -> tuple[int, int, int]:
 
 
 def draw_wax_seal_sprite(d: ImageDraw.ImageDraw, ox: int, oy: int, gold, gold_hi) -> None:
-    """56×56 wax seal — shadow, wax body, embossed gold rim, inner dish (badge drawn in-game)."""
+    """56×56 wax seal — wax body, embossed gold rim, inner dish (badge drawn in-game)."""
     size = 56
     cx = ox + size // 2
     cy = oy + size // 2
@@ -31,17 +31,20 @@ def draw_wax_seal_sprite(d: ImageDraw.ImageDraw, ox: int, oy: int, gold, gold_hi
     wax_hi = (210, 72, 76, 255)
     wax_edge = (90, 18, 22, 255)
 
-    # Drop shadow on parchment
-    d.ellipse((cx - 20, cy - 16, cx + 22, cy + 24), fill=(40, 24, 16, 70))
+    # Clear tile so no dark fringe composites above the seal in-game
+    d.rectangle((ox, oy, ox + size - 1, oy + size - 1), fill=(0, 0, 0, 0))
+
+    # Soft shadow only below the wax (avoids black smear at the top of the sprite)
+    d.ellipse((cx - 18, cy + 6, cx + 20, cy + 24), fill=(40, 24, 16, 55))
 
     # Irregular wax pool (slightly oval, hand-stamped feel)
     d.ellipse((cx - 23, cy - 21, cx + 23, cy + 21), fill=wax_edge)
     d.ellipse((cx - 22, cy - 20, cx + 22, cy + 20), fill=wax_dark)
     d.ellipse((cx - 20, cy - 18, cx + 20, cy + 18), fill=wax_mid)
 
-    # Wax highlights — light catch top-left
-    d.pieslice((cx - 18, cy - 20, cx + 10, cy + 8), start=200, end=320, fill=wax_hi)
-    d.ellipse((cx - 10, cy - 14, cx - 2, cy - 6), fill=(230, 110, 110, 200))
+    # Wax highlights — small top-left gleam (no full pieslice; that read as a black cap in-game)
+    d.ellipse((cx - 12, cy - 15, cx - 3, cy - 7), fill=wax_hi)
+    d.ellipse((cx - 9, cy - 12, cx - 5, cy - 9), fill=(235, 130, 125, 180))
 
     # Small drip accents
     d.ellipse((cx + 16, cy + 14, cx + 21, cy + 19), fill=wax_mid)

@@ -78,6 +78,22 @@ def draw_journal_sprites(d: ImageDraw.ImageDraw, rule) -> None:
     d.line([(rx, ry), (rx + rw - 1, ry)], fill=gold, width=1)
     d.line([(rx, ry + rh - 1), (rx + rw - 1, ry + rh - 1)], fill=rule, width=1)
 
+    leather_btn = rgb("#5c3420")
+    leather_hi = rgb("#7a4a28")
+    leather_lo = rgb("#3a2010")
+
+    def draw_nav_tile(x0: int, y0: int, pointing_right: bool, hovered: bool) -> None:
+        face = leather_hi if hovered else leather_btn
+        d.rectangle((x0, y0, x0 + 21, y0 + 15), fill=face)
+        d.rectangle((x0, y0, x0 + 21, y0 + 15), outline=gold if hovered else leather_lo, width=1)
+        cx = x0 + 11
+        cy = y0 + 8
+        if pointing_right:
+            pts = [(cx - 4, cy - 4), (cx + 3, cy), (cx - 4, cy + 4)]
+        else:
+            pts = [(cx + 4, cy - 4), (cx - 3, cy), (cx + 4, cy + 4)]
+        d.polygon(pts, fill=gold_hi if hovered else gold)
+
     # Claim button sprites (0, 220) — 108×16 normal + hover
     bx, by, bw, bh = 0, 220, 108, 16
     for row, (face, hi, lo) in enumerate(
@@ -91,6 +107,13 @@ def draw_journal_sprites(d: ImageDraw.ImageDraw, rule) -> None:
         d.rectangle((bx, y0, bx + bw - 1, y0 + bh - 1), outline=lo, width=1)
         d.line([(bx + 1, y0 + 1), (bx + bw - 2, y0 + 1)], fill=hi, width=1)
         d.line([(bx + 1, y0 + bh - 2), (bx + bw - 2, y0 + bh - 2)], fill=lo, width=1)
+
+    # Page nav — prev (112, 220), next (134, 220); 22×16 normal + hover rows
+    nav_y = 220
+    draw_nav_tile(112, nav_y, False, False)
+    draw_nav_tile(112, nav_y + 16, False, True)
+    draw_nav_tile(134, nav_y, True, False)
+    draw_nav_tile(134, nav_y + 16, True, True)
 
 
 if __name__ == "__main__":

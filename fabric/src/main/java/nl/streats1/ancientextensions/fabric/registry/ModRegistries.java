@@ -8,9 +8,11 @@ import nl.streats1.ancientextensions.item.MigrationRouteChartItem;
 import nl.streats1.ancientextensions.item.PokeballPouchItem;
 import nl.streats1.ancientextensions.item.RegionalPassportItem;
 import nl.streats1.ancientextensions.item.RegionalSurveyJournalItem;
+import nl.streats1.ancientextensions.menu.MigrationRouteChartMenu;
 import nl.streats1.ancientextensions.menu.PokeballPouchMenu;
 import nl.streats1.ancientextensions.menu.RegionalPassportMenu;
 import nl.streats1.ancientextensions.menu.RegionalSurveyJournalMenu;
+import nl.streats1.ancientextensions.menu.sync.ChartOpenData;
 import nl.streats1.ancientextensions.menu.sync.JournalOpenData;
 import nl.streats1.ancientextensions.menu.sync.PassportOpenData;
 import nl.streats1.ancientextensions.menu.sync.PouchOpenData;
@@ -77,6 +79,14 @@ public final class ModRegistries {
                 new ExtendedScreenHandlerType<>(
                         (syncId, inv, data) -> new RegionalSurveyJournalMenu(syncId, inv, data),
                         JournalOpenData.STREAM_CODEC
+                )
+        );
+        ModMenuTypes.MIGRATION_ROUTE_CHART = Registry.register(
+                BuiltInRegistries.MENU,
+                id("migration_route_chart"),
+                new ExtendedScreenHandlerType<>(
+                        (syncId, inv, data) -> new MigrationRouteChartMenu(syncId, inv, data),
+                        ChartOpenData.STREAM_CODEC
                 )
         );
 

@@ -33,93 +33,40 @@ public class PokeballPouchScreen extends AbstractContainerScreen<PokeballPouchMe
     protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
         int left = this.leftPos;
         int top = this.topPos;
-        int rows = layout.pouchRows();
 
-        graphics.blit(TEXTURE, left, top, 0, 0, this.imageWidth, PokeballPouchLayout.TEX_HEADER_H, TEX_WIDTH, TEX_HEIGHT);
+        graphics.blit(
+                TEXTURE,
+                left,
+                top,
+                0,
+                0,
+                this.imageWidth,
+                PokeballPouchLayout.TEX_HEADER_H,
+                TEX_WIDTH,
+                TEX_HEIGHT
+        );
 
-        int pouchPanelH = layout.pouchAreaBottom() - PokeballPouchLayout.TEX_HEADER_H;
-        if (pouchPanelH > 0) {
-            graphics.blit(
-                    TEXTURE,
-                    left + PokeballPouchLayout.TEX_PANEL_X,
-                    top + PokeballPouchLayout.TEX_HEADER_H,
-                    PokeballPouchLayout.TEX_PANEL_X,
-                    PokeballPouchLayout.TEX_PANEL_FILL_Y,
-                    PokeballPouchLayout.TEX_PANEL_W,
-                    pouchPanelH,
-                    TEX_WIDTH,
-                    TEX_HEIGHT
-            );
-        }
+        blitPanelStrip(graphics, left, top + PokeballPouchLayout.TEX_HEADER_H, PokeballPouchLayout.POUCH_START_Y - PokeballPouchLayout.TEX_HEADER_H);
 
-        for (int row = 0; row < rows; row++) {
-            graphics.blit(
-                    TEXTURE,
-                    left + PokeballPouchLayout.TEX_SLOT_X,
-                    top + PokeballPouchLayout.POUCH_START_Y + row * PokeballPouchLayout.SLOT_STRIDE,
-                    PokeballPouchLayout.TEX_SLOT_X,
-                    PokeballPouchLayout.TEX_SLOT_ROW_Y,
-                    PokeballPouchLayout.TEX_SLOT_W,
-                    PokeballPouchLayout.TEX_SLOT_ROW_H,
-                    TEX_WIDTH,
-                    TEX_HEIGHT
-            );
+        for (int row = 0; row < layout.pouchRows(); row++) {
+            blitSlotRow(graphics, left, top + PokeballPouchLayout.POUCH_START_Y + row * PokeballPouchLayout.SLOT_STRIDE);
         }
 
         int gapTop = layout.pouchAreaBottom();
         int gapBottom = layout.playerInvY();
         if (gapBottom > gapTop) {
-            graphics.blit(
-                    TEXTURE,
-                    left + PokeballPouchLayout.TEX_PANEL_X,
-                    top + gapTop,
-                    PokeballPouchLayout.TEX_PANEL_X,
-                    PokeballPouchLayout.TEX_PANEL_FILL_Y,
-                    PokeballPouchLayout.TEX_PANEL_W,
-                    gapBottom - gapTop,
-                    TEX_WIDTH,
-                    TEX_HEIGHT
-            );
+            blitPanelStrip(graphics, left, top + gapTop, gapBottom - gapTop);
         }
 
-        int playerPanelH = layout.hotbarY() + PokeballPouchLayout.TEX_SLOT_ROW_H - layout.playerInvY() + 6;
-        graphics.blit(
-                TEXTURE,
-                left + PokeballPouchLayout.TEX_PANEL_X,
-                top + layout.playerInvY() - 4,
-                PokeballPouchLayout.TEX_PANEL_X,
-                67,
-                PokeballPouchLayout.TEX_PANEL_W,
-                playerPanelH,
-                TEX_WIDTH,
-                TEX_HEIGHT
-        );
+        int playerBgTop = layout.playerInvY() - 4;
+        int playerBgBottom = layout.hotbarY() + PokeballPouchLayout.TEX_SLOT_ROW_H + 6;
+        blitPanelStrip(graphics, left, top + playerBgTop, playerBgBottom - playerBgTop);
 
         for (int row = 0; row < 3; row++) {
-            graphics.blit(
-                    TEXTURE,
-                    left + PokeballPouchLayout.TEX_SLOT_X,
-                    top + layout.playerInvY() + row * PokeballPouchLayout.SLOT_STRIDE,
-                    PokeballPouchLayout.TEX_SLOT_X,
-                    PokeballPouchLayout.TEX_PLAYER_ROW_Y + row * PokeballPouchLayout.SLOT_STRIDE,
-                    PokeballPouchLayout.TEX_SLOT_W,
-                    PokeballPouchLayout.TEX_SLOT_ROW_H,
-                    TEX_WIDTH,
-                    TEX_HEIGHT
-            );
+            blitSlotRow(graphics, left, top + layout.playerInvY() + row * PokeballPouchLayout.SLOT_STRIDE);
         }
 
-        graphics.blit(
-                TEXTURE,
-                left + PokeballPouchLayout.TEX_SLOT_X,
-                top + layout.hotbarY(),
-                PokeballPouchLayout.TEX_SLOT_X,
-                PokeballPouchLayout.TEX_HOTBAR_Y,
-                PokeballPouchLayout.TEX_SLOT_W,
-                PokeballPouchLayout.TEX_SLOT_ROW_H,
-                TEX_WIDTH,
-                TEX_HEIGHT
-        );
+        blitSlotRow(graphics, left, top + layout.hotbarY());
 
         int frameBottom = layout.hotbarY() + PokeballPouchLayout.TEX_SLOT_ROW_H + 6;
         if (this.imageHeight > frameBottom) {
@@ -128,7 +75,7 @@ public class PokeballPouchScreen extends AbstractContainerScreen<PokeballPouchMe
                     left,
                     top + frameBottom,
                     0,
-                    TEX_HEIGHT - 6,
+                    PokeballPouchLayout.TEX_FOOTER_Y,
                     this.imageWidth,
                     this.imageHeight - frameBottom,
                     TEX_WIDTH,
@@ -137,9 +84,35 @@ public class PokeballPouchScreen extends AbstractContainerScreen<PokeballPouchMe
         }
     }
 
-    @Override
-    protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
-        super.renderLabels(graphics, mouseX, mouseY);
+    private static void blitPanelStrip(GuiGraphics graphics, int destX, int destY, int height) {
+        if (height <= 0) {
+            return;
+        }
+        graphics.blit(
+                TEXTURE,
+                destX + PokeballPouchLayout.TEX_PANEL_X,
+                destY,
+                PokeballPouchLayout.TEX_PANEL_X,
+                PokeballPouchLayout.TEX_PANEL_FILL_Y,
+                PokeballPouchLayout.TEX_PANEL_W,
+                height,
+                TEX_WIDTH,
+                TEX_HEIGHT
+        );
+    }
+
+    private static void blitSlotRow(GuiGraphics graphics, int destX, int destY) {
+        graphics.blit(
+                TEXTURE,
+                destX + PokeballPouchLayout.TEX_SLOT_X,
+                destY,
+                PokeballPouchLayout.TEX_SLOT_X,
+                PokeballPouchLayout.TEX_SLOT_TEMPLATE_Y,
+                PokeballPouchLayout.TEX_SLOT_W,
+                PokeballPouchLayout.TEX_SLOT_ROW_H,
+                TEX_WIDTH,
+                TEX_HEIGHT
+        );
     }
 
     @Override

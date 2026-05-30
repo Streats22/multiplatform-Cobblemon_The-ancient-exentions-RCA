@@ -49,7 +49,7 @@ public class RegionalPassportScreen extends AbstractContainerScreen<RegionalPass
     private static final int STATS_LABEL_Y = 128;
     private static final int STATS_LINE_Y = 140;
     private static final int FOOTER_Y = 158;
-    private static final int OFFICIAL_Y = 174;
+    private static final int OFFICIAL_Y = 182;
 
     private static final int SELECTION_PANEL_X = 10;
     private static final int SELECTION_PANEL_W = 200;

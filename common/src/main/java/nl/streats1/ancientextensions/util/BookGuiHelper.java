@@ -13,9 +13,10 @@ public final class BookGuiHelper {
     }
 
     public static void open(ServerPlayer player, InteractionHand hand, ItemStack book) {
-        ItemStack held = player.getItemInHand(hand);
+        ItemStack held = player.getItemInHand(hand).copy();
         player.setItemInHand(hand, book);
         player.openItemGui(book, hand);
-        player.server.execute(() -> player.setItemInHand(hand, held));
+        // Restore on the next tick so the client still sees a written book in hand when the GUI opens.
+        player.server.execute(() -> player.server.execute(() -> player.setItemInHand(hand, held)));
     }
 }

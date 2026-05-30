@@ -3,18 +3,12 @@ package nl.streats1.ancientextensions.migration;
 import nl.streats1.ancientextensions.AncientExtensionsContext;
 import nl.streats1.ancientextensions.dex.RegionalSurveyData;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.network.Filterable;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.WrittenBookContent;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /** Builds a field chart book for the player's current biome and seasonal route. */
 public final class MigrationRouteChartReport {
@@ -24,36 +18,34 @@ public final class MigrationRouteChartReport {
     private MigrationRouteChartReport() {
     }
 
-    public static ItemStack createBook(ServerPlayer player) {
+    /** Lines for the migration route chart screen (current biome, legs, species). */
+    public static List<Component> buildLines(ServerPlayer player) {
         MigrationSeason season = MigrationSeasonClock.currentSeason(player.serverLevel());
         RegionalSurveyData data = AncientExtensionsContext.get().surveys().get(player);
         data.syncMigrationSeason(season);
         ResourceLocation biomeId = MigrationBiomeContext.currentBiomeId(player);
 
-        List<Filterable<Component>> pages = new ArrayList<>();
-        pages.add(page(titleLine(season, data)));
-        pages.add(page(hereLine(biomeId, season, data)));
-        pages.addAll(legPages(season, data));
-        pages.add(page(speciesLine(season)));
+        List<Component> lines = new ArrayList<>();
+        appendBlock(lines, titleLine(season, data));
+        appendBlock(lines, hereLine(biomeId, season, data));
+        for (Component legBlock : legBlocks(season, data)) {
+            appendBlock(lines, legBlock);
+        }
+        appendBlock(lines, speciesLine(season));
+        return List.copyOf(lines);
+    }
 
-        WrittenBookContent content = new WrittenBookContent(
-                Filterable.passThrough(
-                        Component.translatable("item.ancient_extensions.migration_route_chart").getString()
-                ),
-                "Regional Survey Authority",
-                0,
-                List.copyOf(pages),
-                true
-        );
-
-        ItemStack book = new ItemStack(Items.WRITTEN_BOOK);
-        book.set(DataComponents.WRITTEN_BOOK_CONTENT, content);
-        book.set(
-                DataComponents.CUSTOM_NAME,
-                Component.translatable("item.ancient_extensions.migration_route_chart")
-                        .withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD)
-        );
-        return book;
+    private static void appendBlock(List<Component> lines, Component block) {
+        if (!lines.isEmpty()) {
+            lines.add(Component.empty());
+        }
+        for (String part : block.getString().split("\n", -1)) {
+            if (part.isEmpty()) {
+                lines.add(Component.empty());
+            } else {
+                lines.add(Component.literal(part).withStyle(block.getStyle()));
+            }
+        }
     }
 
     private static Component titleLine(MigrationSeason season, RegionalSurveyData data) {
@@ -126,8 +118,8 @@ public final class MigrationRouteChartReport {
                 .withStyle(ChatFormatting.BLACK);
     }
 
-    private static List<Filterable<Component>> legPages(MigrationSeason season, RegionalSurveyData data) {
-        List<Filterable<Component>> pages = new ArrayList<>();
+    private static List<Component> legBlocks(MigrationSeason season, RegionalSurveyData data) {
+        List<Component> blocks = new ArrayList<>();
         List<MigrationLeg> route = MigrationRoutes.routeFor(season);
         int activeLeg = data.getMigrationLegIndex();
 
@@ -154,7 +146,7 @@ public final class MigrationRouteChartReport {
             StringBuilder chunk = new StringBuilder(header);
             for (String line : biomeLines) {
                 if (chunk.length() + line.length() + 1 > PAGE_CHAR_LIMIT) {
-                    pages.add(page(Component.literal(chunk.toString()).withStyle(ChatFormatting.BLACK)));
+                    blocks.add(Component.literal(chunk.toString()).withStyle(ChatFormatting.BLACK));
                     chunk = new StringBuilder(line);
                 } else {
                     if (!chunk.isEmpty()) {
@@ -163,9 +155,9 @@ public final class MigrationRouteChartReport {
                     chunk.append(line);
                 }
             }
-            pages.add(page(Component.literal(chunk.toString()).withStyle(ChatFormatting.BLACK)));
+            blocks.add(Component.literal(chunk.toString()).withStyle(ChatFormatting.BLACK));
         }
-        return pages;
+        return blocks;
     }
 
     private static List<String> formatBiomeLines(List<ResourceLocation> biomeIds) {
@@ -213,7 +205,4 @@ public final class MigrationRouteChartReport {
         return MigrationBiomeContext.prettyBiomeName(ResourceLocation.fromNamespaceAndPath(id.getNamespace(), path));
     }
 
-    private static Filterable<Component> page(Component text) {
-        return Filterable.passThrough(text);
-    }
 }

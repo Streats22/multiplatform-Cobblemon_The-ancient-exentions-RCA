@@ -102,6 +102,9 @@ public final class ProfessorsKitLogic {
 
     private static void movePlayerToSafeStand(ServerPlayer player, CampPlacement camp) {
         BlockPos stand = camp.safeStandPos();
+        if (player.blockPosition().distSqr(stand) <= 4) {
+            return;
+        }
         double x = stand.getX() + 0.5;
         double y = stand.getY();
         double z = stand.getZ() + 0.5;

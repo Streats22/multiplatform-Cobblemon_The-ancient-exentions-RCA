@@ -1,7 +1,6 @@
 package nl.streats1.ancientextensions.item;
 
-import nl.streats1.ancientextensions.migration.MigrationRouteChartReport;
-import nl.streats1.ancientextensions.util.BookGuiHelper;
+import nl.streats1.ancientextensions.menu.MigrationRouteChartMenuOpener;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -29,7 +28,7 @@ public class MigrationRouteChartItem extends Item {
             return InteractionResultHolder.success(stack);
         }
         if (player instanceof ServerPlayer serverPlayer) {
-            BookGuiHelper.open(serverPlayer, hand, MigrationRouteChartReport.createBook(serverPlayer));
+            MigrationRouteChartMenuOpener.open(serverPlayer);
             return InteractionResultHolder.success(stack);
         }
         return InteractionResultHolder.pass(stack);

@@ -1,5 +1,6 @@
 package nl.streats1.ancientextensions.client;
 
+import nl.streats1.ancientextensions.menu.MigrationRouteChartMenu;
 import nl.streats1.ancientextensions.menu.PokeballPouchMenu;
 import nl.streats1.ancientextensions.menu.RegionalPassportMenu;
 import nl.streats1.ancientextensions.menu.RegionalSurveyJournalMenu;
@@ -19,6 +20,7 @@ public final class AncientExtensionsScreens {
         registrar.register(ModMenuTypes.POKEBALL_POUCH, PokeballPouchScreen::new);
         registrar.register(ModMenuTypes.REGIONAL_PASSPORT, RegionalPassportScreen::new);
         registrar.register(ModMenuTypes.REGIONAL_SURVEY_JOURNAL, RegionalSurveyJournalScreen::new);
+        registrar.register(ModMenuTypes.MIGRATION_ROUTE_CHART, MigrationRouteChartScreen::new);
     }
 
     @FunctionalInterface

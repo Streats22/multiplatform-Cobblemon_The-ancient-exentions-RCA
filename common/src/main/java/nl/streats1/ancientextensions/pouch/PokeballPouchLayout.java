@@ -21,10 +21,13 @@ public final class PokeballPouchLayout {
     public static final int TEX_SLOT_W = 162;
     public static final int TEX_PANEL_X = 6;
     public static final int TEX_PANEL_W = 164;
+    /** Plain leather strip — tile vertically; must not include slot art. */
     public static final int TEX_PANEL_FILL_Y = 18;
-    public static final int TEX_PLAYER_ROW_Y = 84;
-    public static final int TEX_HOTBAR_Y = 142;
-    public static final int TEX_FOOTER_H = 24;
+    public static final int TEX_PANEL_FILL_H = 6;
+    /** One 9-slot row; reused for pouch rows, player inventory, and hotbar. */
+    public static final int TEX_SLOT_TEMPLATE_Y = 26;
+    public static final int TEX_FOOTER_Y = 160;
+    public static final int TEX_FOOTER_H = 6;
 
     private PokeballPouchLayout() {
     }
@@ -39,7 +42,7 @@ public final class PokeballPouchLayout {
         int pouchRows = PokeballPouchConstants.rowsForSlots(slotCount);
         int playerInvY = POUCH_START_Y + pouchRows * SLOT_STRIDE + PLAYER_INV_GAP;
         int hotbarY = playerInvY + 58;
-        int imageHeight = Math.max(MIN_HEIGHT, hotbarY + TEX_FOOTER_H);
+        int imageHeight = Math.max(MIN_HEIGHT, hotbarY + TEX_SLOT_ROW_H + 6);
         return new Metrics(pouchRows, playerInvY, hotbarY, imageHeight, playerInvY - 12);
     }
 }

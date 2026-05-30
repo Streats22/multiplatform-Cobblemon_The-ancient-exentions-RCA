@@ -1,7 +1,7 @@
 package nl.streats1.ancientextensions.client;
 
 import nl.streats1.ancientextensions.AncientExtensionsConstants;
-import nl.streats1.ancientextensions.menu.RegionalSurveyJournalMenu;
+import nl.streats1.ancientextensions.menu.MigrationRouteChartMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
@@ -12,7 +12,7 @@ import net.minecraft.world.entity.player.Inventory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RegionalSurveyJournalScreen extends AbstractContainerScreen<RegionalSurveyJournalMenu> {
+public class MigrationRouteChartScreen extends AbstractContainerScreen<MigrationRouteChartMenu> {
 
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(
             AncientExtensionsConstants.MOD_ID,
@@ -27,14 +27,10 @@ public class RegionalSurveyJournalScreen extends AbstractContainerScreen<Regiona
 
     private static final int FOOTER_TOP = 228;
     private static final int FOOTER_H = 24;
-    private static final int FOOTER_PAD_X = 14;
 
     private static final int PAGE_BTN_LEFT_X = 18;
     private static final int PAGE_BTN_GAP = 6;
     private static final int PAGE_LABEL_GAP = 8;
-
-    private static final int CLAIM_BTN_W = 108;
-    private static final int CLAIM_BTN_H = 16;
 
     private static final int LINE_HEIGHT = 10;
 
@@ -48,10 +44,10 @@ public class RegionalSurveyJournalScreen extends AbstractContainerScreen<Regiona
     private JournalNavButton prevButton;
     private JournalNavButton nextButton;
 
-    public RegionalSurveyJournalScreen(RegionalSurveyJournalMenu menu, Inventory playerInventory, Component title) {
+    public MigrationRouteChartScreen(MigrationRouteChartMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
-        this.imageWidth = RegionalSurveyJournalMenu.WIDTH;
-        this.imageHeight = RegionalSurveyJournalMenu.HEIGHT;
+        this.imageWidth = MigrationRouteChartMenu.WIDTH;
+        this.imageHeight = MigrationRouteChartMenu.HEIGHT;
         this.inventoryLabelY = 10000;
         this.titleLabelY = -1000;
     }
@@ -60,11 +56,7 @@ public class RegionalSurveyJournalScreen extends AbstractContainerScreen<Regiona
     protected void init() {
         super.init();
         buildPages();
-        addFooterWidgets();
-    }
-
-    private boolean hasClaimableRewards() {
-        return this.menu.getUnclaimedRewardCount() > 0;
+        addNavButtons();
     }
 
     private int linesPerPage() {
@@ -98,14 +90,14 @@ public class RegionalSurveyJournalScreen extends AbstractContainerScreen<Regiona
         }
         if (pages.isEmpty()) {
             pages.add(List.of(this.font.split(
-                    Component.translatable("ancient_extensions.journal.empty"),
+                    Component.translatable("ancient_extensions.migration_chart.empty"),
                     CONTENT_W
             ).getFirst()));
         }
         pageIndex = Math.min(pageIndex, pages.size() - 1);
     }
 
-    private void addFooterWidgets() {
+    private void addNavButtons() {
         int footerBtnY = this.topPos + FOOTER_TOP + (FOOTER_H - JournalNavButton.SPRITE_H) / 2;
         int prevX = this.leftPos + PAGE_BTN_LEFT_X;
         int nextX = prevX + JournalNavButton.SPRITE_W + PAGE_BTN_GAP;
@@ -113,22 +105,6 @@ public class RegionalSurveyJournalScreen extends AbstractContainerScreen<Regiona
         prevButton = addRenderableWidget(new JournalNavButton(prevX, footerBtnY, false, button -> changePage(-1)));
         nextButton = addRenderableWidget(new JournalNavButton(nextX, footerBtnY, true, button -> changePage(1)));
         updateNavButtons();
-
-        if (hasClaimableRewards()) {
-            int claimX = this.leftPos + this.imageWidth - FOOTER_PAD_X - CLAIM_BTN_W;
-            int claimY = this.topPos + FOOTER_TOP + (FOOTER_H - CLAIM_BTN_H) / 2;
-            addRenderableWidget(new JournalClaimButton(
-                    claimX,
-                    claimY,
-                    CLAIM_BTN_W,
-                    CLAIM_BTN_H,
-                    Component.translatable(
-                            "ancient_extensions.journal.claim_rewards_short",
-                            this.menu.getUnclaimedRewardCount()
-                    ),
-                    button -> AncientExtensionsClientHooks.sendClaimTierRewards()
-            ));
-        }
     }
 
     private void updateNavButtons() {
@@ -158,7 +134,7 @@ public class RegionalSurveyJournalScreen extends AbstractContainerScreen<Regiona
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
         int cx = this.imageWidth / 2;
 
-        Component header = Component.translatable("ancient_extensions.journal.header");
+        Component header = Component.translatable("item.ancient_extensions.migration_route_chart");
         graphics.drawCenteredString(this.font, header, cx + 1, 20, COLOR_HEADER_SHADOW);
         graphics.drawCenteredString(this.font, header, cx, 19, COLOR_HEADER);
 
@@ -169,19 +145,14 @@ public class RegionalSurveyJournalScreen extends AbstractContainerScreen<Regiona
             y += LINE_HEIGHT;
         }
 
-        drawFooter(graphics);
-    }
-
-    private void drawFooter(GuiGraphics graphics) {
-        if (pages.size() <= 1) {
-            return;
+        if (pages.size() > 1) {
+            String label = (pageIndex + 1) + " / " + pages.size();
+            int labelX = PAGE_BTN_LEFT_X + JournalNavButton.SPRITE_W + PAGE_BTN_GAP
+                    + JournalNavButton.SPRITE_W + PAGE_LABEL_GAP;
+            int labelY = FOOTER_TOP + (FOOTER_H - this.font.lineHeight) / 2;
+            graphics.drawString(this.font, label, labelX + 1, labelY + 1, COLOR_PAGE_SHADOW, false);
+            graphics.drawString(this.font, label, labelX, labelY, COLOR_PAGE, false);
         }
-        String label = (pageIndex + 1) + " / " + pages.size();
-        int prevX = PAGE_BTN_LEFT_X;
-        int labelX = prevX + JournalNavButton.SPRITE_W + PAGE_BTN_GAP + JournalNavButton.SPRITE_W + PAGE_LABEL_GAP;
-        int labelY = FOOTER_TOP + (FOOTER_H - this.font.lineHeight) / 2;
-        graphics.drawString(this.font, label, labelX + 1, labelY + 1, COLOR_PAGE_SHADOW, false);
-        graphics.drawString(this.font, label, labelX, labelY, COLOR_PAGE, false);
     }
 
     @Override

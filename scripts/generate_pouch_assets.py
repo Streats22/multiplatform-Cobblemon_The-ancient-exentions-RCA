@@ -1,4 +1,4 @@
-"""Generate Poké Ball Pouch container GUI texture only (models use Cobblemon + vanilla textures)."""
+"""Generate Poké Ball Pouch container GUI texture (tileable panels + one slot-row template)."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -23,6 +23,15 @@ GUI_ROOT = (
 WIDTH = 176
 HEIGHT = 166
 
+# Must match PokeballPouchLayout UV constants.
+HEADER_H = 17
+PANEL_Y = 18
+PANEL_H = 6
+SLOT_ROW_Y = 26
+SLOT_ROW_H = 18
+FOOTER_Y = 160
+FOOTER_H = 6
+
 
 def rgb(hex_color: str) -> tuple[int, int, int, int]:
     hex_color = hex_color.lstrip("#")
@@ -30,7 +39,24 @@ def rgb(hex_color: str) -> tuple[int, int, int, int]:
     return r, g, b, 255
 
 
+def draw_slot_row(d: ImageDraw.ImageDraw, y: int, slot, slot_hi, leather_lo) -> None:
+    for col in range(9):
+        x = 7 + col * 18
+        d.rectangle((x, y, x + 16, y + 16), fill=slot)
+        d.rectangle((x, y, x + 16, y + 1), fill=slot_hi)
+        d.rectangle((x, y, x + 1, y + 16), fill=slot_hi)
+        d.rectangle((x + 15, y, x + 16, y + 16), fill=leather_lo)
+        d.rectangle((x, y + 15, x + 16, y + 16), fill=leather_lo)
+
+
 def draw_pouch_gui(path: Path) -> None:
+    """
+    Atlas layout (no overlapping bakes):
+      y=0..16   header + title band
+      y=18..23  plain leather panel strip (stretched vertically in-game)
+      y=26..43  single 9-slot row template (reused for pouch, player inv, hotbar)
+      y=160..165 bottom frame cap
+    """
     img = Image.new("RGBA", (WIDTH, HEIGHT), rgb("#00000000"))
     d = ImageDraw.Draw(img)
 
@@ -51,41 +77,15 @@ def draw_pouch_gui(path: Path) -> None:
     d.rectangle((4, 4, WIDTH - 5, 16), fill=leather_hi)
     d.line([(4, 16), (WIDTH - 5, 16)], fill=line, width=1)
 
-    d.rectangle((6, 17, WIDTH - 7, 65), fill=panel)
-    for row in range(2):
-        for col in range(9):
-            x = 7 + col * 18
-            y = 30 + row * 18
-            d.rectangle((x, y, x + 16, y + 16), fill=slot)
-            d.rectangle((x, y, x + 16, y + 1), fill=slot_hi)
-            d.rectangle((x, y, x + 1, y + 16), fill=slot_hi)
-            d.rectangle((x + 15, y, x + 16, y + 16), fill=leather_lo)
-            d.rectangle((x, y + 15, x + 16, y + 16), fill=leather_lo)
+    # Plain panel only — never stretched over slot rows in-game.
+    d.rectangle((6, PANEL_Y, WIDTH - 7, PANEL_Y + PANEL_H - 1), fill=panel)
 
-    d.line([(6, 66), (WIDTH - 7, 66)], fill=line, width=1)
+    draw_slot_row(d, SLOT_ROW_Y, slot, slot_hi, leather_lo)
 
-    d.rectangle((6, 67, WIDTH - 7, 140), fill=panel)
-    for row in range(3):
-        for col in range(9):
-            x = 7 + col * 18
-            y = 84 + row * 18
-            d.rectangle((x, y, x + 16, y + 16), fill=slot)
-            d.rectangle((x, y, x + 16, y + 1), fill=slot_hi)
-            d.rectangle((x, y, x + 1, y + 16), fill=slot_hi)
-            d.rectangle((x + 15, y, x + 16, y + 16), fill=leather_lo)
-            d.rectangle((x, y + 15, x + 16, y + 16), fill=leather_lo)
+    d.line([(6, SLOT_ROW_Y + SLOT_ROW_H), (WIDTH - 7, SLOT_ROW_Y + SLOT_ROW_H)], fill=line, width=1)
 
-    d.line([(6, 141), (WIDTH - 7, 141)], fill=line, width=1)
-
-    d.rectangle((6, 142, WIDTH - 7, HEIGHT - 5), fill=leather_lo)
-    for col in range(9):
-        x = 7 + col * 18
-        y = 142
-        d.rectangle((x, y, x + 16, y + 16), fill=slot)
-        d.rectangle((x, y, x + 16, y + 1), fill=slot_hi)
-        d.rectangle((x, y, x + 1, y + 16), fill=slot_hi)
-        d.rectangle((x + 15, y, x + 16, y + 16), fill=leather_lo)
-        d.rectangle((x, y + 15, x + 16, y + 16), fill=leather_lo)
+    d.rectangle((4, FOOTER_Y, WIDTH - 5, HEIGHT - 5), fill=leather_lo)
+    d.line([(4, FOOTER_Y), (WIDTH - 5, FOOTER_Y)], fill=line, width=1)
 
     for cx, cy in ((5, 5), (WIDTH - 6, 5), (5, HEIGHT - 6), (WIDTH - 6, HEIGHT - 6)):
         d.rectangle((cx - 1, cy - 1, cx + 1, cy + 1), fill=rgb("#f0d890"))
