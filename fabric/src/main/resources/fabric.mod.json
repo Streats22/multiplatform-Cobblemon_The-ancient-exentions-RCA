@@ -8,7 +8,7 @@
   "license": "MIT",
   "environment": "*",
   "entrypoints": {
-    "main": ["com.streats.ancientextensions.fabric.AncientExtensionsFabric"]
+    "main": ["nl.streats1.ancientextensions.fabric.AncientExtensionsFabric"]
   },
   "depends": {
     "minecraft": "1.21.1",
