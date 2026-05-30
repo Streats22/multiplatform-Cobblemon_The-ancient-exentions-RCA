@@ -24,6 +24,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.config.ModConfigEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 
@@ -55,7 +56,8 @@ public class AncientExtensionsNeoForge {
         ModMenus.register(modBus);
         modBus.addListener(ModNetworking::register);
         modBus.addListener(AncientExtensionsNeoForgeClient::registerScreens);
-        modBus.addListener(event -> AncientExtensionsNeoForgeClient.initClientHooks());
+        modBus.addListener((FMLClientSetupEvent event) ->
+                event.enqueueWork(AncientExtensionsNeoForgeClient::initClientHooks));
         ModCreativeTabs.register(modBus);
         NeoForge.EVENT_BUS.addListener(this::registerCommands);
         CobblemonEventHandlers.register(context);
