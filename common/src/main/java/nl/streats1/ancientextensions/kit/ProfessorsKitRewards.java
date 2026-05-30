@@ -1,69 +1,96 @@
 package nl.streats1.ancientextensions.kit;
 
+import nl.streats1.ancientextensions.pouch.PokeballFilter;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Starter supplies for the Ancient Professor's Field Kit (Rubius / Cobblemon survey tuning).
  */
 public final class ProfessorsKitRewards {
 
-    public static final int POKE_BALL_COUNT = 8;
-    public static final int GREAT_BALL_COUNT = 3;
-    public static final int POTION_COUNT = 4;
+    public static final int POKE_BALL_TOTAL = 15;
+    public static final int POTION_COUNT = 6;
     public static final int REVIVE_COUNT = 2;
-    public static final int ANTIDOTE_COUNT = 2;
+
+    private static final ResourceLocation MASTER_BALL = ResourceLocation.fromNamespaceAndPath("cobblemon", "master_ball");
 
     private ProfessorsKitRewards() {
     }
 
-    /** Items given directly to the player when the kit is opened. */
-    public static List<ItemStack> createPlayerStacks() {
-        List<ItemStack> stacks = new ArrayList<>();
-        stacks.add(stack("cobblemon:poke_ball", POKE_BALL_COUNT));
-        stacks.add(stack("cobblemon:great_ball", GREAT_BALL_COUNT));
-        stacks.add(stack("cobblemon:potion", POTION_COUNT));
-        stacks.add(stack("cobblemon:super_potion", 2));
-        stacks.add(stack("cobblemon:revive", REVIVE_COUNT));
-        stacks.add(stack("cobblemon:antidote", ANTIDOTE_COUNT));
-        stacks.add(stack("cobblemon:paralyze_heal", 2));
-        stacks.add(stack("cobblemon:oran_berry", 6));
-        stacks.add(stack("cobblemon:pecha_berry", 3));
-        stacks.add(SurveyFieldNotes.create());
-        return stacks;
+    /** Items given directly to the player when the kit is opened (inventory mode). */
+    public static List<ItemStack> createPlayerStacks(HolderLookup.Provider registries, RandomSource random) {
+        return createStarterSupplies(registries, random);
     }
 
-    /** Backup supplies stored in the camp chest. */
-    public static List<ItemStack> createChestStacks() {
-        List<ItemStack> stacks = new ArrayList<>();
-        stacks.add(stack("cobblemon:poke_ball", 6));
-        stacks.add(stack("cobblemon:great_ball", 2));
-        stacks.add(stack("cobblemon:potion", 4));
-        stacks.add(stack("cobblemon:paralyze_heal", 2));
-        stacks.add(stack("cobblemon:awakening", 2));
-        stacks.add(stack("cobblemon:exp_candy_xs", 3));
-        stacks.add(new ItemStack(Items.BREAD, 8));
-        stacks.add(new ItemStack(Items.COOKED_BEEF, 4));
-        stacks.add(new ItemStack(Items.TORCH, 16));
-        stacks.add(new ItemStack(Items.OAK_BOAT, 1));
-        stacks.add(new ItemStack(Items.CAMPFIRE, 2));
-        return stacks;
-    }
-
-    /** Chest contents when the kit is deployed (merges player + backup when configured). */
-    public static List<ItemStack> createDeployChestStacks(boolean chestOnlyStarterSupplies) {
-        List<ItemStack> stacks = new ArrayList<>();
+    /** Starter supplies stored in the camp chest. */
+    public static List<ItemStack> createDeployChestStacks(
+            HolderLookup.Provider registries,
+            RandomSource random,
+            boolean chestOnlyStarterSupplies
+    ) {
         if (chestOnlyStarterSupplies) {
-            stacks.addAll(createPlayerStacks());
+            return createStarterSupplies(registries, random);
         }
-        stacks.addAll(createChestStacks());
+        return List.of();
+    }
+
+    private static List<ItemStack> createStarterSupplies(HolderLookup.Provider registries, RandomSource random) {
+        List<ItemStack> stacks = new ArrayList<>();
+        stacks.addAll(randomPokeBallStacks(registries, random, POKE_BALL_TOTAL));
+        stacks.add(stack("cobblemon:potion", POTION_COUNT));
+        stacks.add(stack("cobblemon:revive", REVIVE_COUNT));
         return stacks;
+    }
+
+    /**
+     * Picks random balls from {@code #cobblemon:poke_balls} (apricorn, ancient, etc.).
+     * Master Balls are excluded from the starter pool.
+     */
+    private static List<ItemStack> randomPokeBallStacks(
+            HolderLookup.Provider registries,
+            RandomSource random,
+            int total
+    ) {
+        List<Item> pool = registries.lookupOrThrow(Registries.ITEM)
+                .getOrThrow(PokeballFilter.COBBLEMON_POKE_BALLS)
+                .stream()
+                .map(Holder::value)
+                .filter(ProfessorsKitRewards::isStarterBall)
+                .toList();
+
+        if (pool.isEmpty()) {
+            return List.of(stack("cobblemon:poke_ball", total));
+        }
+
+        Map<Item, Integer> counts = new LinkedHashMap<>();
+        for (int i = 0; i < total; i++) {
+            Item ball = pool.get(random.nextInt(pool.size()));
+            counts.merge(ball, 1, Integer::sum);
+        }
+
+        List<ItemStack> stacks = new ArrayList<>(counts.size());
+        for (Map.Entry<Item, Integer> entry : counts.entrySet()) {
+            stacks.add(new ItemStack(entry.getKey(), entry.getValue()));
+        }
+        return stacks;
+    }
+
+    private static boolean isStarterBall(Item item) {
+        ResourceLocation id = BuiltInRegistries.ITEM.getKey(item);
+        return id != null && !MASTER_BALL.equals(id);
     }
 
     private static ItemStack stack(String itemId, int count) {

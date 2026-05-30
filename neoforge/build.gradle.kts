@@ -43,6 +43,9 @@ dependencies {
     }
     shadowBundle(project(":common", configuration = "transformProductionFabric"))
 
+    modCompileOnly("mezz.jei:jei-${property("minecraft_version")}-neoforge-api:${property("jei_version")}")
+    modRuntimeOnly("mezz.jei:jei-${property("minecraft_version")}-neoforge:${property("jei_version")}")
+
     testImplementation("org.junit.jupiter:junit-jupiter-api:${property("junit_version")}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${property("junit_version")}")
 }

@@ -6,6 +6,7 @@ package nl.streats1.ancientextensions.client;
 public final class AncientExtensionsClientHooks {
 
     private static OriginSelectSender originSelectSender = (regionId, townId) -> { };
+    private static Runnable tierRewardClaimSender = () -> { };
 
     private AncientExtensionsClientHooks() {
     }
@@ -20,8 +21,16 @@ public final class AncientExtensionsClientHooks {
         setOriginSelectSender(sender);
     }
 
+    public static void setTierRewardClaimSender(Runnable sender) {
+        tierRewardClaimSender = sender != null ? sender : () -> { };
+    }
+
     public static void sendSelectOrigin(String regionId, String townId) {
         originSelectSender.send(regionId, townId);
+    }
+
+    public static void sendClaimTierRewards() {
+        tierRewardClaimSender.run();
     }
 
     @FunctionalInterface

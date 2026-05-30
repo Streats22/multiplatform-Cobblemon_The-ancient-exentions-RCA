@@ -6,6 +6,7 @@ import nl.streats1.ancientextensions.menu.sync.PouchOpenData;
 import nl.streats1.ancientextensions.registry.ModMenuTypes;
 import nl.streats1.ancientextensions.pouch.PokeballFilter;
 import nl.streats1.ancientextensions.pouch.PokeballPouchConstants;
+import nl.streats1.ancientextensions.pouch.PokeballPouchLayout;
 import nl.streats1.ancientextensions.pouch.PokeballPouchInventory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -21,11 +22,11 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class PokeballPouchMenu extends AbstractContainerMenu {
 
-    public static final int WIDTH = 176;
+    public static final int WIDTH = PokeballPouchLayout.WIDTH;
 
     private static final int POUCH_COLS = PokeballPouchConstants.COLS;
-    private static final int POUCH_START_X = 8;
-    private static final int POUCH_START_Y = 30;
+    private static final int POUCH_START_X = PokeballPouchLayout.POUCH_START_X;
+    private static final int POUCH_START_Y = PokeballPouchLayout.POUCH_START_Y;
 
     private final Container pouch;
     private final InteractionHand hand;
@@ -114,7 +115,9 @@ public class PokeballPouchMenu extends AbstractContainerMenu {
     }
 
     private void addPouchAndPlayerSlots(Inventory playerInventory) {
-        int pouchRows = PokeballPouchConstants.rowsForSlots(pouchSlotCount);
+        PokeballPouchLayout.Metrics layout = PokeballPouchLayout.metrics(pouchSlotCount);
+        int pouchRows = layout.pouchRows();
+
         for (int row = 0; row < pouchRows; row++) {
             for (int col = 0; col < POUCH_COLS; col++) {
                 int index = col + row * POUCH_COLS;
@@ -130,8 +133,8 @@ public class PokeballPouchMenu extends AbstractContainerMenu {
             }
         }
 
-        int playerInvStartY = POUCH_START_Y + pouchRows * 18 + 12;
-        int hotbarY = playerInvStartY + 58;
+        int playerInvStartY = layout.playerInvY();
+        int hotbarY = layout.hotbarY();
 
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {

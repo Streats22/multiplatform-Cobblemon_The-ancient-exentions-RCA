@@ -24,7 +24,9 @@
   },
   "recommends": {
     "regions_unexplored": ">=${regions_unexplored_version}",
-    "lootr": "*"
+    "comforts": "*",
+    "lootr": "*",
+    "jei": "*"
   },
   "breaks": {
     "cobblemon": "<1.7.3 || >=1.8.0"

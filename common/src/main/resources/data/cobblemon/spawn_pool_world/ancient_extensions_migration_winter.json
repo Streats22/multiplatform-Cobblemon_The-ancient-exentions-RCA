@@ -4,9 +4,74 @@
   "neededUninstalledMods": [],
   "spawns": [
     {
+      "id": "ancient_extensions-winter-snover",
+      "pokemon": "snover",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "10-26",
+      "weight": 1.6,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:frozen_tundra",
+          "regions_unexplored:cold_boreal_taiga",
+          "regions_unexplored:icy_heights",
+          "regions_unexplored:frozen_pine_taiga",
+          "regions_unexplored:spires",
+          "regions_unexplored:cold_river"
+        ]
+      },
+      "presets": [
+        "natural"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-swinub",
+      "pokemon": "swinub",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-22",
+      "weight": 1.2,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:frozen_tundra",
+          "regions_unexplored:cold_boreal_taiga",
+          "regions_unexplored:icy_heights",
+          "regions_unexplored:frozen_pine_taiga",
+          "regions_unexplored:spires",
+          "regions_unexplored:cold_river"
+        ]
+      },
+      "presets": [
+        "natural"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-delibird",
+      "pokemon": "delibird",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "12-28",
+      "weight": 0.9,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:frozen_tundra",
+          "regions_unexplored:cold_boreal_taiga",
+          "regions_unexplored:icy_heights",
+          "regions_unexplored:frozen_pine_taiga",
+          "regions_unexplored:spires",
+          "regions_unexplored:cold_river"
+        ]
+      },
+      "presets": [
+        "natural"
+      ]
+    },
+    {
       "id": "ancient_extensions-winter-snom",
       "pokemon": "snom",
-      "presets": ["natural"],
       "type": "pokemon",
       "spawnablePositionType": "grounded",
       "bucket": "uncommon",
@@ -14,47 +79,124 @@
       "weight": 1.5,
       "condition": {
         "biomes": [
-          "#cobblemon:is_overworld",
-          "regions_unexplored:frozen_tundra",
-          "regions_unexplored:cold_boreal_taiga",
-          "regions_unexplored:icy_heights"
+          "regions_unexplored:blackwood_taiga",
+          "regions_unexplored:pine_taiga",
+          "regions_unexplored:pine_slopes",
+          "regions_unexplored:golden_boreal_taiga",
+          "regions_unexplored:chalk_cliffs",
+          "regions_unexplored:scorching_caves"
         ]
-      }
+      },
+      "presets": [
+        "natural"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-bergmite",
+      "pokemon": "bergmite",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "10-24",
+      "weight": 1.1,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:blackwood_taiga",
+          "regions_unexplored:pine_taiga",
+          "regions_unexplored:pine_slopes",
+          "regions_unexplored:golden_boreal_taiga",
+          "regions_unexplored:chalk_cliffs",
+          "regions_unexplored:scorching_caves"
+        ]
+      },
+      "presets": [
+        "natural"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-snorunt",
+      "pokemon": "snorunt",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-20",
+      "weight": 1.0,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:blackwood_taiga",
+          "regions_unexplored:pine_taiga",
+          "regions_unexplored:pine_slopes",
+          "regions_unexplored:golden_boreal_taiga",
+          "regions_unexplored:chalk_cliffs",
+          "regions_unexplored:scorching_caves"
+        ]
+      },
+      "presets": [
+        "natural"
+      ]
     },
     {
       "id": "ancient_extensions-winter-cubchoo",
       "pokemon": "cubchoo",
-      "presets": ["natural"],
       "type": "pokemon",
       "spawnablePositionType": "grounded",
       "bucket": "uncommon",
       "level": "10-24",
-      "weight": 1.2,
+      "weight": 1.4,
       "condition": {
         "biomes": [
-          "#cobblemon:is_overworld",
-          "regions_unexplored:frozen_pine_taiga",
-          "regions_unexplored:spires",
-          "regions_unexplored:alpine_grove"
+          "regions_unexplored:blackstone_basin",
+          "regions_unexplored:glistering_meadow",
+          "regions_unexplored:infernal_holt",
+          "regions_unexplored:mycotoxic_undergrowth",
+          "regions_unexplored:redstone_abyss"
         ]
-      }
+      },
+      "presets": [
+        "natural"
+      ]
     },
     {
       "id": "ancient_extensions-winter-spheal",
       "pokemon": "spheal",
       "type": "pokemon",
       "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "10-26",
+      "weight": 1.2,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:blackstone_basin",
+          "regions_unexplored:glistering_meadow",
+          "regions_unexplored:infernal_holt",
+          "regions_unexplored:mycotoxic_undergrowth",
+          "regions_unexplored:redstone_abyss"
+        ]
+      },
+      "presets": [
+        "natural"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-cetoddle",
+      "pokemon": "cetoddle",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
       "bucket": "uncommon",
-      "level": "12-26",
+      "level": "12-28",
       "weight": 1.0,
       "condition": {
         "biomes": [
-          "#cobblemon:is_overworld",
-          "regions_unexplored:cold_river",
-          "regions_unexplored:chalk_cliffs",
-          "regions_unexplored:gravel_beach"
+          "regions_unexplored:blackstone_basin",
+          "regions_unexplored:glistering_meadow",
+          "regions_unexplored:infernal_holt",
+          "regions_unexplored:mycotoxic_undergrowth",
+          "regions_unexplored:redstone_abyss"
         ]
-      }
+      },
+      "presets": [
+        "natural"
+      ]
     }
   ]
 }

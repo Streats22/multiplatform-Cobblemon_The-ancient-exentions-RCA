@@ -56,6 +56,11 @@ public class PokeballPouchRecipe extends CustomRecipe {
     }
 
     @Override
+    public boolean showNotification() {
+        return true;
+    }
+
+    @Override
     public ItemStack getResultItem(HolderLookup.Provider registries) {
         return new ItemStack(ModContent.POKEBALL_POUCH);
     }

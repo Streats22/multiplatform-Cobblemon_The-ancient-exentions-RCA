@@ -1,5 +1,6 @@
 package nl.streats1.ancientextensions.kit;
 
+import nl.streats1.ancientextensions.compat.ComfortsCampCompat;
 import nl.streats1.ancientextensions.compat.LootrCampChestCompat;
 import nl.streats1.ancientextensions.AncientExtensionsContext;
 import nl.streats1.ancientextensions.config.CampConfig;
@@ -11,9 +12,11 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
+import java.util.Set;
 
 public final class ProfessorsKitLogic {
 
@@ -28,12 +31,13 @@ public final class ProfessorsKitLogic {
         }
 
         ServerLevel level = player.serverLevel();
-        BlockPos preferred = player.blockPosition().relative(player.getDirection());
+        BlockPos preferred = player.blockPosition().relative(player.getDirection(), 3);
         var placement = FieldCampPlacer.placeCamp(
                 level,
                 preferred,
                 player.getDirection(),
-                CampConfig.campBedSetsSpawn()
+                CampConfig.campBedSetsSpawn(),
+                player
         );
         if (placement.isEmpty()) {
             player.sendSystemMessage(Component.translatable("ancient_extensions.kit.no_space"));
@@ -41,17 +45,22 @@ public final class ProfessorsKitLogic {
         }
 
         CampPlacement camp = placement.get();
+        movePlayerToSafeStand(player, camp);
         ItemStack briefing = SurveyFieldNotes.create();
 
         boolean chestOnly = CampConfig.starterSuppliesInChestOnly();
         FieldCampPlacer.fillCampChest(
                 level,
                 camp.chestPos(),
-                ProfessorsKitRewards.createDeployChestStacks(chestOnly)
+                ProfessorsKitRewards.createDeployChestStacks(
+                        player.registryAccess(),
+                        player.getRandom(),
+                        chestOnly
+                )
         );
         FieldCampPlacer.placeBriefingOnLectern(level, camp.lecternPos(), briefing);
         if (!chestOnly) {
-            giveStacks(player, ProfessorsKitRewards.createPlayerStacks());
+            giveStacks(player, ProfessorsKitRewards.createPlayerStacks(player.registryAccess(), player.getRandom()));
         }
 
         StarterKitGrant.grantJournalIfMissing(player);
@@ -67,22 +76,41 @@ public final class ProfessorsKitLogic {
         player.playNotifySound(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, SoundSource.PLAYERS, 0.5f, 1.0f);
 
         player.sendSystemMessage(Component.translatable("ancient_extensions.kit.deployed"));
-        player.sendSystemMessage(Component.translatable("ancient_extensions.kit.comfort_hint"));
         if (chestOnly) {
+            player.sendSystemMessage(Component.translatable("ancient_extensions.kit.comfort_hint"));
             player.sendSystemMessage(Component.translatable("ancient_extensions.kit.chest_only_hint"));
+        } else {
+            player.sendSystemMessage(Component.translatable("ancient_extensions.kit.inventory_hint"));
         }
-        if (CampConfig.campBedSetsSpawn()) {
+        if (CampConfig.campBedSetsSpawn() && !ComfortsCampCompat.isComfortsInstalled()) {
             player.sendSystemMessage(Component.translatable("ancient_extensions.kit.bed_spawn_hint"));
+        } else if (ComfortsCampCompat.isComfortsInstalled()) {
+            player.sendSystemMessage(Component.translatable("ancient_extensions.kit.sleeping_bag_hint"));
         }
         if (CampConfig.useLootrCampChest() && LootrCampChestCompat.isLootrInstalled()) {
             player.sendSystemMessage(Component.translatable("ancient_extensions.kit.lootr_hint"));
         }
         player.sendSystemMessage(Component.translatable("ancient_extensions.kit.survey_hint"));
-        player.sendSystemMessage(Component.translatable("ancient_extensions.kit.chest_hint"));
+        if (chestOnly) {
+            player.sendSystemMessage(Component.translatable("ancient_extensions.kit.chest_hint"));
+        }
         player.sendSystemMessage(Component.translatable("ancient_extensions.kit.lectern_hint"));
         player.sendSystemMessage(Component.translatable("ancient_extensions.journal.hint"));
 
         return true;
+    }
+
+    private static void movePlayerToSafeStand(ServerPlayer player, CampPlacement camp) {
+        BlockPos stand = camp.safeStandPos();
+        double x = stand.getX() + 0.5;
+        double y = stand.getY();
+        double z = stand.getZ() + 0.5;
+        BlockPos fire = camp.campfirePos();
+        float yaw = (float) (Mth.atan2(
+                fire.getZ() + 0.5 - z,
+                fire.getX() + 0.5 - x
+        ) * (180.0 / Math.PI)) - 90.0F;
+        player.teleportTo(player.serverLevel(), x, y, z, Set.of(), yaw, player.getXRot());
     }
 
     /** Creative and opped players may pitch additional camps for testing. */

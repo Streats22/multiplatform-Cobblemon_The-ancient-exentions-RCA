@@ -54,6 +54,7 @@ public final class RegionalSurveyService {
                     "ancient_extensions.dex.tier_up",
                     after.displayName()
             ));
+            player.sendSystemMessage(Component.translatable("ancient_extensions.dex.tier_up_rewards"));
         }
 
         if (isNew) {

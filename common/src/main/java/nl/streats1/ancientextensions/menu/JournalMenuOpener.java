@@ -16,7 +16,7 @@ public final class JournalMenuOpener {
     }
 
     public static void open(ServerPlayer player) {
-        JournalOpenData sync = new JournalOpenData(RegionalSurveyJournalMenu.loadLinesForPlayer(player));
+        JournalOpenData sync = RegionalSurveyJournalMenu.buildOpenData(player);
         MenuOpenHelper.open(player, new MenuProvider() {
             @Override
             public Component getDisplayName() {

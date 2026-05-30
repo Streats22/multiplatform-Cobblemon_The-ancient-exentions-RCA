@@ -9,6 +9,7 @@ import nl.streats1.ancientextensions.fabric.event.CobblemonEventHandlers;
 import nl.streats1.ancientextensions.fabric.event.PlayerJoinHandlers;
 import nl.streats1.ancientextensions.fabric.network.FabricMenuOpenHelper;
 import nl.streats1.ancientextensions.fabric.network.FabricNetworking;
+import nl.streats1.ancientextensions.fabric.registry.ModCreativeTabs;
 import nl.streats1.ancientextensions.fabric.registry.ModRegistries;
 import nl.streats1.ancientextensions.menu.JournalMenuOpener;
 import net.fabricmc.api.ModInitializer;
@@ -27,6 +28,7 @@ public class AncientExtensionsFabric implements ModInitializer {
         AncientExtensionsContext.init(context);
 
         ModRegistries.register();
+        ModCreativeTabs.register();
         FabricMenuOpenHelper.register();
         FabricNetworking.register();
         PlayerJoinHandlers.register();

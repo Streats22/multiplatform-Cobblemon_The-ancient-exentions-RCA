@@ -9,8 +9,8 @@ except ImportError:
     raise SystemExit("Install Pillow: pip install pillow")
 
 ASSETS = Path(__file__).resolve().parents[1] / "common" / "src" / "main" / "resources" / "assets" / "ancient_extensions" / "textures"
-GUI_W = 220
-GUI_H = 220
+GUI_W = 256
+GUI_H = 256
 
 
 def rgb(hex_color: str) -> tuple[int, int, int, int]:
@@ -20,7 +20,7 @@ def rgb(hex_color: str) -> tuple[int, int, int, int]:
 
 
 def draw_journal_gui(path: Path) -> None:
-    """Open aged field log — dark leather frame, warm paper, subtle rules."""
+    """Open aged field log — dark leather frame, warm paper, subtle rules (full 256×256)."""
     img = Image.new("RGBA", (GUI_W, GUI_H), rgb("#00000000"))
     d = ImageDraw.Draw(img)
 
@@ -32,6 +32,7 @@ def draw_journal_gui(path: Path) -> None:
     paper_shadow = rgb("#d4bc98")
     rule = rgb("#c4a880")
     ink_band = rgb("#3d2818")
+    footer_band = rgb("#d8c4a8")
 
     d.rectangle((0, 0, GUI_W - 1, GUI_H - 1), fill=leather_dark)
     d.rectangle((3, 3, GUI_W - 4, GUI_H - 4), fill=leather)
@@ -41,17 +42,18 @@ def draw_journal_gui(path: Path) -> None:
     d.rectangle((12, 12, GUI_W - 13, GUI_H - 13), fill=paper_aged)
     d.rectangle((14, 14, GUI_W - 15, GUI_H - 15), fill=paper_light)
 
-    d.rectangle((14, 14, GUI_W - 15, 28), fill=ink_band)
-    d.line([(14, 28), (GUI_W - 15, 28)], fill=leather_dark, width=1)
+    d.rectangle((14, 14, GUI_W - 15, 30), fill=ink_band)
+    d.line([(14, 30), (GUI_W - 15, 30)], fill=leather_dark, width=1)
 
-    for x in range(14, 19):
+    for x in range(14, 20):
         alpha = 30 + (x - 14) * 8
-        d.line([(x, 29), (x, GUI_H - 16)], fill=(100, 60, 30, alpha), width=1)
+        d.line([(x, 31), (x, GUI_H - 38)], fill=(100, 60, 30, alpha), width=1)
 
-    for y in range(36, GUI_H - 32, 11):
+    for y in range(38, GUI_H - 36, 11):
         d.line([(18, y), (GUI_W - 18, y)], fill=rule, width=1)
 
-    d.line([(18, GUI_H - 30), (GUI_W - 18, GUI_H - 30)], fill=rule, width=1)
+    d.rectangle((14, GUI_H - 34, GUI_W - 15, GUI_H - 16), fill=footer_band)
+    d.line([(14, GUI_H - 34), (GUI_W - 15, GUI_H - 34)], fill=rule, width=1)
 
     for ox, oy in ((14, 14), (GUI_W - 18, 14), (14, GUI_H - 18), (GUI_W - 18, GUI_H - 18)):
         d.point((ox, oy), fill=paper_shadow)

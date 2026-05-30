@@ -2,87 +2,24 @@ package nl.streats1.ancientextensions.migration;
 
 import net.minecraft.resources.ResourceLocation;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Migration routes — each leg highlights Regions Unexplored biomes and also accepts
- * every vanilla Overworld biome ({@code minecraft:*}) for catch credit.
+ * Migration routes — each leg highlights a partition of Regions Unexplored biomes for the season
+ * and also accepts every vanilla Overworld biome ({@code minecraft:*}) for catch credit
+ * (including Regions Unexplored: Expansion remodels).
  */
 public final class MigrationRoutes {
 
     private static final Map<MigrationSeason, List<MigrationLeg>> ROUTES = new EnumMap<>(MigrationSeason.class);
 
     static {
-        ROUTES.put(MigrationSeason.SPRING, List.of(
-                leg(2, 15,
-                        "regions_unexplored:flower_fields",
-                        "regions_unexplored:clover_plains",
-                        "regions_unexplored:temperate_grove"
-                ),
-                leg(2, 15,
-                        "regions_unexplored:marsh",
-                        "regions_unexplored:bayou",
-                        "regions_unexplored:fen"
-                ),
-                leg(2, 20,
-                        "regions_unexplored:magnolia_woodland",
-                        "regions_unexplored:orchard",
-                        "regions_unexplored:eucalyptus_forest"
-                )
-        ));
-        ROUTES.put(MigrationSeason.SUMMER, List.of(
-                leg(2, 15,
-                        "regions_unexplored:tropical_river",
-                        "regions_unexplored:grassy_beach",
-                        "regions_unexplored:rocky_reef"
-                ),
-                leg(2, 15,
-                        "regions_unexplored:outback",
-                        "regions_unexplored:arid_mountains",
-                        "regions_unexplored:dry_bushland"
-                ),
-                leg(2, 20,
-                        "regions_unexplored:baobab_savanna",
-                        "regions_unexplored:joshua_desert",
-                        "regions_unexplored:sparse_rainforest"
-                )
-        ));
-        ROUTES.put(MigrationSeason.AUTUMN, List.of(
-                leg(2, 15,
-                        "regions_unexplored:autumnal_maple_forest",
-                        "regions_unexplored:maple_forest",
-                        "regions_unexplored:deciduous_forest"
-                ),
-                leg(2, 15,
-                        "regions_unexplored:prairie",
-                        "regions_unexplored:barley_fields",
-                        "regions_unexplored:grassland"
-                ),
-                leg(2, 20,
-                        "regions_unexplored:redwoods",
-                        "regions_unexplored:boreal_taiga",
-                        "regions_unexplored:pine_taiga"
-                )
-        ));
-        ROUTES.put(MigrationSeason.WINTER, List.of(
-                leg(2, 15,
-                        "regions_unexplored:frozen_tundra",
-                        "regions_unexplored:cold_boreal_taiga",
-                        "regions_unexplored:icy_heights"
-                ),
-                leg(2, 15,
-                        "regions_unexplored:frozen_pine_taiga",
-                        "regions_unexplored:spires",
-                        "regions_unexplored:alpine_grove"
-                ),
-                leg(2, 20,
-                        "regions_unexplored:cold_river",
-                        "regions_unexplored:chalk_cliffs",
-                        "regions_unexplored:gravel_beach"
-                )
-        ));
+        for (MigrationSeason season : MigrationSeason.values()) {
+            ROUTES.put(season, buildSeasonRoute(season));
+        }
     }
 
     private MigrationRoutes() {
@@ -92,11 +29,34 @@ public final class MigrationRoutes {
         return ROUTES.getOrDefault(season, List.of());
     }
 
-    private static MigrationLeg leg(int catches, int bonusRp, String... biomes) {
-        return new MigrationLeg(
-                List.of(biomes).stream().map(ResourceLocation::parse).toList(),
-                catches,
-                bonusRp
+    /** All biome IDs featured across every seasonal route (for spawn pools and validation). */
+    public static List<ResourceLocation> allFeaturedBiomes() {
+        List<ResourceLocation> biomes = new ArrayList<>();
+        for (MigrationSeason season : MigrationSeason.values()) {
+            for (MigrationLeg leg : routeFor(season)) {
+                biomes.addAll(leg.biomeIds());
+            }
+        }
+        return List.copyOf(biomes);
+    }
+
+    /** Biome IDs for one season (union of its three legs). */
+    public static List<ResourceLocation> biomesForSeason(MigrationSeason season) {
+        return RegionsUnexploredBiomes.forSeason(season);
+    }
+
+    private static List<MigrationLeg> buildSeasonRoute(MigrationSeason season) {
+        List<List<ResourceLocation>> partitions = RegionsUnexploredBiomes.partitionForLegs(
+                RegionsUnexploredBiomes.forSeason(season)
         );
+        List<MigrationLeg> legs = new ArrayList<>(3);
+        legs.add(leg(2, 15, partitions.get(0)));
+        legs.add(leg(2, 15, partitions.get(1)));
+        legs.add(leg(2, 20, partitions.get(2)));
+        return List.copyOf(legs);
+    }
+
+    private static MigrationLeg leg(int catches, int bonusRp, List<ResourceLocation> biomes) {
+        return new MigrationLeg(List.copyOf(biomes), catches, bonusRp);
     }
 }

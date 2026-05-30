@@ -20,7 +20,7 @@ public final class NeoForgeCampConfig {
                 .comment("When true, all Field Kit starter items go in the camp chest instead of the player's inventory.")
                 .define("starterSuppliesInChestOnly", true);
         CAMP_BED_SETS_SPAWN = BUILDER
-                .comment("When true, the camp bedroll is a real bed that lets the player set their respawn point at camp.")
+                .comment("When true, the camp bedroll is a real bed that lets the player set their respawn point at camp (ignored when Comforts is installed).")
                 .define("campBedSetsSpawn", true);
         USE_LOOTR_CAMP_CHEST = BUILDER
                 .comment("When true and Lootr is installed, the camp chest becomes a per-player Lootr chest so every player gets their own starter supplies.")

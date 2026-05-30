@@ -7,6 +7,7 @@ import nl.streats1.ancientextensions.AncientExtensionsConstants;
 import nl.streats1.ancientextensions.AncientExtensionsContext;
 import nl.streats1.ancientextensions.config.PassportConfig;
 import nl.streats1.ancientextensions.dex.RegionalSurveyData;
+import nl.streats1.ancientextensions.dex.ResearchTier;
 import nl.streats1.ancientextensions.dex.SurveyRegion;
 import nl.streats1.ancientextensions.kit.ProfessorsKitLogic;
 import nl.streats1.ancientextensions.kit.StarterKitGrant;
@@ -20,6 +21,8 @@ import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+
+import java.util.Optional;
 
 import static net.minecraft.commands.Commands.literal;
 
@@ -110,6 +113,22 @@ public final class AncientExtensionsCommands {
                                                 .executes(ctx -> disableOriginSetup(EntityArgument.getPlayer(ctx, "player")))))
                                 .then(Commands.argument("player", EntityArgument.player())
                                         .executes(ctx -> enableOriginSetup(EntityArgument.getPlayer(ctx, "player"))))))
+                .then(literal("rewards")
+                        .executes(ctx -> showRewards(ctx.getSource().getPlayerOrException()))
+                        .then(literal("claim")
+                                .executes(ctx -> claimRewards(ctx.getSource().getPlayerOrException(), null))
+                                .then(Commands.argument("tier", StringArgumentType.word())
+                                        .suggests((ctx, builder) -> {
+                                            for (nl.streats1.ancientextensions.dex.ResearchTier tier :
+                                                    nl.streats1.ancientextensions.dex.ResearchTier.values()) {
+                                                builder.suggest(tier.name());
+                                            }
+                                            return builder.buildFuture();
+                                        })
+                                        .executes(ctx -> claimRewards(
+                                                ctx.getSource().getPlayerOrException(),
+                                                StringArgumentType.getString(ctx, "tier")
+                                        )))))
                 .then(literal("givepassport")
                         .requires(source -> source.hasPermission(2))
                         .executes(ctx -> givePassport(ctx.getSource().getPlayerOrException())))
@@ -219,6 +238,54 @@ public final class AncientExtensionsCommands {
         }
         player.sendSystemMessage(Component.translatable("ancient_extensions.command.origin_setup_not_active"));
         return 0;
+    }
+
+    private static int showRewards(ServerPlayer player) {
+        RegionalSurveyData data = AncientExtensionsContext.get().surveys().get(player);
+        int pending = AncientExtensionsContext.get().tierRewards().unclaimedCount(data);
+        player.sendSystemMessage(Component.translatable(
+                "ancient_extensions.command.rewards_status",
+                data.getTier().displayName(),
+                pending
+        ));
+        for (ResearchTier tier : ResearchTier.values()) {
+            boolean reached = data.getTier().ordinal() >= tier.ordinal();
+            boolean claimed = data.hasClaimedTierReward(tier);
+            if (claimed) {
+                player.sendSystemMessage(Component.translatable(
+                        "ancient_extensions.command.rewards_line_claimed",
+                        tier.displayName()
+                ));
+            } else if (reached) {
+                player.sendSystemMessage(Component.translatable(
+                        "ancient_extensions.command.rewards_line_ready",
+                        tier.displayName()
+                ));
+            } else {
+                player.sendSystemMessage(Component.translatable(
+                        "ancient_extensions.command.rewards_line_locked",
+                        tier.displayName(),
+                        tier.minPoints()
+                ));
+            }
+        }
+        if (pending > 0) {
+            player.sendSystemMessage(Component.translatable("ancient_extensions.command.rewards_claim_hint"));
+        }
+        return 1;
+    }
+
+    private static int claimRewards(ServerPlayer player, String tierName) {
+        Optional<ResearchTier> tier = Optional.empty();
+        if (tierName != null && !tierName.isBlank()) {
+            try {
+                tier = Optional.of(ResearchTier.valueOf(tierName.toUpperCase()));
+            } catch (IllegalArgumentException exception) {
+                player.sendSystemMessage(Component.translatable("ancient_extensions.rewards.invalid_tier"));
+                return 0;
+            }
+        }
+        return AncientExtensionsContext.get().tierRewards().claim(player, tier) ? 1 : 0;
     }
 
     private static int giveKit(ServerPlayer player) {

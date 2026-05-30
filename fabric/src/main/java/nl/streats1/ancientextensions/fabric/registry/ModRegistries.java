@@ -17,13 +17,11 @@ import nl.streats1.ancientextensions.recipe.PokeballPouchRecipe;
 import nl.streats1.ancientextensions.registry.ModRecipeSerializers;
 import nl.streats1.ancientextensions.registry.ModContent;
 import nl.streats1.ancientextensions.registry.ModMenuTypes;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
@@ -113,19 +111,6 @@ public final class ModRegistries {
                 id("pokeball_pouch"),
                 new SimpleCraftingRecipeSerializer<>(PokeballPouchRecipe::new)
         );
-
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.SEARCH).register(entries -> {
-            entries.accept(ModContent.ANCIENT_PROFESSORS_KIT);
-            entries.accept(ModContent.REGIONAL_SURVEY_JOURNAL);
-            entries.accept(ModContent.REGIONAL_PASSPORT);
-            entries.accept(ModContent.POKEBALL_POUCH);
-        });
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries -> {
-            entries.accept(ModContent.ANCIENT_PROFESSORS_KIT);
-            entries.accept(ModContent.REGIONAL_SURVEY_JOURNAL);
-            entries.accept(ModContent.REGIONAL_PASSPORT);
-            entries.accept(ModContent.POKEBALL_POUCH);
-        });
     }
 
     private static ResourceLocation id(String path) {

@@ -6,6 +6,7 @@ public record CampPlacement(
         BlockPos campfirePos,
         BlockPos chestPos,
         BlockPos lecternPos,
-        BlockPos bedrollHeadPos
+        BlockPos bedrollHeadPos,
+        BlockPos safeStandPos
 ) {
 }

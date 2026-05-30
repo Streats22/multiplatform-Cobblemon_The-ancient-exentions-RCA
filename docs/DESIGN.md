@@ -9,6 +9,8 @@
 | **Poké Ball pouch** | Filtered storage | `pokeball_pouch` — craft with any `#cobblemon:poke_balls` ball; tier sets 2D/3D look and slots (18 / 27 / 36 / 54); placeable 3D block |
 | **Dex** | Catch-only | `CobblemonEvents.POKEMON_CAPTURED` only; PC registration ignored |
 | **Migration** | Repeatable every season, diminishing RP | Route resets when calendar season changes; per-season completion count; `0.65^n` multiplier on route reward |
+| **RU biomes** | All 71 Regions Unexplored biomes | Catalogued in `RegionsUnexploredBiomes`; seasonal routes partition every biome; vanilla + RU: Expansion biomes count via `minecraft:*` |
+| **Rank rewards** | One-time claim per tier | 21 research ranks; journal lists status; claim via journal button or `/ancientextensions rewards claim` |
 | **Spawns** | Additive migratory pool | Low-weight `spawn_pool_world/ancient_extensions_migration_*.json` entries; does not overwrite vanilla/Cobblemon biome pools |
 
 ## Migration calendar (v0.2)
@@ -18,6 +20,5 @@
 
 ## Tuning
 
-- Routes: `MigrationRoutes.java` — each leg accepts **Terralith**, **Regions Unexplored**, or vanilla biomes (any one counts).
-- Migratory species (quest + catch credit): `MigrationSpecies.java`
-- Spawn weights: `data/cobblemon/spawn_pool_world/ancient_extensions_migration_*.json` (additive pools in both worldgen mods’ biomes)
+- Routes: `MigrationRoutes.java` — each leg accepts **Regions Unexplored** biomes assigned to that season, plus any vanilla `minecraft:*` biome (covers **Regions Unexplored: Expansion** remodels).
+- Migratory species (quest + catch credit): `MigrationSpecies.java` — nine species per season; regenerate spawn JSON with `scripts/generate_migration_spawns.py`

@@ -1,6 +1,7 @@
 package nl.streats1.ancientextensions.neoforge.registry;
 
 import nl.streats1.ancientextensions.AncientExtensionsConstants;
+import nl.streats1.ancientextensions.pouch.PouchDisplayStacks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -24,7 +25,7 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.ANCIENT_PROFESSORS_KIT.get());
                         output.accept(ModItems.REGIONAL_SURVEY_JOURNAL.get());
                         output.accept(ModItems.REGIONAL_PASSPORT.get());
-                        output.accept(ModItems.POKEBALL_POUCH.get());
+                        PouchDisplayStacks.acceptAllTiers(output::accept, ModItems.POKEBALL_POUCH.get());
                     })
                     .build()
     );
@@ -38,17 +39,11 @@ public final class ModCreativeTabs {
     }
 
     private static void addToVanillaTabs(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.SEARCH) {
+        if (event.getTabKey() == CreativeModeTabs.SEARCH || event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             event.accept(ModItems.ANCIENT_PROFESSORS_KIT);
             event.accept(ModItems.REGIONAL_SURVEY_JOURNAL);
             event.accept(ModItems.REGIONAL_PASSPORT);
-            event.accept(ModItems.POKEBALL_POUCH);
-        }
-        if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
-            event.accept(ModItems.ANCIENT_PROFESSORS_KIT);
-            event.accept(ModItems.REGIONAL_SURVEY_JOURNAL);
-            event.accept(ModItems.REGIONAL_PASSPORT);
-            event.accept(ModItems.POKEBALL_POUCH);
+            PouchDisplayStacks.acceptAllTiers(event::accept, ModItems.POKEBALL_POUCH.get());
         }
     }
 }

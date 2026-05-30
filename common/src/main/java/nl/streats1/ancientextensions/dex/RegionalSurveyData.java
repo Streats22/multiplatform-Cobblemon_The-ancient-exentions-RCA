@@ -105,6 +105,14 @@ public class RegionalSurveyData {
         survey.setOriginSetupMode(originSetupMode);
     }
 
+    public boolean hasClaimedTierReward(ResearchTier tier) {
+        return survey.hasClaimedTierReward(tier);
+    }
+
+    public void markTierRewardClaimed(ResearchTier tier) {
+        survey.markTierRewardClaimed(tier);
+    }
+
     /** Show the region/town picker on the passport even when origin is already stamped. */
     public boolean showsPassportSetupScreen() {
         return isOriginSetupMode() || getSurveyOrigin().isEmpty();

@@ -6,56 +6,191 @@
     {
       "id": "ancient_extensions-autumn-seedot",
       "pokemon": "seedot",
-      "presets": ["natural"],
       "type": "pokemon",
       "spawnablePositionType": "grounded",
       "bucket": "uncommon",
       "level": "8-22",
-      "weight": 1.5,
+      "weight": 1.6,
       "condition": {
         "biomes": [
-          "#cobblemon:is_overworld",
           "regions_unexplored:autumnal_maple_forest",
           "regions_unexplored:maple_forest",
-          "regions_unexplored:deciduous_forest"
+          "regions_unexplored:deciduous_forest",
+          "regions_unexplored:cold_deciduous_forest",
+          "regions_unexplored:barley_fields"
         ]
-      }
+      },
+      "presets": [
+        "natural"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-nuzleaf",
+      "pokemon": "nuzleaf",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "16-30",
+      "weight": 1.1,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:autumnal_maple_forest",
+          "regions_unexplored:maple_forest",
+          "regions_unexplored:deciduous_forest",
+          "regions_unexplored:cold_deciduous_forest",
+          "regions_unexplored:barley_fields"
+        ]
+      },
+      "presets": [
+        "natural"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-deerling",
+      "pokemon": "deerling",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "10-24",
+      "weight": 1.0,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:autumnal_maple_forest",
+          "regions_unexplored:maple_forest",
+          "regions_unexplored:deciduous_forest",
+          "regions_unexplored:cold_deciduous_forest",
+          "regions_unexplored:barley_fields"
+        ]
+      },
+      "presets": [
+        "natural"
+      ]
     },
     {
       "id": "ancient_extensions-autumn-shroomish",
       "pokemon": "shroomish",
-      "presets": ["natural"],
       "type": "pokemon",
       "spawnablePositionType": "grounded",
       "bucket": "uncommon",
       "level": "10-24",
+      "weight": 1.5,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:grassland",
+          "regions_unexplored:prairie",
+          "regions_unexplored:redwoods",
+          "regions_unexplored:sparse_redwoods",
+          "regions_unexplored:boreal_taiga"
+        ]
+      },
+      "presets": [
+        "natural"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-pineco",
+      "pokemon": "pineco",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-22",
       "weight": 1.2,
       "condition": {
         "biomes": [
-          "#cobblemon:is_overworld",
+          "regions_unexplored:grassland",
+          "regions_unexplored:prairie",
           "regions_unexplored:redwoods",
-          "regions_unexplored:boreal_taiga",
-          "regions_unexplored:pine_taiga"
+          "regions_unexplored:sparse_redwoods",
+          "regions_unexplored:boreal_taiga"
         ]
-      }
+      },
+      "presets": [
+        "natural"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-bouffalant",
+      "pokemon": "bouffalant",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "18-32",
+      "weight": 0.9,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:grassland",
+          "regions_unexplored:prairie",
+          "regions_unexplored:redwoods",
+          "regions_unexplored:sparse_redwoods",
+          "regions_unexplored:boreal_taiga"
+        ]
+      },
+      "presets": [
+        "natural"
+      ]
     },
     {
       "id": "ancient_extensions-autumn-patrat",
       "pokemon": "patrat",
-      "presets": ["natural"],
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "6-18",
+      "weight": 1.4,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:silver_birch_forest",
+          "regions_unexplored:ashen_woodland",
+          "regions_unexplored:towering_cliffs",
+          "regions_unexplored:mauve_hills",
+          "regions_unexplored:redstone_caves"
+        ]
+      },
+      "presets": [
+        "natural"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-pumpkaboo",
+      "pokemon": "pumpkaboo",
       "type": "pokemon",
       "spawnablePositionType": "grounded",
       "bucket": "uncommon",
-      "level": "6-20",
+      "level": "12-26",
+      "weight": 1.2,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:silver_birch_forest",
+          "regions_unexplored:ashen_woodland",
+          "regions_unexplored:towering_cliffs",
+          "regions_unexplored:mauve_hills",
+          "regions_unexplored:redstone_caves"
+        ]
+      },
+      "presets": [
+        "natural"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-foongus",
+      "pokemon": "foongus",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "10-22",
       "weight": 1.0,
       "condition": {
         "biomes": [
-          "#cobblemon:is_overworld",
-          "regions_unexplored:prairie",
-          "regions_unexplored:barley_fields",
-          "regions_unexplored:grassland"
+          "regions_unexplored:silver_birch_forest",
+          "regions_unexplored:ashen_woodland",
+          "regions_unexplored:towering_cliffs",
+          "regions_unexplored:mauve_hills",
+          "regions_unexplored:redstone_caves"
         ]
-      }
+      },
+      "presets": [
+        "natural"
+      ]
     }
   ]
 }

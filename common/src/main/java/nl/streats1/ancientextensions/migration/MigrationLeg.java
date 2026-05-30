@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 /**
  * One stop on a seasonal migration route.
  * Listed Regions Unexplored biomes count, and any vanilla ({@code minecraft:}) biome counts too
- * (including when using Regions Unexplored: Expansion).
+ * (including when using {@link RegionsUnexploredExpansion}).
  */
 public record MigrationLeg(
         List<ResourceLocation> biomeIds,
@@ -24,12 +24,20 @@ public record MigrationLeg(
         if ("minecraft".equals(biomeId.getNamespace())) {
             return true;
         }
-        return biomeIds.contains(biomeId);
+        if (RegionsUnexploredBiomes.isRegionsUnexplored(biomeId)) {
+            return biomeIds.contains(biomeId);
+        }
+        return false;
     }
 
-    /** Human-readable biome list for journals and chat. */
+    /** Human-readable biome list for chat and commands. */
     public String biomeLabel() {
         return regionsUnexploredLabel();
+    }
+
+    /** Short journal line — catch target and biome count without listing every biome. */
+    public String journalLegSummary() {
+        return requiredCatches() + " migratory catches · " + biomeIds().size() + " route biomes";
     }
 
     public Component biomeLabelComponent() {

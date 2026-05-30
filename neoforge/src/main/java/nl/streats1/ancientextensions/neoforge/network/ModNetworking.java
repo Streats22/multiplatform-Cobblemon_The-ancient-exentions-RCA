@@ -2,7 +2,9 @@ package nl.streats1.ancientextensions.neoforge.network;
 
 import nl.streats1.ancientextensions.AncientExtensionsContext;
 import nl.streats1.ancientextensions.menu.PassportMenuOpener;
+import nl.streats1.ancientextensions.network.ClaimTierRewardPayload;
 import nl.streats1.ancientextensions.network.SelectSurveyRegionPayload;
+import nl.streats1.ancientextensions.network.TierRewardNetworking;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -19,6 +21,11 @@ public final class ModNetworking {
                 SelectSurveyRegionPayload.STREAM_CODEC,
                 ModNetworking::handleSelectSurveyRegion
         );
+        registrar.playToServer(
+                ClaimTierRewardPayload.TYPE,
+                ClaimTierRewardPayload.STREAM_CODEC,
+                ModNetworking::handleClaimTierReward
+        );
     }
 
     public static void openPassport(ServerPlayer player) {
@@ -34,5 +41,12 @@ public final class ModNetworking {
                 PassportMenuOpener.open(serverPlayer);
             }
         });
+    }
+
+    private static void handleClaimTierReward(ClaimTierRewardPayload payload, IPayloadContext context) {
+        if (!(context.player() instanceof ServerPlayer serverPlayer)) {
+            return;
+        }
+        context.enqueueWork(() -> TierRewardNetworking.handleClaim(serverPlayer, payload));
     }
 }

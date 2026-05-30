@@ -66,6 +66,19 @@ public enum SurveyRegion {
         return Component.translatable("ancient_extensions.region." + id + ".blurb");
     }
 
+    /** Hover text for the origin picker — full region name, code, and blurb. */
+    public Component passportPickerTooltip() {
+        return Component.empty()
+                .append(labeledName())
+                .append("\n")
+                .append(passportBlurb().copy().withStyle(ChatFormatting.GRAY));
+    }
+
+    /** Short label that fits on a region button. */
+    public String pickerButtonLabel() {
+        return displayName().getString();
+    }
+
     public static Optional<SurveyRegion> fromId(String id) {
         if (id == null || id.isBlank()) {
             return Optional.empty();

@@ -8,7 +8,8 @@ import java.util.Set;
 
 /**
  * Species that count toward migration legs when caught in the correct route biome.
- * Tune per pack; must align with migratory spawn pool datapacks.
+ * Tune per pack; must align with migratory spawn pool datapacks
+ * ({@code scripts/generate_migration_spawns.py}).
  */
 public final class MigrationSpecies {
 
@@ -20,28 +21,45 @@ public final class MigrationSpecies {
                 id("cobblemon:skiploom"),
                 id("cobblemon:burmy"),
                 id("cobblemon:combee"),
-                id("cobblemon:budew")
+                id("cobblemon:budew"),
+                id("cobblemon:oddish"),
+                id("cobblemon:scatterbug"),
+                id("cobblemon:flabebe"),
+                id("cobblemon:wooper")
         ));
         BY_SEASON.put(MigrationSeason.SUMMER, Set.of(
                 id("cobblemon:wingull"),
                 id("cobblemon:pelipper"),
                 id("cobblemon:magikarp"),
                 id("cobblemon:remoraid"),
-                id("cobblemon:corphish")
+                id("cobblemon:corphish"),
+                id("cobblemon:lotad"),
+                id("cobblemon:surskit"),
+                id("cobblemon:krabby"),
+                id("cobblemon:mudkip"),
+                id("cobblemon:arrokuda")
         ));
         BY_SEASON.put(MigrationSeason.AUTUMN, Set.of(
                 id("cobblemon:seedot"),
                 id("cobblemon:nuzleaf"),
                 id("cobblemon:shroomish"),
                 id("cobblemon:patrat"),
-                id("cobblemon:pumpkaboo")
+                id("cobblemon:pumpkaboo"),
+                id("cobblemon:deerling"),
+                id("cobblemon:pineco"),
+                id("cobblemon:bouffalant"),
+                id("cobblemon:foongus")
         ));
         BY_SEASON.put(MigrationSeason.WINTER, Set.of(
                 id("cobblemon:snover"),
                 id("cobblemon:snom"),
                 id("cobblemon:cubchoo"),
                 id("cobblemon:swinub"),
-                id("cobblemon:spheal")
+                id("cobblemon:spheal"),
+                id("cobblemon:delibird"),
+                id("cobblemon:bergmite"),
+                id("cobblemon:snorunt"),
+                id("cobblemon:cetoddle")
         ));
     }
 

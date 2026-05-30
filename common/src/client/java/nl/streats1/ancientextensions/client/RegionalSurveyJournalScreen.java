@@ -21,18 +21,25 @@ public class RegionalSurveyJournalScreen extends AbstractContainerScreen<Regiona
     );
     private static final int TEX_SIZE = 256;
 
-    private static final int CONTENT_X = 18;
-    private static final int CONTENT_Y = 32;
-    private static final int CONTENT_W = 184;
-    private static final int CONTENT_TOP = 30;
-    private static final int CONTENT_BOTTOM = 188;
+    private static final int CONTENT_X = 20;
+    private static final int CONTENT_Y = 36;
+    private static final int CONTENT_W = 216;
+    private static final int CONTENT_TOP = 32;
+    private static final int CONTENT_BOTTOM = 210;
     private static final int LINE_HEIGHT = 10;
-    private static final int LINES_PER_PAGE = 14;
+    private static final int LINES_PER_PAGE = 17;
+
+    private static final int FOOTER_TOP = 224;
+    private static final int FOOTER_H = 26;
 
     private static final int COLOR_HEADER = 0xFFF0E2CC;
     private static final int COLOR_HEADER_SHADOW = 0xFF1A1008;
-    private static final int COLOR_BODY = 0xFF2A1810;
-    private static final int COLOR_PAGE = 0xFF5C4030;
+    private static final int COLOR_BODY = 0xFF1A1208;
+    private static final int COLOR_BODY_SHADOW = 0xFFEBE0D0;
+    private static final int COLOR_PAGE = 0xFF2A1810;
+    private static final int COLOR_PAGE_SHADOW = 0xFFF5E8D8;
+    private static final int COLOR_PANEL = 0xD8F0E2CC;
+    private static final int COLOR_FOOTER = 0xE8DCC8A8;
 
     private final List<List<FormattedCharSequence>> pages = new ArrayList<>();
     private int pageIndex;
@@ -86,14 +93,26 @@ public class RegionalSurveyJournalScreen extends AbstractContainerScreen<Regiona
     }
 
     private void addPageButtons() {
-        int buttonY = this.topPos + this.imageHeight - 24;
+        int footerCenterY = this.topPos + FOOTER_TOP + FOOTER_H / 2 - 8;
         int centerX = this.leftPos + this.imageWidth / 2;
-        addRenderableWidget(Button.builder(Component.literal("<"), button -> changePage(-1))
-                .bounds(centerX - 58, buttonY, 20, 16)
+
+        addRenderableWidget(Button.builder(Component.literal("◀"), button -> changePage(-1))
+                .bounds(centerX - 92, footerCenterY, 24, 18)
                 .build());
-        addRenderableWidget(Button.builder(Component.literal(">"), button -> changePage(1))
-                .bounds(centerX + 38, buttonY, 20, 16)
+        addRenderableWidget(Button.builder(Component.literal("▶"), button -> changePage(1))
+                .bounds(centerX + 68, footerCenterY, 24, 18)
                 .build());
+
+        if (this.menu.getUnclaimedRewardCount() > 0) {
+            addRenderableWidget(Button.builder(
+                            Component.translatable(
+                                    "ancient_extensions.journal.claim_rewards",
+                                    this.menu.getUnclaimedRewardCount()
+                            ),
+                            button -> AncientExtensionsClientHooks.sendClaimTierRewards())
+                    .bounds(this.leftPos + CONTENT_X, this.topPos + CONTENT_BOTTOM - 22, CONTENT_W, 18)
+                    .build());
+        }
     }
 
     private void changePage(int delta) {
@@ -111,29 +130,34 @@ public class RegionalSurveyJournalScreen extends AbstractContainerScreen<Regiona
 
     @Override
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
-        Component header = Component.translatable("ancient_extensions.journal.header");
         int cx = this.imageWidth / 2;
-        graphics.drawCenteredString(this.font, header, cx + 1, 18, COLOR_HEADER_SHADOW);
-        graphics.drawCenteredString(this.font, header, cx, 17, COLOR_HEADER);
 
-        // Flat backdrop so ruled lines do not compete with body text
-        graphics.fill(CONTENT_X - 2, CONTENT_TOP, CONTENT_X + CONTENT_W + 2, CONTENT_BOTTOM, 0xC8F0E2CC);
+        Component header = Component.translatable("ancient_extensions.journal.header");
+        graphics.drawCenteredString(this.font, header, cx + 1, 20, COLOR_HEADER_SHADOW);
+        graphics.drawCenteredString(this.font, header, cx, 19, COLOR_HEADER);
+
+        graphics.fill(CONTENT_X - 2, CONTENT_TOP, CONTENT_X + CONTENT_W + 2, CONTENT_BOTTOM, COLOR_PANEL);
 
         List<FormattedCharSequence> page = pages.get(pageIndex);
         int y = CONTENT_Y;
         for (FormattedCharSequence line : page) {
+            graphics.drawString(this.font, line, CONTENT_X + 1, y + 1, COLOR_BODY_SHADOW, false);
             graphics.drawString(this.font, line, CONTENT_X, y, COLOR_BODY, false);
             y += LINE_HEIGHT;
         }
 
-        if (pages.size() > 1) {
-            Component pageLabel = Component.translatable(
-                    "ancient_extensions.journal.page",
-                    pageIndex + 1,
-                    pages.size()
-            );
-            graphics.drawCenteredString(this.font, pageLabel, cx, this.imageHeight - 20, COLOR_PAGE);
-        }
+        drawFooter(graphics, cx);
+    }
+
+    private void drawFooter(GuiGraphics graphics, int cx) {
+        graphics.fill(14, FOOTER_TOP, this.imageWidth - 14, FOOTER_TOP + FOOTER_H, COLOR_FOOTER);
+
+        Component pageLabel = pages.size() > 1
+                ? Component.translatable("ancient_extensions.journal.page", pageIndex + 1, pages.size())
+                : Component.translatable("ancient_extensions.journal.page_single");
+        int labelY = FOOTER_TOP + 8;
+        graphics.drawCenteredString(this.font, pageLabel, cx + 1, labelY + 1, COLOR_PAGE_SHADOW);
+        graphics.drawCenteredString(this.font, pageLabel, cx, labelY, COLOR_PAGE);
     }
 
     @Override

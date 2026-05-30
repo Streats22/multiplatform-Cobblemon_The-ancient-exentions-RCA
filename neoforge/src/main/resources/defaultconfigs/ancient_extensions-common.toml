@@ -2,7 +2,7 @@
 [camp]
 	#When true, all Field Kit starter items go in the camp chest instead of the player's inventory.
 	starterSuppliesInChestOnly = true
-	#When true, the camp bedroll is a real bed that lets the player set their respawn point at camp.
+	#When true, the camp bedroll is a real bed that lets the player set their respawn point at camp (ignored when Comforts is installed).
 	campBedSetsSpawn = true
 	#When true and Lootr is installed, the camp chest becomes a per-player Lootr chest so every player gets their own starter supplies.
 	useLootrCampChest = false

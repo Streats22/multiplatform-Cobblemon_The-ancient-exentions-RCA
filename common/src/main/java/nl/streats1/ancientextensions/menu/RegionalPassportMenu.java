@@ -19,7 +19,7 @@ import java.util.Optional;
 public class RegionalPassportMenu extends AbstractContainerMenu {
 
     public static final int WIDTH = 220;
-    public static final int HEIGHT = 200;
+    public static final int HEIGHT = 236;
 
     private final boolean stamped;
     private final String regionId;

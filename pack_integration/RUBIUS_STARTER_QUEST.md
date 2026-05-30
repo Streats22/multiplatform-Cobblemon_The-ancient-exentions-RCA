@@ -40,7 +40,7 @@ Full dependency matrix (Cobblemon, Regions Unexplored, loader versions, MDK link
 ## What the kit does (for quest text)
 
 - Places a **comfort survey camp** — lit campfire, small wool tent, ground bedroll, lectern with briefing, chest with backup supplies
-- Gives **balls, medicine, berries**, and **Regional Survey Briefing** directly to your inventory
+- Gives **15 randomized Poké Balls** (apricorn, ancient, etc.), **6 potions**, and **2 revives** — plus **Regional Survey Briefing** on the camp lectern
 - **One deploy per player** per world (tracked separately from the login grant)
 
 ## Testing

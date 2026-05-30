@@ -65,7 +65,7 @@ public final class FabricCampConfig {
         camp.addProperty("starterSuppliesInChestOnly", DEFAULT_CHEST_ONLY);
         camp.addProperty(
                 "_comment_campBedSetsSpawn",
-                "When true, the camp bedroll is a real bed that lets the player set their respawn point at camp."
+                "When true, the camp bedroll is a real bed that lets the player set their respawn point at camp (ignored when Comforts is installed)."
         );
         camp.addProperty("campBedSetsSpawn", DEFAULT_BED_SPAWN);
         camp.addProperty(

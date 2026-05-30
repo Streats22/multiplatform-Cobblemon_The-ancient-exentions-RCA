@@ -1,6 +1,7 @@
 package nl.streats1.ancientextensions;
 
 import nl.streats1.ancientextensions.config.PassportConfig;
+import nl.streats1.ancientextensions.dex.TierRewardService;
 import nl.streats1.ancientextensions.dex.RegionalSurveyService;
 import nl.streats1.ancientextensions.dex.SurveyBackend;
 import nl.streats1.ancientextensions.dex.SurveyOriginService;
@@ -33,6 +34,7 @@ public final class AncientExtensionsContext {
 
     private final RegionalSurveyService surveyService;
     private final SurveyOriginService originService;
+    private final TierRewardService tierRewardService;
     private final MigrationService migrationService;
     private OriginEffectsListener originEffects = (player, region, town, announce) -> { };
     private PassportScreenOpener passportOpener = player -> { };
@@ -43,6 +45,7 @@ public final class AncientExtensionsContext {
         this.migrationService = new MigrationService(surveyService);
         this.surveyService.bindMigration(migrationService);
         this.originService = new SurveyOriginService(surveyService, this::applyOriginEffects);
+        this.tierRewardService = new TierRewardService(surveyService);
     }
 
     public void setOriginEffects(OriginEffectsListener listener) {
@@ -85,6 +88,10 @@ public final class AncientExtensionsContext {
 
     public SurveyOriginService origins() {
         return originService;
+    }
+
+    public TierRewardService tierRewards() {
+        return tierRewardService;
     }
 
     public MigrationService migration() {

@@ -16,9 +16,6 @@ public final class PokeballPouchConstants {
     }
 
     public static int menuHeight(int slotCount) {
-        int rows = rowsForSlots(slotCount);
-        int pouchTop = 30;
-        int playerInvTop = pouchTop + rows * 18 + 12;
-        return playerInvTop + 58;
+        return PokeballPouchLayout.metrics(slotCount).imageHeight();
     }
 }

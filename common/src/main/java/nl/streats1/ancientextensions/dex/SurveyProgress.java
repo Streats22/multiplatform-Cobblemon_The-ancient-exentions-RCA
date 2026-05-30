@@ -16,6 +16,7 @@ import java.util.Set;
 public final class SurveyProgress {
 
     private final Set<ResourceLocation> caughtSpecies = new HashSet<>();
+    private final Set<String> claimedTierRewards = new HashSet<>();
     private int researchPoints;
     private String surveyOrigin = "";
     private String surveyOriginTown = "";
@@ -35,6 +36,13 @@ public final class SurveyProgress {
         if (tag.contains("originSetupMode")) {
             originSetupMode = tag.getBoolean("originSetupMode");
         }
+        if (tag.contains("claimedTierRewards")) {
+            claimedTierRewards.clear();
+            ListTag claimed = tag.getList("claimedTierRewards", Tag.TAG_STRING);
+            for (Tag entry : claimed) {
+                claimedTierRewards.add(entry.getAsString());
+            }
+        }
         ListTag species = tag.getList("caughtSpecies", Tag.TAG_STRING);
         caughtSpecies.clear();
         for (Tag entry : species) {
@@ -52,6 +60,13 @@ public final class SurveyProgress {
         }
         if (tag.contains("originSetupMode")) {
             originSetupMode = tag.getBoolean("originSetupMode");
+        }
+        if (tag.contains("claimedTierRewards")) {
+            claimedTierRewards.clear();
+            ListTag claimed = tag.getList("claimedTierRewards", Tag.TAG_STRING);
+            for (Tag entry : claimed) {
+                claimedTierRewards.add(entry.getAsString());
+            }
         }
         ListTag species = tag.getList("caughtSpecies", Tag.TAG_STRING);
         caughtSpecies.clear();
@@ -71,6 +86,13 @@ public final class SurveyProgress {
         }
         if (originSetupMode) {
             tag.putBoolean("originSetupMode", true);
+        }
+        if (!claimedTierRewards.isEmpty()) {
+            ListTag claimed = new ListTag();
+            for (String tierId : claimedTierRewards) {
+                claimed.add(StringTag.valueOf(tierId));
+            }
+            tag.put("claimedTierRewards", claimed);
         }
         ListTag species = new ListTag();
         for (ResourceLocation id : caughtSpecies) {
@@ -130,5 +152,13 @@ public final class SurveyProgress {
 
     public void setOriginSetupMode(boolean originSetupMode) {
         this.originSetupMode = originSetupMode;
+    }
+
+    public boolean hasClaimedTierReward(ResearchTier tier) {
+        return claimedTierRewards.contains(tier.name());
+    }
+
+    public void markTierRewardClaimed(ResearchTier tier) {
+        claimedTierRewards.add(tier.name());
     }
 }

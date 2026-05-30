@@ -78,19 +78,46 @@ public final class SurveyJournalReport {
 
     private static List<Component> buildContentLines(RegionalSurveyData data, MigrationSeason season) {
         List<Component> lines = new ArrayList<>();
+        ResearchTier tier = data.getTier();
+        TierRewardService rewards = AncientExtensionsContext.get().tierRewards();
+
+        lines.add(Component.translatable("ancient_extensions.journal.section_record")
+                .withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD));
         lines.add(Component.translatable(
                 "ancient_extensions.journal.stats",
                 data.getCaughtSpeciesCount(),
                 data.getResearchPoints(),
-                data.getTier().displayName()
+                tier.displayName()
         ).withStyle(ChatFormatting.DARK_GRAY));
+        ResearchTier nextTier = tier.nextTier();
+        if (nextTier != null) {
+            lines.add(Component.translatable(
+                    "ancient_extensions.journal.next_rank",
+                    nextTier.displayName(),
+                    tier.pointsToNext(data.getResearchPoints()),
+                    nextTier.minPoints()
+            ).withStyle(ChatFormatting.DARK_GRAY));
+        } else {
+            lines.add(Component.translatable("ancient_extensions.journal.max_rank")
+                    .withStyle(ChatFormatting.DARK_GRAY));
+        }
+        int unclaimed = rewards.unclaimedCount(data);
+        if (unclaimed > 0) {
+            lines.add(Component.translatable("ancient_extensions.journal.unclaimed_rewards", unclaimed)
+                    .withStyle(ChatFormatting.DARK_GREEN));
+        }
+        lines.add(Component.translatable(
+                data.hasDeployedProfessorsKit()
+                        ? "ancient_extensions.journal.camp_deployed"
+                        : "ancient_extensions.journal.camp_pending"
+        ).withStyle(ChatFormatting.DARK_GRAY));
+
         data.getSurveyOrigin().ifPresentOrElse(
                 region -> {
-                    Component originLine = region.labeledName();
                     lines.add(Component.translatable("ancient_extensions.journal.origin")
                             .withStyle(ChatFormatting.DARK_GRAY)
                             .append(" ")
-                            .append(originLine));
+                            .append(region.labeledName()));
                     data.getSurveyOriginTown().ifPresent(town -> lines.add(
                             Component.translatable("ancient_extensions.journal.hometown")
                                     .withStyle(ChatFormatting.DARK_GRAY)
@@ -110,6 +137,9 @@ public final class SurveyJournalReport {
         }
 
         lines.add(Component.empty());
+        appendRewardLines(lines, data, rewards);
+
+        lines.add(Component.empty());
         lines.add(Component.translatable("ancient_extensions.journal.section_migration")
                 .withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD));
         lines.add(Component.translatable(
@@ -122,16 +152,29 @@ public final class SurveyJournalReport {
         ).withStyle(ChatFormatting.DARK_GRAY));
 
         var route = MigrationRoutes.routeFor(season);
+        int legIndex = data.getMigrationLegIndex();
+        int legCatches = data.getCurrentLegCatches();
+        if (legIndex < route.size()) {
+            MigrationLeg current = route.get(legIndex);
+            lines.add(Component.translatable(
+                    "ancient_extensions.journal.migration_current_leg",
+                    legIndex + 1,
+                    route.size(),
+                    legCatches,
+                    current.requiredCatches(),
+                    current.journalLegSummary()
+            ).withStyle(ChatFormatting.DARK_GREEN));
+        }
+
         for (int i = 0; i < route.size(); i++) {
             MigrationLeg leg = route.get(i);
-            ChatFormatting style = i < data.getMigrationLegIndex()
+            ChatFormatting style = i < legIndex
                     ? ChatFormatting.DARK_GRAY
-                    : (i == data.getMigrationLegIndex() ? ChatFormatting.DARK_GREEN : ChatFormatting.DARK_GRAY);
-            String marker = i < data.getMigrationLegIndex() ? "[x]" : (i == data.getMigrationLegIndex() ? "[>]" : "[ ]");
-            MutableComponent line = Component.literal(marker + " ")
-                    .append(leg.biomeLabelComponent())
-                    .append(Component.literal(" (" + leg.requiredCatches() + " catches)"));
-            if (i < data.getMigrationLegIndex()) {
+                    : (i == legIndex ? ChatFormatting.DARK_GREEN : ChatFormatting.DARK_GRAY);
+            String marker = i < legIndex ? "[x]" : (i == legIndex ? "[>]" : "[ ]");
+            MutableComponent line = Component.literal(marker + " Leg " + (i + 1) + ": ")
+                    .append(Component.literal(leg.journalLegSummary()));
+            if (i < legIndex) {
                 line.withStyle(ChatFormatting.STRIKETHROUGH, ChatFormatting.DARK_GRAY);
             } else {
                 line.withStyle(style);
@@ -140,6 +183,61 @@ public final class SurveyJournalReport {
         }
 
         return lines;
+    }
+
+    private static void appendRewardLines(
+            List<Component> lines,
+            RegionalSurveyData data,
+            TierRewardService rewards
+    ) {
+        lines.add(Component.translatable("ancient_extensions.journal.section_rewards")
+                .withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD));
+
+        int unclaimed = rewards.unclaimedCount(data);
+        int claimed = 0;
+        for (ResearchTier tier : ResearchTier.values()) {
+            if (data.hasClaimedTierReward(tier)) {
+                claimed++;
+            }
+        }
+        lines.add(Component.translatable(
+                "ancient_extensions.journal.rewards_summary",
+                unclaimed,
+                claimed,
+                ResearchTier.values().length
+        ).withStyle(ChatFormatting.DARK_GRAY));
+
+        for (ResearchTier tier : ResearchTier.values()) {
+            boolean reached = data.getTier().ordinal() >= tier.ordinal();
+            boolean tierClaimed = data.hasClaimedTierReward(tier);
+            if (tierClaimed) {
+                continue;
+            }
+            if (reached) {
+                lines.add(Component.translatable("ancient_extensions.journal.reward_ready", tier.displayName())
+                        .withStyle(ChatFormatting.DARK_GREEN));
+            }
+        }
+
+        ResearchTier nextLocked = null;
+        for (ResearchTier tier : ResearchTier.values()) {
+            if (data.getTier().ordinal() < tier.ordinal() && !data.hasClaimedTierReward(tier)) {
+                nextLocked = tier;
+                break;
+            }
+        }
+        if (nextLocked != null) {
+            lines.add(Component.translatable(
+                    "ancient_extensions.journal.reward_next_locked",
+                    nextLocked.displayName(),
+                    nextLocked.minPoints()
+            ).withStyle(ChatFormatting.DARK_GRAY));
+        }
+
+        if (unclaimed > 0) {
+            lines.add(Component.translatable("ancient_extensions.journal.reward_claim_hint")
+                    .withStyle(ChatFormatting.DARK_AQUA));
+        }
     }
 
     private static Component journalGoalLine(SurveyGoal goal) {
