@@ -1,4 +1,4 @@
-"""Generate Poké Ball Pouch container GUI texture (item icon is a hand-authored PNG)."""
+"""Generate Poké Ball Pouch container GUI texture only (models use Cobblemon + vanilla textures)."""
 from __future__ import annotations
 
 from pathlib import Path

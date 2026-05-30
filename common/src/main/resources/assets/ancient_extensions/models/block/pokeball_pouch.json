@@ -1,9 +1,9 @@
 {
   "texture_size": [64, 32],
   "textures": {
-    "leather": "ancient_extensions:block/pokeball_pouch_leather",
-    "ball": "ancient_extensions:block/pokeball_pouch_ball",
-    "string": "ancient_extensions:block/pokeball_pouch_string"
+    "leather": "minecraft:block/brown_wool",
+    "ball": "cobblemon:item/poke_balls/models/poke_ball",
+    "string": "minecraft:item/string"
   },
   "elements": [
     {
