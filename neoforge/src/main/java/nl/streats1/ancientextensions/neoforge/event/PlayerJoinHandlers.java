@@ -1,7 +1,7 @@
 package nl.streats1.ancientextensions.neoforge.event;
 
 import nl.streats1.ancientextensions.kit.StarterKitGrant;
-import nl.streats1.ancientextensions.neoforge.display.RegionPlayerDisplay;
+import nl.streats1.ancientextensions.display.RegionPlayerDisplay;
 import nl.streats1.ancientextensions.neoforge.network.ModNetworking;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.SubscribeEvent;

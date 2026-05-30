@@ -1,5 +1,6 @@
 package nl.streats1.ancientextensions.dex;
 
+import nl.streats1.ancientextensions.AncientExtensionsContext;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
@@ -7,6 +8,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.Filterable;
 import net.minecraft.sounds.SoundEvents;
+import nl.streats1.ancientextensions.util.BookGuiHelper;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -26,7 +28,7 @@ public final class RegionPassportReport {
     }
 
     public static void openForPlayer(ServerPlayer player, InteractionHand hand) {
-        RegionalSurveyData data = RegionalSurveyService.get(player);
+        RegionalSurveyData data = AncientExtensionsContext.get().surveys().get(player);
         SurveyRegion region = data.getSurveyOrigin().orElse(null);
         if (region == null) {
             player.sendSystemMessage(Component.translatable("ancient_extensions.passport.not_registered"));
@@ -34,7 +36,7 @@ public final class RegionPassportReport {
         }
 
         ItemStack book = createWrittenBook(region, data);
-        player.openItemGui(book, hand);
+        BookGuiHelper.open(player, hand, book);
         player.playSound(SoundEvents.BOOK_PAGE_TURN, 1.0f, 1.0f);
     }
 

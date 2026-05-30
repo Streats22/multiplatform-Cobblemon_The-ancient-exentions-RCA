@@ -13,13 +13,16 @@ import java.util.List;
 
 public final class MigrationService {
 
-    private MigrationService() {
+    private final RegionalSurveyService surveyService;
+
+    public MigrationService(RegionalSurveyService surveyService) {
+        this.surveyService = surveyService;
     }
 
-    public static void onSpeciesCaptured(ServerPlayer player, ResourceLocation speciesId) {
+    public void onSpeciesCaptured(ServerPlayer player, ResourceLocation speciesId) {
         ServerLevel level = player.serverLevel();
         MigrationSeason season = MigrationSeasonClock.currentSeason(level);
-        RegionalSurveyData data = RegionalSurveyService.get(player);
+        RegionalSurveyData data = surveyService.get(player);
         data.syncMigrationSeason(season);
 
         if (!MigrationSpecies.isMigratory(season, speciesId)) {
@@ -47,7 +50,7 @@ public final class MigrationService {
         ));
 
         if (data.getCurrentLegCatches() < leg.requiredCatches()) {
-            RegionalSurveyService.save(player, data);
+            surveyService.save(player, data);
             return;
         }
 
@@ -63,10 +66,10 @@ public final class MigrationService {
             finishRoute(player, data, season);
         }
 
-        RegionalSurveyService.save(player, data);
+        surveyService.save(player, data);
     }
 
-    private static void finishRoute(ServerPlayer player, RegionalSurveyData data, MigrationSeason season) {
+    private void finishRoute(ServerPlayer player, RegionalSurveyData data, MigrationSeason season) {
         int prior = data.getMigrationCompletions(season);
         int reward = MigrationConfig.routeCompletionReward(prior);
         data.recordMigrationCompletion(season, reward);

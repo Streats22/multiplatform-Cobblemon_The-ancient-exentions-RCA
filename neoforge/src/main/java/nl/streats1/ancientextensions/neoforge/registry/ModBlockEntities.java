@@ -1,7 +1,8 @@
 package nl.streats1.ancientextensions.neoforge.registry;
 
 import nl.streats1.ancientextensions.AncientExtensionsConstants;
-import nl.streats1.ancientextensions.neoforge.block.PokeballPouchBlockEntity;
+import nl.streats1.ancientextensions.block.PokeballPouchBlockEntity;
+import nl.streats1.ancientextensions.registry.ModContent;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
@@ -24,5 +25,12 @@ public final class ModBlockEntities {
 
     public static void register(IEventBus modBus) {
         BLOCK_ENTITIES.register(modBus);
+        modBus.addListener(ModBlockEntities::onRegister);
+    }
+
+    private static void onRegister(net.neoforged.neoforge.registries.RegisterEvent event) {
+        if (event.getRegistryKey().equals(Registries.BLOCK_ENTITY_TYPE)) {
+            ModContent.POKEBALL_POUCH_BE = POKEBALL_POUCH.get();
+        }
     }
 }

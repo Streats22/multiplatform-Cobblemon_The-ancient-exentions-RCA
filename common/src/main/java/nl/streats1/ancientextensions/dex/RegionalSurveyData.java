@@ -2,189 +2,118 @@ package nl.streats1.ancientextensions.dex;
 
 import nl.streats1.ancientextensions.migration.MigrationSeason;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.StringTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 
-import java.util.EnumMap;
-import java.util.HashSet;
-import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 /**
- * Per-player Regional Survey progress. Species are tracked on {@linkplain com.cobblemon.mod.common.api.events.pokemon.PokemonCapturedEvent capture} only.
+ * Per-player Regional Survey aggregate. Composes {@link SurveyProgress}, {@link KitProgress},
+ * and {@link MigrationProgress} for a single platform attachment / save root.
  */
 public class RegionalSurveyData {
 
-    private static final String NBT_ROOT = "AncientExtensionsRegionalSurvey";
-
-    private final Set<ResourceLocation> caughtSpecies = new HashSet<>();
-    private int researchPoints;
-    /** True after the player used the kit item to pitch camp (one-time). */
-    private boolean professorsKitDeployed;
-    /** True after the starter kit item was granted on first join to this world. */
-    private boolean starterKitGranted;
-    /** Empty until the player registers their survey origin via the passport. */
-    private String surveyOrigin = "";
-
-    private String trackedMigrationSeason = MigrationSeason.SPRING.name();
-    private int migrationLegIndex;
-    private int currentLegCatches;
-    private final Map<MigrationSeason, Integer> migrationCompletions = new EnumMap<>(MigrationSeason.class);
+    private final SurveyProgress survey = new SurveyProgress();
+    private final KitProgress kit = new KitProgress();
+    private final MigrationProgress migration = new MigrationProgress();
 
     public static RegionalSurveyData load(CompoundTag tag) {
         RegionalSurveyData data = new RegionalSurveyData();
         if (tag == null || tag.isEmpty()) {
             return data;
         }
-        data.researchPoints = tag.getInt("researchPoints");
-        data.professorsKitDeployed = tag.getBoolean("professorsKitDeployed");
-        if (!tag.contains("professorsKitDeployed") && tag.getBoolean("receivedProfessorsKit")) {
-            data.professorsKitDeployed = true;
-        }
-        data.starterKitGranted = tag.getBoolean("starterKitGranted");
-        if (tag.contains("surveyOrigin")) {
-            data.surveyOrigin = tag.getString("surveyOrigin");
-        }
-        data.trackedMigrationSeason = tag.getString("trackedMigrationSeason");
-        data.migrationLegIndex = tag.getInt("migrationLegIndex");
-        data.currentLegCatches = tag.getInt("currentLegCatches");
-
-        ListTag species = tag.getList("caughtSpecies", Tag.TAG_STRING);
-        for (Tag entry : species) {
-            data.caughtSpecies.add(ResourceLocation.parse(entry.getAsString()));
-        }
-
-        CompoundTag completions = tag.getCompound("migrationCompletions");
-        for (MigrationSeason season : MigrationSeason.values()) {
-            if (completions.contains(season.name())) {
-                data.migrationCompletions.put(season, completions.getInt(season.name()));
-            }
+        if (tag.contains("survey")) {
+            data.survey.load(tag.getCompound("survey"));
+            data.kit.load(tag.getCompound("kit"));
+            data.migration.load(tag.getCompound("migration"));
+        } else {
+            data.survey.loadLegacy(tag);
+            data.kit.loadLegacy(tag);
+            data.migration.loadLegacy(tag);
         }
         return data;
     }
 
     public CompoundTag save() {
         CompoundTag tag = new CompoundTag();
-        tag.putInt("researchPoints", researchPoints);
-        tag.putBoolean("professorsKitDeployed", professorsKitDeployed);
-        tag.putBoolean("starterKitGranted", starterKitGranted);
-        if (!surveyOrigin.isEmpty()) {
-            tag.putString("surveyOrigin", surveyOrigin);
-        }
-        tag.putString("trackedMigrationSeason", trackedMigrationSeason);
-        tag.putInt("migrationLegIndex", migrationLegIndex);
-        tag.putInt("currentLegCatches", currentLegCatches);
-
-        ListTag species = new ListTag();
-        for (ResourceLocation id : caughtSpecies) {
-            species.add(StringTag.valueOf(id.toString()));
-        }
-        tag.put("caughtSpecies", species);
-
-        CompoundTag completions = new CompoundTag();
-        for (Map.Entry<MigrationSeason, Integer> entry : migrationCompletions.entrySet()) {
-            completions.putInt(entry.getKey().name(), entry.getValue());
-        }
-        tag.put("migrationCompletions", completions);
+        tag.put("survey", survey.save());
+        tag.put("kit", kit.save());
+        tag.put("migration", migration.save());
         return tag;
     }
 
-    /**
-     * Catch-only dex: registers a species the first time it is captured in a battle/capture event.
-     */
     public boolean registerCaughtSpecies(ResourceLocation speciesId, int pointsForNew) {
-        if (!caughtSpecies.add(speciesId)) {
-            return false;
-        }
-        researchPoints += pointsForNew;
-        return true;
+        return survey.registerCaughtSpecies(speciesId, pointsForNew);
     }
 
     public void addResearchPoints(int amount) {
-        researchPoints += amount;
+        survey.addResearchPoints(amount);
     }
 
     public int getResearchPoints() {
-        return researchPoints;
+        return survey.getResearchPoints();
     }
 
     public int getCaughtSpeciesCount() {
-        return caughtSpecies.size();
+        return survey.getCaughtSpeciesCount();
     }
 
     public ResearchTier getTier() {
-        return ResearchTier.fromPoints(researchPoints);
+        return survey.getTier();
     }
 
     public boolean hasDeployedProfessorsKit() {
-        return professorsKitDeployed;
+        return kit.hasDeployedProfessorsKit();
     }
 
     public void markProfessorsKitDeployed() {
-        professorsKitDeployed = true;
+        kit.markProfessorsKitDeployed();
     }
 
     public boolean hasStarterKitGranted() {
-        return starterKitGranted;
+        return kit.hasStarterKitGranted();
     }
 
     public void markStarterKitGranted() {
-        starterKitGranted = true;
+        kit.markStarterKitGranted();
     }
 
     public Optional<SurveyRegion> getSurveyOrigin() {
-        return SurveyRegion.fromId(surveyOrigin);
+        return survey.getSurveyOrigin();
     }
 
     public void setSurveyOrigin(SurveyRegion region) {
-        surveyOrigin = region.getId();
+        survey.setSurveyOrigin(region);
     }
 
     public MigrationSeason getTrackedMigrationSeason() {
-        try {
-            return MigrationSeason.valueOf(trackedMigrationSeason);
-        } catch (IllegalArgumentException ex) {
-            return MigrationSeason.SPRING;
-        }
+        return migration.getTrackedMigrationSeason();
     }
 
     public void syncMigrationSeason(MigrationSeason season) {
-        if (season.name().equals(trackedMigrationSeason)) {
-            return;
-        }
-        trackedMigrationSeason = season.name();
-        migrationLegIndex = 0;
-        currentLegCatches = 0;
+        migration.syncMigrationSeason(season);
     }
 
     public int getMigrationLegIndex() {
-        return migrationLegIndex;
+        return migration.getMigrationLegIndex();
     }
 
     public int getCurrentLegCatches() {
-        return currentLegCatches;
+        return migration.getCurrentLegCatches();
     }
 
     public void recordLegCatch() {
-        currentLegCatches++;
+        migration.recordLegCatch();
     }
 
     public void advanceMigrationLeg() {
-        migrationLegIndex++;
-        currentLegCatches = 0;
+        migration.advanceMigrationLeg();
     }
 
     public int getMigrationCompletions(MigrationSeason season) {
-        return migrationCompletions.getOrDefault(season, 0);
+        return migration.getMigrationCompletions(season);
     }
 
     public void recordMigrationCompletion(MigrationSeason season, int routeRewardRp) {
-        migrationCompletions.merge(season, 1, Integer::sum);
-        migrationLegIndex = 0;
-        currentLegCatches = 0;
-        researchPoints += routeRewardRp;
+        migration.recordMigrationCompletion(season, routeRewardRp, survey);
     }
 }

@@ -14,11 +14,10 @@
       "weight": 1.5,
       "condition": {
         "biomes": [
-          "terralith:snowy_shield",
-          "terralith:frozen_cliffs",
+          "#cobblemon:is_overworld",
           "regions_unexplored:frozen_tundra",
-          "regions_unexplored:icy_heights",
-          "regions_unexplored:cold_boreal_taiga"
+          "regions_unexplored:cold_boreal_taiga",
+          "regions_unexplored:icy_heights"
         ]
       }
     },
@@ -33,11 +32,10 @@
       "weight": 1.2,
       "condition": {
         "biomes": [
-          "minecraft:ice_spikes",
-          "minecraft:snowy_taiga",
-          "regions_unexplored:icy_heights",
+          "#cobblemon:is_overworld",
           "regions_unexplored:frozen_pine_taiga",
-          "regions_unexplored:frozen_tundra"
+          "regions_unexplored:spires",
+          "regions_unexplored:alpine_grove"
         ]
       }
     },
@@ -51,8 +49,7 @@
       "weight": 1.0,
       "condition": {
         "biomes": [
-          "terralith:frozen_cliffs",
-          "minecraft:frozen_ocean",
+          "#cobblemon:is_overworld",
           "regions_unexplored:cold_river",
           "regions_unexplored:chalk_cliffs",
           "regions_unexplored:gravel_beach"

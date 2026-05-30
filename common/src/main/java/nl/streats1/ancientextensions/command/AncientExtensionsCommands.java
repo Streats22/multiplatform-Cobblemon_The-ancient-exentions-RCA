@@ -1,15 +1,14 @@
 package nl.streats1.ancientextensions.command;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import nl.streats1.ancientextensions.dex.RegionalSurveyData;
-import nl.streats1.ancientextensions.dex.RegionalSurveyService;
-import nl.streats1.ancientextensions.dex.SurveyOriginHooks;
-import nl.streats1.ancientextensions.dex.SurveyRegion;
 import nl.streats1.ancientextensions.AncientExtensionsConstants;
+import nl.streats1.ancientextensions.AncientExtensionsContext;
+import nl.streats1.ancientextensions.dex.RegionalSurveyData;
+import nl.streats1.ancientextensions.dex.SurveyRegion;
 import nl.streats1.ancientextensions.kit.ProfessorsKitLogic;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.world.item.ItemStack;
+import nl.streats1.ancientextensions.kit.StarterKitGrant;
 import nl.streats1.ancientextensions.migration.MigrationConfig;
 import nl.streats1.ancientextensions.migration.MigrationRoutes;
 import nl.streats1.ancientextensions.migration.MigrationSeason;
@@ -17,7 +16,6 @@ import nl.streats1.ancientextensions.migration.MigrationSeasonClock;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import com.mojang.brigadier.arguments.StringArgumentType;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -37,6 +35,23 @@ public final class AncientExtensionsCommands {
         LiteralArgumentBuilder<CommandSourceStack> root = literal("ancientextensions")
                 .then(literal("survey").executes(ctx -> showSurvey(ctx.getSource().getPlayerOrException())))
                 .then(literal("migration").executes(ctx -> showMigration(ctx.getSource().getPlayerOrException())))
+                .then(literal("passport").executes(ctx -> openPassport(ctx.getSource().getPlayerOrException())))
+                .then(literal("passport")
+                        .then(Commands.argument("player", EntityArgument.player())
+                                .requires(source -> source.hasPermission(2))
+                                .executes(ctx -> openPassport(EntityArgument.getPlayer(ctx, "player")))))
+                .then(literal("journal").executes(ctx -> openJournal(ctx.getSource().getPlayerOrException())))
+                .then(literal("journal")
+                        .then(Commands.argument("player", EntityArgument.player())
+                                .requires(source -> source.hasPermission(2))
+                                .executes(ctx -> openJournal(EntityArgument.getPlayer(ctx, "player")))))
+                .then(literal("startjoin")
+                        .requires(source -> source.hasPermission(2))
+                        .executes(ctx -> simulateFirstJoin(ctx.getSource().getPlayerOrException())))
+                .then(literal("startjoin")
+                        .then(Commands.argument("player", EntityArgument.player())
+                                .requires(source -> source.hasPermission(2))
+                                .executes(ctx -> simulateFirstJoin(EntityArgument.getPlayer(ctx, "player")))))
                 .then(literal("deploykit").executes(ctx -> deployKit(ctx.getSource().getPlayerOrException())))
                 .then(literal("deploykit")
                         .then(Commands.argument("player", EntityArgument.player())
@@ -48,7 +63,7 @@ public final class AncientExtensionsCommands {
                 .then(literal("givekit")
                         .then(Commands.argument("player", EntityArgument.player())
                                 .requires(source -> source.hasPermission(2))
-                                .executes(ctx -> giveKitItem(EntityArgument.getPlayer(ctx, "player")))))
+                                .executes(ctx -> giveKit(EntityArgument.getPlayer(ctx, "player")))))
                 .then(literal("givejournal")
                         .requires(source -> source.hasPermission(2))
                         .executes(ctx -> giveJournal(ctx.getSource().getPlayerOrException())))
@@ -96,7 +111,7 @@ public final class AncientExtensionsCommands {
     }
 
     private static int showSurvey(ServerPlayer player) {
-        RegionalSurveyData data = RegionalSurveyService.get(player);
+        RegionalSurveyData data = AncientExtensionsContext.get().surveys().get(player);
         player.sendSystemMessage(Component.translatable(
                 "ancient_extensions.command.survey",
                 data.getCaughtSpeciesCount(),
@@ -109,8 +124,7 @@ public final class AncientExtensionsCommands {
     }
 
     private static int showRegion(ServerPlayer player) {
-        RegionalSurveyData data = RegionalSurveyService.get(player);
-        sendRegionLine(player, data);
+        sendRegionLine(player, AncientExtensionsContext.get().surveys().get(player));
         return 1;
     }
 
@@ -122,23 +136,13 @@ public final class AncientExtensionsCommands {
     }
 
     private static int setRegion(ServerPlayer player, String regionId) {
-        SurveyRegion region = SurveyRegion.fromId(regionId).orElse(null);
-        if (region == null) {
-            player.sendSystemMessage(Component.translatable("ancient_extensions.origin.invalid"));
-            return 0;
-        }
-        RegionalSurveyData data = RegionalSurveyService.get(player);
-        data.setSurveyOrigin(region);
-        RegionalSurveyService.save(player, data);
-        SurveyOriginHooks.notifyApplied(player, region, false);
-        player.sendSystemMessage(Component.translatable("ancient_extensions.origin.chosen", region.displayName()));
-        return 1;
+        return AncientExtensionsContext.get().origins().setOriginAdmin(player, regionId) ? 1 : 0;
     }
 
     private static int showMigration(ServerPlayer player) {
         MigrationSeason season = MigrationSeasonClock.currentSeason(player.serverLevel());
         var route = MigrationRoutes.routeFor(season);
-        RegionalSurveyData data = RegionalSurveyService.get(player);
+        RegionalSurveyData data = AncientExtensionsContext.get().surveys().get(player);
         int completions = data.getMigrationCompletions(season);
         int nextReward = MigrationConfig.routeCompletionReward(completions);
 
@@ -164,55 +168,56 @@ public final class AncientExtensionsCommands {
         return ProfessorsKitLogic.tryDeployKit(player) ? 1 : 0;
     }
 
+    private static int openPassport(ServerPlayer player) {
+        AncientExtensionsContext.get().openPassport(player);
+        return 1;
+    }
+
+    private static int openJournal(ServerPlayer player) {
+        AncientExtensionsContext.get().openJournal(player);
+        return 1;
+    }
+
+    /** Re-runs the first-join flow: starter items + passport if origin is not set yet. */
+    private static int simulateFirstJoin(ServerPlayer player) {
+        StarterKitGrant.tryGrantOnFirstJoin(player);
+        var data = AncientExtensionsContext.get().surveys().get(player);
+        if (!AncientExtensionsContext.get().origins().hasOrigin(data)) {
+            AncientExtensionsContext.get().openPassport(player);
+        } else {
+            player.sendSystemMessage(Component.translatable("ancient_extensions.command.startjoin_already_stamped"));
+        }
+        return 1;
+    }
+
     private static int giveKit(ServerPlayer player) {
         return giveKitItem(player);
     }
 
     private static int giveJournal(ServerPlayer player) {
-        var journal = player.registryAccess()
-                .registryOrThrow(Registries.ITEM)
-                .get(AncientExtensionsConstants.id("regional_survey_journal"));
-        if (journal == null) {
-            player.sendSystemMessage(Component.literal("Regional Survey Journal is not registered."));
-            return 0;
-        }
-        ItemStack stack = new ItemStack(journal);
-        if (!player.getInventory().add(stack)) {
-            player.drop(stack, false);
-        }
-        player.sendSystemMessage(Component.translatable("ancient_extensions.journal.given"));
-        return 1;
+        return CommandItemHelper.giveItem(
+                player,
+                AncientExtensionsConstants.id("regional_survey_journal"),
+                Component.translatable("ancient_extensions.journal.given"),
+                Component.literal("Regional Survey Journal is not registered.")
+        );
     }
 
     private static int givePassport(ServerPlayer player) {
-        var passport = player.registryAccess()
-                .registryOrThrow(Registries.ITEM)
-                .get(AncientExtensionsConstants.id("regional_passport"));
-        if (passport == null) {
-            player.sendSystemMessage(Component.literal("Regional Passport is not registered."));
-            return 0;
-        }
-        ItemStack stack = new ItemStack(passport);
-        if (!player.getInventory().add(stack)) {
-            player.drop(stack, false);
-        }
-        player.sendSystemMessage(Component.translatable("ancient_extensions.passport.given"));
-        return 1;
+        return CommandItemHelper.giveItem(
+                player,
+                AncientExtensionsConstants.id("regional_passport"),
+                Component.translatable("ancient_extensions.passport.given"),
+                Component.literal("Regional Passport is not registered.")
+        );
     }
 
     private static int giveKitItem(ServerPlayer player) {
-        var item = player.registryAccess()
-                .registryOrThrow(Registries.ITEM)
-                .get(AncientExtensionsConstants.id("ancient_professors_kit"));
-        if (item == null) {
-            player.sendSystemMessage(Component.literal("Ancient Professor's kit is not registered."));
-            return 0;
-        }
-        ItemStack stack = new ItemStack(item);
-        if (!player.getInventory().add(stack)) {
-            player.drop(stack, false);
-        }
-        player.sendSystemMessage(Component.translatable("ancient_extensions.kit.given"));
-        return 1;
+        return CommandItemHelper.giveItem(
+                player,
+                AncientExtensionsConstants.id("ancient_professors_kit"),
+                Component.translatable("ancient_extensions.kit.given"),
+                Component.literal("Ancient Professor's kit is not registered.")
+        );
     }
 }

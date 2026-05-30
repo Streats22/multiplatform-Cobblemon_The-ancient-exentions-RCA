@@ -1,11 +1,8 @@
 package nl.streats1.ancientextensions.neoforge.network;
 
-import nl.streats1.ancientextensions.dex.RegionalSurveyData;
-import nl.streats1.ancientextensions.dex.RegionalSurveyService;
-import nl.streats1.ancientextensions.dex.SurveyOriginService;
-import nl.streats1.ancientextensions.dex.SurveyRegion;
-import nl.streats1.ancientextensions.dex.SurveyOriginHooks;
-import nl.streats1.ancientextensions.neoforge.passport.PassportMenuOpener;
+import nl.streats1.ancientextensions.AncientExtensionsContext;
+import nl.streats1.ancientextensions.menu.PassportMenuOpener;
+import nl.streats1.ancientextensions.network.SelectSurveyRegionPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -33,21 +30,15 @@ public final class ModNetworking {
             return;
         }
         context.enqueueWork(() -> {
-            if (!SurveyOriginService.trySetOrigin(serverPlayer, payload.regionId())) {
-                return;
+            if (AncientExtensionsContext.get().origins().trySetOrigin(serverPlayer, payload.regionId())) {
+                PassportMenuOpener.open(serverPlayer);
             }
-            SurveyRegion region = SurveyRegion.fromId(payload.regionId()).orElse(null);
-            if (region == null) {
-                return;
-            }
-            SurveyOriginHooks.notifyApplied(serverPlayer, region, true);
-            PassportMenuOpener.open(serverPlayer);
         });
     }
 
     public static void promptOriginIfNeeded(ServerPlayer player) {
-        RegionalSurveyData data = RegionalSurveyService.get(player);
-        if (!SurveyOriginService.hasOrigin(data)) {
+        var data = AncientExtensionsContext.get().surveys().get(player);
+        if (!AncientExtensionsContext.get().origins().hasOrigin(data)) {
             openPassport(player);
         }
     }

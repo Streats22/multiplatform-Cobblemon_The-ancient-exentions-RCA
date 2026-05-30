@@ -4,20 +4,43 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 
 /**
- * Locks in the player's survey origin region (first choice only).
+ * Single entry point for setting a player's survey origin.
  */
 public final class SurveyOriginService {
 
-    private SurveyOriginService() {
+    @FunctionalInterface
+    public interface OriginAppliedCallback {
+        void accept(ServerPlayer player, SurveyRegion region, boolean announce);
     }
 
-    public static boolean hasOrigin(RegionalSurveyData data) {
+    private final RegionalSurveyService surveyService;
+    private final OriginAppliedCallback onApplied;
+
+    public SurveyOriginService(RegionalSurveyService surveyService, OriginAppliedCallback onApplied) {
+        this.surveyService = surveyService;
+        this.onApplied = onApplied;
+    }
+
+    public boolean hasOrigin(RegionalSurveyData data) {
         return data.getSurveyOrigin().isPresent();
     }
 
-    public static boolean trySetOrigin(ServerPlayer player, String regionId) {
-        RegionalSurveyData data = RegionalSurveyService.get(player);
-        if (hasOrigin(data)) {
+    public boolean trySetOrigin(ServerPlayer player, String regionId) {
+        return setOrigin(player, regionId, OriginChangePolicy.FIRST_CHOICE, true);
+    }
+
+    public boolean setOriginAdmin(ServerPlayer player, String regionId) {
+        return setOrigin(player, regionId, OriginChangePolicy.ADMIN_OVERRIDE, false);
+    }
+
+    public boolean setOrigin(
+            ServerPlayer player,
+            String regionId,
+            OriginChangePolicy policy,
+            boolean announce
+    ) {
+        RegionalSurveyData data = surveyService.get(player);
+        if (policy == OriginChangePolicy.FIRST_CHOICE && hasOrigin(data)) {
             player.sendSystemMessage(Component.translatable("ancient_extensions.origin.already_chosen"));
             return false;
         }
@@ -29,12 +52,17 @@ public final class SurveyOriginService {
         }
 
         data.setSurveyOrigin(region);
-        RegionalSurveyService.save(player, data);
+        surveyService.save(player, data);
+
         player.sendSystemMessage(Component.translatable(
                 "ancient_extensions.origin.chosen",
                 region.displayName()
         ));
-        player.sendSystemMessage(Component.translatable("ancient_extensions.origin.chosen_hint"));
+        if (policy == OriginChangePolicy.FIRST_CHOICE) {
+            player.sendSystemMessage(Component.translatable("ancient_extensions.origin.chosen_hint"));
+        }
+
+        onApplied.accept(player, region, announce);
         return true;
     }
 }

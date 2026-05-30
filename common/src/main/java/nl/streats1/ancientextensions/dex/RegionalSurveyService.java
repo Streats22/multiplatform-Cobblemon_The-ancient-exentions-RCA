@@ -14,21 +14,29 @@ public final class RegionalSurveyService {
     public static final int POINTS_PER_NEW_SPECIES = 5;
     public static final int POINTS_FIRST_CATCH_BONUS = 10;
 
-    private RegionalSurveyService() {
+    private final SurveyBackend backend;
+    private MigrationService migrationService;
+
+    public RegionalSurveyService(SurveyBackend backend) {
+        this.backend = backend;
     }
 
-    public static RegionalSurveyData get(ServerPlayer player) {
-        return PlayerSurveyStorage.get(player);
+    public void bindMigration(MigrationService migrationService) {
+        this.migrationService = migrationService;
     }
 
-    public static void save(ServerPlayer player, RegionalSurveyData data) {
-        PlayerSurveyStorage.save(player, data);
+    public RegionalSurveyData get(ServerPlayer player) {
+        return backend.get(player);
+    }
+
+    public void save(ServerPlayer player, RegionalSurveyData data) {
+        backend.save(player, data);
     }
 
     /**
      * Called from {@link com.cobblemon.mod.common.api.events.CobblemonEvents#POKEMON_CAPTURED} only.
      */
-    public static boolean onSpeciesCaptured(ServerPlayer player, ResourceLocation speciesId) {
+    public boolean onSpeciesCaptured(ServerPlayer player, ResourceLocation speciesId) {
         RegionalSurveyData data = get(player);
         int countBefore = data.getCaughtSpeciesCount();
         boolean isNew = data.registerCaughtSpecies(speciesId, POINTS_PER_NEW_SPECIES);
@@ -37,7 +45,7 @@ public final class RegionalSurveyService {
         }
 
         ResearchTier before = data.getTier();
-        MigrationService.onSpeciesCaptured(player, speciesId);
+        migrationService.onSpeciesCaptured(player, speciesId);
         save(player, data);
 
         ResearchTier after = data.getTier();

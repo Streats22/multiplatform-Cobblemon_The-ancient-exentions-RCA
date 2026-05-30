@@ -9,6 +9,7 @@ architectury {
 
 loom {
     silentMojangMappingsLicense()
+    splitEnvironmentSourceSets()
 }
 
 dependencies {

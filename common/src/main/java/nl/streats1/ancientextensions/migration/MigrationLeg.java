@@ -1,11 +1,16 @@
 package nl.streats1.ancientextensions.migration;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 /**
- * One stop on a seasonal migration route. Any listed biome counts (Terralith, Regions Unexplored, or vanilla).
+ * One stop on a seasonal migration route.
+ * Listed Regions Unexplored biomes count, and any vanilla ({@code minecraft:}) biome counts too
+ * (including when using Regions Unexplored: Expansion).
  */
 public record MigrationLeg(
         List<ResourceLocation> biomeIds,
@@ -16,17 +21,46 @@ public record MigrationLeg(
         if (biomeId == null) {
             return false;
         }
+        if ("minecraft".equals(biomeId.getNamespace())) {
+            return true;
+        }
         return biomeIds.contains(biomeId);
     }
 
+    /** Human-readable biome list for journals and chat. */
     public String biomeLabel() {
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < biomeIds.size(); i++) {
+        return regionsUnexploredLabel();
+    }
+
+    public Component biomeLabelComponent() {
+        return Component.translatable(
+                "ancient_extensions.migration.leg_biomes",
+                regionsUnexploredLabel()
+        );
+    }
+
+    private String regionsUnexploredLabel() {
+        return biomeIds.stream()
+                .map(MigrationLeg::prettyBiomeName)
+                .collect(Collectors.joining(" · "));
+    }
+
+    private static String prettyBiomeName(ResourceLocation id) {
+        String path = id.getPath().replace('_', ' ');
+        String[] words = path.split(" ");
+        StringBuilder name = new StringBuilder();
+        for (int i = 0; i < words.length; i++) {
             if (i > 0) {
-                builder.append(" / ");
+                name.append(' ');
             }
-            builder.append(biomeIds.get(i));
+            String word = words[i];
+            if (!word.isEmpty()) {
+                name.append(Character.toUpperCase(word.charAt(0)));
+                if (word.length() > 1) {
+                    name.append(word.substring(1).toLowerCase(Locale.ROOT));
+                }
+            }
         }
-        return builder.toString();
+        return name.toString();
     }
 }

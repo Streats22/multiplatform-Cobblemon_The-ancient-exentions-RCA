@@ -14,8 +14,7 @@
       "weight": 1.5,
       "condition": {
         "biomes": [
-          "terralith:maple_forest",
-          "terralith:cloud_forest",
+          "#cobblemon:is_overworld",
           "regions_unexplored:autumnal_maple_forest",
           "regions_unexplored:maple_forest",
           "regions_unexplored:deciduous_forest"
@@ -33,10 +32,10 @@
       "weight": 1.2,
       "condition": {
         "biomes": [
-          "terralith:cloud_forest",
+          "#cobblemon:is_overworld",
           "regions_unexplored:redwoods",
-          "regions_unexplored:deciduous_forest",
-          "regions_unexplored:boreal_taiga"
+          "regions_unexplored:boreal_taiga",
+          "regions_unexplored:pine_taiga"
         ]
       }
     },
@@ -51,7 +50,7 @@
       "weight": 1.0,
       "condition": {
         "biomes": [
-          "minecraft:sunflower_plains",
+          "#cobblemon:is_overworld",
           "regions_unexplored:prairie",
           "regions_unexplored:barley_fields",
           "regions_unexplored:grassland"

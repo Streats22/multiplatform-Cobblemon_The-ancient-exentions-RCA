@@ -1,7 +1,7 @@
 package nl.streats1.ancientextensions.kit;
 
+import nl.streats1.ancientextensions.AncientExtensionsContext;
 import nl.streats1.ancientextensions.dex.RegionalSurveyData;
-import nl.streats1.ancientextensions.dex.RegionalSurveyService;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -19,8 +19,8 @@ public final class ProfessorsKitLogic {
     }
 
     public static boolean tryDeployKit(ServerPlayer player) {
-        RegionalSurveyData data = RegionalSurveyService.get(player);
-        if (data.hasDeployedProfessorsKit()) {
+        RegionalSurveyData data = AncientExtensionsContext.get().surveys().get(player);
+        if (data.hasDeployedProfessorsKit() && !canRedeployKit(player)) {
             player.sendSystemMessage(Component.translatable("ancient_extensions.kit.already_used"));
             return false;
         }
@@ -40,8 +40,13 @@ public final class ProfessorsKitLogic {
         FieldCampPlacer.placeBriefingOnLectern(level, camp.lecternPos(), briefing);
         giveStacks(player, ProfessorsKitRewards.createPlayerStacks());
 
-        data.markProfessorsKitDeployed();
-        RegionalSurveyService.save(player, data);
+        StarterKitGrant.grantJournalIfMissing(player);
+        StarterKitGrant.grantPassportIfMissing(player);
+
+        if (!canRedeployKit(player)) {
+            data.markProfessorsKitDeployed();
+            AncientExtensionsContext.get().surveys().save(player, data);
+        }
 
         spawnCampParticles(level, camp.campfirePos());
         level.playSound(null, camp.campfirePos(), SoundEvents.CAMPFIRE_CRACKLE, SoundSource.BLOCKS, 1.0f, 1.0f);
@@ -54,6 +59,11 @@ public final class ProfessorsKitLogic {
         player.sendSystemMessage(Component.translatable("ancient_extensions.journal.hint"));
 
         return true;
+    }
+
+    /** Creative and opped players may pitch additional camps for testing. */
+    public static boolean canRedeployKit(ServerPlayer player) {
+        return player.isCreative() || player.hasPermissions(2);
     }
 
     private static void spawnCampParticles(ServerLevel level, BlockPos campfire) {

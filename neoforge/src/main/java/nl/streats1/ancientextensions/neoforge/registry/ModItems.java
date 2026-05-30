@@ -1,15 +1,17 @@
 package nl.streats1.ancientextensions.neoforge.registry;
 
 import nl.streats1.ancientextensions.AncientExtensionsConstants;
-import nl.streats1.ancientextensions.neoforge.item.AncientProfessorsKitItem;
-import nl.streats1.ancientextensions.neoforge.item.PokeballPouchItem;
-import nl.streats1.ancientextensions.neoforge.item.RegionalPassportItem;
-import nl.streats1.ancientextensions.neoforge.item.RegionalSurveyJournalItem;
+import nl.streats1.ancientextensions.item.AncientProfessorsKitItem;
+import nl.streats1.ancientextensions.item.PokeballPouchItem;
+import nl.streats1.ancientextensions.item.RegionalPassportItem;
+import nl.streats1.ancientextensions.item.RegionalSurveyJournalItem;
+import nl.streats1.ancientextensions.registry.ModContent;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.DeferredItem;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public final class ModItems {
 
@@ -44,5 +46,15 @@ public final class ModItems {
 
     public static void register(IEventBus modBus) {
         ITEMS.register(modBus);
+        modBus.addListener(ModItems::onRegister);
+    }
+
+    private static void onRegister(net.neoforged.neoforge.registries.RegisterEvent event) {
+        if (event.getRegistryKey().equals(Registries.ITEM)) {
+            ModContent.ANCIENT_PROFESSORS_KIT = ANCIENT_PROFESSORS_KIT.get();
+            ModContent.REGIONAL_SURVEY_JOURNAL = REGIONAL_SURVEY_JOURNAL.get();
+            ModContent.REGIONAL_PASSPORT = REGIONAL_PASSPORT.get();
+            ModContent.POKEBALL_POUCH = POKEBALL_POUCH.get();
+        }
     }
 }

@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Migration routes for Rubius Cobblemon — each leg accepts Terralith or Regions Unexplored (or vanilla) biomes.
+ * Migration routes — each leg highlights Regions Unexplored biomes and also accepts
+ * every vanilla Overworld biome ({@code minecraft:*}) for catch credit.
  */
 public final class MigrationRoutes {
 
@@ -16,70 +17,70 @@ public final class MigrationRoutes {
     static {
         ROUTES.put(MigrationSeason.SPRING, List.of(
                 leg(2, 15,
-                        "terralith:blooming_valley",
                         "regions_unexplored:flower_fields",
-                        "regions_unexplored:clover_plains"
+                        "regions_unexplored:clover_plains",
+                        "regions_unexplored:temperate_grove"
                 ),
                 leg(2, 15,
-                        "terralith:orchid_swamp",
                         "regions_unexplored:marsh",
-                        "regions_unexplored:bayou"
+                        "regions_unexplored:bayou",
+                        "regions_unexplored:fen"
                 ),
                 leg(2, 20,
-                        "terralith:lavender_forest",
                         "regions_unexplored:magnolia_woodland",
-                        "regions_unexplored:temperate_grove"
+                        "regions_unexplored:orchard",
+                        "regions_unexplored:eucalyptus_forest"
                 )
         ));
         ROUTES.put(MigrationSeason.SUMMER, List.of(
                 leg(2, 15,
-                        "minecraft:warm_ocean",
                         "regions_unexplored:tropical_river",
-                        "regions_unexplored:grassy_beach"
+                        "regions_unexplored:grassy_beach",
+                        "regions_unexplored:rocky_reef"
                 ),
                 leg(2, 15,
-                        "terralith:arid_highlands",
                         "regions_unexplored:outback",
-                        "regions_unexplored:arid_mountains"
+                        "regions_unexplored:arid_mountains",
+                        "regions_unexplored:dry_bushland"
                 ),
                 leg(2, 20,
-                        "terralith:red_oasis",
                         "regions_unexplored:baobab_savanna",
-                        "regions_unexplored:joshua_desert"
+                        "regions_unexplored:joshua_desert",
+                        "regions_unexplored:sparse_rainforest"
                 )
         ));
         ROUTES.put(MigrationSeason.AUTUMN, List.of(
                 leg(2, 15,
-                        "terralith:maple_forest",
                         "regions_unexplored:autumnal_maple_forest",
-                        "regions_unexplored:maple_forest"
+                        "regions_unexplored:maple_forest",
+                        "regions_unexplored:deciduous_forest"
                 ),
                 leg(2, 15,
-                        "minecraft:sunflower_plains",
                         "regions_unexplored:prairie",
-                        "regions_unexplored:barley_fields"
+                        "regions_unexplored:barley_fields",
+                        "regions_unexplored:grassland"
                 ),
                 leg(2, 20,
-                        "terralith:cloud_forest",
                         "regions_unexplored:redwoods",
-                        "regions_unexplored:deciduous_forest"
+                        "regions_unexplored:boreal_taiga",
+                        "regions_unexplored:pine_taiga"
                 )
         ));
         ROUTES.put(MigrationSeason.WINTER, List.of(
                 leg(2, 15,
-                        "terralith:snowy_shield",
                         "regions_unexplored:frozen_tundra",
-                        "regions_unexplored:cold_boreal_taiga"
+                        "regions_unexplored:cold_boreal_taiga",
+                        "regions_unexplored:icy_heights"
                 ),
                 leg(2, 15,
-                        "minecraft:ice_spikes",
-                        "regions_unexplored:icy_heights",
-                        "regions_unexplored:frozen_pine_taiga"
+                        "regions_unexplored:frozen_pine_taiga",
+                        "regions_unexplored:spires",
+                        "regions_unexplored:alpine_grove"
                 ),
                 leg(2, 20,
-                        "terralith:frozen_cliffs",
                         "regions_unexplored:cold_river",
-                        "regions_unexplored:chalk_cliffs"
+                        "regions_unexplored:chalk_cliffs",
+                        "regions_unexplored:gravel_beach"
                 )
         ));
     }

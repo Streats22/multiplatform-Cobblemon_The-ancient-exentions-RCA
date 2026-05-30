@@ -2,7 +2,7 @@
 
 Glue mod for [Rubius Cobblemon](https://modrinth.com/modpack/rubius-cobblemon), built on the Cobblemon multiplatform MDK (NeoForge 1.21.1 + Cobblemon 1.7.3).
 
-See [docs/DESIGN.md](docs/DESIGN.md) for locked design decisions.
+See [docs/DESIGN.md](docs/DESIGN.md) for locked design decisions and [docs/DEPENDENCIES.md](docs/DEPENDENCIES.md) for required/recommended mods, version pins, and upstream MDK links.
 
 ## Features
 
@@ -31,6 +31,13 @@ Test: join a **new world** (kit in inventory), creative tab **Ancient Extensions
 ## Pack integration
 
 Add `ancient-extensions-neoforge-*.jar` to Rubius Cobblemon. Kit auto-grants on first join — see [pack_integration/RUBIUS_STARTER_QUEST.md](pack_integration/RUBIUS_STARTER_QUEST.md).
+
+**Pack mod context** (see [docs/DEPENDENCIES.md](docs/DEPENDENCIES.md)):
+
+| Mod | Role |
+|-----|------|
+| [Cobblemon](https://modrinth.com/mod/cobblemon) 1.7.3 | **Required** — capture API, items, spawn pools |
+| [Regions Unexplored](https://modrinth.com/mod/regions-unexplored) 0.5.x | **Recommended** — migration route biomes |
 
 ## Roadmap
 

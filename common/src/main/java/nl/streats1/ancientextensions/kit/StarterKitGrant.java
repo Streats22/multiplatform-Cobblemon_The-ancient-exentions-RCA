@@ -2,8 +2,8 @@ package nl.streats1.ancientextensions.kit;
 
 import nl.streats1.ancientextensions.AncientExtensionsConstants;
 import nl.streats1.ancientextensions.dex.PassportInventorySync;
+import nl.streats1.ancientextensions.AncientExtensionsContext;
 import nl.streats1.ancientextensions.dex.RegionalSurveyData;
-import nl.streats1.ancientextensions.dex.RegionalSurveyService;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -22,7 +22,7 @@ public final class StarterKitGrant {
         grantJournalIfMissing(player);
         grantPassportIfMissing(player);
 
-        RegionalSurveyData data = RegionalSurveyService.get(player);
+        RegionalSurveyData data = AncientExtensionsContext.get().surveys().get(player);
         if (data.hasStarterKitGranted() || data.hasDeployedProfessorsKit()) {
             return;
         }
@@ -36,7 +36,7 @@ public final class StarterKitGrant {
 
         if (hasKitInInventory(player, kitItem)) {
             data.markStarterKitGranted();
-            RegionalSurveyService.save(player, data);
+            AncientExtensionsContext.get().surveys().save(player, data);
             return;
         }
 
@@ -46,7 +46,7 @@ public final class StarterKitGrant {
         }
 
         data.markStarterKitGranted();
-        RegionalSurveyService.save(player, data);
+        AncientExtensionsContext.get().surveys().save(player, data);
 
         player.sendSystemMessage(Component.translatable("ancient_extensions.kit.welcome"));
         player.sendSystemMessage(Component.translatable("ancient_extensions.kit.welcome_hint"));
@@ -65,7 +65,7 @@ public final class StarterKitGrant {
         if (!player.getInventory().add(passport)) {
             player.drop(passport, false);
         }
-        RegionalSurveyService.get(player).getSurveyOrigin()
+        AncientExtensionsContext.get().surveys().get(player).getSurveyOrigin()
                 .ifPresent(region -> PassportInventorySync.applyOriginToPassports(player, region));
     }
 

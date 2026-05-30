@@ -1,5 +1,6 @@
 package nl.streats1.ancientextensions.dex;
 
+import nl.streats1.ancientextensions.AncientExtensionsContext;
 import nl.streats1.ancientextensions.migration.MigrationConfig;
 import nl.streats1.ancientextensions.migration.MigrationLeg;
 import nl.streats1.ancientextensions.migration.MigrationRoutes;
@@ -12,6 +13,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.Filterable;
 import net.minecraft.sounds.SoundEvents;
+import nl.streats1.ancientextensions.util.BookGuiHelper;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -31,17 +33,22 @@ public final class SurveyJournalReport {
     }
 
     public static void openForPlayer(ServerPlayer player, InteractionHand hand) {
-        RegionalSurveyData data = RegionalSurveyService.get(player);
+        RegionalSurveyData data = AncientExtensionsContext.get().surveys().get(player);
         MigrationSeason season = MigrationSeasonClock.currentSeason(player.serverLevel());
         data.syncMigrationSeason(season);
 
-        ItemStack book = createWrittenBook(player, data, season);
-        player.openItemGui(book, hand);
+        ItemStack book = createWrittenBook(data, season);
+        BookGuiHelper.open(player, hand, book);
         player.playSound(SoundEvents.BOOK_PAGE_TURN, 1.0f, 1.0f);
     }
 
-    public static ItemStack createWrittenBook(ServerPlayer player, RegionalSurveyData data, MigrationSeason season) {
-        List<Filterable<Component>> pages = buildPages(player, data, season);
+    /** Live journal lines for the in-game field log screen. */
+    public static List<Component> buildLines(RegionalSurveyData data, MigrationSeason season) {
+        return buildContentLines(data, season);
+    }
+
+    public static ItemStack createWrittenBook(RegionalSurveyData data, MigrationSeason season) {
+        List<Filterable<Component>> pages = buildPages(data, season);
         WrittenBookContent content = new WrittenBookContent(
                 Filterable.passThrough(Component.translatable("ancient_extensions.journal.book_title").getString()),
                 "Ancient Professor",
@@ -60,40 +67,42 @@ public final class SurveyJournalReport {
         return book;
     }
 
-    private static List<Filterable<Component>> buildPages(
-            ServerPlayer player,
-            RegionalSurveyData data,
-            MigrationSeason season
-    ) {
+    private static List<Filterable<Component>> buildPages(RegionalSurveyData data, MigrationSeason season) {
         List<Component> lines = new ArrayList<>();
         lines.add(Component.translatable("ancient_extensions.journal.header")
                 .withStyle(ChatFormatting.DARK_BLUE, ChatFormatting.BOLD));
         lines.add(Component.empty());
+        lines.addAll(buildContentLines(data, season));
+        return paginate(lines);
+    }
+
+    private static List<Component> buildContentLines(RegionalSurveyData data, MigrationSeason season) {
+        List<Component> lines = new ArrayList<>();
         lines.add(Component.translatable(
                 "ancient_extensions.journal.stats",
                 data.getCaughtSpeciesCount(),
                 data.getResearchPoints(),
                 data.getTier().displayName()
-        ).withStyle(ChatFormatting.BLACK));
+        ).withStyle(ChatFormatting.DARK_GRAY));
         data.getSurveyOrigin().ifPresentOrElse(
                 region -> lines.add(Component.translatable("ancient_extensions.journal.origin")
-                        .withStyle(ChatFormatting.DARK_PURPLE)
+                        .withStyle(ChatFormatting.DARK_GRAY)
                         .append(" ")
                         .append(region.labeledName())),
                 () -> lines.add(Component.translatable("ancient_extensions.journal.origin_pending")
-                        .withStyle(ChatFormatting.GRAY))
+                        .withStyle(ChatFormatting.DARK_GRAY))
         );
         lines.add(Component.empty());
         lines.add(Component.translatable("ancient_extensions.journal.section_goals")
-                .withStyle(ChatFormatting.DARK_GREEN, ChatFormatting.BOLD));
+                .withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD));
 
         for (SurveyGoal goal : SurveyGoals.build(data, season)) {
-            lines.add(goal.statusLine());
+            lines.add(journalGoalLine(goal));
         }
 
         lines.add(Component.empty());
         lines.add(Component.translatable("ancient_extensions.journal.section_migration")
-                .withStyle(ChatFormatting.DARK_AQUA, ChatFormatting.BOLD));
+                .withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD));
         lines.add(Component.translatable(
                 "ancient_extensions.journal.migration_summary",
                 season.displayName(),
@@ -101,21 +110,35 @@ public final class SurveyJournalReport {
                 MigrationRoutes.routeFor(season).size(),
                 data.getMigrationCompletions(season),
                 MigrationConfig.routeCompletionReward(data.getMigrationCompletions(season))
-        ));
+        ).withStyle(ChatFormatting.DARK_GRAY));
 
         var route = MigrationRoutes.routeFor(season);
         for (int i = 0; i < route.size(); i++) {
             MigrationLeg leg = route.get(i);
             ChatFormatting style = i < data.getMigrationLegIndex()
-                    ? ChatFormatting.STRIKETHROUGH
-                    : (i == data.getMigrationLegIndex() ? ChatFormatting.YELLOW : ChatFormatting.GRAY);
+                    ? ChatFormatting.DARK_GRAY
+                    : (i == data.getMigrationLegIndex() ? ChatFormatting.DARK_GREEN : ChatFormatting.DARK_GRAY);
             String marker = i < data.getMigrationLegIndex() ? "[x]" : (i == data.getMigrationLegIndex() ? "[>]" : "[ ]");
-            lines.add(Component.literal(marker + " " + leg.biomeLabel()
-                            + " (" + leg.requiredCatches() + " catches)")
-                    .withStyle(style));
+            MutableComponent line = Component.literal(marker + " ")
+                    .append(leg.biomeLabelComponent())
+                    .append(Component.literal(" (" + leg.requiredCatches() + " catches)"));
+            if (i < data.getMigrationLegIndex()) {
+                line.withStyle(ChatFormatting.STRIKETHROUGH, ChatFormatting.DARK_GRAY);
+            } else {
+                line.withStyle(style);
+            }
+            lines.add(line);
         }
 
-        return paginate(lines);
+        return lines;
+    }
+
+    private static Component journalGoalLine(SurveyGoal goal) {
+        Component line = goal.statusLine();
+        if (goal.complete()) {
+            return line.copy().withStyle(ChatFormatting.DARK_GRAY);
+        }
+        return line.copy().withStyle(ChatFormatting.BLACK);
     }
 
     private static List<Filterable<Component>> paginate(List<Component> lines) {

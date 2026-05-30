@@ -13,11 +13,10 @@
       "weight": 1.5,
       "condition": {
         "biomes": [
-          "minecraft:warm_ocean",
-          "minecraft:beach",
+          "#cobblemon:is_overworld",
+          "regions_unexplored:tropical_river",
           "regions_unexplored:grassy_beach",
-          "regions_unexplored:gravel_beach",
-          "regions_unexplored:tropical_river"
+          "regions_unexplored:rocky_reef"
         ]
       }
     },
@@ -31,11 +30,10 @@
       "weight": 1.2,
       "condition": {
         "biomes": [
-          "terralith:red_oasis",
-          "terralith:arid_highlands",
+          "#cobblemon:is_overworld",
           "regions_unexplored:outback",
-          "regions_unexplored:baobab_savanna",
-          "regions_unexplored:joshua_desert"
+          "regions_unexplored:arid_mountains",
+          "regions_unexplored:dry_bushland"
         ]
       }
     },
@@ -49,9 +47,10 @@
       "weight": 1.0,
       "condition": {
         "biomes": [
-          "minecraft:warm_ocean",
-          "regions_unexplored:tropical_river",
-          "regions_unexplored:rocky_reef"
+          "#cobblemon:is_overworld",
+          "regions_unexplored:baobab_savanna",
+          "regions_unexplored:joshua_desert",
+          "regions_unexplored:sparse_rainforest"
         ]
       }
     }

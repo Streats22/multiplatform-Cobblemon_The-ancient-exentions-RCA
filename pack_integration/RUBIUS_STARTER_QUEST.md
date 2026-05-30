@@ -16,6 +16,13 @@ Add to the modpack:
 
 `ancient-extensions-neoforge-0.1.0-SNAPSHOT.jar` (or current build from `neoforge/build/libs/`)
 
+Full dependency matrix (Cobblemon, Regions Unexplored, loader versions, MDK links): [docs/DEPENDENCIES.md](../docs/DEPENDENCIES.md).
+
+| Mod | Mod ID | Required |
+|-----|--------|----------|
+| Cobblemon 1.7.3+ | `cobblemon` | Yes |
+| Regions Unexplored 0.5.6+ | `regions_unexplored` | Recommended (migration biomes) |
+
 ## Quest flow (recommended)
 
 | Step | Task type | Details |
