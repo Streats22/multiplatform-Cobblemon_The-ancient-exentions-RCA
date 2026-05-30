@@ -1,11 +1,15 @@
 package nl.streats1.ancientextensions.kit;
 
+import nl.streats1.ancientextensions.compat.LootrCampChestCompat;
+import nl.streats1.ancientextensions.config.CampConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CampfireBlock;
+import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -15,52 +19,48 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import java.util.Optional;
 
 /**
- * Places a small survey camp from the Ancient Professor's kit (mod item, not a structure datapack).
+ * Places a small comfort survey camp from the Ancient Professor's kit.
+ * Layout (relative to player facing): tent behind the fire, bedroll ahead, chest and lectern to the sides.
  */
 public final class FieldCampPlacer {
 
     private static final int SEARCH_RADIUS = 5;
+    private static final int FLOOR_RADIUS = 2;
 
     private FieldCampPlacer() {
     }
 
-    public static Optional<CampPlacement> placeCamp(ServerLevel level, BlockPos preferredOrigin, Direction facing) {
+    public static Optional<CampPlacement> placeCamp(
+            ServerLevel level,
+            BlockPos preferredOrigin,
+            Direction facing,
+            boolean sleepingBed
+    ) {
         BlockPos center = findCampCenter(level, preferredOrigin);
         if (center == null) {
             return Optional.empty();
         }
 
         Direction forward = facing;
+        Direction back = forward.getOpposite();
+        Direction left = forward.getCounterClockWise();
+        Direction right = forward.getClockWise();
+
         BlockPos campfire = center;
-        BlockPos lecternPos = center.relative(forward, 2);
-        BlockPos chestPos = center.relative(forward.getClockWise(), 2);
+        BlockPos chestPos = center.relative(left, 2);
+        BlockPos lecternPos = center.relative(right, 2);
+        BlockPos bedrollHead = center.relative(forward, 2);
 
-        clearColumn(level, campfire, 3);
-        clearColumn(level, lecternPos, 2);
-        clearColumn(level, chestPos, 2);
+        clearCampArea(level, center, forward, left);
 
-        BlockState plank = Blocks.SPRUCE_PLANKS.defaultBlockState();
-        for (int dx = -1; dx <= 1; dx++) {
-            for (int dz = -1; dz <= 1; dz++) {
-                BlockPos floor = campfire.offset(dx, -1, dz);
-                if (level.getBlockState(floor).isSolidRender(level, floor)) {
-                    level.setBlockAndUpdate(floor, plank);
-                }
-            }
-        }
-
-        BlockState campfireState = Blocks.CAMPFIRE.defaultBlockState()
-                .setValue(CampfireBlock.LIT, true)
-                .setValue(BlockStateProperties.HORIZONTAL_FACING, forward.getOpposite());
-        level.setBlockAndUpdate(campfire, campfireState);
-
-        placeTentRing(level, campfire);
-        placeIfAir(level, campfire.above(), Blocks.LANTERN.defaultBlockState());
+        layFloor(level, center, forward, left);
+        placeCampfire(level, campfire, back);
+        placeSmallTent(level, center, forward, back, left, right);
+        placeBedroll(level, center, forward, left, sleepingBed);
         placeIfAir(level, lecternPos, Blocks.LECTERN.defaultBlockState());
         placeIfAir(level, chestPos, Blocks.CHEST.defaultBlockState());
-        placeBanner(level, campfire.relative(forward.getCounterClockWise(), 2), forward);
 
-        return Optional.of(new CampPlacement(campfire, chestPos, lecternPos));
+        return Optional.of(new CampPlacement(campfire, chestPos, lecternPos, bedrollHead));
     }
 
     public static void placeBriefingOnLectern(ServerLevel level, BlockPos lecternPos, ItemStack book) {
@@ -80,6 +80,99 @@ public final class FieldCampPlacer {
             }
             chest.setItem(slot++, stack.copy());
         }
+
+        if (CampConfig.useLootrCampChest()) {
+            LootrCampChestCompat.convertFilledChest(level, chestPos);
+        }
+    }
+
+    private static void clearCampArea(ServerLevel level, BlockPos center, Direction forward, Direction left) {
+        for (int f = -FLOOR_RADIUS; f <= FLOOR_RADIUS; f++) {
+            for (int s = -FLOOR_RADIUS; s <= FLOOR_RADIUS; s++) {
+                BlockPos base = center.relative(forward, f).relative(left, s);
+                clearColumn(level, base, 4);
+            }
+        }
+    }
+
+    private static void layFloor(ServerLevel level, BlockPos center, Direction forward, Direction left) {
+        BlockState plank = Blocks.SPRUCE_PLANKS.defaultBlockState();
+        for (int f = -FLOOR_RADIUS; f <= FLOOR_RADIUS; f++) {
+            for (int s = -FLOOR_RADIUS; s <= FLOOR_RADIUS; s++) {
+                BlockPos floor = center.relative(forward, f).relative(left, s).below();
+                if (level.getBlockState(floor).isSolidRender(level, floor) || level.getBlockState(floor).canBeReplaced()) {
+                    level.setBlockAndUpdate(floor, plank);
+                }
+            }
+        }
+    }
+
+    private static void placeCampfire(ServerLevel level, BlockPos pos, Direction back) {
+        BlockState campfireState = Blocks.CAMPFIRE.defaultBlockState()
+                .setValue(CampfireBlock.LIT, true)
+                .setValue(BlockStateProperties.HORIZONTAL_FACING, back);
+        level.setBlockAndUpdate(pos, campfireState);
+    }
+
+    /** Lean-to tent behind the campfire — open toward the player. */
+    private static void placeSmallTent(
+            ServerLevel level,
+            BlockPos center,
+            Direction forward,
+            Direction back,
+            Direction left,
+            Direction right
+    ) {
+        BlockPos backRow = center.relative(back, 2);
+
+        for (int side = -1; side <= 1; side++) {
+            BlockPos wallFoot = backRow.relative(left, side);
+            placeIfAir(level, wallFoot, Blocks.WHITE_WOOL.defaultBlockState());
+            placeIfAir(level, wallFoot.above(), Blocks.WHITE_WOOL.defaultBlockState());
+        }
+
+        BlockPos midBack = center.relative(back);
+        placeIfAir(level, midBack.relative(left), Blocks.WHITE_WOOL.defaultBlockState());
+        placeIfAir(level, midBack.relative(right), Blocks.WHITE_WOOL.defaultBlockState());
+        placeIfAir(level, midBack.above(), Blocks.WHITE_WOOL.defaultBlockState());
+
+        BlockPos leftPole = backRow.relative(left, 2);
+        BlockPos rightPole = backRow.relative(right, 2);
+        placeIfAir(level, leftPole, Blocks.SPRUCE_FENCE.defaultBlockState());
+        placeIfAir(level, rightPole, Blocks.SPRUCE_FENCE.defaultBlockState());
+        placeIfAir(level, leftPole.above(), Blocks.SPRUCE_FENCE.defaultBlockState());
+        placeIfAir(level, rightPole.above(), Blocks.SPRUCE_FENCE.defaultBlockState());
+
+        placeIfAir(level, midBack.relative(left).above(), Blocks.WHITE_CARPET.defaultBlockState());
+        placeIfAir(level, midBack.relative(right).above(), Blocks.WHITE_CARPET.defaultBlockState());
+
+        placeBanner(level, backRow.above(2), forward);
+    }
+
+    /** Bedroll in front of the fire — carpet or a real bed that sets spawn. */
+    private static void placeBedroll(
+            ServerLevel level,
+            BlockPos center,
+            Direction forward,
+            Direction left,
+            boolean sleepingBed
+    ) {
+        BlockPos rollFoot = center.relative(forward);
+        BlockPos rollHead = center.relative(forward, 2);
+        if (sleepingBed) {
+            BlockState foot = Blocks.BROWN_BED.defaultBlockState()
+                    .setValue(BedBlock.FACING, forward)
+                    .setValue(BedBlock.PART, BedPart.FOOT);
+            BlockState head = Blocks.BROWN_BED.defaultBlockState()
+                    .setValue(BedBlock.FACING, forward)
+                    .setValue(BedBlock.PART, BedPart.HEAD);
+            placeIfAir(level, rollFoot, foot);
+            placeIfAir(level, rollHead, head);
+            return;
+        }
+        placeIfAir(level, rollFoot, Blocks.BROWN_CARPET.defaultBlockState());
+        placeIfAir(level, rollHead, Blocks.BROWN_CARPET.defaultBlockState());
+        placeIfAir(level, rollHead.relative(left), Blocks.WHITE_CARPET.defaultBlockState());
     }
 
     private static BlockPos findCampCenter(ServerLevel level, BlockPos origin) {
@@ -111,8 +204,10 @@ public final class FieldCampPlacer {
         if (!level.getBlockState(center).canBeReplaced()) {
             return -1;
         }
-        if (!level.getBlockState(center.above()).canBeReplaced()) {
-            return -1;
+        for (int dy = 1; dy <= 3; dy++) {
+            if (!level.getBlockState(center.above(dy)).canBeReplaced()) {
+                return -1;
+            }
         }
         return 100 - center.distManhattan(preferred);
     }
@@ -126,26 +221,11 @@ public final class FieldCampPlacer {
         }
     }
 
-    private static void placeTentRing(ServerLevel level, BlockPos center) {
-        placeIfAir(level, center.north(), Blocks.WHITE_WOOL.defaultBlockState());
-        placeIfAir(level, center.south(), Blocks.WHITE_WOOL.defaultBlockState());
-        placeIfAir(level, center.east(), Blocks.WHITE_WOOL.defaultBlockState());
-        placeIfAir(level, center.west(), Blocks.WHITE_WOOL.defaultBlockState());
-        placeIfAir(level, center.north().east(), Blocks.WHITE_CARPET.defaultBlockState());
-        placeIfAir(level, center.north().west(), Blocks.WHITE_CARPET.defaultBlockState());
-        placeIfAir(level, center.south().east(), Blocks.WHITE_CARPET.defaultBlockState());
-        placeIfAir(level, center.south().west(), Blocks.WHITE_CARPET.defaultBlockState());
-        placeIfAir(level, center.north(2), Blocks.SPRUCE_FENCE.defaultBlockState());
-        placeIfAir(level, center.south(2), Blocks.SPRUCE_FENCE.defaultBlockState());
-        placeIfAir(level, center.east(2), Blocks.SPRUCE_FENCE.defaultBlockState());
-        placeIfAir(level, center.west(2), Blocks.SPRUCE_FENCE.defaultBlockState());
-    }
-
     private static void placeBanner(ServerLevel level, BlockPos pos, Direction facing) {
         if (!level.getBlockState(pos).canBeReplaced()) {
             return;
         }
-        level.setBlockAndUpdate(pos, Blocks.WHITE_BANNER.defaultBlockState()
+        level.setBlockAndUpdate(pos, Blocks.GREEN_BANNER.defaultBlockState()
                 .setValue(BlockStateProperties.ROTATION_16, rotationFromDirection(facing)));
     }
 

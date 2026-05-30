@@ -45,6 +45,10 @@ public class RegionalPassportItem extends Item {
             tooltip.add(Component.translatable("ancient_extensions.passport.tooltip_origin")
                     .withStyle(ChatFormatting.GRAY));
             tooltip.add(fromStack.get().labeledName());
+            PassportStackData.readOriginTown(stack).ifPresent(town ->
+                    tooltip.add(Component.translatable("ancient_extensions.passport.tooltip_town", town.displayName())
+                            .withStyle(ChatFormatting.GRAY))
+            );
         } else {
             tooltip.add(Component.translatable("ancient_extensions.passport.tooltip_unregistered")
                     .withStyle(ChatFormatting.DARK_AQUA));

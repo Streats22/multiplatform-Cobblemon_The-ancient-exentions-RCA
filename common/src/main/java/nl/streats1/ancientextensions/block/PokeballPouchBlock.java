@@ -3,7 +3,9 @@ package nl.streats1.ancientextensions.block;
 import com.mojang.serialization.MapCodec;
 import nl.streats1.ancientextensions.menu.MenuOpenHelper;
 import nl.streats1.ancientextensions.menu.sync.PouchOpenData;
-import nl.streats1.ancientextensions.pouch.PokeballPouchContents;
+import nl.streats1.ancientextensions.block.PokeballPouchBlockState;
+import nl.streats1.ancientextensions.pouch.PouchTier;
+import nl.streats1.ancientextensions.pouch.PouchTierData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Direction;
@@ -42,7 +44,9 @@ public class PokeballPouchBlock extends BaseEntityBlock {
 
     public PokeballPouchBlock(BlockBehaviour.Properties properties) {
         super(properties);
-        registerDefaultState(stateDefinition.any().setValue(HorizontalDirectionalBlock.FACING, Direction.NORTH));
+        registerDefaultState(stateDefinition.any()
+                .setValue(HorizontalDirectionalBlock.FACING, Direction.NORTH)
+                .setValue(PokeballPouchBlockState.TIER, PouchTier.POKE));
     }
 
     @Override
@@ -74,7 +78,7 @@ public class PokeballPouchBlock extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(HorizontalDirectionalBlock.FACING);
+        builder.add(HorizontalDirectionalBlock.FACING, PokeballPouchBlockState.TIER);
     }
 
     @Override
@@ -102,11 +106,12 @@ public class PokeballPouchBlock extends BaseEntityBlock {
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         super.setPlacedBy(level, pos, state, placer, stack);
-        if (level.getBlockEntity(pos) instanceof PokeballPouchBlockEntity pouch && stack.has(net.minecraft.core.component.DataComponents.CONTAINER)) {
-            NonNullList<ItemStack> loaded = PokeballPouchContents.load(stack);
-            for (int i = 0; i < pouch.container().getContainerSize(); i++) {
-                pouch.container().setItem(i, loaded.get(i));
-            }
+        PouchTier tier = PouchTierData.getTier(stack);
+        if (!level.isClientSide()) {
+            level.setBlock(pos, state.setValue(PokeballPouchBlockState.TIER, tier), Block.UPDATE_ALL);
+        }
+        if (level.getBlockEntity(pos) instanceof PokeballPouchBlockEntity pouch) {
+            pouch.applyFromItemStack(stack);
         }
     }
 

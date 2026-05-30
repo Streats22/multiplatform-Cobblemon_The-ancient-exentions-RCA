@@ -13,6 +13,8 @@ import nl.streats1.ancientextensions.menu.RegionalSurveyJournalMenu;
 import nl.streats1.ancientextensions.menu.sync.JournalOpenData;
 import nl.streats1.ancientextensions.menu.sync.PassportOpenData;
 import nl.streats1.ancientextensions.menu.sync.PouchOpenData;
+import nl.streats1.ancientextensions.recipe.PokeballPouchRecipe;
+import nl.streats1.ancientextensions.registry.ModRecipeSerializers;
 import nl.streats1.ancientextensions.registry.ModContent;
 import nl.streats1.ancientextensions.registry.ModMenuTypes;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -24,6 +26,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -103,6 +106,12 @@ public final class ModRegistries {
                         ModContent.POKEBALL_POUCH_BLOCK,
                         new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)
                 )
+        );
+
+        ModRecipeSerializers.POKEBALL_POUCH = Registry.register(
+                BuiltInRegistries.RECIPE_SERIALIZER,
+                id("pokeball_pouch"),
+                new SimpleCraftingRecipeSerializer<>(PokeballPouchRecipe::new)
         );
 
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.SEARCH).register(entries -> {

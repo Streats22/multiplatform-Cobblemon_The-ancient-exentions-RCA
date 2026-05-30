@@ -2,5 +2,25 @@
   "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "ancient_extensions:item/pokeball_pouch"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "ancient_extensions:pouch_tier": 0.3333333
+      },
+      "model": "ancient_extensions:item/pokeball_pouch_great"
+    },
+    {
+      "predicate": {
+        "ancient_extensions:pouch_tier": 0.6666667
+      },
+      "model": "ancient_extensions:item/pokeball_pouch_ultra"
+    },
+    {
+      "predicate": {
+        "ancient_extensions:pouch_tier": 1.0
+      },
+      "model": "ancient_extensions:item/pokeball_pouch_master"
+    }
+  ]
 }

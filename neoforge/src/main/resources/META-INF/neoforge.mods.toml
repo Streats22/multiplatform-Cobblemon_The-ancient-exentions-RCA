@@ -4,41 +4,58 @@ license = "MIT"
 
 [[mods]]
 modId = "ancient_extensions"
-version = "${version}"
+version = "${mod_version}"
 displayName = "The Ancient Extensions"
 authors = "Streats1"
 description = '''
 Rubius Cobblemon glue mod: Ancient Professor's Field Kit, Regional Survey (custom dex rewards),
-seasonal migration hooks, passport/journal/pouch. Requires Cobblemon 1.7.x.
-Recommends Regions Unexplored for migration biome routes and spawn pools.
+seasonal migration hooks, passport/journal/pouch. Requires Cobblemon 1.7.x on Minecraft 1.21.1.
+Recommends Regions Unexplored for migration biome routes and Lootr for per-player camp chests.
 '''
 displayURL = "https://modrinth.com/modpack/rubius-cobblemon"
 
+[features.ancient_extensions]
+javaVersion = "[21,21.999999)"
+
 [[dependencies.ancient_extensions]]
 modId = "minecraft"
-mandatory = true
-versionRange = "[1.21.1,1.22)"
+type = "required"
+reason = "Ancient Extensions targets Minecraft ${minecraft_version}."
+versionRange = "${minecraft_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.ancient_extensions]]
 modId = "neoforge"
-mandatory = true
-versionRange = "[21.1.182,)"
+type = "required"
+reason = "Ancient Extensions is a NeoForge mod."
+versionRange = "${neoforge_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.ancient_extensions]]
 modId = "cobblemon"
-mandatory = true
-versionRange = "[1.7.3,1.8.0)"
+type = "required"
+reason = "Regional Survey, kit rewards, capture hooks, and Cobblemon items require Cobblemon 1.7.x."
+versionRange = "${cobblemon_version_range}"
+referralUrl = "https://modrinth.com/mod/cobblemon"
 ordering = "AFTER"
 side = "BOTH"
 
-# Migration routes + spawn pools reference RU biomes; mod still runs without it (vanilla biomes count too).
 [[dependencies.ancient_extensions]]
 modId = "regions_unexplored"
-mandatory = false
-versionRange = "[0.5.6,)"
+type = "optional"
+reason = "Migration routes and spawn pools reference Regions Unexplored biomes; vanilla biomes still work without it."
+versionRange = "[${regions_unexplored_version},)"
+referralUrl = "https://modrinth.com/mod/regions-unexplored"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.ancient_extensions]]
+modId = "lootr"
+type = "optional"
+reason = "Only used when camp.useLootrCampChest is enabled in config."
+versionRange = "[0,)"
+referralUrl = "https://modrinth.com/mod/lootr"
 ordering = "NONE"
 side = "BOTH"

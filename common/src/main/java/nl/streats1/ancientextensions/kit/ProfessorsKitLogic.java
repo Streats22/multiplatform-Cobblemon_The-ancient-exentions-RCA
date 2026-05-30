@@ -1,6 +1,8 @@
 package nl.streats1.ancientextensions.kit;
 
+import nl.streats1.ancientextensions.compat.LootrCampChestCompat;
 import nl.streats1.ancientextensions.AncientExtensionsContext;
+import nl.streats1.ancientextensions.config.CampConfig;
 import nl.streats1.ancientextensions.dex.RegionalSurveyData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -27,7 +29,12 @@ public final class ProfessorsKitLogic {
 
         ServerLevel level = player.serverLevel();
         BlockPos preferred = player.blockPosition().relative(player.getDirection());
-        var placement = FieldCampPlacer.placeCamp(level, preferred, player.getDirection());
+        var placement = FieldCampPlacer.placeCamp(
+                level,
+                preferred,
+                player.getDirection(),
+                CampConfig.campBedSetsSpawn()
+        );
         if (placement.isEmpty()) {
             player.sendSystemMessage(Component.translatable("ancient_extensions.kit.no_space"));
             return false;
@@ -36,9 +43,16 @@ public final class ProfessorsKitLogic {
         CampPlacement camp = placement.get();
         ItemStack briefing = SurveyFieldNotes.create();
 
-        FieldCampPlacer.fillCampChest(level, camp.chestPos(), ProfessorsKitRewards.createChestStacks());
+        boolean chestOnly = CampConfig.starterSuppliesInChestOnly();
+        FieldCampPlacer.fillCampChest(
+                level,
+                camp.chestPos(),
+                ProfessorsKitRewards.createDeployChestStacks(chestOnly)
+        );
         FieldCampPlacer.placeBriefingOnLectern(level, camp.lecternPos(), briefing);
-        giveStacks(player, ProfessorsKitRewards.createPlayerStacks());
+        if (!chestOnly) {
+            giveStacks(player, ProfessorsKitRewards.createPlayerStacks());
+        }
 
         StarterKitGrant.grantJournalIfMissing(player);
         StarterKitGrant.grantPassportIfMissing(player);
@@ -53,6 +67,16 @@ public final class ProfessorsKitLogic {
         player.playNotifySound(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, SoundSource.PLAYERS, 0.5f, 1.0f);
 
         player.sendSystemMessage(Component.translatable("ancient_extensions.kit.deployed"));
+        player.sendSystemMessage(Component.translatable("ancient_extensions.kit.comfort_hint"));
+        if (chestOnly) {
+            player.sendSystemMessage(Component.translatable("ancient_extensions.kit.chest_only_hint"));
+        }
+        if (CampConfig.campBedSetsSpawn()) {
+            player.sendSystemMessage(Component.translatable("ancient_extensions.kit.bed_spawn_hint"));
+        }
+        if (CampConfig.useLootrCampChest() && LootrCampChestCompat.isLootrInstalled()) {
+            player.sendSystemMessage(Component.translatable("ancient_extensions.kit.lootr_hint"));
+        }
         player.sendSystemMessage(Component.translatable("ancient_extensions.kit.survey_hint"));
         player.sendSystemMessage(Component.translatable("ancient_extensions.kit.chest_hint"));
         player.sendSystemMessage(Component.translatable("ancient_extensions.kit.lectern_hint"));

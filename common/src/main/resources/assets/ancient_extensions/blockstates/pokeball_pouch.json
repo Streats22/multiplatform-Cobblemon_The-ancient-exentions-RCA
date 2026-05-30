@@ -1,8 +1,64 @@
 {
   "variants": {
-    "facing=north": { "model": "ancient_extensions:block/pokeball_pouch", "y": 180 },
-    "facing=south": { "model": "ancient_extensions:block/pokeball_pouch" },
-    "facing=west": { "model": "ancient_extensions:block/pokeball_pouch", "y": 90 },
-    "facing=east": { "model": "ancient_extensions:block/pokeball_pouch", "y": 270 }
+    "facing=north,tier=poke": {
+      "model": "ancient_extensions:block/pokeball_pouch",
+      "y": 180
+    },
+    "facing=south,tier=poke": {
+      "model": "ancient_extensions:block/pokeball_pouch"
+    },
+    "facing=west,tier=poke": {
+      "model": "ancient_extensions:block/pokeball_pouch",
+      "y": 90
+    },
+    "facing=east,tier=poke": {
+      "model": "ancient_extensions:block/pokeball_pouch",
+      "y": 270
+    },
+    "facing=north,tier=great": {
+      "model": "ancient_extensions:block/pokeball_pouch_great",
+      "y": 180
+    },
+    "facing=south,tier=great": {
+      "model": "ancient_extensions:block/pokeball_pouch_great"
+    },
+    "facing=west,tier=great": {
+      "model": "ancient_extensions:block/pokeball_pouch_great",
+      "y": 90
+    },
+    "facing=east,tier=great": {
+      "model": "ancient_extensions:block/pokeball_pouch_great",
+      "y": 270
+    },
+    "facing=north,tier=ultra": {
+      "model": "ancient_extensions:block/pokeball_pouch_ultra",
+      "y": 180
+    },
+    "facing=south,tier=ultra": {
+      "model": "ancient_extensions:block/pokeball_pouch_ultra"
+    },
+    "facing=west,tier=ultra": {
+      "model": "ancient_extensions:block/pokeball_pouch_ultra",
+      "y": 90
+    },
+    "facing=east,tier=ultra": {
+      "model": "ancient_extensions:block/pokeball_pouch_ultra",
+      "y": 270
+    },
+    "facing=north,tier=master": {
+      "model": "ancient_extensions:block/pokeball_pouch_master",
+      "y": 180
+    },
+    "facing=south,tier=master": {
+      "model": "ancient_extensions:block/pokeball_pouch_master"
+    },
+    "facing=west,tier=master": {
+      "model": "ancient_extensions:block/pokeball_pouch_master",
+      "y": 90
+    },
+    "facing=east,tier=master": {
+      "model": "ancient_extensions:block/pokeball_pouch_master",
+      "y": 270
+    }
   }
 }

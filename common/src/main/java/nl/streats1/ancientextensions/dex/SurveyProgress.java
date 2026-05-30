@@ -18,6 +18,8 @@ public final class SurveyProgress {
     private final Set<ResourceLocation> caughtSpecies = new HashSet<>();
     private int researchPoints;
     private String surveyOrigin = "";
+    private String surveyOriginTown = "";
+    private boolean originSetupMode = false;
 
     void load(CompoundTag tag) {
         if (tag == null || tag.isEmpty()) {
@@ -26,6 +28,12 @@ public final class SurveyProgress {
         researchPoints = tag.getInt("researchPoints");
         if (tag.contains("surveyOrigin")) {
             surveyOrigin = tag.getString("surveyOrigin");
+        }
+        if (tag.contains("surveyOriginTown")) {
+            surveyOriginTown = tag.getString("surveyOriginTown");
+        }
+        if (tag.contains("originSetupMode")) {
+            originSetupMode = tag.getBoolean("originSetupMode");
         }
         ListTag species = tag.getList("caughtSpecies", Tag.TAG_STRING);
         caughtSpecies.clear();
@@ -39,6 +47,12 @@ public final class SurveyProgress {
         if (tag.contains("surveyOrigin")) {
             surveyOrigin = tag.getString("surveyOrigin");
         }
+        if (tag.contains("surveyOriginTown")) {
+            surveyOriginTown = tag.getString("surveyOriginTown");
+        }
+        if (tag.contains("originSetupMode")) {
+            originSetupMode = tag.getBoolean("originSetupMode");
+        }
         ListTag species = tag.getList("caughtSpecies", Tag.TAG_STRING);
         caughtSpecies.clear();
         for (Tag entry : species) {
@@ -51,6 +65,12 @@ public final class SurveyProgress {
         tag.putInt("researchPoints", researchPoints);
         if (!surveyOrigin.isEmpty()) {
             tag.putString("surveyOrigin", surveyOrigin);
+        }
+        if (!surveyOriginTown.isEmpty()) {
+            tag.putString("surveyOriginTown", surveyOriginTown);
+        }
+        if (originSetupMode) {
+            tag.putBoolean("originSetupMode", true);
         }
         ListTag species = new ListTag();
         for (ResourceLocation id : caughtSpecies) {
@@ -90,5 +110,25 @@ public final class SurveyProgress {
 
     public void setSurveyOrigin(SurveyRegion region) {
         surveyOrigin = region.getId();
+    }
+
+    public Optional<SurveyOriginTown> getSurveyOriginTown() {
+        return SurveyOriginTown.fromId(surveyOriginTown);
+    }
+
+    public void setSurveyOriginTown(SurveyOriginTown town) {
+        surveyOriginTown = town.getId();
+    }
+
+    public void clearSurveyOriginTown() {
+        surveyOriginTown = "";
+    }
+
+    public boolean isOriginSetupMode() {
+        return originSetupMode;
+    }
+
+    public void setOriginSetupMode(boolean originSetupMode) {
+        this.originSetupMode = originSetupMode;
     }
 }

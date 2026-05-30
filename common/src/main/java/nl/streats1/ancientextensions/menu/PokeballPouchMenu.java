@@ -22,20 +22,18 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public class PokeballPouchMenu extends AbstractContainerMenu {
 
     public static final int WIDTH = 176;
-    public static final int HEIGHT = 166;
 
-    private static final int POUCH_ROWS = 2;
-    private static final int POUCH_COLS = 9;
+    private static final int POUCH_COLS = PokeballPouchConstants.COLS;
     private static final int POUCH_START_X = 8;
     private static final int POUCH_START_Y = 30;
-    private static final int PLAYER_INV_START_Y = 84;
-    private static final int HOTBAR_Y = 142;
 
     private final Container pouch;
     private final InteractionHand hand;
     private final ItemStack pouchStack;
     private final BlockPos blockPos;
     private final boolean blockMenu;
+    private final int pouchSlotCount;
+    private final int imageHeight;
 
     public PokeballPouchMenu(int containerId, Inventory playerInventory, RegistryFriendlyByteBuf extraData) {
         this(containerId, playerInventory, PouchOpenData.STREAM_CODEC.decode(extraData));
@@ -56,10 +54,7 @@ public class PokeballPouchMenu extends AbstractContainerMenu {
             if (blockEntity instanceof PokeballPouchBlockEntity entity) {
                 this.pouch = entity.container();
             } else {
-                this.pouch = new PokeballPouchInventory(
-                        net.minecraft.core.NonNullList.withSize(PokeballPouchConstants.SLOT_COUNT, ItemStack.EMPTY),
-                        () -> {}
-                );
+                this.pouch = PokeballPouchInventory.create(nl.streats1.ancientextensions.pouch.PouchTier.POKE);
             }
         } else {
             this.hand = data.hand();
@@ -67,6 +62,8 @@ public class PokeballPouchMenu extends AbstractContainerMenu {
             this.blockPos = BlockPos.ZERO;
             this.pouch = PokeballPouchInventory.forItemStack(pouchStack);
         }
+        this.pouchSlotCount = pouch.getContainerSize();
+        this.imageHeight = PokeballPouchConstants.menuHeight(pouchSlotCount);
         addPouchAndPlayerSlots(playerInventory);
     }
 
@@ -85,6 +82,8 @@ public class PokeballPouchMenu extends AbstractContainerMenu {
         this.pouchStack = pouchStack;
         this.blockPos = BlockPos.ZERO;
         this.pouch = PokeballPouchInventory.forItemStack(pouchStack);
+        this.pouchSlotCount = pouch.getContainerSize();
+        this.imageHeight = PokeballPouchConstants.menuHeight(pouchSlotCount);
         addPouchAndPlayerSlots(playerInventory);
     }
 
@@ -99,18 +98,29 @@ public class PokeballPouchMenu extends AbstractContainerMenu {
         if (blockEntity instanceof PokeballPouchBlockEntity entity) {
             this.pouch = entity.container();
         } else {
-            this.pouch = new PokeballPouchInventory(
-                    net.minecraft.core.NonNullList.withSize(PokeballPouchConstants.SLOT_COUNT, ItemStack.EMPTY),
-                    () -> {}
-            );
+            this.pouch = PokeballPouchInventory.create(nl.streats1.ancientextensions.pouch.PouchTier.POKE);
         }
+        this.pouchSlotCount = pouch.getContainerSize();
+        this.imageHeight = PokeballPouchConstants.menuHeight(pouchSlotCount);
         addPouchAndPlayerSlots(playerInventory);
     }
 
+    public int getImageHeight() {
+        return imageHeight;
+    }
+
+    public int getPouchSlotCount() {
+        return pouchSlotCount;
+    }
+
     private void addPouchAndPlayerSlots(Inventory playerInventory) {
-        for (int row = 0; row < POUCH_ROWS; row++) {
+        int pouchRows = PokeballPouchConstants.rowsForSlots(pouchSlotCount);
+        for (int row = 0; row < pouchRows; row++) {
             for (int col = 0; col < POUCH_COLS; col++) {
                 int index = col + row * POUCH_COLS;
+                if (index >= pouchSlotCount) {
+                    break;
+                }
                 this.addSlot(new PokeballSlot(
                         pouch,
                         index,
@@ -120,18 +130,21 @@ public class PokeballPouchMenu extends AbstractContainerMenu {
             }
         }
 
+        int playerInvStartY = POUCH_START_Y + pouchRows * 18 + 12;
+        int hotbarY = playerInvStartY + 58;
+
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
                 this.addSlot(new Slot(
                         playerInventory,
                         col + row * 9 + 9,
                         POUCH_START_X + col * 18,
-                        PLAYER_INV_START_Y + row * 18
+                        playerInvStartY + row * 18
                 ));
             }
         }
         for (int col = 0; col < 9; col++) {
-            this.addSlot(new Slot(playerInventory, col, POUCH_START_X + col * 18, HOTBAR_Y));
+            this.addSlot(new Slot(playerInventory, col, POUCH_START_X + col * 18, hotbarY));
         }
     }
 
@@ -145,14 +158,15 @@ public class PokeballPouchMenu extends AbstractContainerMenu {
 
         ItemStack stack = slot.getItem();
         result = stack.copy();
-        int pouchSlots = PokeballPouchConstants.SLOT_COUNT;
 
-        if (index < pouchSlots) {
-            if (!this.moveItemStackTo(stack, pouchSlots, this.slots.size(), true)) {
+        if (index < pouchSlotCount) {
+            if (!this.moveItemStackTo(stack, pouchSlotCount, this.slots.size(), true)) {
                 return ItemStack.EMPTY;
             }
-        } else if (PokeballFilter.isPokeball(stack) && !stack.is(ModContent.POKEBALL_POUCH) && !stack.is(ModContent.POKEBALL_POUCH_BLOCK.asItem())) {
-            if (!this.moveItemStackTo(stack, 0, pouchSlots, false)) {
+        } else if (PokeballFilter.isPokeball(stack)
+                && !stack.is(ModContent.POKEBALL_POUCH)
+                && !stack.is(ModContent.POKEBALL_POUCH_BLOCK.asItem())) {
+            if (!this.moveItemStackTo(stack, 0, pouchSlotCount, false)) {
                 return ItemStack.EMPTY;
             }
         } else {

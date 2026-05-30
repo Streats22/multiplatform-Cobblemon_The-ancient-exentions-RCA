@@ -85,10 +85,19 @@ public final class SurveyJournalReport {
                 data.getTier().displayName()
         ).withStyle(ChatFormatting.DARK_GRAY));
         data.getSurveyOrigin().ifPresentOrElse(
-                region -> lines.add(Component.translatable("ancient_extensions.journal.origin")
-                        .withStyle(ChatFormatting.DARK_GRAY)
-                        .append(" ")
-                        .append(region.labeledName())),
+                region -> {
+                    Component originLine = region.labeledName();
+                    lines.add(Component.translatable("ancient_extensions.journal.origin")
+                            .withStyle(ChatFormatting.DARK_GRAY)
+                            .append(" ")
+                            .append(originLine));
+                    data.getSurveyOriginTown().ifPresent(town -> lines.add(
+                            Component.translatable("ancient_extensions.journal.hometown")
+                                    .withStyle(ChatFormatting.DARK_GRAY)
+                                    .append(" ")
+                                    .append(town.displayName())
+                    ));
+                },
                 () -> lines.add(Component.translatable("ancient_extensions.journal.origin_pending")
                         .withStyle(ChatFormatting.DARK_GRAY))
         );

@@ -3,6 +3,7 @@ package nl.streats1.ancientextensions.fabric;
 import nl.streats1.ancientextensions.AncientExtensionsContext;
 import nl.streats1.ancientextensions.command.AncientExtensionsCommands;
 import nl.streats1.ancientextensions.display.SurveyOriginEffects;
+import nl.streats1.ancientextensions.fabric.config.FabricCampConfig;
 import nl.streats1.ancientextensions.fabric.data.FabricSurveyBackend;
 import nl.streats1.ancientextensions.fabric.event.CobblemonEventHandlers;
 import nl.streats1.ancientextensions.fabric.event.PlayerJoinHandlers;
@@ -17,6 +18,8 @@ public class AncientExtensionsFabric implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        FabricCampConfig.load();
+
         var context = new AncientExtensionsContext(new FabricSurveyBackend());
         context.setOriginEffects(SurveyOriginEffects::apply);
         context.setPassportOpener(FabricNetworking::openPassport);

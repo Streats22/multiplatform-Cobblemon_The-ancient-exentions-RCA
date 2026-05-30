@@ -13,13 +13,17 @@ import java.util.Optional;
 public final class PassportStackData {
 
     private static final String ORIGIN_KEY = "surveyOrigin";
+    private static final String TOWN_KEY = "surveyOriginTown";
 
     private PassportStackData() {
     }
 
-    public static void writeOrigin(ItemStack stack, SurveyRegion region) {
+    public static void writeOrigin(ItemStack stack, SurveyRegion region, SurveyOriginTown town) {
         CompoundTag tag = new CompoundTag();
         tag.putString(ORIGIN_KEY, region.getId());
+        if (town != null) {
+            tag.putString(TOWN_KEY, town.getId());
+        }
         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
     }
 
@@ -33,5 +37,17 @@ public final class PassportStackData {
             return Optional.empty();
         }
         return SurveyRegion.fromId(tag.getString(ORIGIN_KEY));
+    }
+
+    public static Optional<SurveyOriginTown> readOriginTown(ItemStack stack) {
+        CustomData custom = stack.get(DataComponents.CUSTOM_DATA);
+        if (custom == null) {
+            return Optional.empty();
+        }
+        CompoundTag tag = custom.copyTag();
+        if (!tag.contains(TOWN_KEY)) {
+            return Optional.empty();
+        }
+        return SurveyOriginTown.fromId(tag.getString(TOWN_KEY));
     }
 }

@@ -14,7 +14,7 @@ public final class PassportInventorySync {
     private PassportInventorySync() {
     }
 
-    public static void applyOriginToPassports(ServerPlayer player, SurveyRegion region) {
+    public static void applyOriginToPassports(ServerPlayer player, SurveyRegion region, SurveyOriginTown town) {
         Item passport = player.registryAccess()
                 .registryOrThrow(Registries.ITEM)
                 .get(AncientExtensionsConstants.id("regional_passport"));
@@ -24,7 +24,7 @@ public final class PassportInventorySync {
         for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
             ItemStack stack = player.getInventory().getItem(slot);
             if (stack.is(passport)) {
-                PassportStackData.writeOrigin(stack, region);
+                PassportStackData.writeOrigin(stack, region, town);
             }
         }
     }

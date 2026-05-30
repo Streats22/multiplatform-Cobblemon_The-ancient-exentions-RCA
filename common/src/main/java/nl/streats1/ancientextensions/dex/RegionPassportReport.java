@@ -68,6 +68,12 @@ public final class RegionPassportReport {
         lines.add(Component.translatable("ancient_extensions.passport.origin_label")
                 .withStyle(ChatFormatting.DARK_GRAY));
         lines.add(region.displayName().copy().withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD));
+        data.getSurveyOriginTown().ifPresent(town -> lines.add(
+                Component.translatable("ancient_extensions.passport.town_label")
+                        .withStyle(ChatFormatting.DARK_GRAY)
+                        .append(" ")
+                        .append(town.displayName().copy().withStyle(ChatFormatting.DARK_BLUE, ChatFormatting.BOLD))
+        ));
         lines.add(Component.empty());
         lines.add(region.passportBlurb().copy().withStyle(ChatFormatting.BLACK));
         lines.add(Component.empty());

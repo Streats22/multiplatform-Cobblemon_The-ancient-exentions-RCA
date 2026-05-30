@@ -7,11 +7,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 /**
- * Shared 18-slot Poké Ball-only inventory for item stacks and placed blocks.
+ * Poké Ball-only inventory for item stacks and placed blocks. Size follows craft tier.
  */
 public class PokeballPouchInventory implements Container {
 
-    private final NonNullList<ItemStack> items;
+    private NonNullList<ItemStack> items;
     private final Runnable onChanged;
 
     public PokeballPouchInventory(NonNullList<ItemStack> items, Runnable onChanged) {
@@ -24,9 +24,25 @@ public class PokeballPouchInventory implements Container {
         return new PokeballPouchInventory(items, () -> PokeballPouchContents.save(pouchStack, items));
     }
 
+    public static PokeballPouchInventory create(PouchTier tier) {
+        return new PokeballPouchInventory(
+                NonNullList.withSize(tier.slotCount(), ItemStack.EMPTY),
+                () -> {}
+        );
+    }
+
+    public void resize(PouchTier tier, NonNullList<ItemStack> existing) {
+        NonNullList<ItemStack> resized = NonNullList.withSize(tier.slotCount(), ItemStack.EMPTY);
+        for (int i = 0; i < Math.min(existing.size(), resized.size()); i++) {
+            resized.set(i, existing.get(i));
+        }
+        this.items = resized;
+        setChanged();
+    }
+
     @Override
     public int getContainerSize() {
-        return PokeballPouchConstants.SLOT_COUNT;
+        return items.size();
     }
 
     @Override

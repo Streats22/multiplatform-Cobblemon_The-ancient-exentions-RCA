@@ -30,16 +30,9 @@ public final class ModNetworking {
             return;
         }
         context.enqueueWork(() -> {
-            if (AncientExtensionsContext.get().origins().trySetOrigin(serverPlayer, payload.regionId())) {
+            if (AncientExtensionsContext.get().origins().trySetOrigin(serverPlayer, payload.regionId(), payload.townId())) {
                 PassportMenuOpener.open(serverPlayer);
             }
         });
-    }
-
-    public static void promptOriginIfNeeded(ServerPlayer player) {
-        var data = AncientExtensionsContext.get().surveys().get(player);
-        if (!AncientExtensionsContext.get().origins().hasOrigin(data)) {
-            openPassport(player);
-        }
     }
 }

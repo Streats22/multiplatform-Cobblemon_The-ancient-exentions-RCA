@@ -5,21 +5,27 @@ package nl.streats1.ancientextensions.client;
  */
 public final class AncientExtensionsClientHooks {
 
-    private static RegionSelectSender regionSelectSender = regionId -> { };
+    private static OriginSelectSender originSelectSender = (regionId, townId) -> { };
 
     private AncientExtensionsClientHooks() {
     }
 
-    public static void setRegionSelectSender(RegionSelectSender sender) {
-        regionSelectSender = sender != null ? sender : regionId -> { };
+    public static void setOriginSelectSender(OriginSelectSender sender) {
+        originSelectSender = sender != null ? sender : (regionId, townId) -> { };
     }
 
-    public static void sendSelectRegion(String regionId) {
-        regionSelectSender.send(regionId);
+    /** @deprecated use {@link #sendSelectOrigin(String, String)} */
+    @Deprecated
+    public static void setRegionSelectSender(OriginSelectSender sender) {
+        setOriginSelectSender(sender);
+    }
+
+    public static void sendSelectOrigin(String regionId, String townId) {
+        originSelectSender.send(regionId, townId);
     }
 
     @FunctionalInterface
-    public interface RegionSelectSender {
-        void send(String regionId);
+    public interface OriginSelectSender {
+        void send(String regionId, String townId);
     }
 }

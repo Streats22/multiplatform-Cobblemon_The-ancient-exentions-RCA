@@ -18,23 +18,33 @@ public class PokeballPouchScreen extends AbstractContainerScreen<PokeballPouchMe
     public PokeballPouchScreen(PokeballPouchMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
         this.imageWidth = PokeballPouchMenu.WIDTH;
-        this.imageHeight = PokeballPouchMenu.HEIGHT;
+        this.imageHeight = menu.getImageHeight();
         this.titleLabelY = 6;
-        this.inventoryLabelY = 72;
+        this.inventoryLabelY = menu.getImageHeight() - 94;
     }
 
     @Override
     protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
+        int left = this.leftPos;
+        int top = this.topPos;
+        int headerHeight = 34;
+        int footerHeight = 94;
+        int stretchHeight = Math.max(0, this.imageHeight - headerHeight - footerHeight);
+
+        graphics.blit(TEXTURE, left, top, 0, 0, this.imageWidth, headerHeight, 176, 166);
+        if (stretchHeight > 0) {
+            graphics.blit(TEXTURE, left, top + headerHeight, 0, headerHeight, this.imageWidth, stretchHeight, 176, 166);
+        }
         graphics.blit(
                 TEXTURE,
-                this.leftPos,
-                this.topPos,
+                left,
+                top + this.imageHeight - footerHeight,
                 0,
-                0,
+                166 - footerHeight,
                 this.imageWidth,
-                this.imageHeight,
-                this.imageWidth,
-                this.imageHeight
+                footerHeight,
+                176,
+                166
         );
     }
 
@@ -43,7 +53,10 @@ public class PokeballPouchScreen extends AbstractContainerScreen<PokeballPouchMe
         super.renderLabels(graphics, mouseX, mouseY);
         graphics.drawString(
                 this.font,
-                Component.translatable("container.ancient_extensions.pokeball_pouch.section"),
+                Component.translatable(
+                        "container.ancient_extensions.pokeball_pouch.section",
+                        this.menu.getPouchSlotCount()
+                ),
                 8,
                 20,
                 0xF5E6C8,

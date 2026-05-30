@@ -14,7 +14,8 @@ public final class PokeballPouchContents {
     }
 
     public static NonNullList<ItemStack> load(ItemStack pouchStack) {
-        NonNullList<ItemStack> items = NonNullList.withSize(PokeballPouchConstants.SLOT_COUNT, ItemStack.EMPTY);
+        int slots = PouchTierData.getSlotCount(pouchStack);
+        NonNullList<ItemStack> items = NonNullList.withSize(slots, ItemStack.EMPTY);
         ItemContainerContents contents = pouchStack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY);
         contents.copyInto(items);
         return items;

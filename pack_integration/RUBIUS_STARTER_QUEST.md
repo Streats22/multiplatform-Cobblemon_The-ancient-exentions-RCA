@@ -39,8 +39,8 @@ Full dependency matrix (Cobblemon, Regions Unexplored, loader versions, MDK link
 
 ## What the kit does (for quest text)
 
-- Places a **survey camp** (spruce floor, wool tent, campfire, lectern, chest)
-- Gives **balls, medicine, berries**, and **Regional Survey Briefing**
+- Places a **comfort survey camp** — lit campfire, small wool tent, ground bedroll, lectern with briefing, chest with backup supplies
+- Gives **balls, medicine, berries**, and **Regional Survey Briefing** directly to your inventory
 - **One deploy per player** per world (tracked separately from the login grant)
 
 ## Testing

@@ -4,6 +4,7 @@ import nl.streats1.ancientextensions.AncientExtensionsContext;
 import nl.streats1.ancientextensions.menu.sync.PassportOpenData;
 import nl.streats1.ancientextensions.dex.RegionalSurveyData;
 import nl.streats1.ancientextensions.dex.ResearchTier;
+import nl.streats1.ancientextensions.dex.SurveyOriginTown;
 import nl.streats1.ancientextensions.dex.SurveyRegion;
 import nl.streats1.ancientextensions.registry.ModMenuTypes;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -22,6 +23,7 @@ public class RegionalPassportMenu extends AbstractContainerMenu {
 
     private final boolean stamped;
     private final String regionId;
+    private final String townId;
     private final String holderName;
     private final int caughtSpecies;
     private final int researchPoints;
@@ -37,6 +39,7 @@ public class RegionalPassportMenu extends AbstractContainerMenu {
                 playerInventory,
                 data.stamped(),
                 data.regionId(),
+                data.townId(),
                 data.holderName(),
                 data.caughtSpecies(),
                 data.researchPoints(),
@@ -49,6 +52,7 @@ public class RegionalPassportMenu extends AbstractContainerMenu {
             Inventory playerInventory,
             boolean stamped,
             String regionId,
+            String townId,
             String holderName,
             int caughtSpecies,
             int researchPoints,
@@ -57,6 +61,7 @@ public class RegionalPassportMenu extends AbstractContainerMenu {
         super(ModMenuTypes.REGIONAL_PASSPORT, containerId);
         this.stamped = stamped;
         this.regionId = regionId;
+        this.townId = townId;
         this.holderName = holderName;
         this.caughtSpecies = caughtSpecies;
         this.researchPoints = researchPoints;
@@ -69,8 +74,9 @@ public class RegionalPassportMenu extends AbstractContainerMenu {
         return new RegionalPassportMenu(
                 containerId,
                 inventory,
-                origin.isPresent(),
+                !data.showsPassportSetupScreen(),
                 origin.map(SurveyRegion::getId).orElse(""),
+                data.getSurveyOriginTown().map(SurveyOriginTown::getId).orElse(""),
                 player.getGameProfile().getName(),
                 data.getCaughtSpeciesCount(),
                 data.getResearchPoints(),
@@ -92,6 +98,10 @@ public class RegionalPassportMenu extends AbstractContainerMenu {
 
     public Optional<SurveyRegion> getRegion() {
         return SurveyRegion.fromId(regionId);
+    }
+
+    public Optional<SurveyOriginTown> getTown() {
+        return SurveyOriginTown.fromId(townId);
     }
 
     public int getCaughtSpecies() {

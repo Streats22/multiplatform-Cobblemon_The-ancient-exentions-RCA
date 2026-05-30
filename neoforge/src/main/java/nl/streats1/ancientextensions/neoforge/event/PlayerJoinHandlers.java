@@ -1,8 +1,8 @@
 package nl.streats1.ancientextensions.neoforge.event;
 
+import nl.streats1.ancientextensions.AncientExtensionsContext;
 import nl.streats1.ancientextensions.kit.StarterKitGrant;
 import nl.streats1.ancientextensions.display.RegionPlayerDisplay;
-import nl.streats1.ancientextensions.neoforge.network.ModNetworking;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -22,7 +22,7 @@ public final class PlayerJoinHandlers {
         player.server.execute(() -> {
             StarterKitGrant.tryGrantOnFirstJoin(player);
             RegionPlayerDisplay.refresh(player);
-            ModNetworking.promptOriginIfNeeded(player);
+            AncientExtensionsContext.get().promptOriginIfNeeded(player);
         });
     }
 }

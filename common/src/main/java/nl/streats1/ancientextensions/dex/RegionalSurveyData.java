@@ -85,6 +85,31 @@ public class RegionalSurveyData {
         survey.setSurveyOrigin(region);
     }
 
+    public Optional<SurveyOriginTown> getSurveyOriginTown() {
+        return survey.getSurveyOriginTown();
+    }
+
+    public void setSurveyOriginTown(SurveyOriginTown town) {
+        survey.setSurveyOriginTown(town);
+    }
+
+    public void clearSurveyOriginTown() {
+        survey.clearSurveyOriginTown();
+    }
+
+    public boolean isOriginSetupMode() {
+        return survey.isOriginSetupMode();
+    }
+
+    public void setOriginSetupMode(boolean originSetupMode) {
+        survey.setOriginSetupMode(originSetupMode);
+    }
+
+    /** Show the region/town picker on the passport even when origin is already stamped. */
+    public boolean showsPassportSetupScreen() {
+        return isOriginSetupMode() || getSurveyOrigin().isEmpty();
+    }
+
     public MigrationSeason getTrackedMigrationSeason() {
         return migration.getTrackedMigrationSeason();
     }

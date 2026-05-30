@@ -2,6 +2,7 @@ package nl.streats1.ancientextensions.fabric.client;
 
 import nl.streats1.ancientextensions.client.AncientExtensionsClientHooks;
 import nl.streats1.ancientextensions.client.AncientExtensionsScreens;
+import nl.streats1.ancientextensions.client.PokeballPouchClient;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
@@ -14,8 +15,9 @@ public class AncientExtensionsFabricClient implements ClientModInitializer {
     public void onInitializeClient() {
         PayloadTypeRegistry.playC2S().register(SelectSurveyRegionPayload.TYPE, SelectSurveyRegionPayload.STREAM_CODEC);
         AncientExtensionsScreens.register(MenuScreens::register);
-        AncientExtensionsClientHooks.setRegionSelectSender(regionId ->
-                ClientPlayNetworking.send(new SelectSurveyRegionPayload(regionId))
+        PokeballPouchClient.registerItemProperties();
+        AncientExtensionsClientHooks.setOriginSelectSender((regionId, townId) ->
+                ClientPlayNetworking.send(new SelectSurveyRegionPayload(regionId, townId))
         );
     }
 }

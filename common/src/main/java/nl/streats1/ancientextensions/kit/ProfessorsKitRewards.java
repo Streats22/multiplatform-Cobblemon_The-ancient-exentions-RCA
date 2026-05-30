@@ -56,6 +56,16 @@ public final class ProfessorsKitRewards {
         return stacks;
     }
 
+    /** Chest contents when the kit is deployed (merges player + backup when configured). */
+    public static List<ItemStack> createDeployChestStacks(boolean chestOnlyStarterSupplies) {
+        List<ItemStack> stacks = new ArrayList<>();
+        if (chestOnlyStarterSupplies) {
+            stacks.addAll(createPlayerStacks());
+        }
+        stacks.addAll(createChestStacks());
+        return stacks;
+    }
+
     private static ItemStack stack(String itemId, int count) {
         ResourceLocation id = ResourceLocation.parse(itemId);
         Item item = BuiltInRegistries.ITEM.get(id);

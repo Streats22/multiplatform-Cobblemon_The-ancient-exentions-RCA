@@ -19,7 +19,7 @@ public final class FabricNetworking {
                     if (!(context.player() instanceof ServerPlayer serverPlayer)) {
                         return;
                     }
-                    if (AncientExtensionsContext.get().origins().trySetOrigin(serverPlayer, payload.regionId())) {
+                    if (AncientExtensionsContext.get().origins().trySetOrigin(serverPlayer, payload.regionId(), payload.townId())) {
                         PassportMenuOpener.open(serverPlayer);
                     }
                 })
@@ -28,12 +28,5 @@ public final class FabricNetworking {
 
     public static void openPassport(ServerPlayer player) {
         PassportMenuOpener.open(player);
-    }
-
-    public static void promptOriginIfNeeded(ServerPlayer player) {
-        var data = AncientExtensionsContext.get().surveys().get(player);
-        if (!AncientExtensionsContext.get().origins().hasOrigin(data)) {
-            openPassport(player);
-        }
     }
 }

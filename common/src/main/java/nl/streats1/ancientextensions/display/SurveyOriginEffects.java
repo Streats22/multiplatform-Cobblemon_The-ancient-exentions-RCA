@@ -1,6 +1,7 @@
 package nl.streats1.ancientextensions.display;
 
 import nl.streats1.ancientextensions.dex.PassportInventorySync;
+import nl.streats1.ancientextensions.dex.SurveyOriginTown;
 import nl.streats1.ancientextensions.dex.SurveyRegion;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -12,8 +13,8 @@ public final class SurveyOriginEffects {
     private SurveyOriginEffects() {
     }
 
-    public static void apply(ServerPlayer player, SurveyRegion region, boolean announce) {
-        PassportInventorySync.applyOriginToPassports(player, region);
+    public static void apply(ServerPlayer player, SurveyRegion region, SurveyOriginTown town, boolean announce) {
+        PassportInventorySync.applyOriginToPassports(player, region, town);
         RegionPlayerDisplay.refresh(player, announce);
     }
 }

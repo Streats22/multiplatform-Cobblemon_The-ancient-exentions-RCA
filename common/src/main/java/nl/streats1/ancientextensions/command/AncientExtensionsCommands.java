@@ -5,6 +5,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import nl.streats1.ancientextensions.AncientExtensionsConstants;
 import nl.streats1.ancientextensions.AncientExtensionsContext;
+import nl.streats1.ancientextensions.config.PassportConfig;
 import nl.streats1.ancientextensions.dex.RegionalSurveyData;
 import nl.streats1.ancientextensions.dex.SurveyRegion;
 import nl.streats1.ancientextensions.kit.ProfessorsKitLogic;
@@ -71,8 +72,8 @@ public final class AncientExtensionsCommands {
                         .then(Commands.argument("player", EntityArgument.player())
                                 .requires(source -> source.hasPermission(2))
                                 .executes(ctx -> giveJournal(EntityArgument.getPlayer(ctx, "player")))))
-                .then(literal("region").executes(ctx -> showRegion(ctx.getSource().getPlayerOrException())))
                 .then(literal("region")
+                        .executes(ctx -> showRegion(ctx.getSource().getPlayerOrException()))
                         .then(literal("set")
                                 .requires(source -> source.hasPermission(2))
                                 .then(Commands.argument("region", StringArgumentType.word())
@@ -99,6 +100,16 @@ public final class AncientExtensionsCommands {
                                                         EntityArgument.getPlayer(ctx, "player"),
                                                         StringArgumentType.getString(ctx, "region")
                                                 ))))))
+                .then(literal("origin")
+                        .then(literal("setup")
+                                .requires(source -> source.hasPermission(2))
+                                .executes(ctx -> enableOriginSetup(ctx.getSource().getPlayerOrException()))
+                                .then(literal("off")
+                                        .executes(ctx -> disableOriginSetup(ctx.getSource().getPlayerOrException()))
+                                        .then(Commands.argument("player", EntityArgument.player())
+                                                .executes(ctx -> disableOriginSetup(EntityArgument.getPlayer(ctx, "player")))))
+                                .then(Commands.argument("player", EntityArgument.player())
+                                        .executes(ctx -> enableOriginSetup(EntityArgument.getPlayer(ctx, "player"))))))
                 .then(literal("givepassport")
                         .requires(source -> source.hasPermission(2))
                         .executes(ctx -> givePassport(ctx.getSource().getPlayerOrException())))
@@ -183,11 +194,31 @@ public final class AncientExtensionsCommands {
         StarterKitGrant.tryGrantOnFirstJoin(player);
         var data = AncientExtensionsContext.get().surveys().get(player);
         if (!AncientExtensionsContext.get().origins().hasOrigin(data)) {
-            AncientExtensionsContext.get().openPassport(player);
+            if (PassportConfig.openOriginPickerOnJoin()) {
+                AncientExtensionsContext.get().openPassport(player);
+            } else {
+                player.sendSystemMessage(Component.translatable("ancient_extensions.command.startjoin_origin_picker_disabled"));
+            }
         } else {
             player.sendSystemMessage(Component.translatable("ancient_extensions.command.startjoin_already_stamped"));
         }
         return 1;
+    }
+
+    private static int enableOriginSetup(ServerPlayer player) {
+        AncientExtensionsContext.get().origins().enableOriginSetup(player);
+        player.sendSystemMessage(Component.translatable("ancient_extensions.command.origin_setup_enabled"));
+        AncientExtensionsContext.get().openPassport(player);
+        return 1;
+    }
+
+    private static int disableOriginSetup(ServerPlayer player) {
+        if (AncientExtensionsContext.get().origins().disableOriginSetup(player)) {
+            player.sendSystemMessage(Component.translatable("ancient_extensions.command.origin_setup_disabled"));
+            return 1;
+        }
+        player.sendSystemMessage(Component.translatable("ancient_extensions.command.origin_setup_not_active"));
+        return 0;
     }
 
     private static int giveKit(ServerPlayer player) {
