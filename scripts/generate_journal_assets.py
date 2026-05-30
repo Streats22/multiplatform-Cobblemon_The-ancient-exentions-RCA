@@ -59,9 +59,38 @@ def draw_journal_gui(path: Path) -> None:
         d.point((ox, oy), fill=paper_shadow)
         d.point((ox + 1, oy), fill=paper_shadow)
 
+    draw_journal_sprites(d, rule)
+
     path.parent.mkdir(parents=True, exist_ok=True)
     img.save(path)
     print(f"Wrote {path}")
+
+
+def draw_journal_sprites(d: ImageDraw.ImageDraw, rule) -> None:
+    gold = rgb("#c9a227")
+    gold_hi = rgb("#e8c84a")
+    gold_shadow = rgb("#8a6820")
+    reward_band = rgb("#efe3c4")
+
+    # Reward strip (14, 238) — sits between page body and footer
+    rx, ry, rw, rh = 14, 238, 228, 18
+    d.rectangle((rx, ry, rx + rw - 1, ry + rh - 1), fill=reward_band)
+    d.line([(rx, ry), (rx + rw - 1, ry)], fill=gold, width=1)
+    d.line([(rx, ry + rh - 1), (rx + rw - 1, ry + rh - 1)], fill=rule, width=1)
+
+    # Claim button sprites (0, 220) — 108×16 normal + hover
+    bx, by, bw, bh = 0, 220, 108, 16
+    for row, (face, hi, lo) in enumerate(
+        (
+            (gold_hi, rgb("#fff0a8"), gold),
+            (gold, gold_hi, gold_shadow),
+        )
+    ):
+        y0 = by + row * bh
+        d.rectangle((bx, y0, bx + bw - 1, y0 + bh - 1), fill=face)
+        d.rectangle((bx, y0, bx + bw - 1, y0 + bh - 1), outline=lo, width=1)
+        d.line([(bx + 1, y0 + 1), (bx + bw - 2, y0 + 1)], fill=hi, width=1)
+        d.line([(bx + 1, y0 + bh - 2), (bx + bw - 2, y0 + bh - 2)], fill=lo, width=1)
 
 
 if __name__ == "__main__":

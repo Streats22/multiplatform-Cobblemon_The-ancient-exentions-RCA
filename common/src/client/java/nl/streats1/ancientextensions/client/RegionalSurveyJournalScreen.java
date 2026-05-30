@@ -25,15 +25,26 @@ public class RegionalSurveyJournalScreen extends AbstractContainerScreen<Regiona
     private static final int CONTENT_Y = 36;
     private static final int CONTENT_W = 216;
     private static final int CONTENT_TOP = 32;
-    private static final int CONTENT_BOTTOM = 210;
-    private static final int LINE_HEIGHT = 10;
-    private static final int LINES_PER_PAGE = 17;
+    private static final int CONTENT_BOTTOM_WITH_CLAIM = 206;
+    private static final int CONTENT_BOTTOM_DEFAULT = 222;
 
-    private static final int FOOTER_TOP = 226;
+    private static final int REWARD_BAR_TOP = 208;
+    private static final int REWARD_BAR_H = 18;
+    private static final int REWARD_BAR_U = 14;
+    private static final int REWARD_BAR_V = 238;
+    private static final int REWARD_BAR_TEX_W = 228;
+
+    private static final int CLAIM_BTN_W = 108;
+    private static final int CLAIM_BTN_H = 16;
+    private static final int CLAIM_BTN_X = 74;
+
+    private static final int FOOTER_TOP = 228;
     private static final int FOOTER_H = 24;
 
     private static final int PAGE_BTN_W = 20;
     private static final int PAGE_BTN_H = 16;
+
+    private static final int LINE_HEIGHT = 10;
 
     private static final int COLOR_HEADER = 0xFFF0E2CC;
     private static final int COLOR_HEADER_SHADOW = 0xFF1A1008;
@@ -62,12 +73,25 @@ public class RegionalSurveyJournalScreen extends AbstractContainerScreen<Regiona
         addPageButtons();
     }
 
+    private boolean hasClaimableRewards() {
+        return this.menu.getUnclaimedRewardCount() > 0;
+    }
+
+    private int contentBottom() {
+        return hasClaimableRewards() ? CONTENT_BOTTOM_WITH_CLAIM : CONTENT_BOTTOM_DEFAULT;
+    }
+
+    private int linesPerPage() {
+        return (contentBottom() - CONTENT_Y) / LINE_HEIGHT;
+    }
+
     private void buildPages() {
         pages.clear();
+        int maxLines = linesPerPage();
         List<FormattedCharSequence> current = new ArrayList<>();
         for (Component line : this.menu.getLines()) {
             if (line.getString().isEmpty()) {
-                if (current.size() >= LINES_PER_PAGE) {
+                if (current.size() >= maxLines) {
                     pages.add(List.copyOf(current));
                     current = new ArrayList<>();
                 }
@@ -76,7 +100,7 @@ public class RegionalSurveyJournalScreen extends AbstractContainerScreen<Regiona
             }
             List<FormattedCharSequence> wrapped = this.font.split(line, CONTENT_W);
             for (FormattedCharSequence wrappedLine : wrapped) {
-                if (current.size() >= LINES_PER_PAGE) {
+                if (current.size() >= maxLines) {
                     pages.add(List.copyOf(current));
                     current = new ArrayList<>();
                 }
@@ -106,15 +130,18 @@ public class RegionalSurveyJournalScreen extends AbstractContainerScreen<Regiona
                 .bounds(centerX + 36, footerCenterY - PAGE_BTN_H / 2, PAGE_BTN_W, PAGE_BTN_H)
                 .build());
 
-        if (this.menu.getUnclaimedRewardCount() > 0) {
-            addRenderableWidget(Button.builder(
-                            Component.translatable(
-                                    "ancient_extensions.journal.claim_rewards",
-                                    this.menu.getUnclaimedRewardCount()
-                            ),
-                            button -> AncientExtensionsClientHooks.sendClaimTierRewards())
-                    .bounds(this.leftPos + CONTENT_X, this.topPos + CONTENT_BOTTOM - 22, CONTENT_W, 18)
-                    .build());
+        if (hasClaimableRewards()) {
+            addRenderableWidget(new JournalClaimButton(
+                    this.leftPos + CLAIM_BTN_X,
+                    this.topPos + REWARD_BAR_TOP + 1,
+                    CLAIM_BTN_W,
+                    CLAIM_BTN_H,
+                    Component.translatable(
+                            "ancient_extensions.journal.claim_rewards_short",
+                            this.menu.getUnclaimedRewardCount()
+                    ),
+                    button -> AncientExtensionsClientHooks.sendClaimTierRewards()
+            ));
         }
     }
 
@@ -139,13 +166,27 @@ public class RegionalSurveyJournalScreen extends AbstractContainerScreen<Regiona
         graphics.drawCenteredString(this.font, header, cx + 1, 20, COLOR_HEADER_SHADOW);
         graphics.drawCenteredString(this.font, header, cx, 19, COLOR_HEADER);
 
-        graphics.fill(CONTENT_X - 2, CONTENT_TOP, CONTENT_X + CONTENT_W + 2, CONTENT_BOTTOM, COLOR_PANEL);
+        graphics.fill(CONTENT_X - 2, CONTENT_TOP, CONTENT_X + CONTENT_W + 2, contentBottom(), COLOR_PANEL);
 
         List<FormattedCharSequence> page = pages.get(pageIndex);
         int y = CONTENT_Y;
         for (FormattedCharSequence line : page) {
-            GuiTextRender.drawStyled(this.font, graphics, line, CONTENT_X, y);
+            GuiTextRender.drawStyled(this.font, graphics, line, CONTENT_X, y, false);
             y += LINE_HEIGHT;
+        }
+
+        if (hasClaimableRewards()) {
+            graphics.blit(
+                    TEXTURE,
+                    14,
+                    REWARD_BAR_TOP,
+                    REWARD_BAR_U,
+                    REWARD_BAR_V,
+                    REWARD_BAR_TEX_W,
+                    REWARD_BAR_H,
+                    TEX_SIZE,
+                    TEX_SIZE
+            );
         }
 
         drawFooter(graphics, cx);

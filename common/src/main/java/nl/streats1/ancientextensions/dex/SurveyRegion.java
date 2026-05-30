@@ -71,7 +71,7 @@ public enum SurveyRegion {
         return Component.empty()
                 .append(labeledName())
                 .append("\n")
-                .append(passportBlurb().copy().withStyle(ChatFormatting.GRAY));
+                .append(passportBlurb().copy().withStyle(ChatFormatting.WHITE));
     }
 
     /** Short label that fits on a region button. */

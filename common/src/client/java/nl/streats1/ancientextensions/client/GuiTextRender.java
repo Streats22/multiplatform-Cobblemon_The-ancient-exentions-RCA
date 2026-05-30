@@ -34,6 +34,10 @@ public final class GuiTextRender {
         graphics.drawString(font, text, x, y, STYLE_PRESERVING_COLOR, shadow);
     }
 
+    public static void drawCenteredStyled(Font font, GuiGraphics graphics, Component text, int centerX, int y, boolean shadow) {
+        drawStyled(font, graphics, text, centerX - font.width(text) / 2, y, shadow);
+    }
+
     public static int drawWrapped(Font font, GuiGraphics graphics, Component text, int x, int y, int maxWidth) {
         return drawWrapped(font, graphics, text, x, y, maxWidth, true);
     }

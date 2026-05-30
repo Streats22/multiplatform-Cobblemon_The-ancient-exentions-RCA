@@ -104,6 +104,7 @@
   "ancient_extensions.journal.reward_locked": "○ %s — unlock at %s RP",
   "ancient_extensions.journal.reward_claim_hint": "Use Claim rank rewards below, or /ancientextensions rewards claim.",
   "ancient_extensions.journal.claim_rewards": "Claim rank rewards (%s)",
+  "ancient_extensions.journal.claim_rewards_short": "Claim rewards (%s)",
   "ancient_extensions.journal.section_migration": "Seasonal migration",
   "ancient_extensions.journal.migration_summary": "%s — Leg %s/%s | Completions: %s | Next route: +%s RP",
   "ancient_extensions.journal.empty": "No survey data yet. Pitch your camp and catch Pokémon in the wild.",
