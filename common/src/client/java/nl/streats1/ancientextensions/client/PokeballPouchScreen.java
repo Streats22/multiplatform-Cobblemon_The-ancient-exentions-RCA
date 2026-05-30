@@ -17,12 +17,12 @@ public class PokeballPouchScreen extends AbstractContainerScreen<PokeballPouchMe
     );
     private static final int TEX_WIDTH = 176;
     private static final int TEX_HEIGHT = 166;
-    private static final int HEADER_HEIGHT = 17;
-    private static final int FOOTER_HEIGHT = 94;
+
+    private final PokeballPouchLayout.Metrics layout;
 
     public PokeballPouchScreen(PokeballPouchMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
-        PokeballPouchLayout.Metrics layout = PokeballPouchLayout.metrics(menu.getPouchSlotCount());
+        this.layout = PokeballPouchLayout.metrics(menu.getPouchSlotCount());
         this.imageWidth = PokeballPouchMenu.WIDTH;
         this.imageHeight = layout.imageHeight();
         this.titleLabelY = 6;
@@ -33,36 +33,108 @@ public class PokeballPouchScreen extends AbstractContainerScreen<PokeballPouchMe
     protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
         int left = this.leftPos;
         int top = this.topPos;
+        int rows = layout.pouchRows();
 
-        if (this.imageHeight <= TEX_HEIGHT) {
-            graphics.blit(TEXTURE, left, top, 0, 0, this.imageWidth, this.imageHeight, TEX_WIDTH, TEX_HEIGHT);
-            return;
+        graphics.blit(TEXTURE, left, top, 0, 0, this.imageWidth, PokeballPouchLayout.TEX_HEADER_H, TEX_WIDTH, TEX_HEIGHT);
+
+        int pouchPanelH = layout.pouchAreaBottom() - PokeballPouchLayout.TEX_HEADER_H;
+        if (pouchPanelH > 0) {
+            graphics.blit(
+                    TEXTURE,
+                    left + PokeballPouchLayout.TEX_PANEL_X,
+                    top + PokeballPouchLayout.TEX_HEADER_H,
+                    PokeballPouchLayout.TEX_PANEL_X,
+                    PokeballPouchLayout.TEX_PANEL_FILL_Y,
+                    PokeballPouchLayout.TEX_PANEL_W,
+                    pouchPanelH,
+                    TEX_WIDTH,
+                    TEX_HEIGHT
+            );
         }
 
-        int stretchHeight = this.imageHeight - HEADER_HEIGHT - FOOTER_HEIGHT;
-        graphics.blit(TEXTURE, left, top, 0, 0, this.imageWidth, HEADER_HEIGHT, TEX_WIDTH, TEX_HEIGHT);
+        for (int row = 0; row < rows; row++) {
+            graphics.blit(
+                    TEXTURE,
+                    left + PokeballPouchLayout.TEX_SLOT_X,
+                    top + PokeballPouchLayout.POUCH_START_Y + row * PokeballPouchLayout.SLOT_STRIDE,
+                    PokeballPouchLayout.TEX_SLOT_X,
+                    PokeballPouchLayout.TEX_SLOT_ROW_Y,
+                    PokeballPouchLayout.TEX_SLOT_W,
+                    PokeballPouchLayout.TEX_SLOT_ROW_H,
+                    TEX_WIDTH,
+                    TEX_HEIGHT
+            );
+        }
+
+        int gapTop = layout.pouchAreaBottom();
+        int gapBottom = layout.playerInvY();
+        if (gapBottom > gapTop) {
+            graphics.blit(
+                    TEXTURE,
+                    left + PokeballPouchLayout.TEX_PANEL_X,
+                    top + gapTop,
+                    PokeballPouchLayout.TEX_PANEL_X,
+                    PokeballPouchLayout.TEX_PANEL_FILL_Y,
+                    PokeballPouchLayout.TEX_PANEL_W,
+                    gapBottom - gapTop,
+                    TEX_WIDTH,
+                    TEX_HEIGHT
+            );
+        }
+
+        int playerPanelH = layout.hotbarY() + PokeballPouchLayout.TEX_SLOT_ROW_H - layout.playerInvY() + 6;
         graphics.blit(
                 TEXTURE,
-                left,
-                top + HEADER_HEIGHT,
-                0,
-                HEADER_HEIGHT,
-                this.imageWidth,
-                stretchHeight,
+                left + PokeballPouchLayout.TEX_PANEL_X,
+                top + layout.playerInvY() - 4,
+                PokeballPouchLayout.TEX_PANEL_X,
+                67,
+                PokeballPouchLayout.TEX_PANEL_W,
+                playerPanelH,
                 TEX_WIDTH,
                 TEX_HEIGHT
         );
+
+        for (int row = 0; row < 3; row++) {
+            graphics.blit(
+                    TEXTURE,
+                    left + PokeballPouchLayout.TEX_SLOT_X,
+                    top + layout.playerInvY() + row * PokeballPouchLayout.SLOT_STRIDE,
+                    PokeballPouchLayout.TEX_SLOT_X,
+                    PokeballPouchLayout.TEX_PLAYER_ROW_Y + row * PokeballPouchLayout.SLOT_STRIDE,
+                    PokeballPouchLayout.TEX_SLOT_W,
+                    PokeballPouchLayout.TEX_SLOT_ROW_H,
+                    TEX_WIDTH,
+                    TEX_HEIGHT
+            );
+        }
+
         graphics.blit(
                 TEXTURE,
-                left,
-                top + this.imageHeight - FOOTER_HEIGHT,
-                0,
-                TEX_HEIGHT - FOOTER_HEIGHT,
-                this.imageWidth,
-                FOOTER_HEIGHT,
+                left + PokeballPouchLayout.TEX_SLOT_X,
+                top + layout.hotbarY(),
+                PokeballPouchLayout.TEX_SLOT_X,
+                PokeballPouchLayout.TEX_HOTBAR_Y,
+                PokeballPouchLayout.TEX_SLOT_W,
+                PokeballPouchLayout.TEX_SLOT_ROW_H,
                 TEX_WIDTH,
                 TEX_HEIGHT
         );
+
+        int frameBottom = layout.hotbarY() + PokeballPouchLayout.TEX_SLOT_ROW_H + 6;
+        if (this.imageHeight > frameBottom) {
+            graphics.blit(
+                    TEXTURE,
+                    left,
+                    top + frameBottom,
+                    0,
+                    TEX_HEIGHT - 6,
+                    this.imageWidth,
+                    this.imageHeight - frameBottom,
+                    TEX_WIDTH,
+                    TEX_HEIGHT
+            );
+        }
     }
 
     @Override

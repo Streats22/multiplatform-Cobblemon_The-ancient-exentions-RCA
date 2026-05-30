@@ -6,6 +6,7 @@
   "description": "Rubius Cobblemon glue mod — Regional Survey, kit, passport, journal, and migration. Requires Cobblemon 1.7.x on Minecraft 1.21.1.",
   "authors": ["Streats1"],
   "license": "MIT",
+  "icon": "assets/ancient_extensions/icon.png",
   "contact": {
     "homepage": "https://modrinth.com/modpack/rubius-cobblemon"
   },

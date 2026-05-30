@@ -4,10 +4,69 @@
 from __future__ import annotations
 
 import json
+import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "common/src/main/resources/data/cobblemon/spawn_pool_world"
+
+# Legendary / mythical / ultra-beast flyers — excluded from additive migration spawns only.
+FLYING_SPAWN_EXCLUDE = {
+    "articuno",
+    "zapdos",
+    "moltres",
+    "mew",
+    "lugia",
+    "ho-oh",
+    "hooh",
+    "rayquaza",
+    "latias",
+    "latios",
+    "kyogre",
+    "groudon",
+    "dialga",
+    "palkia",
+    "giratina",
+    "reshiram",
+    "zekrom",
+    "kyurem",
+    "xerneas",
+    "yveltal",
+    "zygarde",
+    "solgaleo",
+    "lunala",
+    "necrozma",
+    "zacian",
+    "zamazenta",
+    "eternatus",
+    "calyrex",
+    "koraidon",
+    "miraidon",
+    "terapagos",
+    "celesteela",
+    "enamorus",
+    "landorus",
+    "thundurus",
+    "tornadus",
+    "arceus",
+    "darkrai",
+    "cresselia",
+    "manaphy",
+    "phione",
+    "jirachi",
+    "deoxys",
+    "volcanion",
+    "magearna",
+    "zarude",
+    "pecharunt",
+}
+
+COBBLEMON_JAR_CANDIDATES = [
+    Path.home()
+    / ".gradle/caches/modules-2/files-2.1/com.cobblemon/mod/1.7.3+1.21.1/996437367d11e3008c48b19e0f1cc4934ee71451/mod-1.7.3+1.21.1.jar",
+    Path.home()
+    / ".gradle/caches/modules-2/files-2.1/com.cobblemon/mod/1.7.1+1.21.1/bad6fb7c93e9647aaba869bda13101b0349bbcfe/mod-1.7.1+1.21.1.jar",
+]
 
 # Biome legs mirror RegionsUnexploredBiomes.partitionForLegs(forSeason(...)).
 SEASONS: dict[str, dict] = {
@@ -40,7 +99,7 @@ SEASONS: dict[str, dict] = {
                 "regions_unexplored:bioshroom_caves",
             ],
         ],
-        "spawns": [
+        "ground_spawns": [
             ("hoppip", 0, "8-22", 1.6, "grounded", "common"),
             ("skiploom", 0, "14-28", 1.2, "grounded", "uncommon"),
             ("oddish", 0, "6-20", 1.0, "grounded", "common"),
@@ -80,7 +139,7 @@ SEASONS: dict[str, dict] = {
                 "regions_unexplored:prismachasm",
             ],
         ],
-        "spawns": [
+        "ground_spawns": [
             ("wingull", 0, "10-26", 1.6, "grounded", "common"),
             ("magikarp", 0, "5-20", 1.3, "submerged", "common"),
             ("surskit", 0, "8-22", 1.0, "grounded", "common"),
@@ -116,7 +175,7 @@ SEASONS: dict[str, dict] = {
                 "regions_unexplored:redstone_caves",
             ],
         ],
-        "spawns": [
+        "ground_spawns": [
             ("seedot", 0, "8-22", 1.6, "grounded", "uncommon"),
             ("nuzleaf", 0, "16-30", 1.1, "grounded", "uncommon"),
             ("deerling", 0, "10-24", 1.0, "grounded", "common"),
@@ -154,7 +213,7 @@ SEASONS: dict[str, dict] = {
                 "regions_unexplored:redstone_abyss",
             ],
         ],
-        "spawns": [
+        "ground_spawns": [
             ("snover", 0, "10-26", 1.6, "grounded", "uncommon"),
             ("swinub", 0, "8-22", 1.2, "grounded", "common"),
             ("delibird", 0, "12-28", 0.9, "grounded", "uncommon"),
@@ -168,13 +227,79 @@ SEASONS: dict[str, dict] = {
     },
 }
 
-SPECIES_BY_SEASON = {
-    season: sorted({entry[0] for entry in data["spawns"]})
-    for season, data in SEASONS.items()
+SEASON_ORDER = ["spring", "summer", "autumn", "winter"]
+
+
+def resolve_cobblemon_jar() -> Path:
+    for candidate in COBBLEMON_JAR_CANDIDATES:
+        if candidate.is_file():
+            return candidate
+    raise FileNotFoundError(
+        "Cobblemon mod JAR not found in Gradle cache. Build the project once to download dependencies."
+    )
+
+
+def load_flying_species() -> list[str]:
+    jar = resolve_cobblemon_jar()
+    flying: list[str] = []
+    with zipfile.ZipFile(jar) as archive:
+        for name in archive.namelist():
+            if not name.startswith("data/cobblemon/species/") or not name.endswith(".json"):
+                continue
+            payload = json.loads(archive.read(name))
+            types = [payload.get("primaryType"), payload.get("secondaryType")]
+            if "flying" not in [value for value in types if value]:
+                continue
+            species = name.split("/")[-1].replace(".json", "")
+            if species in FLYING_SPAWN_EXCLUDE:
+                continue
+            flying.append(species)
+    return sorted(set(flying))
+
+
+def partition_flying_by_season(flying: list[str]) -> dict[str, list[str]]:
+    by_season: dict[str, list[str]] = {season: [] for season in SEASON_ORDER}
+    for index, species in enumerate(flying):
+        by_season[SEASON_ORDER[index % len(SEASON_ORDER)]].append(species)
+    return by_season
+
+
+RARE_FLYING = {
+    "aerodactyl",
+    "archeops",
+    "corviknight",
+    "dragonite",
+    "salamence",
+    "talonflame",
+    "staraptor",
+    "pidgeot",
+    "noivern",
 }
 
 
-def build_spawn(season: str, pokemon: str, leg_index: int, level: str, weight: float, position: str, bucket: str, biomes: list[str]) -> dict:
+def flying_spawn_entry(species: str, leg_index: int) -> tuple:
+    # Low weight additive spawns; rotate across the three route legs.
+    if species in RARE_FLYING:
+        bucket = "rare"
+    elif species.endswith(("otto", "loom", "drill", "knight", "aptor", "eon")):
+        bucket = "uncommon"
+    else:
+        bucket = "common"
+    return (species, leg_index % 3, "8-32", 0.55, "grounded", bucket)
+
+
+def build_spawn(
+    season: str,
+    pokemon: str,
+    leg_index: int,
+    level: str,
+    weight: float,
+    position: str,
+    bucket: str,
+    biomes: list[str],
+    *,
+    aerial: bool = False,
+) -> dict:
     entry = {
         "id": f"ancient_extensions-{season}-{pokemon}",
         "pokemon": pokemon,
@@ -186,16 +311,17 @@ def build_spawn(season: str, pokemon: str, leg_index: int, level: str, weight: f
         "condition": {"biomes": biomes},
     }
     if position == "grounded":
-        entry["presets"] = ["natural"]
+        entry["presets"] = ["natural", "treetop"] if aerial else ["natural"]
     return entry
 
 
-def build_pool(season: str, data: dict) -> dict:
+def build_pool(season: str, data: dict, flying_for_season: list[str]) -> dict:
     spawns = []
-    for pokemon, leg_index, level, weight, position, bucket in data["spawns"]:
-        spawns.append(
-            build_spawn(season, pokemon, leg_index, level, weight, position, bucket, data["legs"][leg_index])
-        )
+    for row in data["ground_spawns"]:
+        spawns.append(build_spawn(season, *row, data["legs"][row[1]]))
+    for index, species in enumerate(flying_for_season):
+        row = flying_spawn_entry(species, index)
+        spawns.append(build_spawn(season, *row, data["legs"][row[1]], aerial=True))
     return {
         "enabled": True,
         "neededInstalledMods": [],
@@ -205,14 +331,17 @@ def build_pool(season: str, data: dict) -> dict:
 
 
 def main() -> None:
+    flying = load_flying_species()
+    flying_by_season = partition_flying_by_season(flying)
     OUT.mkdir(parents=True, exist_ok=True)
     for season, data in SEASONS.items():
         path = OUT / f"ancient_extensions_migration_{season}.json"
-        path.write_text(json.dumps(build_pool(season, data), indent=2) + "\n", encoding="utf-8")
-        print(f"Wrote {path} ({len(data['spawns'])} spawns)")
-    print("\nSpecies per season (for MigrationSpecies.java):")
-    for season, species in SPECIES_BY_SEASON.items():
-        print(f"  {season.upper()}: {', '.join(species)}")
+        pool = build_pool(season, data, flying_by_season[season])
+        path.write_text(json.dumps(pool, indent=2) + "\n", encoding="utf-8")
+        ground = len(data["ground_spawns"])
+        air = len(flying_by_season[season])
+        print(f"Wrote {path} ({ground} survey + {air} flying = {ground + air} spawns)")
+    print(f"\nTotal flying species in migration pools: {len(flying)} (excludes {len(FLYING_SPAWN_EXCLUDE)} legendaries)")
 
 
 if __name__ == "__main__":

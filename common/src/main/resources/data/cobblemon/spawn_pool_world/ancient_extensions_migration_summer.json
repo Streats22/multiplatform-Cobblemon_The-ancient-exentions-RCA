@@ -197,6 +197,566 @@
           "regions_unexplored:prismachasm"
         ]
       }
+    },
+    {
+      "id": "ancient_extensions-summer-altaria",
+      "pokemon": "altaria",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:tropical_river",
+          "regions_unexplored:grassy_beach",
+          "regions_unexplored:rocky_reef",
+          "regions_unexplored:outback",
+          "regions_unexplored:arid_mountains",
+          "regions_unexplored:dry_bushland",
+          "regions_unexplored:baobab_savanna"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-summer-bombirdier",
+      "pokemon": "bombirdier",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:joshua_desert",
+          "regions_unexplored:sparse_rainforest",
+          "regions_unexplored:tropics",
+          "regions_unexplored:rainforest",
+          "regions_unexplored:saguaro_desert",
+          "regions_unexplored:shrubland",
+          "regions_unexplored:steppe"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-summer-chatot",
+      "pokemon": "chatot",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:rocky_meadow",
+          "regions_unexplored:highland_fields",
+          "regions_unexplored:mountains",
+          "regions_unexplored:gravel_beach",
+          "regions_unexplored:prismachasm"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-summer-cramorant",
+      "pokemon": "cramorant",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:tropical_river",
+          "regions_unexplored:grassy_beach",
+          "regions_unexplored:rocky_reef",
+          "regions_unexplored:outback",
+          "regions_unexplored:arid_mountains",
+          "regions_unexplored:dry_bushland",
+          "regions_unexplored:baobab_savanna"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-summer-dodrio",
+      "pokemon": "dodrio",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:joshua_desert",
+          "regions_unexplored:sparse_rainforest",
+          "regions_unexplored:tropics",
+          "regions_unexplored:rainforest",
+          "regions_unexplored:saguaro_desert",
+          "regions_unexplored:shrubland",
+          "regions_unexplored:steppe"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-summer-drifloon",
+      "pokemon": "drifloon",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:rocky_meadow",
+          "regions_unexplored:highland_fields",
+          "regions_unexplored:mountains",
+          "regions_unexplored:gravel_beach",
+          "regions_unexplored:prismachasm"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-summer-fearow",
+      "pokemon": "fearow",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:tropical_river",
+          "regions_unexplored:grassy_beach",
+          "regions_unexplored:rocky_reef",
+          "regions_unexplored:outback",
+          "regions_unexplored:arid_mountains",
+          "regions_unexplored:dry_bushland",
+          "regions_unexplored:baobab_savanna"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-summer-gligar",
+      "pokemon": "gligar",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:joshua_desert",
+          "regions_unexplored:sparse_rainforest",
+          "regions_unexplored:tropics",
+          "regions_unexplored:rainforest",
+          "regions_unexplored:saguaro_desert",
+          "regions_unexplored:shrubland",
+          "regions_unexplored:steppe"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-summer-hawlucha",
+      "pokemon": "hawlucha",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:rocky_meadow",
+          "regions_unexplored:highland_fields",
+          "regions_unexplored:mountains",
+          "regions_unexplored:gravel_beach",
+          "regions_unexplored:prismachasm"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-summer-ironjugulis",
+      "pokemon": "ironjugulis",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:tropical_river",
+          "regions_unexplored:grassy_beach",
+          "regions_unexplored:rocky_reef",
+          "regions_unexplored:outback",
+          "regions_unexplored:arid_mountains",
+          "regions_unexplored:dry_bushland",
+          "regions_unexplored:baobab_savanna"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-summer-ledyba",
+      "pokemon": "ledyba",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:joshua_desert",
+          "regions_unexplored:sparse_rainforest",
+          "regions_unexplored:tropics",
+          "regions_unexplored:rainforest",
+          "regions_unexplored:saguaro_desert",
+          "regions_unexplored:shrubland",
+          "regions_unexplored:steppe"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-summer-masquerain",
+      "pokemon": "masquerain",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:rocky_meadow",
+          "regions_unexplored:highland_fields",
+          "regions_unexplored:mountains",
+          "regions_unexplored:gravel_beach",
+          "regions_unexplored:prismachasm"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-summer-natu",
+      "pokemon": "natu",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:tropical_river",
+          "regions_unexplored:grassy_beach",
+          "regions_unexplored:rocky_reef",
+          "regions_unexplored:outback",
+          "regions_unexplored:arid_mountains",
+          "regions_unexplored:dry_bushland",
+          "regions_unexplored:baobab_savanna"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-summer-noivern",
+      "pokemon": "noivern",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:joshua_desert",
+          "regions_unexplored:sparse_rainforest",
+          "regions_unexplored:tropics",
+          "regions_unexplored:rainforest",
+          "regions_unexplored:saguaro_desert",
+          "regions_unexplored:shrubland",
+          "regions_unexplored:steppe"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-summer-pidgeotto",
+      "pokemon": "pidgeotto",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:rocky_meadow",
+          "regions_unexplored:highland_fields",
+          "regions_unexplored:mountains",
+          "regions_unexplored:gravel_beach",
+          "regions_unexplored:prismachasm"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-summer-rookidee",
+      "pokemon": "rookidee",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:tropical_river",
+          "regions_unexplored:grassy_beach",
+          "regions_unexplored:rocky_reef",
+          "regions_unexplored:outback",
+          "regions_unexplored:arid_mountains",
+          "regions_unexplored:dry_bushland",
+          "regions_unexplored:baobab_savanna"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-summer-scyther",
+      "pokemon": "scyther",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:joshua_desert",
+          "regions_unexplored:sparse_rainforest",
+          "regions_unexplored:tropics",
+          "regions_unexplored:rainforest",
+          "regions_unexplored:saguaro_desert",
+          "regions_unexplored:shrubland",
+          "regions_unexplored:steppe"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-summer-spearow",
+      "pokemon": "spearow",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:rocky_meadow",
+          "regions_unexplored:highland_fields",
+          "regions_unexplored:mountains",
+          "regions_unexplored:gravel_beach",
+          "regions_unexplored:prismachasm"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-summer-starly",
+      "pokemon": "starly",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:tropical_river",
+          "regions_unexplored:grassy_beach",
+          "regions_unexplored:rocky_reef",
+          "regions_unexplored:outback",
+          "regions_unexplored:arid_mountains",
+          "regions_unexplored:dry_bushland",
+          "regions_unexplored:baobab_savanna"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-summer-swoobat",
+      "pokemon": "swoobat",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:joshua_desert",
+          "regions_unexplored:sparse_rainforest",
+          "regions_unexplored:tropics",
+          "regions_unexplored:rainforest",
+          "regions_unexplored:saguaro_desert",
+          "regions_unexplored:shrubland",
+          "regions_unexplored:steppe"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-summer-togetic",
+      "pokemon": "togetic",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:rocky_meadow",
+          "regions_unexplored:highland_fields",
+          "regions_unexplored:mountains",
+          "regions_unexplored:gravel_beach",
+          "regions_unexplored:prismachasm"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-summer-trumbeak",
+      "pokemon": "trumbeak",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:tropical_river",
+          "regions_unexplored:grassy_beach",
+          "regions_unexplored:rocky_reef",
+          "regions_unexplored:outback",
+          "regions_unexplored:arid_mountains",
+          "regions_unexplored:dry_bushland",
+          "regions_unexplored:baobab_savanna"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-summer-vullaby",
+      "pokemon": "vullaby",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:joshua_desert",
+          "regions_unexplored:sparse_rainforest",
+          "regions_unexplored:tropics",
+          "regions_unexplored:rainforest",
+          "regions_unexplored:saguaro_desert",
+          "regions_unexplored:shrubland",
+          "regions_unexplored:steppe"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-summer-xatu",
+      "pokemon": "xatu",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:rocky_meadow",
+          "regions_unexplored:highland_fields",
+          "regions_unexplored:mountains",
+          "regions_unexplored:gravel_beach",
+          "regions_unexplored:prismachasm"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
     }
   ]
 }

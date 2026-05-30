@@ -191,6 +191,534 @@
       "presets": [
         "natural"
       ]
+    },
+    {
+      "id": "ancient_extensions-autumn-archen",
+      "pokemon": "archen",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:autumnal_maple_forest",
+          "regions_unexplored:maple_forest",
+          "regions_unexplored:deciduous_forest",
+          "regions_unexplored:cold_deciduous_forest",
+          "regions_unexplored:barley_fields"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-braviary",
+      "pokemon": "braviary",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:grassland",
+          "regions_unexplored:prairie",
+          "regions_unexplored:redwoods",
+          "regions_unexplored:sparse_redwoods",
+          "regions_unexplored:boreal_taiga"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-combee",
+      "pokemon": "combee",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:silver_birch_forest",
+          "regions_unexplored:ashen_woodland",
+          "regions_unexplored:towering_cliffs",
+          "regions_unexplored:mauve_hills",
+          "regions_unexplored:redstone_caves"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-crobat",
+      "pokemon": "crobat",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:autumnal_maple_forest",
+          "regions_unexplored:maple_forest",
+          "regions_unexplored:deciduous_forest",
+          "regions_unexplored:cold_deciduous_forest",
+          "regions_unexplored:barley_fields"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-doduo",
+      "pokemon": "doduo",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:grassland",
+          "regions_unexplored:prairie",
+          "regions_unexplored:redwoods",
+          "regions_unexplored:sparse_redwoods",
+          "regions_unexplored:boreal_taiga"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-ducklett",
+      "pokemon": "ducklett",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:silver_birch_forest",
+          "regions_unexplored:ashen_woodland",
+          "regions_unexplored:towering_cliffs",
+          "regions_unexplored:mauve_hills",
+          "regions_unexplored:redstone_caves"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-flamigo",
+      "pokemon": "flamigo",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:autumnal_maple_forest",
+          "regions_unexplored:maple_forest",
+          "regions_unexplored:deciduous_forest",
+          "regions_unexplored:cold_deciduous_forest",
+          "regions_unexplored:barley_fields"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-gliscor",
+      "pokemon": "gliscor",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:grassland",
+          "regions_unexplored:prairie",
+          "regions_unexplored:redwoods",
+          "regions_unexplored:sparse_redwoods",
+          "regions_unexplored:boreal_taiga"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-honchkrow",
+      "pokemon": "honchkrow",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:silver_birch_forest",
+          "regions_unexplored:ashen_woodland",
+          "regions_unexplored:towering_cliffs",
+          "regions_unexplored:mauve_hills",
+          "regions_unexplored:redstone_caves"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-jumpluff",
+      "pokemon": "jumpluff",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:autumnal_maple_forest",
+          "regions_unexplored:maple_forest",
+          "regions_unexplored:deciduous_forest",
+          "regions_unexplored:cold_deciduous_forest",
+          "regions_unexplored:barley_fields"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-mandibuzz",
+      "pokemon": "mandibuzz",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:grassland",
+          "regions_unexplored:prairie",
+          "regions_unexplored:redwoods",
+          "regions_unexplored:sparse_redwoods",
+          "regions_unexplored:boreal_taiga"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-minior",
+      "pokemon": "minior",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:silver_birch_forest",
+          "regions_unexplored:ashen_woodland",
+          "regions_unexplored:towering_cliffs",
+          "regions_unexplored:mauve_hills",
+          "regions_unexplored:redstone_caves"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-ninjask",
+      "pokemon": "ninjask",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:autumnal_maple_forest",
+          "regions_unexplored:maple_forest",
+          "regions_unexplored:deciduous_forest",
+          "regions_unexplored:cold_deciduous_forest",
+          "regions_unexplored:barley_fields"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-oricorio",
+      "pokemon": "oricorio",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:grassland",
+          "regions_unexplored:prairie",
+          "regions_unexplored:redwoods",
+          "regions_unexplored:sparse_redwoods",
+          "regions_unexplored:boreal_taiga"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-pidgey",
+      "pokemon": "pidgey",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:silver_birch_forest",
+          "regions_unexplored:ashen_woodland",
+          "regions_unexplored:towering_cliffs",
+          "regions_unexplored:mauve_hills",
+          "regions_unexplored:redstone_caves"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-rowlet",
+      "pokemon": "rowlet",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:autumnal_maple_forest",
+          "regions_unexplored:maple_forest",
+          "regions_unexplored:deciduous_forest",
+          "regions_unexplored:cold_deciduous_forest",
+          "regions_unexplored:barley_fields"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-sigilyph",
+      "pokemon": "sigilyph",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:grassland",
+          "regions_unexplored:prairie",
+          "regions_unexplored:redwoods",
+          "regions_unexplored:sparse_redwoods",
+          "regions_unexplored:boreal_taiga"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-squawkabilly",
+      "pokemon": "squawkabilly",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:silver_birch_forest",
+          "regions_unexplored:ashen_woodland",
+          "regions_unexplored:towering_cliffs",
+          "regions_unexplored:mauve_hills",
+          "regions_unexplored:redstone_caves"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-swablu",
+      "pokemon": "swablu",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:autumnal_maple_forest",
+          "regions_unexplored:maple_forest",
+          "regions_unexplored:deciduous_forest",
+          "regions_unexplored:cold_deciduous_forest",
+          "regions_unexplored:barley_fields"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-taillow",
+      "pokemon": "taillow",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:grassland",
+          "regions_unexplored:prairie",
+          "regions_unexplored:redwoods",
+          "regions_unexplored:sparse_redwoods",
+          "regions_unexplored:boreal_taiga"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-toucannon",
+      "pokemon": "toucannon",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:silver_birch_forest",
+          "regions_unexplored:ashen_woodland",
+          "regions_unexplored:towering_cliffs",
+          "regions_unexplored:mauve_hills",
+          "regions_unexplored:redstone_caves"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-unfezant",
+      "pokemon": "unfezant",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:autumnal_maple_forest",
+          "regions_unexplored:maple_forest",
+          "regions_unexplored:deciduous_forest",
+          "regions_unexplored:cold_deciduous_forest",
+          "regions_unexplored:barley_fields"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-wattrel",
+      "pokemon": "wattrel",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:grassland",
+          "regions_unexplored:prairie",
+          "regions_unexplored:redwoods",
+          "regions_unexplored:sparse_redwoods",
+          "regions_unexplored:boreal_taiga"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-autumn-yanma",
+      "pokemon": "yanma",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:silver_birch_forest",
+          "regions_unexplored:ashen_woodland",
+          "regions_unexplored:towering_cliffs",
+          "regions_unexplored:mauve_hills",
+          "regions_unexplored:redstone_caves"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
     }
   ]
 }

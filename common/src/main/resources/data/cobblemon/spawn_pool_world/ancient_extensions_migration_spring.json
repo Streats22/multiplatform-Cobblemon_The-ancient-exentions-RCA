@@ -203,6 +203,598 @@
           "regions_unexplored:bioshroom_caves"
         ]
       }
+    },
+    {
+      "id": "ancient_extensions-spring-aerodactyl",
+      "pokemon": "aerodactyl",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:flower_fields",
+          "regions_unexplored:clover_plains",
+          "regions_unexplored:temperate_grove",
+          "regions_unexplored:marsh",
+          "regions_unexplored:bayou",
+          "regions_unexplored:fen",
+          "regions_unexplored:magnolia_woodland"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-spring-beautifly",
+      "pokemon": "beautifly",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:orchard",
+          "regions_unexplored:eucalyptus_forest",
+          "regions_unexplored:bamboo_forest",
+          "regions_unexplored:alpha_grove",
+          "regions_unexplored:fungal_fen",
+          "regions_unexplored:hyacinth_deeps",
+          "regions_unexplored:muddy_river"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-spring-charizard",
+      "pokemon": "charizard",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:old_growth_bayou",
+          "regions_unexplored:willow_forest",
+          "regions_unexplored:poppy_fields",
+          "regions_unexplored:pumpkin_fields",
+          "regions_unexplored:ancient_delta",
+          "regions_unexplored:bioshroom_caves"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-spring-corvisquire",
+      "pokemon": "corvisquire",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:flower_fields",
+          "regions_unexplored:clover_plains",
+          "regions_unexplored:temperate_grove",
+          "regions_unexplored:marsh",
+          "regions_unexplored:bayou",
+          "regions_unexplored:fen",
+          "regions_unexplored:magnolia_woodland"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-spring-delibird",
+      "pokemon": "delibird",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:orchard",
+          "regions_unexplored:eucalyptus_forest",
+          "regions_unexplored:bamboo_forest",
+          "regions_unexplored:alpha_grove",
+          "regions_unexplored:fungal_fen",
+          "regions_unexplored:hyacinth_deeps",
+          "regions_unexplored:muddy_river"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-spring-drifblim",
+      "pokemon": "drifblim",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:old_growth_bayou",
+          "regions_unexplored:willow_forest",
+          "regions_unexplored:poppy_fields",
+          "regions_unexplored:pumpkin_fields",
+          "regions_unexplored:ancient_delta",
+          "regions_unexplored:bioshroom_caves"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-spring-farfetchd",
+      "pokemon": "farfetchd",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:flower_fields",
+          "regions_unexplored:clover_plains",
+          "regions_unexplored:temperate_grove",
+          "regions_unexplored:marsh",
+          "regions_unexplored:bayou",
+          "regions_unexplored:fen",
+          "regions_unexplored:magnolia_woodland"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-spring-fletchling",
+      "pokemon": "fletchling",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:orchard",
+          "regions_unexplored:eucalyptus_forest",
+          "regions_unexplored:bamboo_forest",
+          "regions_unexplored:alpha_grove",
+          "regions_unexplored:fungal_fen",
+          "regions_unexplored:hyacinth_deeps",
+          "regions_unexplored:muddy_river"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-spring-gyarados",
+      "pokemon": "gyarados",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:old_growth_bayou",
+          "regions_unexplored:willow_forest",
+          "regions_unexplored:poppy_fields",
+          "regions_unexplored:pumpkin_fields",
+          "regions_unexplored:ancient_delta",
+          "regions_unexplored:bioshroom_caves"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-spring-hoppip",
+      "pokemon": "hoppip",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:flower_fields",
+          "regions_unexplored:clover_plains",
+          "regions_unexplored:temperate_grove",
+          "regions_unexplored:marsh",
+          "regions_unexplored:bayou",
+          "regions_unexplored:fen",
+          "regions_unexplored:magnolia_woodland"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-spring-ledian",
+      "pokemon": "ledian",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:orchard",
+          "regions_unexplored:eucalyptus_forest",
+          "regions_unexplored:bamboo_forest",
+          "regions_unexplored:alpha_grove",
+          "regions_unexplored:fungal_fen",
+          "regions_unexplored:hyacinth_deeps",
+          "regions_unexplored:muddy_river"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-spring-mantyke",
+      "pokemon": "mantyke",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:old_growth_bayou",
+          "regions_unexplored:willow_forest",
+          "regions_unexplored:poppy_fields",
+          "regions_unexplored:pumpkin_fields",
+          "regions_unexplored:ancient_delta",
+          "regions_unexplored:bioshroom_caves"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-spring-murkrow",
+      "pokemon": "murkrow",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:flower_fields",
+          "regions_unexplored:clover_plains",
+          "regions_unexplored:temperate_grove",
+          "regions_unexplored:marsh",
+          "regions_unexplored:bayou",
+          "regions_unexplored:fen",
+          "regions_unexplored:magnolia_woodland"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-spring-noibat",
+      "pokemon": "noibat",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:orchard",
+          "regions_unexplored:eucalyptus_forest",
+          "regions_unexplored:bamboo_forest",
+          "regions_unexplored:alpha_grove",
+          "regions_unexplored:fungal_fen",
+          "regions_unexplored:hyacinth_deeps",
+          "regions_unexplored:muddy_river"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-spring-pidgeot",
+      "pokemon": "pidgeot",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:old_growth_bayou",
+          "regions_unexplored:willow_forest",
+          "regions_unexplored:poppy_fields",
+          "regions_unexplored:pumpkin_fields",
+          "regions_unexplored:ancient_delta",
+          "regions_unexplored:bioshroom_caves"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-spring-pikipek",
+      "pokemon": "pikipek",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:flower_fields",
+          "regions_unexplored:clover_plains",
+          "regions_unexplored:temperate_grove",
+          "regions_unexplored:marsh",
+          "regions_unexplored:bayou",
+          "regions_unexplored:fen",
+          "regions_unexplored:magnolia_woodland"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-spring-salamence",
+      "pokemon": "salamence",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:orchard",
+          "regions_unexplored:eucalyptus_forest",
+          "regions_unexplored:bamboo_forest",
+          "regions_unexplored:alpha_grove",
+          "regions_unexplored:fungal_fen",
+          "regions_unexplored:hyacinth_deeps",
+          "regions_unexplored:muddy_river"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-spring-skiploom",
+      "pokemon": "skiploom",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "uncommon",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:old_growth_bayou",
+          "regions_unexplored:willow_forest",
+          "regions_unexplored:poppy_fields",
+          "regions_unexplored:pumpkin_fields",
+          "regions_unexplored:ancient_delta",
+          "regions_unexplored:bioshroom_caves"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-spring-staravia",
+      "pokemon": "staravia",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:flower_fields",
+          "regions_unexplored:clover_plains",
+          "regions_unexplored:temperate_grove",
+          "regions_unexplored:marsh",
+          "regions_unexplored:bayou",
+          "regions_unexplored:fen",
+          "regions_unexplored:magnolia_woodland"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-spring-swellow",
+      "pokemon": "swellow",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:orchard",
+          "regions_unexplored:eucalyptus_forest",
+          "regions_unexplored:bamboo_forest",
+          "regions_unexplored:alpha_grove",
+          "regions_unexplored:fungal_fen",
+          "regions_unexplored:hyacinth_deeps",
+          "regions_unexplored:muddy_river"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-spring-togekiss",
+      "pokemon": "togekiss",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:old_growth_bayou",
+          "regions_unexplored:willow_forest",
+          "regions_unexplored:poppy_fields",
+          "regions_unexplored:pumpkin_fields",
+          "regions_unexplored:ancient_delta",
+          "regions_unexplored:bioshroom_caves"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-spring-tropius",
+      "pokemon": "tropius",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:flower_fields",
+          "regions_unexplored:clover_plains",
+          "regions_unexplored:temperate_grove",
+          "regions_unexplored:marsh",
+          "regions_unexplored:bayou",
+          "regions_unexplored:fen",
+          "regions_unexplored:magnolia_woodland"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-spring-vivillon",
+      "pokemon": "vivillon",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:orchard",
+          "regions_unexplored:eucalyptus_forest",
+          "regions_unexplored:bamboo_forest",
+          "regions_unexplored:alpha_grove",
+          "regions_unexplored:fungal_fen",
+          "regions_unexplored:hyacinth_deeps",
+          "regions_unexplored:muddy_river"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-spring-woobat",
+      "pokemon": "woobat",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:old_growth_bayou",
+          "regions_unexplored:willow_forest",
+          "regions_unexplored:poppy_fields",
+          "regions_unexplored:pumpkin_fields",
+          "regions_unexplored:ancient_delta",
+          "regions_unexplored:bioshroom_caves"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-spring-zubat",
+      "pokemon": "zubat",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:flower_fields",
+          "regions_unexplored:clover_plains",
+          "regions_unexplored:temperate_grove",
+          "regions_unexplored:marsh",
+          "regions_unexplored:bayou",
+          "regions_unexplored:fen",
+          "regions_unexplored:magnolia_woodland"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
     }
   ]
 }

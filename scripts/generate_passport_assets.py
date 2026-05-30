@@ -20,6 +20,56 @@ def lighten(color: tuple[int, int, int], factor: float) -> tuple[int, int, int]:
     return tuple(max(0, min(255, int(v + (255 - v) * factor))) for v in color)
 
 
+def draw_wax_seal_sprite(d: ImageDraw.ImageDraw, ox: int, oy: int, gold, gold_hi) -> None:
+    """56×56 wax seal — shadow, wax body, embossed gold rim, inner dish (badge drawn in-game)."""
+    size = 56
+    cx = ox + size // 2
+    cy = oy + size // 2
+
+    wax_dark = (120, 28, 32, 255)
+    wax_mid = (168, 42, 46, 255)
+    wax_hi = (210, 72, 76, 255)
+    wax_edge = (90, 18, 22, 255)
+
+    # Drop shadow on parchment
+    d.ellipse((cx - 20, cy - 16, cx + 22, cy + 24), fill=(40, 24, 16, 70))
+
+    # Irregular wax pool (slightly oval, hand-stamped feel)
+    d.ellipse((cx - 23, cy - 21, cx + 23, cy + 21), fill=wax_edge)
+    d.ellipse((cx - 22, cy - 20, cx + 22, cy + 20), fill=wax_dark)
+    d.ellipse((cx - 20, cy - 18, cx + 20, cy + 18), fill=wax_mid)
+
+    # Wax highlights — light catch top-left
+    d.pieslice((cx - 18, cy - 20, cx + 10, cy + 8), start=200, end=320, fill=wax_hi)
+    d.ellipse((cx - 10, cy - 14, cx - 2, cy - 6), fill=(230, 110, 110, 200))
+
+    # Small drip accents
+    d.ellipse((cx + 16, cy + 14, cx + 21, cy + 19), fill=wax_mid)
+    d.ellipse((cx - 19, cy + 10, cx - 14, cy + 15), fill=(140, 34, 38, 220))
+
+    # Embossed gold rope ring
+    for ring_r, col, width in (
+        (19, gold_hi, 3),
+        (18, gold, 2),
+        (17, (140, 100, 28, 255), 1),
+    ):
+        d.ellipse(
+            (cx - ring_r, cy - ring_r, cx + ring_r, cy + ring_r),
+            outline=col,
+            width=width,
+        )
+
+    # Inner pressed dish (where region code sits)
+    d.ellipse((cx - 14, cy - 13, cx + 14, cy + 13), fill=(145, 36, 40, 255))
+    d.ellipse((cx - 12, cy - 11, cx + 12, cy + 11), fill=(175, 50, 52, 255))
+
+    # Subtle star / official mark hint in wax
+    star = (220, 170, 90, 180)
+    d.line([(cx, cy - 6), (cx, cy + 6)], fill=star, width=1)
+    d.line([(cx - 5, cy - 3), (cx + 5, cy + 3)], fill=star, width=1)
+    d.line([(cx - 5, cy + 3), (cx + 5, cy - 3)], fill=star, width=1)
+
+
 def draw_gui_atlas(path: Path) -> None:
     size = 256
     img = Image.new("RGBA", (size, size), (0, 0, 0, 0))
@@ -78,25 +128,7 @@ def draw_gui_atlas(path: Path) -> None:
 
     # --- Sprites below main panel (y=200) ---
 
-    # Wax blob 0,200 48x48
-    wx, wy = 0, 200
-    for r in range(24, 0, -1):
-        t = r / 24.0
-        col = (
-            int(168 * t + 80 * (1 - t)),
-            int(50 * t + 20 * (1 - t)),
-            int(50 * t + 20 * (1 - t)),
-            255,
-        )
-        d.ellipse((wx + 24 - r, wy + 24 - r, wx + 24 + r, wy + 24 + r), fill=col)
-    d.ellipse((wx + 14, wy + 12, wx + 34, wy + 32), fill=(220, 90, 90, 180))
-
-    # Ring 48,200 56x56
-    rx, ry = 48, 200
-    for i in range(3):
-        rad = 26 - i * 4
-        c = lighten(gold, 0.15 * i)
-        d.ellipse((rx + 28 - rad, ry + 28 - rad, rx + 28 + rad, ry + 28 + rad), outline=c, width=2)
+    draw_wax_seal_sprite(d, 0, 200, gold, gold_hi)
 
     # Photo frame sprite 104,200 40x44
     fx, fy = 104, 200

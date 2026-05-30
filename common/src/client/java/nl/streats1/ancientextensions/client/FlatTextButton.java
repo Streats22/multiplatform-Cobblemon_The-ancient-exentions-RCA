@@ -16,13 +16,12 @@ public class FlatTextButton extends Button {
 
     @Override
     public void renderString(GuiGraphics graphics, Font font, int color) {
-        GuiTextRender.drawCenteredStyled(
+        GuiTextRender.drawCenteredStyledSoft(
                 font,
                 graphics,
                 getMessage(),
                 getX() + getWidth() / 2,
-                getY() + (getHeight() - 8) / 2,
-                false
+                getY() + (getHeight() - 8) / 2
         );
     }
 }

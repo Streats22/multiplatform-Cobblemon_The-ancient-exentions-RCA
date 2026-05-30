@@ -197,6 +197,550 @@
       "presets": [
         "natural"
       ]
+    },
+    {
+      "id": "ancient_extensions-winter-archeops",
+      "pokemon": "archeops",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:frozen_tundra",
+          "regions_unexplored:cold_boreal_taiga",
+          "regions_unexplored:icy_heights",
+          "regions_unexplored:frozen_pine_taiga",
+          "regions_unexplored:spires",
+          "regions_unexplored:cold_river"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-butterfree",
+      "pokemon": "butterfree",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:blackwood_taiga",
+          "regions_unexplored:pine_taiga",
+          "regions_unexplored:pine_slopes",
+          "regions_unexplored:golden_boreal_taiga",
+          "regions_unexplored:chalk_cliffs",
+          "regions_unexplored:scorching_caves"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-corviknight",
+      "pokemon": "corviknight",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:blackstone_basin",
+          "regions_unexplored:glistering_meadow",
+          "regions_unexplored:infernal_holt",
+          "regions_unexplored:mycotoxic_undergrowth",
+          "regions_unexplored:redstone_abyss"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-dartrix",
+      "pokemon": "dartrix",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:frozen_tundra",
+          "regions_unexplored:cold_boreal_taiga",
+          "regions_unexplored:icy_heights",
+          "regions_unexplored:frozen_pine_taiga",
+          "regions_unexplored:spires",
+          "regions_unexplored:cold_river"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-dragonite",
+      "pokemon": "dragonite",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:blackwood_taiga",
+          "regions_unexplored:pine_taiga",
+          "regions_unexplored:pine_slopes",
+          "regions_unexplored:golden_boreal_taiga",
+          "regions_unexplored:chalk_cliffs",
+          "regions_unexplored:scorching_caves"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-emolga",
+      "pokemon": "emolga",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:blackstone_basin",
+          "regions_unexplored:glistering_meadow",
+          "regions_unexplored:infernal_holt",
+          "regions_unexplored:mycotoxic_undergrowth",
+          "regions_unexplored:redstone_abyss"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-fletchinder",
+      "pokemon": "fletchinder",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:frozen_tundra",
+          "regions_unexplored:cold_boreal_taiga",
+          "regions_unexplored:icy_heights",
+          "regions_unexplored:frozen_pine_taiga",
+          "regions_unexplored:spires",
+          "regions_unexplored:cold_river"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-golbat",
+      "pokemon": "golbat",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:blackwood_taiga",
+          "regions_unexplored:pine_taiga",
+          "regions_unexplored:pine_slopes",
+          "regions_unexplored:golden_boreal_taiga",
+          "regions_unexplored:chalk_cliffs",
+          "regions_unexplored:scorching_caves"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-hoothoot",
+      "pokemon": "hoothoot",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:blackstone_basin",
+          "regions_unexplored:glistering_meadow",
+          "regions_unexplored:infernal_holt",
+          "regions_unexplored:mycotoxic_undergrowth",
+          "regions_unexplored:redstone_abyss"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-kilowattrel",
+      "pokemon": "kilowattrel",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:frozen_tundra",
+          "regions_unexplored:cold_boreal_taiga",
+          "regions_unexplored:icy_heights",
+          "regions_unexplored:frozen_pine_taiga",
+          "regions_unexplored:spires",
+          "regions_unexplored:cold_river"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-mantine",
+      "pokemon": "mantine",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:blackwood_taiga",
+          "regions_unexplored:pine_taiga",
+          "regions_unexplored:pine_slopes",
+          "regions_unexplored:golden_boreal_taiga",
+          "regions_unexplored:chalk_cliffs",
+          "regions_unexplored:scorching_caves"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-mothim",
+      "pokemon": "mothim",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:blackstone_basin",
+          "regions_unexplored:glistering_meadow",
+          "regions_unexplored:infernal_holt",
+          "regions_unexplored:mycotoxic_undergrowth",
+          "regions_unexplored:redstone_abyss"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-noctowl",
+      "pokemon": "noctowl",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:frozen_tundra",
+          "regions_unexplored:cold_boreal_taiga",
+          "regions_unexplored:icy_heights",
+          "regions_unexplored:frozen_pine_taiga",
+          "regions_unexplored:spires",
+          "regions_unexplored:cold_river"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-pelipper",
+      "pokemon": "pelipper",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:blackwood_taiga",
+          "regions_unexplored:pine_taiga",
+          "regions_unexplored:pine_slopes",
+          "regions_unexplored:golden_boreal_taiga",
+          "regions_unexplored:chalk_cliffs",
+          "regions_unexplored:scorching_caves"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-pidove",
+      "pokemon": "pidove",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:blackstone_basin",
+          "regions_unexplored:glistering_meadow",
+          "regions_unexplored:infernal_holt",
+          "regions_unexplored:mycotoxic_undergrowth",
+          "regions_unexplored:redstone_abyss"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-rufflet",
+      "pokemon": "rufflet",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:frozen_tundra",
+          "regions_unexplored:cold_boreal_taiga",
+          "regions_unexplored:icy_heights",
+          "regions_unexplored:frozen_pine_taiga",
+          "regions_unexplored:spires",
+          "regions_unexplored:cold_river"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-skarmory",
+      "pokemon": "skarmory",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:blackwood_taiga",
+          "regions_unexplored:pine_taiga",
+          "regions_unexplored:pine_slopes",
+          "regions_unexplored:golden_boreal_taiga",
+          "regions_unexplored:chalk_cliffs",
+          "regions_unexplored:scorching_caves"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-staraptor",
+      "pokemon": "staraptor",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:blackstone_basin",
+          "regions_unexplored:glistering_meadow",
+          "regions_unexplored:infernal_holt",
+          "regions_unexplored:mycotoxic_undergrowth",
+          "regions_unexplored:redstone_abyss"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-swanna",
+      "pokemon": "swanna",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:frozen_tundra",
+          "regions_unexplored:cold_boreal_taiga",
+          "regions_unexplored:icy_heights",
+          "regions_unexplored:frozen_pine_taiga",
+          "regions_unexplored:spires",
+          "regions_unexplored:cold_river"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-talonflame",
+      "pokemon": "talonflame",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "rare",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:blackwood_taiga",
+          "regions_unexplored:pine_taiga",
+          "regions_unexplored:pine_slopes",
+          "regions_unexplored:golden_boreal_taiga",
+          "regions_unexplored:chalk_cliffs",
+          "regions_unexplored:scorching_caves"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-tranquill",
+      "pokemon": "tranquill",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:blackstone_basin",
+          "regions_unexplored:glistering_meadow",
+          "regions_unexplored:infernal_holt",
+          "regions_unexplored:mycotoxic_undergrowth",
+          "regions_unexplored:redstone_abyss"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-vespiquen",
+      "pokemon": "vespiquen",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:frozen_tundra",
+          "regions_unexplored:cold_boreal_taiga",
+          "regions_unexplored:icy_heights",
+          "regions_unexplored:frozen_pine_taiga",
+          "regions_unexplored:spires",
+          "regions_unexplored:cold_river"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-wingull",
+      "pokemon": "wingull",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:blackwood_taiga",
+          "regions_unexplored:pine_taiga",
+          "regions_unexplored:pine_slopes",
+          "regions_unexplored:golden_boreal_taiga",
+          "regions_unexplored:chalk_cliffs",
+          "regions_unexplored:scorching_caves"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
+    },
+    {
+      "id": "ancient_extensions-winter-yanmega",
+      "pokemon": "yanmega",
+      "type": "pokemon",
+      "spawnablePositionType": "grounded",
+      "bucket": "common",
+      "level": "8-32",
+      "weight": 0.55,
+      "condition": {
+        "biomes": [
+          "regions_unexplored:blackstone_basin",
+          "regions_unexplored:glistering_meadow",
+          "regions_unexplored:infernal_holt",
+          "regions_unexplored:mycotoxic_undergrowth",
+          "regions_unexplored:redstone_abyss"
+        ]
+      },
+      "presets": [
+        "natural",
+        "treetop"
+      ]
     }
   ]
 }

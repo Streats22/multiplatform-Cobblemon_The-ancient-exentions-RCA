@@ -2,6 +2,7 @@ package nl.streats1.ancientextensions.neoforge.registry;
 
 import nl.streats1.ancientextensions.AncientExtensionsConstants;
 import nl.streats1.ancientextensions.item.AncientProfessorsKitItem;
+import nl.streats1.ancientextensions.item.MigrationRouteChartItem;
 import nl.streats1.ancientextensions.item.PokeballPouchItem;
 import nl.streats1.ancientextensions.item.RegionalPassportItem;
 import nl.streats1.ancientextensions.item.RegionalSurveyJournalItem;
@@ -26,6 +27,11 @@ public final class ModItems {
     public static final DeferredItem<Item> REGIONAL_SURVEY_JOURNAL = ITEMS.register(
             "regional_survey_journal",
             () -> new RegionalSurveyJournalItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON))
+    );
+
+    public static final DeferredItem<Item> MIGRATION_ROUTE_CHART = ITEMS.register(
+            "migration_route_chart",
+            () -> new MigrationRouteChartItem(new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON))
     );
 
     public static final DeferredItem<Item> REGIONAL_PASSPORT = ITEMS.register(
@@ -53,6 +59,7 @@ public final class ModItems {
         if (event.getRegistryKey().equals(Registries.ITEM)) {
             ModContent.ANCIENT_PROFESSORS_KIT = ANCIENT_PROFESSORS_KIT.get();
             ModContent.REGIONAL_SURVEY_JOURNAL = REGIONAL_SURVEY_JOURNAL.get();
+            ModContent.MIGRATION_ROUTE_CHART = MIGRATION_ROUTE_CHART.get();
             ModContent.REGIONAL_PASSPORT = REGIONAL_PASSPORT.get();
             ModContent.POKEBALL_POUCH = POKEBALL_POUCH.get();
         }

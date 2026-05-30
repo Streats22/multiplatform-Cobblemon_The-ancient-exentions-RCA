@@ -66,7 +66,7 @@ public class RegionalPassportScreen extends AbstractContainerScreen<RegionalPass
 
     private static final int ACTION_BTN_W = 70;
     private static final int ACTION_BTN_H = 18;
-    private static final int FOOTER_BTN_Y = 178;
+    private static final int FOOTER_BTN_Y = 168;
 
     private enum SelectionStep {
         REGION,
@@ -78,10 +78,11 @@ public class RegionalPassportScreen extends AbstractContainerScreen<RegionalPass
 
     private static final float STAMP_ANIMATION_TICKS = 16.0F;
 
+    /** Bright banner gold — paired with a faint ink halo for contrast. */
     private static final int COLOR_HEADER = 0xFFE8C84A;
-    private static final int COLOR_TITLE = 0xFFE8C84A;
+    /** Deeper antique gold for step titles (easier to read on parchment). */
+    private static final int COLOR_TITLE = 0xFF9A6B14;
     private static final int COLOR_RULE = 0xFFC9A227;
-    private static final boolean TEXT_SHADOW = false;
 
     private long stampOpenedTick = -1L;
 
@@ -268,8 +269,8 @@ public class RegionalPassportScreen extends AbstractContainerScreen<RegionalPass
     private void drawHeader(GuiGraphics graphics) {
         Component header = Component.translatable("ancient_extensions.passport.gui.official_header")
                 .copy()
-                .withColor(COLOR_HEADER);
-        GuiTextRender.drawCenteredStyled(this.font, graphics, header, this.imageWidth / 2, HEADER_Y, TEXT_SHADOW);
+                .withStyle(ChatFormatting.BOLD);
+        GuiTextRender.drawCenteredGold(this.font, graphics, header, this.imageWidth / 2, HEADER_Y, COLOR_HEADER);
     }
 
     private void drawPhotoSlot(GuiGraphics graphics) {
@@ -302,11 +303,11 @@ public class RegionalPassportScreen extends AbstractContainerScreen<RegionalPass
                         .copy().withStyle(ChatFormatting.BOLD).withColor(COLOR_TITLE)
                 : Component.translatable("ancient_extensions.passport.gui.choose_region")
                         .copy().withStyle(ChatFormatting.BOLD).withColor(COLOR_TITLE);
-        GuiTextRender.drawCenteredStyled(this.font, graphics, title, this.imageWidth / 2, y, TEXT_SHADOW);
+        GuiTextRender.drawCenteredGold(this.font, graphics, title, this.imageWidth / 2, y, COLOR_TITLE);
         y += 12;
 
         if (selectionStep == SelectionStep.TOWN && pendingRegion != null) {
-            GuiTextRender.drawCenteredStyled(
+            GuiTextRender.drawCenteredStyledSoft(
                     this.font,
                     graphics,
                     Component.empty()
@@ -314,8 +315,7 @@ public class RegionalPassportScreen extends AbstractContainerScreen<RegionalPass
                                     .withStyle(ChatFormatting.WHITE))
                             .append(pendingRegion.labeledName()),
                     this.imageWidth / 2,
-                    y,
-                    TEXT_SHADOW
+                    y
             );
         } else {
             y = drawWrappedCentered(
@@ -336,19 +336,18 @@ public class RegionalPassportScreen extends AbstractContainerScreen<RegionalPass
     }
 
     private int drawWrappedCentered(GuiGraphics graphics, Component text, int y) {
-        return GuiTextRender.drawWrappedCentered(
+        return GuiTextRender.drawWrappedCenteredSoft(
                 this.font,
                 graphics,
                 text,
                 this.imageWidth / 2,
                 y,
-                SELECTION_PANEL_W - 8,
-                TEXT_SHADOW
+                SELECTION_PANEL_W - 8
         );
     }
 
     private void drawStyledString(GuiGraphics graphics, Component text, int x, int y) {
-        GuiTextRender.drawStyled(this.font, graphics, text, x, y, TEXT_SHADOW);
+        GuiTextRender.drawStyledSoft(this.font, graphics, text, x, y);
     }
 
     private void renderStampedContent(GuiGraphics graphics) {
@@ -371,15 +370,13 @@ public class RegionalPassportScreen extends AbstractContainerScreen<RegionalPass
                 SEAL_TOWN_Y
         ));
 
-        int blurbY = BLURB_START_Y;
-        GuiTextRender.drawWrapped(
+        GuiTextRender.drawWrappedSoft(
                 this.font,
                 graphics,
                 region.passportBlurb().copy().withStyle(ChatFormatting.WHITE),
                 LEFT_COL_X,
-                blurbY,
-                BLURB_WIDTH,
-                TEXT_SHADOW
+                BLURB_START_Y,
+                BLURB_WIDTH
         );
 
         drawStatsPanel(graphics);
@@ -388,12 +385,14 @@ public class RegionalPassportScreen extends AbstractContainerScreen<RegionalPass
     private void drawStatsPanel(GuiGraphics graphics) {
         graphics.hLine(STATS_PANEL_X, STATS_PANEL_X + STATS_PANEL_W, STATS_DIVIDER_Y, 0xFFC9A227);
 
-        drawStyledString(
+        GuiTextRender.drawGold(
+                this.font,
                 graphics,
                 Component.translatable("ancient_extensions.passport.gui.stats_label")
-                        .withStyle(ChatFormatting.BOLD).withColor(COLOR_TITLE),
+                        .withStyle(ChatFormatting.BOLD),
                 STATS_PANEL_X + 2,
-                STATS_LABEL_Y
+                STATS_LABEL_Y,
+                COLOR_TITLE
         );
 
         drawStyledString(
@@ -420,26 +419,24 @@ public class RegionalPassportScreen extends AbstractContainerScreen<RegionalPass
                 STATS_LINE_Y + 10
         );
 
-        GuiTextRender.drawWrapped(
+        GuiTextRender.drawWrappedSoft(
                 this.font,
                 graphics,
                 Component.translatable("ancient_extensions.passport.gui.footer")
                         .withStyle(ChatFormatting.ITALIC, ChatFormatting.WHITE),
                 STATS_PANEL_X + 2,
                 FOOTER_Y,
-                STATS_PANEL_W - 6,
-                TEXT_SHADOW
+                STATS_PANEL_W - 6
         );
 
-        GuiTextRender.drawWrapped(
+        GuiTextRender.drawWrappedSoft(
                 this.font,
                 graphics,
                 Component.translatable("ancient_extensions.passport.gui.official_footer")
                         .withStyle(ChatFormatting.WHITE),
                 STATS_PANEL_X + 2,
                 OFFICIAL_Y,
-                STATS_PANEL_W - 6,
-                TEXT_SHADOW
+                STATS_PANEL_W - 6
         );
     }
 

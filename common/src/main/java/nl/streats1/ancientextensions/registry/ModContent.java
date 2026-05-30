@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
  */
 public final class ModContent {
 
+    public static Item MIGRATION_ROUTE_CHART;
     public static Item ANCIENT_PROFESSORS_KIT;
     public static Item REGIONAL_SURVEY_JOURNAL;
     public static Item REGIONAL_PASSPORT;

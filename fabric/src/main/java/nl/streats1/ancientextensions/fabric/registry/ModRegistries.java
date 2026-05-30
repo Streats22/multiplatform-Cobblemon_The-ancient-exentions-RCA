@@ -4,6 +4,7 @@ import nl.streats1.ancientextensions.AncientExtensionsConstants;
 import nl.streats1.ancientextensions.block.PokeballPouchBlock;
 import nl.streats1.ancientextensions.block.PokeballPouchBlockEntity;
 import nl.streats1.ancientextensions.item.AncientProfessorsKitItem;
+import nl.streats1.ancientextensions.item.MigrationRouteChartItem;
 import nl.streats1.ancientextensions.item.PokeballPouchItem;
 import nl.streats1.ancientextensions.item.RegionalPassportItem;
 import nl.streats1.ancientextensions.item.RegionalSurveyJournalItem;
@@ -88,6 +89,11 @@ public final class ModRegistries {
                 BuiltInRegistries.ITEM,
                 id("regional_survey_journal"),
                 new RegionalSurveyJournalItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON))
+        );
+        ModContent.MIGRATION_ROUTE_CHART = Registry.register(
+                BuiltInRegistries.ITEM,
+                id("migration_route_chart"),
+                new MigrationRouteChartItem(new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON))
         );
         ModContent.REGIONAL_PASSPORT = Registry.register(
                 BuiltInRegistries.ITEM,

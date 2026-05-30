@@ -2,12 +2,10 @@ package nl.streats1.ancientextensions.migration;
 
 import nl.streats1.ancientextensions.dex.RegionalSurveyData;
 import nl.streats1.ancientextensions.dex.RegionalSurveyService;
-import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.biome.Biome;
 
 import java.util.List;
 
@@ -34,7 +32,7 @@ public final class MigrationService {
             return;
         }
 
-        ResourceLocation biomeId = currentBiomeId(player);
+        ResourceLocation biomeId = MigrationBiomeContext.currentBiomeId(player);
         MigrationLeg leg = route.get(data.getMigrationLegIndex());
         if (!leg.matchesBiome(biomeId)) {
             return;
@@ -87,8 +85,4 @@ public final class MigrationService {
         }
     }
 
-    private static ResourceLocation currentBiomeId(ServerPlayer player) {
-        Holder<Biome> biome = player.serverLevel().getBiome(player.blockPosition());
-        return biome.unwrapKey().map(key -> key.location()).orElse(null);
-    }
 }

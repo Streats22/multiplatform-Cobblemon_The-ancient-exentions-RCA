@@ -24,36 +24,27 @@ public class RegionalSurveyJournalScreen extends AbstractContainerScreen<Regiona
     private static final int CONTENT_X = 20;
     private static final int CONTENT_Y = 36;
     private static final int CONTENT_W = 216;
-    private static final int CONTENT_TOP = 32;
-    private static final int CONTENT_BOTTOM_WITH_CLAIM = 206;
-    private static final int CONTENT_BOTTOM_DEFAULT = 222;
-
-    private static final int REWARD_BAR_TOP = 208;
-    private static final int REWARD_BAR_H = 18;
-    private static final int REWARD_BAR_U = 14;
-    private static final int REWARD_BAR_V = 238;
-    private static final int REWARD_BAR_TEX_W = 228;
-
-    private static final int CLAIM_BTN_W = 108;
-    private static final int CLAIM_BTN_H = 16;
-    private static final int CLAIM_BTN_X = 74;
+    private static final int CONTENT_BOTTOM = 224;
 
     private static final int FOOTER_TOP = 228;
     private static final int FOOTER_H = 24;
+    private static final int FOOTER_PAD_X = 14;
 
     private static final int PAGE_BTN_W = 20;
     private static final int PAGE_BTN_H = 16;
+    private static final int PAGE_BTN_LEFT_X = 18;
+    private static final int PAGE_BTN_GAP = 4;
+    private static final int PAGE_LABEL_X = 62;
+
+    private static final int CLAIM_BTN_W = 108;
+    private static final int CLAIM_BTN_H = 16;
 
     private static final int LINE_HEIGHT = 10;
 
     private static final int COLOR_HEADER = 0xFFF0E2CC;
     private static final int COLOR_HEADER_SHADOW = 0xFF1A1008;
-    private static final int COLOR_BODY = 0xFF1A1208;
-    private static final int COLOR_BODY_SHADOW = 0xFFEBE0D0;
     private static final int COLOR_PAGE = 0xFF2A1810;
     private static final int COLOR_PAGE_SHADOW = 0xFFF5E8D8;
-    private static final int COLOR_PANEL = 0xD8F0E2CC;
-    private static final int COLOR_FOOTER = 0xE8DCC8A8;
 
     private final List<List<FormattedCharSequence>> pages = new ArrayList<>();
     private int pageIndex;
@@ -77,12 +68,8 @@ public class RegionalSurveyJournalScreen extends AbstractContainerScreen<Regiona
         return this.menu.getUnclaimedRewardCount() > 0;
     }
 
-    private int contentBottom() {
-        return hasClaimableRewards() ? CONTENT_BOTTOM_WITH_CLAIM : CONTENT_BOTTOM_DEFAULT;
-    }
-
     private int linesPerPage() {
-        return (contentBottom() - CONTENT_Y) / LINE_HEIGHT;
+        return (CONTENT_BOTTOM - CONTENT_Y) / LINE_HEIGHT;
     }
 
     private void buildPages() {
@@ -120,20 +107,23 @@ public class RegionalSurveyJournalScreen extends AbstractContainerScreen<Regiona
     }
 
     private void addPageButtons() {
-        int footerCenterY = this.topPos + FOOTER_TOP + FOOTER_H / 2;
-        int centerX = this.leftPos + this.imageWidth / 2;
+        int footerBtnY = this.topPos + FOOTER_TOP + (FOOTER_H - PAGE_BTN_H) / 2;
+        int prevX = this.leftPos + PAGE_BTN_LEFT_X;
+        int nextX = prevX + PAGE_BTN_W + PAGE_BTN_GAP;
 
         addRenderableWidget(Button.builder(Component.literal("◀"), button -> changePage(-1))
-                .bounds(centerX - 56, footerCenterY - PAGE_BTN_H / 2, PAGE_BTN_W, PAGE_BTN_H)
+                .bounds(prevX, footerBtnY, PAGE_BTN_W, PAGE_BTN_H)
                 .build());
         addRenderableWidget(Button.builder(Component.literal("▶"), button -> changePage(1))
-                .bounds(centerX + 36, footerCenterY - PAGE_BTN_H / 2, PAGE_BTN_W, PAGE_BTN_H)
+                .bounds(nextX, footerBtnY, PAGE_BTN_W, PAGE_BTN_H)
                 .build());
 
         if (hasClaimableRewards()) {
+            int claimX = this.leftPos + this.imageWidth - FOOTER_PAD_X - CLAIM_BTN_W;
+            int claimY = this.topPos + FOOTER_TOP + (FOOTER_H - CLAIM_BTN_H) / 2;
             addRenderableWidget(new JournalClaimButton(
-                    this.leftPos + CLAIM_BTN_X,
-                    this.topPos + REWARD_BAR_TOP + 1,
+                    claimX,
+                    claimY,
                     CLAIM_BTN_W,
                     CLAIM_BTN_H,
                     Component.translatable(
@@ -166,8 +156,6 @@ public class RegionalSurveyJournalScreen extends AbstractContainerScreen<Regiona
         graphics.drawCenteredString(this.font, header, cx + 1, 20, COLOR_HEADER_SHADOW);
         graphics.drawCenteredString(this.font, header, cx, 19, COLOR_HEADER);
 
-        graphics.fill(CONTENT_X - 2, CONTENT_TOP, CONTENT_X + CONTENT_W + 2, contentBottom(), COLOR_PANEL);
-
         List<FormattedCharSequence> page = pages.get(pageIndex);
         int y = CONTENT_Y;
         for (FormattedCharSequence line : page) {
@@ -175,32 +163,16 @@ public class RegionalSurveyJournalScreen extends AbstractContainerScreen<Regiona
             y += LINE_HEIGHT;
         }
 
-        if (hasClaimableRewards()) {
-            graphics.blit(
-                    TEXTURE,
-                    14,
-                    REWARD_BAR_TOP,
-                    REWARD_BAR_U,
-                    REWARD_BAR_V,
-                    REWARD_BAR_TEX_W,
-                    REWARD_BAR_H,
-                    TEX_SIZE,
-                    TEX_SIZE
-            );
-        }
-
-        drawFooter(graphics, cx);
+        drawFooter(graphics);
     }
 
-    private void drawFooter(GuiGraphics graphics, int cx) {
-        graphics.fill(14, FOOTER_TOP, this.imageWidth - 14, FOOTER_TOP + FOOTER_H, COLOR_FOOTER);
-
+    private void drawFooter(GuiGraphics graphics) {
         Component pageLabel = pages.size() > 1
                 ? Component.translatable("ancient_extensions.journal.page", pageIndex + 1, pages.size())
                 : Component.translatable("ancient_extensions.journal.page_single");
         int labelY = FOOTER_TOP + (FOOTER_H - this.font.lineHeight) / 2;
-        graphics.drawCenteredString(this.font, pageLabel, cx + 1, labelY + 1, COLOR_PAGE_SHADOW);
-        graphics.drawCenteredString(this.font, pageLabel, cx, labelY, COLOR_PAGE);
+        graphics.drawString(this.font, pageLabel, PAGE_LABEL_X + 1, labelY + 1, COLOR_PAGE_SHADOW, false);
+        graphics.drawString(this.font, pageLabel, PAGE_LABEL_X, labelY, COLOR_PAGE, false);
     }
 
     @Override
