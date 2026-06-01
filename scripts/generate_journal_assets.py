@@ -59,8 +59,18 @@ def draw_journal_gui(path: Path) -> None:
         d.point((ox, oy), fill=paper_shadow)
         d.point((ox + 1, oy), fill=paper_shadow)
 
-    draw_journal_sprites(d, rule)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    img.save(path)
+    print(f"Wrote {path}")
 
+    draw_journal_widgets(ASSETS / "gui" / "regional_survey_journal_widgets.png", rule)
+
+
+def draw_journal_widgets(path: Path, rule) -> None:
+    """Footer button sprites — separate file so the main GUI blit does not duplicate them."""
+    img = Image.new("RGBA", (GUI_W, 32), rgb("#00000000"))
+    d = ImageDraw.Draw(img)
+    draw_journal_sprites(d, rule)
     path.parent.mkdir(parents=True, exist_ok=True)
     img.save(path)
     print(f"Wrote {path}")

@@ -26,7 +26,7 @@ public final class PassportSealRenderer {
     private static final int TEX_SIZE = 256;
 
     private static final int CODE_GOLD = 0xFFF5E6B0;
-    private static final int CODE_SHADOW = 0xFF4A1818;
+    private static final int CODE_SHADOW = 0x50281818;
     private static final float STAMP_ROTATION_DEG = -11.0F;
 
     private PassportSealRenderer() {

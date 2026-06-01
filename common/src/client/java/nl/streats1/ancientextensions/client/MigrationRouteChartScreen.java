@@ -35,9 +35,7 @@ public class MigrationRouteChartScreen extends AbstractContainerScreen<Migration
     private static final int LINE_HEIGHT = 10;
 
     private static final int COLOR_HEADER = 0xFFF0E2CC;
-    private static final int COLOR_HEADER_SHADOW = 0xFF1A1008;
     private static final int COLOR_PAGE = 0xFF2A1810;
-    private static final int COLOR_PAGE_SHADOW = 0xFFF5E8D8;
 
     private final List<List<FormattedCharSequence>> pages = new ArrayList<>();
     private int pageIndex;
@@ -135,7 +133,7 @@ public class MigrationRouteChartScreen extends AbstractContainerScreen<Migration
         int cx = this.imageWidth / 2;
 
         Component header = Component.translatable("item.ancient_extensions.migration_route_chart");
-        graphics.drawCenteredString(this.font, header, cx + 1, 20, COLOR_HEADER_SHADOW);
+        graphics.drawCenteredString(this.font, header, cx + 1, 20, GuiTextRender.SLIGHT_BLACK_SHADOW);
         graphics.drawCenteredString(this.font, header, cx, 19, COLOR_HEADER);
 
         List<FormattedCharSequence> page = pages.get(pageIndex);
@@ -150,7 +148,7 @@ public class MigrationRouteChartScreen extends AbstractContainerScreen<Migration
             int labelX = PAGE_BTN_LEFT_X + JournalNavButton.SPRITE_W + PAGE_BTN_GAP
                     + JournalNavButton.SPRITE_W + PAGE_LABEL_GAP;
             int labelY = FOOTER_TOP + (FOOTER_H - this.font.lineHeight) / 2;
-            graphics.drawString(this.font, label, labelX + 1, labelY + 1, COLOR_PAGE_SHADOW, false);
+            graphics.drawString(this.font, label, labelX + 1, labelY + 1, GuiTextRender.SLIGHT_BLACK_SHADOW, false);
             graphics.drawString(this.font, label, labelX, labelY, COLOR_PAGE, false);
         }
     }

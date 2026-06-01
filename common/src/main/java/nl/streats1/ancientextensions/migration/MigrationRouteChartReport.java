@@ -31,7 +31,9 @@ public final class MigrationRouteChartReport {
         for (Component legBlock : legBlocks(season, data)) {
             appendBlock(lines, legBlock);
         }
-        appendBlock(lines, speciesLine(season));
+        for (Component speciesBlock : speciesBlocks(season)) {
+            appendBlock(lines, speciesBlock);
+        }
         return List.copyOf(lines);
     }
 
@@ -181,20 +183,37 @@ public final class MigrationRouteChartReport {
         return lines;
     }
 
-    private static Component speciesLine(MigrationSeason season) {
-        StringBuilder surveyNames = new StringBuilder();
-        for (ResourceLocation id : MigrationSpecies.speciesForSeason(season)) {
-            if (!surveyNames.isEmpty()) {
-                surveyNames.append(" · ");
-            }
-            surveyNames.append(formatSpecies(id));
+    private static List<Component> speciesBlocks(MigrationSeason season) {
+        List<ResourceLocation> species = MigrationSpecies.speciesOnRouteForSeason(season);
+        List<Component> blocks = new ArrayList<>();
+        if (species.isEmpty()) {
+            blocks.add(
+                    Component.translatable("ancient_extensions.migration_chart.species_empty", season.displayName())
+                            .withStyle(ChatFormatting.BLACK)
+            );
+            return blocks;
         }
-        return Component.translatable(
-                        "ancient_extensions.migration_chart.species",
-                        season.displayName(),
-                        surveyNames.toString()
-                )
-                .withStyle(ChatFormatting.BLACK);
+
+        String header = Component.translatable(
+                "ancient_extensions.migration_chart.species_header",
+                season.displayName()
+        ).getString();
+        StringBuilder chunk = new StringBuilder(header);
+        for (ResourceLocation id : species) {
+            String name = formatSpecies(id);
+            if (chunk.length() + name.length() + 3 > PAGE_CHAR_LIMIT) {
+                blocks.add(Component.literal(chunk.toString()).withStyle(ChatFormatting.BLACK));
+                chunk = new StringBuilder(name);
+            } else if (chunk.length() == header.length()) {
+                chunk.append('\n').append(name);
+            } else {
+                chunk.append(" · ").append(name);
+            }
+        }
+        if (!chunk.isEmpty()) {
+            blocks.add(Component.literal(chunk.toString()).withStyle(ChatFormatting.BLACK));
+        }
+        return blocks;
     }
 
     private static String formatSpecies(ResourceLocation id) {

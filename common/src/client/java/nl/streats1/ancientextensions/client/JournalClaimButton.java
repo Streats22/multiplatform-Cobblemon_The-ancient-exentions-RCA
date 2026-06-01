@@ -1,26 +1,17 @@
 package nl.streats1.ancientextensions.client;
 
-import nl.streats1.ancientextensions.AncientExtensionsConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 
 /**
  * Gold-stamped claim control for the survey journal footer strip.
  */
 public class JournalClaimButton extends Button {
 
-    static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(
-            AncientExtensionsConstants.MOD_ID,
-            "textures/gui/regional_survey_journal.png"
-    );
-    static final int TEX_SIZE = 256;
-    static final int SPRITE_U = 0;
-    static final int SPRITE_V = 220;
-    static final int SPRITE_H = 16;
+    static final int SPRITE_H = JournalWidgetSprites.CLAIM_H;
 
     private static final int LABEL_COLOR = 0xFF2A1810;
 
@@ -35,15 +26,15 @@ public class JournalClaimButton extends Button {
         }
         int v = this.isHoveredOrFocused() ? SPRITE_H : 0;
         graphics.blit(
-                TEXTURE,
+                JournalWidgetSprites.TEXTURE,
                 getX(),
                 getY(),
-                SPRITE_U,
-                SPRITE_V + v,
+                JournalWidgetSprites.CLAIM_U,
+                JournalWidgetSprites.CLAIM_V + v,
                 getWidth(),
                 getHeight(),
-                TEX_SIZE,
-                TEX_SIZE
+                JournalWidgetSprites.TEX_W,
+                JournalWidgetSprites.TEX_H
         );
         renderString(graphics, Minecraft.getInstance().font, LABEL_COLOR);
     }

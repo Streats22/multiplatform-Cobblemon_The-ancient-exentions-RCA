@@ -4,9 +4,19 @@ import com.cobblemon.mod.common.api.pokemon.PokemonSpecies;
 import com.cobblemon.mod.common.api.types.ElementalType;
 import com.cobblemon.mod.common.api.types.ElementalTypes;
 import com.cobblemon.mod.common.pokemon.Species;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import net.minecraft.resources.ResourceLocation;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.EnumMap;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -21,6 +31,7 @@ public final class MigrationSpecies {
 
     /** Non-flying species that still count on their season's route (also have dedicated spawns). */
     private static final Map<MigrationSeason, Set<ResourceLocation>> SEASONAL_SURVEY = new EnumMap<>(MigrationSeason.class);
+    private static final Map<MigrationSeason, List<ResourceLocation>> ROUTE_SPECIES = loadRouteSpecies();
 
     static {
         SEASONAL_SURVEY.put(MigrationSeason.SPRING, Set.of(
@@ -75,9 +86,42 @@ public final class MigrationSpecies {
         return survey != null && survey.contains(speciesId);
     }
 
-    /** Featured non-flying survey species shown on the migration chart (flying types are summarized in lang). */
+    /** Featured non-flying survey species (also listed in {@link #speciesOnRouteForSeason}). */
     public static Set<ResourceLocation> speciesForSeason(MigrationSeason season) {
         return SEASONAL_SURVEY.getOrDefault(season, Set.of());
+    }
+
+    /** Every species in the seasonal migration spawn pool (flying route + survey spawns). */
+    public static List<ResourceLocation> speciesOnRouteForSeason(MigrationSeason season) {
+        return ROUTE_SPECIES.getOrDefault(season, List.of());
+    }
+
+    private static Map<MigrationSeason, List<ResourceLocation>> loadRouteSpecies() {
+        Map<MigrationSeason, List<ResourceLocation>> loaded = new EnumMap<>(MigrationSeason.class);
+        for (MigrationSeason season : MigrationSeason.values()) {
+            loaded.put(season, loadSpawnPoolSpecies(season));
+        }
+        return Map.copyOf(loaded);
+    }
+
+    private static List<ResourceLocation> loadSpawnPoolSpecies(MigrationSeason season) {
+        String path = "/data/cobblemon/spawn_pool_world/ancient_extensions_migration_" + season.getId() + ".json";
+        try (InputStream stream = MigrationSpecies.class.getResourceAsStream(path)) {
+            if (stream == null) {
+                return List.of();
+            }
+            JsonObject root = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8))
+                    .getAsJsonObject();
+            JsonArray spawns = root.getAsJsonArray("spawns");
+            Set<ResourceLocation> unique = new LinkedHashSet<>();
+            for (JsonElement entry : spawns) {
+                String pokemon = entry.getAsJsonObject().get("pokemon").getAsString();
+                unique.add(ResourceLocation.fromNamespaceAndPath("cobblemon", pokemon));
+            }
+            return List.copyOf(unique);
+        } catch (IOException | RuntimeException ignored) {
+            return List.of();
+        }
     }
 
     public static boolean hasFlyingType(ResourceLocation speciesId) {

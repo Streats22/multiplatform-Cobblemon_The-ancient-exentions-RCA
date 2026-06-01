@@ -14,10 +14,9 @@ public final class GuiTextRender {
 
     /** Default tint — white so per-glyph styles show at full strength. */
     private static final int STYLE_PRESERVING_COLOR = 0xFFFFFFFF;
-    /** Soft parchment ink — two layers so white body text stays readable. */
-    private static final int SOFT_SHADOW_INK = 0x60483828;
-    private static final int SOFT_SHADOW_DEEP = 0x38241810;
-    private static final int GOLD_HALO_INK = 0x58402818;
+    /** Slight black shadow — readable on parchment without a heavy outline. */
+    public static final int SLIGHT_BLACK_SHADOW = 0x48000000;
+    private static final int GOLD_HALO_INK = 0x38000000;
 
     private GuiTextRender() {
     }
@@ -53,13 +52,11 @@ public final class GuiTextRender {
     }
 
     private static void drawSoftShadow(Font font, GuiGraphics graphics, Component text, int x, int y) {
-        graphics.drawString(font, text, x + 2, y + 2, SOFT_SHADOW_DEEP, false);
-        graphics.drawString(font, text, x + 1, y + 1, SOFT_SHADOW_INK, false);
+        graphics.drawString(font, text, x + 1, y + 1, SLIGHT_BLACK_SHADOW, false);
     }
 
     private static void drawSoftShadow(Font font, GuiGraphics graphics, FormattedCharSequence text, int x, int y) {
-        graphics.drawString(font, text, x + 2, y + 2, SOFT_SHADOW_DEEP, false);
-        graphics.drawString(font, text, x + 1, y + 1, SOFT_SHADOW_INK, false);
+        graphics.drawString(font, text, x + 1, y + 1, SLIGHT_BLACK_SHADOW, false);
     }
 
     public static void drawCenteredStyledSoft(Font font, GuiGraphics graphics, Component text, int centerX, int y) {
