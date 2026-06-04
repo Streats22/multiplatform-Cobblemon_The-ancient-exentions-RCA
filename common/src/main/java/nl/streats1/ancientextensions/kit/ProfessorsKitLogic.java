@@ -67,7 +67,7 @@ public final class ProfessorsKitLogic {
         StarterKitGrant.grantJournalIfMissing(player);
         StarterKitGrant.grantPassportIfMissing(player);
 
-        if (!canRedeployKit(player)) {
+        if (!data.hasDeployedProfessorsKit()) {
             data.markProfessorsKitDeployed();
             AncientExtensionsContext.get().surveys().save(player, data);
         }

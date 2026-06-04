@@ -1,6 +1,5 @@
 package nl.streats1.ancientextensions.item;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -38,16 +37,17 @@ public class FieldSurveyTabletItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("item.ancient_extensions.field_survey_tablet.description")
-                .withStyle(ChatFormatting.GRAY));
-        ItemGuideTooltips.append(
+        ItemGuideTooltips.appendSurveyItem(
                 tooltip,
                 flag,
-                "ancient_extensions.guide.tablet_detail1",
-                "ancient_extensions.guide.tablet_detail2"
+                "ancient_extensions.guide.role.tablet",
+                "item.ancient_extensions.field_survey_tablet.description",
+                new String[]{
+                        "ancient_extensions.guide.tablet_detail1",
+                        "ancient_extensions.guide.tablet_detail2"
+                },
+                "ancient_extensions.tablet.tooltip_use"
         );
-        tooltip.add(Component.translatable("ancient_extensions.tablet.tooltip_use")
-                .withStyle(ChatFormatting.DARK_AQUA));
     }
 
     @Override

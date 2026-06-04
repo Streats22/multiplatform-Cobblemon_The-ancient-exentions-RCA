@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Specification-Title: sophisticatedcore
+Specification-Vendor: sophisticatedcore
+Specification-Version: 1
+Implementation-Title: SophisticatedCore
+Implementation-Version: 1.21.1-1.4.44.1923
+Implementation-Vendor: sophisticatedcore
+Implementation-Timestamp: 2026-06-02T09:03:29+0000
+

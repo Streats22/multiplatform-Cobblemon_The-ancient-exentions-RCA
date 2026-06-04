@@ -1,0 +1,8 @@
+{
+  "values": [
+    {
+      "id": "ancient_extensions:field_survey_telemetry_upgrade",
+      "required": false
+    }
+  ]
+}

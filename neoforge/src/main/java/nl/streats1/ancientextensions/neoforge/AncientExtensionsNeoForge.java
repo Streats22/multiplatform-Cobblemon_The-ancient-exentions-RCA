@@ -45,6 +45,7 @@ public class AncientExtensionsNeoForge {
         NeoForgeMenuOpenHelper.register();
         ModAttachments.ATTACHMENTS.register(modBus);
         ModBlocks.register(modBus);
+        CreateCompat.register(modBus);
         ModBlockEntities.register(modBus);
         ModItems.register(modBus);
         NeoForgeRecipeSerializers.register(modBus);
@@ -54,10 +55,7 @@ public class AncientExtensionsNeoForge {
             }
         });
         ModMenus.register(modBus);
-        modBus.addListener((FMLCommonSetupEvent event) -> event.enqueueWork(() -> {
-            CreateCompat.init();
-            SophisticatedBackpacksCompat.init();
-        }));
+        modBus.addListener((FMLCommonSetupEvent event) -> event.enqueueWork(SophisticatedBackpacksCompat::init));
         modBus.addListener(ModNetworking::register);
         modBus.addListener(AncientExtensionsNeoForgeClient::registerScreens);
         modBus.addListener(AncientExtensionsNeoForgeClient::registerRenderers);

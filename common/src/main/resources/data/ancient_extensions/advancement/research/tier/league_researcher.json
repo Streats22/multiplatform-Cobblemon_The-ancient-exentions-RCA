@@ -1,0 +1,22 @@
+{
+  "parent": "ancient_extensions:research/tier/league_aide",
+  "display": {
+    "icon": {
+      "id": "ancient_extensions:regional_survey_journal"
+    },
+    "title": {
+      "translate": "ancient_extensions.advancement.tier.league_researcher.title"
+    },
+    "description": {
+      "translate": "ancient_extensions.advancement.tier.league_researcher.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "reached_tier": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

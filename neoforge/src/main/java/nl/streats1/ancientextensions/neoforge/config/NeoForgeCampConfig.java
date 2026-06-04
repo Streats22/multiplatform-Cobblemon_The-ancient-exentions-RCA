@@ -5,6 +5,7 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 import nl.streats1.ancientextensions.config.CampConfig;
 import nl.streats1.ancientextensions.config.MigrationCalendarConfig;
 import nl.streats1.ancientextensions.config.PassportConfig;
+import nl.streats1.ancientextensions.config.ShinyCharmConfig;
 
 public final class NeoForgeCampConfig {
 
@@ -16,6 +17,9 @@ public final class NeoForgeCampConfig {
     public static final ModConfigSpec.BooleanValue OPEN_ORIGIN_PICKER_ON_JOIN;
     public static final ModConfigSpec.BooleanValue DEFER_ORIGIN_PICKER_FOR_MCA;
     public static final ModConfigSpec.BooleanValue USE_SERENE_SEASONS_WHEN_PRESENT;
+    public static final ModConfigSpec.BooleanValue SHINY_CHARM_ENABLED;
+    public static final ModConfigSpec.DoubleValue SHINY_CHARM_RATE_MULTIPLIER;
+    public static final ModConfigSpec.BooleanValue SHINY_CHARM_REQUIRE_IN_INVENTORY;
     public static final ModConfigSpec SPEC;
 
     static {
@@ -43,6 +47,17 @@ public final class NeoForgeCampConfig {
                 .comment("When true and Serene Seasons (sereneseasons) is installed, migration routes follow the world's real season instead of the 7-day internal calendar.")
                 .define("useSereneSeasonsWhenPresent", true);
         BUILDER.pop();
+        BUILDER.push("shinyCharm");
+        SHINY_CHARM_ENABLED = BUILDER
+                .comment("When true, players who complete the Cobblemon dex can claim a Shiny Charm bonus from their Regional Passport.")
+                .define("enabled", true);
+        SHINY_CHARM_RATE_MULTIPLIER = BUILDER
+                .comment("Divides Cobblemon's shiny rate while the charm is active (3 = roughly triple odds, like Gen V–VII Shiny Charm).")
+                .defineInRange("rateMultiplier", 3.0D, 1.0D, 8192.0D);
+        SHINY_CHARM_REQUIRE_IN_INVENTORY = BUILDER
+                .comment("When true, the claimed Shiny Charm item must stay in the player's inventory for the bonus to apply.")
+                .define("requireCharmInInventory", true);
+        BUILDER.pop();
         SPEC = BUILDER.build();
     }
 
@@ -59,5 +74,10 @@ public final class NeoForgeCampConfig {
         boolean useSereneSeasons = USE_SERENE_SEASONS_WHEN_PRESENT.get();
         PassportConfig.apply(openOriginPicker, deferForMca);
         MigrationCalendarConfig.apply(useSereneSeasons);
+        ShinyCharmConfig.apply(
+                SHINY_CHARM_ENABLED.get(),
+                SHINY_CHARM_RATE_MULTIPLIER.get().floatValue(),
+                SHINY_CHARM_REQUIRE_IN_INVENTORY.get()
+        );
     }
 }

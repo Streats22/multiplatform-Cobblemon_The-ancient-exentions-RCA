@@ -7,15 +7,9 @@
     " R "
   ],
   "key": {
-    "G": {
-      "item": "minecraft:glass_pane"
-    },
-    "J": {
-      "item": "ancient_extensions:regional_survey_journal"
-    },
-    "R": {
-      "item": "minecraft:redstone"
-    }
+    "G": "minecraft:glass_pane",
+    "J": "ancient_extensions:regional_survey_journal",
+    "R": "minecraft:redstone"
   },
   "result": {
     "id": "ancient_extensions:field_survey_tablet",

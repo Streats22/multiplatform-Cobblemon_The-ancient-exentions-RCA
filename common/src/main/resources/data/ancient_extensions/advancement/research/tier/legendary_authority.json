@@ -1,0 +1,22 @@
+{
+  "parent": "ancient_extensions:research/tier/grand_authority",
+  "display": {
+    "icon": {
+      "id": "ancient_extensions:migration_route_compass"
+    },
+    "title": {
+      "translate": "ancient_extensions.advancement.tier.legendary_authority.title"
+    },
+    "description": {
+      "translate": "ancient_extensions.advancement.tier.legendary_authority.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "reached_tier": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -9,6 +9,8 @@ public final class AncientExtensionsClientHooks {
     };
     private static Runnable tierRewardClaimSender = () -> {
     };
+    private static Runnable shinyCharmClaimSender = () -> {
+    };
     private static TabletActionSender tabletActionSender = action -> {
     };
 
@@ -33,6 +35,11 @@ public final class AncientExtensionsClientHooks {
         };
     }
 
+    public static void setShinyCharmClaimSender(Runnable sender) {
+        shinyCharmClaimSender = sender != null ? sender : () -> {
+        };
+    }
+
     public static void setTabletActionSender(TabletActionSender sender) {
         tabletActionSender = sender != null ? sender : action -> {
         };
@@ -44,6 +51,10 @@ public final class AncientExtensionsClientHooks {
 
     public static void sendClaimTierRewards() {
         tierRewardClaimSender.run();
+    }
+
+    public static void sendClaimShinyCharm() {
+        shinyCharmClaimSender.run();
     }
 
     public static void sendTabletAction(byte action) {

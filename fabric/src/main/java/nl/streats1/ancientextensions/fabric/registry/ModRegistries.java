@@ -40,9 +40,14 @@ public final class ModRegistries {
         Registry.register(
                 BuiltInRegistries.ITEM,
                 id("field_survey_calendar"),
-                new net.minecraft.world.item.BlockItem(
+                new SurveyBlockItem(
                         ModContent.FIELD_SURVEY_CALENDAR_BLOCK,
-                        new net.minecraft.world.item.Item.Properties()
+                        new Item.Properties(),
+                        "ancient_extensions.guide.role.calendar",
+                        "item.ancient_extensions.field_survey_calendar.description",
+                        "ancient_extensions.guide.field_calendar_action",
+                        "ancient_extensions.guide.field_calendar_detail1",
+                        "ancient_extensions.guide.field_calendar_detail2"
                 )
         );
 
@@ -150,6 +155,11 @@ public final class ModRegistries {
                 id("regional_passport"),
                 new RegionalPassportItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON))
         );
+        ModContent.SHINY_CHARM = Registry.register(
+                BuiltInRegistries.ITEM,
+                id("shiny_charm"),
+                new ShinyCharmItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).fireResistant())
+        );
         ModContent.POKEBALL_POUCH = Registry.register(
                 BuiltInRegistries.ITEM,
                 id("pokeball_pouch"),
@@ -200,18 +210,28 @@ public final class ModRegistries {
         Registry.register(
                 BuiltInRegistries.ITEM,
                 id("field_survey_sensor"),
-                new net.minecraft.world.item.BlockItem(
+                new SurveyBlockItem(
                         ModContent.FIELD_SURVEY_SENSOR_BLOCK,
-                        new net.minecraft.world.item.Item.Properties()
+                        new Item.Properties(),
+                        "ancient_extensions.guide.role.sensor",
+                        "item.ancient_extensions.field_survey_sensor.description",
+                        "ancient_extensions.guide.field_sensor_action",
+                        "ancient_extensions.guide.field_sensor_detail1",
+                        "ancient_extensions.guide.field_sensor_detail2"
                 )
         );
 
         Registry.register(
                 BuiltInRegistries.ITEM,
                 id("field_survey_monitor"),
-                new net.minecraft.world.item.BlockItem(
+                new SurveyBlockItem(
                         ModContent.FIELD_SURVEY_MONITOR_BLOCK,
-                        new net.minecraft.world.item.Item.Properties()
+                        new Item.Properties(),
+                        "ancient_extensions.guide.role.monitor",
+                        "item.ancient_extensions.field_survey_monitor.description",
+                        "ancient_extensions.guide.field_monitor_action",
+                        "ancient_extensions.guide.field_monitor_detail1",
+                        "ancient_extensions.guide.field_monitor_detail2"
                 )
         );
     }

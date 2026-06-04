@@ -15,6 +15,7 @@ public final class JournalWidgetSprites {
 
     public static final int CLAIM_U = 0;
     public static final int CLAIM_V = 0;
+    public static final int CLAIM_W = 128;
     public static final int CLAIM_H = 16;
 
     public static final int PREV_U = 112;

@@ -6,6 +6,7 @@ import com.cobblemon.mod.common.api.events.pokemon.PokemonCapturedEvent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 
+import nl.streats1.ancientextensions.integration.cobblemon.ShinyCharmCobblemonHooks;
 import nl.streats1.ancientextensions.AncientExtensionsContext;
 
 public final class CobblemonEventHandlers {
@@ -14,6 +15,7 @@ public final class CobblemonEventHandlers {
     }
 
     public static void register(AncientExtensionsContext context) {
+        ShinyCharmCobblemonHooks.register();
         // Catch-only Regional Survey — PC registration does not count.
         CobblemonEvents.POKEMON_CAPTURED.subscribe((PokemonCapturedEvent event) -> {
             ServerPlayer player = event.getPlayer();

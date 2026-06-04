@@ -8,11 +8,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CampfireBlock;
+import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.Half;
+import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.phys.AABB;
 
 import java.util.Optional;
@@ -22,23 +25,27 @@ import nl.streats1.ancientextensions.compat.LootrCampChestCompat;
 import nl.streats1.ancientextensions.config.CampConfig;
 
 /**
- * Places a small comfort survey camp from the Ancient Professor's kit.
- * Layout (relative to player facing): tent behind the fire, bedroll ahead, chest and lectern to the sides.
+ * Places a field survey camp from the Ancient Professor's kit.
+ * Layout (relative to player facing): large tent behind the fire, bedroll ahead, chest and lectern to the sides.
  */
 public final class FieldCampPlacer {
 
-    private static final int SEARCH_RADIUS = 5;
+    private static final int SEARCH_RADIUS = 8;
     /**
      * Search up/down from the builder's feet so caves do not snap to the surface.
      */
-    private static final int VERTICAL_SEARCH = 8;
-    private static final int CAMP_FORWARD_MIN = -4;
-    private static final int CAMP_FORWARD_MAX = 3;
-    private static final int CAMP_SIDE_MIN = -2;
-    private static final int CAMP_SIDE_MAX = 2;
-    private static final int TENT_LENGTH = 4;
-    private static final int TENT_WIDTH = 4;
-    private static final int TENT_HEIGHT = 3;
+    private static final int VERTICAL_SEARCH = 10;
+    private static final int CAMP_FORWARD_MIN = -8;
+    private static final int CAMP_FORWARD_MAX = 4;
+    private static final int CAMP_SIDE_MIN = -5;
+    private static final int CAMP_SIDE_MAX = 5;
+    /** Depth of the tent canopy behind the campfire. */
+    private static final int TENT_LENGTH = 6;
+    /** Interior span of the tent (side walls inclusive). */
+    private static final int TENT_WIDTH = 7;
+    /** Walk-in height under the wool canopy. */
+    private static final int TENT_HEIGHT = 5;
+    private static final int SIDE_FEATURE_OFFSET = 4;
 
     private FieldCampPlacer() {
     }
@@ -61,15 +68,15 @@ public final class FieldCampPlacer {
         Direction right = forward.getClockWise();
 
         BlockPos campfire = center;
-        BlockPos chestPos = center.relative(left, 2);
-        BlockPos lecternPos = center.relative(right, 2);
+        BlockPos chestPos = center.relative(left, SIDE_FEATURE_OFFSET);
+        BlockPos lecternPos = center.relative(right, SIDE_FEATURE_OFFSET);
         BlockPos bedrollHead = center.relative(forward, 2);
-        BlockPos safeStand = center.relative(forward, 3);
+        BlockPos safeStand = center.relative(forward, 4);
 
         clearCampArea(level, center, forward, left);
         layFloor(level, center, forward, left);
         placeCampfire(level, campfire, back);
-        placeSmallTent(level, center, forward, back, left, right, builder);
+        placeSurveyTent(level, center, forward, back, left, builder);
         placeBedroll(level, center, forward, left, sleepingBed, builder);
         placeIfClear(level, lecternPos, Blocks.LECTERN.defaultBlockState(), builder);
         placeIfClear(level, chestPos, Blocks.CHEST.defaultBlockState(), builder);
@@ -104,7 +111,7 @@ public final class FieldCampPlacer {
         for (int f = CAMP_FORWARD_MIN; f <= CAMP_FORWARD_MAX; f++) {
             for (int s = CAMP_SIDE_MIN; s <= CAMP_SIDE_MAX; s++) {
                 BlockPos base = center.relative(forward, f).relative(left, s);
-                clearColumn(level, base, TENT_HEIGHT + 1);
+                clearColumn(level, base, TENT_HEIGHT + 2);
             }
         }
     }
@@ -129,46 +136,117 @@ public final class FieldCampPlacer {
     }
 
     /**
-     * Survey tent behind the fire: 4 blocks long (away from fire), 4 wide, 3 tall. Open front faces the campfire.
+     * Ridge tent behind the fire — A-frame profile (narrow peak, wide base, center pole, corner stakes):
+     * <pre>
+     *        x
+     *       x|x
+     *      x | x
+     *     x  |  x
+     *    x |   | x
+     * </pre>
+     * Open front faces the campfire; back wall is closed.
      */
-    private static void placeSmallTent(
+    private static void placeSurveyTent(
             ServerLevel level,
             BlockPos center,
             Direction forward,
             Direction back,
             Direction left,
-            Direction right,
             ServerPlayer builder
     ) {
-        int widthStart = -(TENT_WIDTH / 2);
         BlockState wool = Blocks.WHITE_WOOL.defaultBlockState();
-        BlockState roof = Blocks.WHITE_CARPET.defaultBlockState();
+        BlockState frame = Blocks.DARK_OAK_FENCE.defaultBlockState();
+        BlockState frameSlab = Blocks.DARK_OAK_SLAB.defaultBlockState()
+                .setValue(BlockStateProperties.SLAB_TYPE, SlabType.TOP);
+        int maxHalfWidth = TENT_WIDTH / 2;
+        int doorPostOffset = 1;
 
         for (int depth = 1; depth <= TENT_LENGTH; depth++) {
             BlockPos row = center.relative(back, depth);
-            for (int w = 0; w < TENT_WIDTH; w++) {
-                BlockPos cell = row.relative(left, widthStart + w);
-                boolean leftWall = w == 0;
-                boolean rightWall = w == TENT_WIDTH - 1;
-                boolean backWall = depth == TENT_LENGTH;
-                boolean frontWall = depth == 1 && (leftWall || rightWall);
+            boolean frontFace = depth == 1;
 
-                if (leftWall || rightWall || backWall) {
-                    for (int h = 0; h < TENT_HEIGHT; h++) {
-                        placeIfClear(level, cell.above(h), wool, builder);
-                    }
-                } else if (frontWall) {
-                    placeIfClear(level, cell, Blocks.SPRUCE_FENCE.defaultBlockState(), builder);
-                    placeIfClear(level, cell.above(), Blocks.SPRUCE_FENCE.defaultBlockState(), builder);
-                    placeIfClear(level, cell.above(2), Blocks.SPRUCE_FENCE.defaultBlockState(), builder);
+            for (int h = 0; h < TENT_HEIGHT; h++) {
+                placeIfClear(level, row.above(h), frame, builder);
+                for (int cornerOffset : new int[]{-maxHalfWidth, maxHalfWidth}) {
+                    placeIfClear(level, row.relative(left, cornerOffset).above(h), frame, builder);
                 }
-
-                placeIfClear(level, cell.above(TENT_HEIGHT - 1), roof, builder);
+                if (frontFace) {
+                    for (int doorOffset : new int[]{-doorPostOffset, doorPostOffset}) {
+                        placeIfClear(level, row.relative(left, doorOffset).above(h), frame, builder);
+                    }
+                }
             }
         }
 
-        BlockPos ridge = center.relative(back, TENT_LENGTH).relative(left, widthStart + 1);
-        placeBanner(level, ridge.above(TENT_HEIGHT), forward);
+        for (int depth = 1; depth <= TENT_LENGTH; depth++) {
+            BlockPos row = center.relative(back, depth);
+            boolean frontFace = depth == 1;
+            boolean backFace = depth == TENT_LENGTH;
+
+            for (int h = 0; h < TENT_HEIGHT; h++) {
+                int halfWidth = tentHalfWidthAtHeight(h);
+                if (halfWidth == 0) {
+                    continue;
+                }
+
+                for (int sideOffset = -halfWidth; sideOffset <= halfWidth; sideOffset++) {
+                    if (sideOffset == 0) {
+                        continue;
+                    }
+                    int absOffset = Math.abs(sideOffset);
+                    if (absOffset == maxHalfWidth || (frontFace && absOffset == doorPostOffset)) {
+                        continue;
+                    }
+                    if (frontFace && h <= 2 && absOffset < halfWidth) {
+                        continue;
+                    }
+
+                    BlockPos canvas = row.relative(left, sideOffset).above(h);
+                    if (backFace && absOffset <= halfWidth) {
+                        placeIfClear(level, canvas, wool, builder);
+                    } else if (absOffset == halfWidth) {
+                        placeIfClear(level, canvas, wool, builder);
+                    }
+                }
+            }
+
+            if (frontFace) {
+                placeEntranceArch(
+                        level,
+                        row.relative(left, -maxHalfWidth),
+                        forward.getClockWise(),
+                        builder
+                );
+                placeEntranceArch(
+                        level,
+                        row.relative(left, maxHalfWidth),
+                        forward.getCounterClockWise(),
+                        builder
+                );
+                placeIfClear(level, row.relative(left, -maxHalfWidth).above(TENT_HEIGHT), frameSlab, builder);
+                placeIfClear(level, row.relative(left, maxHalfWidth).above(TENT_HEIGHT), frameSlab, builder);
+            }
+        }
+
+        BlockPos backRidge = center.relative(back, TENT_LENGTH).above(TENT_HEIGHT);
+        placeIfClear(level, backRidge, frameSlab, builder);
+        placeBanner(level, backRidge.above(1), forward);
+    }
+
+    /** Lateral half-width of the canvas at each height level (0 = floor, peak at {@code TENT_HEIGHT - 1}). */
+    private static int tentHalfWidthAtHeight(int heightLevel) {
+        int maxHalfWidth = TENT_WIDTH / 2;
+        int levelsBelowPeak = TENT_HEIGHT - 1 - heightLevel;
+        return Math.max(0, maxHalfWidth - levelsBelowPeak);
+    }
+
+    private static void placeEntranceArch(ServerLevel level, BlockPos corner, Direction inward, ServerPlayer builder) {
+        BlockState lower = Blocks.DARK_OAK_STAIRS.defaultBlockState()
+                .setValue(StairBlock.FACING, inward)
+                .setValue(StairBlock.HALF, Half.BOTTOM);
+        BlockState upper = lower.setValue(StairBlock.HALF, Half.TOP);
+        placeIfClear(level, corner.above(TENT_HEIGHT - 2), lower, builder);
+        placeIfClear(level, corner.above(TENT_HEIGHT - 1), upper, builder);
     }
 
     /**
@@ -237,7 +315,7 @@ public final class FieldCampPlacer {
         if (!level.getBlockState(center).canBeReplaced()) {
             return -1;
         }
-        for (int dy = 1; dy <= TENT_HEIGHT; dy++) {
+        for (int dy = 1; dy <= TENT_HEIGHT + 1; dy++) {
             if (!level.getBlockState(center.above(dy)).canBeReplaced()) {
                 return -1;
             }
@@ -260,7 +338,7 @@ public final class FieldCampPlacer {
         AABB playerBox = builder.getBoundingBox();
         for (int f = CAMP_FORWARD_MIN; f <= CAMP_FORWARD_MAX; f++) {
             for (int s = CAMP_SIDE_MIN; s <= CAMP_SIDE_MAX; s++) {
-                for (int h = 0; h <= TENT_HEIGHT; h++) {
+                for (int h = 0; h <= TENT_HEIGHT + 1; h++) {
                     BlockPos pos = center.relative(forward, f).relative(left, s).above(h);
                     if (playerBox.intersects(new AABB(pos))) {
                         return true;

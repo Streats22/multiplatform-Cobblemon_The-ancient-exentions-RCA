@@ -3,6 +3,7 @@ package nl.streats1.ancientextensions.migration;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Fallback route biomes when no Regions Unexplored / Biomes O' Plenty is installed.
@@ -21,6 +22,19 @@ public final class VanillaSeasonBiomes {
             case AUTUMN -> AUTUMN;
             case WINTER -> WINTER;
         };
+    }
+
+    /** Climate band for a vanilla biome (used by the field calendar when mapping to mod route biomes). */
+    public static Optional<MigrationSeason> affinitySeason(ResourceLocation biomeId) {
+        if (biomeId == null || !NAMESPACE.equals(biomeId.getNamespace())) {
+            return Optional.empty();
+        }
+        for (MigrationSeason season : MigrationSeason.values()) {
+            if (forSeason(season).contains(biomeId)) {
+                return Optional.of(season);
+            }
+        }
+        return Optional.empty();
     }
 
     private static ResourceLocation id(String path) {

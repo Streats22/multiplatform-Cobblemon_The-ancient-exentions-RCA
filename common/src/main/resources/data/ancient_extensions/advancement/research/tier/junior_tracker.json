@@ -1,0 +1,22 @@
+{
+  "parent": "ancient_extensions:research/tier/surveyor",
+  "display": {
+    "icon": {
+      "id": "ancient_extensions:regional_survey_journal"
+    },
+    "title": {
+      "translate": "ancient_extensions.advancement.tier.junior_tracker.title"
+    },
+    "description": {
+      "translate": "ancient_extensions.advancement.tier.junior_tracker.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "reached_tier": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

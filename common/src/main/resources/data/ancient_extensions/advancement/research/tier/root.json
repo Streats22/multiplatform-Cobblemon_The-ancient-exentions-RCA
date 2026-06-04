@@ -1,0 +1,24 @@
+{
+  "parent": "ancient_extensions:survey/pitch_field_camp",
+  "display": {
+    "icon": {
+      "id": "ancient_extensions:regional_survey_journal"
+    },
+    "title": {
+      "translate": "ancient_extensions.advancement.research_root.title"
+    },
+    "description": {
+      "translate": "ancient_extensions.advancement.research_root.description"
+    },
+    "background": "ancient_extensions:textures/gui/regional_survey_journal.png",
+    "frame": "goal",
+    "hidden": true,
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "research_started": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

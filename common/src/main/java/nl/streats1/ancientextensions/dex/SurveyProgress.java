@@ -21,6 +21,7 @@ public final class SurveyProgress {
     private String surveyOrigin = "";
     private String surveyOriginTown = "";
     private boolean originSetupMode = false;
+    private boolean shinyCharmClaimed = false;
 
     void load(CompoundTag tag) {
         if (tag == null || tag.isEmpty()) {
@@ -35,6 +36,9 @@ public final class SurveyProgress {
         }
         if (tag.contains("originSetupMode")) {
             originSetupMode = tag.getBoolean("originSetupMode");
+        }
+        if (tag.contains("shinyCharmClaimed")) {
+            shinyCharmClaimed = tag.getBoolean("shinyCharmClaimed");
         }
         if (tag.contains("claimedTierRewards")) {
             claimedTierRewards.clear();
@@ -61,6 +65,9 @@ public final class SurveyProgress {
         if (tag.contains("originSetupMode")) {
             originSetupMode = tag.getBoolean("originSetupMode");
         }
+        if (tag.contains("shinyCharmClaimed")) {
+            shinyCharmClaimed = tag.getBoolean("shinyCharmClaimed");
+        }
         if (tag.contains("claimedTierRewards")) {
             claimedTierRewards.clear();
             ListTag claimed = tag.getList("claimedTierRewards", Tag.TAG_STRING);
@@ -86,6 +93,9 @@ public final class SurveyProgress {
         }
         if (originSetupMode) {
             tag.putBoolean("originSetupMode", true);
+        }
+        if (shinyCharmClaimed) {
+            tag.putBoolean("shinyCharmClaimed", true);
         }
         if (!claimedTierRewards.isEmpty()) {
             ListTag claimed = new ListTag();
@@ -160,5 +170,13 @@ public final class SurveyProgress {
 
     public void markTierRewardClaimed(ResearchTier tier) {
         claimedTierRewards.add(tier.name());
+    }
+
+    public boolean hasClaimedShinyCharm() {
+        return shinyCharmClaimed;
+    }
+
+    public void markShinyCharmClaimed() {
+        shinyCharmClaimed = true;
     }
 }

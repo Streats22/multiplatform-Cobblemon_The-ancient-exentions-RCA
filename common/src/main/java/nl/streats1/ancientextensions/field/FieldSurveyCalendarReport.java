@@ -2,12 +2,15 @@ package nl.streats1.ancientextensions.field;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +46,7 @@ public final class FieldSurveyCalendarReport {
         }
 
         MigrationSeason season = MigrationSeasonClock.currentSeason(server);
-        Holder<Biome> biome = server.getBiome(pos);
-        ResourceLocation biomeId = biome.unwrapKey().map(key -> key.location()).orElse(null);
+        ResourceLocation biomeId = sampleBiomeId(server, pos);
         String biomeName = MigrationBiomeContext.prettyBiomeName(biomeId);
 
         lines.add(Component.translatable(
@@ -91,6 +93,9 @@ public final class FieldSurveyCalendarReport {
                 .withStyle(SECTION, ChatFormatting.BOLD));
         int shown = 0;
         for (ResourceLocation featured : MigrationSpecies.speciesForSeason(season)) {
+            if (!MigrationSpawnPoolIndex.speciesMatchesCalendarBiomes(featured, season, biomeId)) {
+                continue;
+            }
             if (shown >= 6) {
                 break;
             }
@@ -98,12 +103,25 @@ public final class FieldSurveyCalendarReport {
                     .withStyle(EMPHASIS));
             shown++;
         }
+        if (shown == 0) {
+            lines.add(Component.translatable("ancient_extensions.field_calendar.no_survey_species")
+                    .withStyle(BODY));
+        }
 
         lines.add(Component.empty());
         lines.add(Component.translatable("ancient_extensions.field_calendar.sensor_hint")
                 .withStyle(NOTE, ChatFormatting.ITALIC));
 
         return List.copyOf(lines);
+    }
+
+    /** Sample the biome the calendar faces, not the wall block behind it. */
+    private static ResourceLocation sampleBiomeId(ServerLevel level, BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
+        Direction facing = state.getValue(HorizontalDirectionalBlock.FACING);
+        BlockPos samplePos = pos.relative(facing);
+        Holder<Biome> biome = level.getBiome(samplePos);
+        return biome.unwrapKey().map(key -> key.location()).orElse(null);
     }
 
     private static Component speciesLine(MigrationSpawnPoolIndex.SpawnEstimate estimate) {

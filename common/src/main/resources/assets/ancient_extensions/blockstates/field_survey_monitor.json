@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=north": {
       "model": "ancient_extensions:block/field_survey_monitor"
+    },
+    "facing=south": {
+      "model": "ancient_extensions:block/field_survey_monitor",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "ancient_extensions:block/field_survey_monitor",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "ancient_extensions:block/field_survey_monitor",
+      "y": 270
     }
   }
 }

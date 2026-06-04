@@ -17,6 +17,7 @@ import java.nio.file.Path;
 import nl.streats1.ancientextensions.config.CampConfig;
 import nl.streats1.ancientextensions.config.MigrationCalendarConfig;
 import nl.streats1.ancientextensions.config.PassportConfig;
+import nl.streats1.ancientextensions.config.ShinyCharmConfig;
 
 public final class FabricCampConfig {
 
@@ -32,6 +33,9 @@ public final class FabricCampConfig {
     private static final boolean DEFAULT_OPEN_ORIGIN_PICKER = true;
     private static final boolean DEFAULT_DEFER_ORIGIN_FOR_MCA = true;
     private static final boolean DEFAULT_USE_SERENE_SEASONS = true;
+    private static final boolean DEFAULT_SHINY_CHARM_ENABLED = true;
+    private static final float DEFAULT_SHINY_CHARM_MULTIPLIER = 3.0F;
+    private static final boolean DEFAULT_SHINY_CHARM_REQUIRE_INVENTORY = true;
 
     private FabricCampConfig() {
     }
@@ -56,12 +60,28 @@ public final class FabricCampConfig {
             JsonObject migration = root.has("migration") ? root.getAsJsonObject("migration") : new JsonObject();
             boolean useSereneSeasons = readBoolean(migration, "useSereneSeasonsWhenPresent", DEFAULT_USE_SERENE_SEASONS);
             MigrationCalendarConfig.apply(useSereneSeasons);
+
+            JsonObject shinyCharm = root.has("shinyCharm") ? root.getAsJsonObject("shinyCharm") : new JsonObject();
+            ShinyCharmConfig.apply(
+                    readBoolean(shinyCharm, "enabled", DEFAULT_SHINY_CHARM_ENABLED),
+                    readFloat(shinyCharm, "rateMultiplier", DEFAULT_SHINY_CHARM_MULTIPLIER),
+                    readBoolean(shinyCharm, "requireCharmInInventory", DEFAULT_SHINY_CHARM_REQUIRE_INVENTORY)
+            );
         } catch (IOException | RuntimeException exception) {
             LOGGER.warn("Failed to read config at {}; using defaults", CONFIG_PATH, exception);
             CampConfig.apply(DEFAULT_CHEST_ONLY, DEFAULT_BED_SPAWN, DEFAULT_LOOTR_CHEST);
             PassportConfig.apply(DEFAULT_OPEN_ORIGIN_PICKER, DEFAULT_DEFER_ORIGIN_FOR_MCA);
             MigrationCalendarConfig.apply(DEFAULT_USE_SERENE_SEASONS);
+            ShinyCharmConfig.apply(
+                    DEFAULT_SHINY_CHARM_ENABLED,
+                    DEFAULT_SHINY_CHARM_MULTIPLIER,
+                    DEFAULT_SHINY_CHARM_REQUIRE_INVENTORY
+            );
         }
+    }
+
+    private static float readFloat(JsonObject object, String key, float defaultValue) {
+        return object.has(key) ? object.get(key).getAsFloat() : defaultValue;
     }
 
     private static boolean readBoolean(JsonObject object, String key, boolean defaultValue) {
@@ -105,10 +125,28 @@ public final class FabricCampConfig {
         );
         migration.addProperty("useSereneSeasonsWhenPresent", DEFAULT_USE_SERENE_SEASONS);
 
+        JsonObject shinyCharm = new JsonObject();
+        shinyCharm.addProperty(
+                "_comment_enabled",
+                "When true, players who complete the Cobblemon dex can claim a Shiny Charm bonus from their Regional Passport."
+        );
+        shinyCharm.addProperty("enabled", DEFAULT_SHINY_CHARM_ENABLED);
+        shinyCharm.addProperty(
+                "_comment_rateMultiplier",
+                "Divides Cobblemon's shiny rate while the charm is active (3 = roughly triple odds, like Gen V–VII Shiny Charm)."
+        );
+        shinyCharm.addProperty("rateMultiplier", DEFAULT_SHINY_CHARM_MULTIPLIER);
+        shinyCharm.addProperty(
+                "_comment_requireCharmInInventory",
+                "When true, the claimed Shiny Charm item must stay in the player's inventory for the bonus to apply."
+        );
+        shinyCharm.addProperty("requireCharmInInventory", DEFAULT_SHINY_CHARM_REQUIRE_INVENTORY);
+
         JsonObject root = new JsonObject();
         root.add("camp", camp);
         root.add("passport", passport);
         root.add("migration", migration);
+        root.add("shinyCharm", shinyCharm);
 
         try {
             Files.writeString(CONFIG_PATH, GSON.toJson(root));

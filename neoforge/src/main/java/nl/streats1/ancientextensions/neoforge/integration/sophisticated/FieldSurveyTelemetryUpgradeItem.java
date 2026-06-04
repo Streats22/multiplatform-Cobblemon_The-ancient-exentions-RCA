@@ -18,6 +18,7 @@ import java.util.function.Consumer;
 
 import nl.streats1.ancientextensions.field.FieldSurveyTelemetryData;
 import nl.streats1.ancientextensions.field.FieldSurveyWorldSnapshot;
+import nl.streats1.ancientextensions.util.ItemGuideTooltips;
 
 public class FieldSurveyTelemetryUpgradeItem extends UpgradeItemBase<FieldSurveyTelemetryUpgradeItem.Wrapper> {
 
@@ -56,9 +57,20 @@ public class FieldSurveyTelemetryUpgradeItem extends UpgradeItemBase<FieldSurvey
             TooltipFlag flag
     ) {
         super.appendHoverText(stack, context, tooltip, flag);
+        ItemGuideTooltips.appendRole(tooltip, "ancient_extensions.guide.role.telemetry");
+        ItemGuideTooltips.appendSummary(tooltip, "item.ancient_extensions.field_survey_telemetry_upgrade.description");
+        ItemGuideTooltips.appendDetails(
+                tooltip,
+                flag,
+                "ancient_extensions.guide.sb_telemetry_detail1",
+                "ancient_extensions.guide.sb_telemetry_detail2"
+        );
+        tooltip.add(Component.empty());
+        tooltip.add(Component.translatable("item.ancient_extensions.field_survey_telemetry_upgrade.tooltip")
+                .withStyle(ChatFormatting.GRAY));
         if (!FieldSurveyTelemetryData.hasReadout(stack)) {
             tooltip.add(Component.translatable("ancient_extensions.sb.telemetry.tooltip_pending")
-                    .withStyle(ChatFormatting.GRAY));
+                    .withStyle(ChatFormatting.RED));
             return;
         }
         appendLine(tooltip, FieldSurveyTelemetryData.seasonLine(stack), ChatFormatting.AQUA);

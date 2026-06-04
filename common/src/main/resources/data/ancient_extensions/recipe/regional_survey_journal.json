@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " P ",
+    "PLP",
+    " I "
+  ],
+  "key": {
+    "P": "minecraft:paper",
+    "L": "minecraft:leather",
+    "I": "minecraft:ink_sac"
+  },
+  "result": {
+    "id": "ancient_extensions:regional_survey_journal",
+    "count": 1
+  }
+}

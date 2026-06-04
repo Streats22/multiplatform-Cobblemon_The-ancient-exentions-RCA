@@ -3,7 +3,11 @@ package nl.streats1.ancientextensions.neoforge.integration.sophisticated;
 import nl.streats1.ancientextensions.integration.OptionalIntegrationMods;
 
 /**
- * Optional Sophisticated Backpacks integration — upgrade item registers only when SB is loaded.
+ * Optional Sophisticated Backpacks integration.
+ * <p>
+ * The telemetry upgrade item extends {@code UpgradeItemBase}, but SB's {@code BackpackWrapper}
+ * also requires items to be tagged {@code sophisticatedbackpacks:upgrade} before they can be
+ * inserted into backpack upgrade slots — see {@code data/sophisticatedbackpacks/tags/item/upgrade.json}.
  */
 public final class SophisticatedBackpacksCompat {
 
@@ -14,7 +18,7 @@ public final class SophisticatedBackpacksCompat {
         if (!OptionalIntegrationMods.hasSophisticatedBackpacks()) {
             return;
         }
-        // Upgrade type is bound via FieldSurveyTelemetryUpgradeItem.getType(); no extra registry hooks required.
+        // Item + tag registration is sufficient; wrapper logic binds via IUpgradeItem.getType().
     }
 
     public static boolean isActive() {

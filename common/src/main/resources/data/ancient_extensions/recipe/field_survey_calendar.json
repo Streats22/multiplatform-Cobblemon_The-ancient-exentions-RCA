@@ -7,15 +7,9 @@
     "PCP"
   ],
   "key": {
-    "P": {
-      "item": "minecraft:paper"
-    },
-    "J": {
-      "item": "ancient_extensions:regional_survey_journal"
-    },
-    "C": {
-      "item": "minecraft:clock"
-    }
+    "P": "minecraft:paper",
+    "J": "ancient_extensions:regional_survey_journal",
+    "C": "minecraft:clock"
   },
   "result": {
     "id": "ancient_extensions:field_survey_calendar",

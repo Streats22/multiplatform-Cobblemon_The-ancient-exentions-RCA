@@ -3,19 +3,13 @@
   "category": "equipment",
   "pattern": [
     " C ",
-    "CJC",
-    " R "
+    "CRC",
+    " X "
   ],
   "key": {
-    "C": {
-      "item": "minecraft:compass"
-    },
-    "J": {
-      "item": "ancient_extensions:migration_route_chart"
-    },
-    "R": {
-      "item": "minecraft:redstone"
-    }
+    "C": "minecraft:compass",
+    "R": "ancient_extensions:migration_route_chart",
+    "X": "minecraft:redstone"
   },
   "result": {
     "id": "ancient_extensions:migration_route_compass",

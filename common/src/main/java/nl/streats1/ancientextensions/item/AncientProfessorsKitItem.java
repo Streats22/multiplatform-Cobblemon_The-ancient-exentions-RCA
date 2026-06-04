@@ -1,6 +1,5 @@
 package nl.streats1.ancientextensions.item;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -14,6 +13,8 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 
+import nl.streats1.ancientextensions.AncientExtensionsContext;
+import nl.streats1.ancientextensions.dex.ResearchTierAdvancements;
 import nl.streats1.ancientextensions.kit.KitAdvancements;
 import nl.streats1.ancientextensions.kit.ProfessorsKitLogic;
 import nl.streats1.ancientextensions.util.ItemGuideTooltips;
@@ -36,6 +37,10 @@ public class AncientProfessorsKitItem extends Item {
 
         if (ProfessorsKitLogic.tryDeployKit(serverPlayer)) {
             KitAdvancements.awardCampPitched(serverPlayer);
+            ResearchTierAdvancements.syncForPlayer(
+                    serverPlayer,
+                    AncientExtensionsContext.get().surveys().get(serverPlayer).getTier()
+            );
             if (!ProfessorsKitLogic.canRedeployKit(serverPlayer)) {
                 stack.shrink(1);
             }
@@ -46,16 +51,17 @@ public class AncientProfessorsKitItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("item.ancient_extensions.ancient_professors_kit.description")
-                .withStyle(ChatFormatting.GRAY));
-        ItemGuideTooltips.append(
+        ItemGuideTooltips.appendSurveyItem(
                 tooltip,
                 flag,
-                "ancient_extensions.guide.kit_detail1",
-                "ancient_extensions.guide.kit_detail2"
+                "ancient_extensions.guide.role.kit",
+                "item.ancient_extensions.ancient_professors_kit.description",
+                new String[]{
+                        "ancient_extensions.guide.kit_detail1",
+                        "ancient_extensions.guide.kit_detail2"
+                },
+                "ancient_extensions.kit.tooltip_use"
         );
-        tooltip.add(Component.translatable("ancient_extensions.kit.tooltip_use")
-                .withStyle(ChatFormatting.DARK_AQUA));
     }
 
     @Override

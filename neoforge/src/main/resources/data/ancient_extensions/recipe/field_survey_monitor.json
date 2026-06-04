@@ -1,0 +1,26 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "GEG",
+    "TMT",
+    " R "
+  ],
+  "key": {
+    "G": "minecraft:glass_pane",
+    "E": "create:electron_tube",
+    "T": "ancient_extensions:field_survey_tablet",
+    "M": "ancient_extensions:regional_survey_journal",
+    "R": "minecraft:redstone"
+  },
+  "result": {
+    "id": "ancient_extensions:field_survey_monitor",
+    "count": 1
+  }
+}

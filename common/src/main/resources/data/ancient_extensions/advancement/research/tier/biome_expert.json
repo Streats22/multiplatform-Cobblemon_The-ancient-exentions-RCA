@@ -1,0 +1,22 @@
+{
+  "parent": "ancient_extensions:research/tier/regional_authority",
+  "display": {
+    "icon": {
+      "id": "ancient_extensions:regional_passport"
+    },
+    "title": {
+      "translate": "ancient_extensions.advancement.tier.biome_expert.title"
+    },
+    "description": {
+      "translate": "ancient_extensions.advancement.tier.biome_expert.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "reached_tier": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -5,6 +5,7 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import nl.streats1.ancientextensions.client.*;
+import nl.streats1.ancientextensions.network.ClaimShinyCharmPayload;
 import nl.streats1.ancientextensions.network.ClaimTierRewardPayload;
 import nl.streats1.ancientextensions.network.SelectSurveyRegionPayload;
 import nl.streats1.ancientextensions.network.TabletActionPayload;
@@ -36,6 +37,9 @@ public final class AncientExtensionsNeoForgeClient {
         );
         AncientExtensionsClientHooks.setTierRewardClaimSender(() ->
                 PacketDistributor.sendToServer(new ClaimTierRewardPayload(""))
+        );
+        AncientExtensionsClientHooks.setShinyCharmClaimSender(() ->
+                PacketDistributor.sendToServer(new ClaimShinyCharmPayload())
         );
         AncientExtensionsClientHooks.setTabletActionSender(action ->
                 PacketDistributor.sendToServer(new TabletActionPayload(action))

@@ -1,0 +1,22 @@
+{
+  "parent": "ancient_extensions:research/tier/regional_analyst",
+  "display": {
+    "icon": {
+      "id": "ancient_extensions:regional_passport"
+    },
+    "title": {
+      "translate": "ancient_extensions.advancement.tier.chief_researcher.title"
+    },
+    "description": {
+      "translate": "ancient_extensions.advancement.tier.chief_researcher.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "reached_tier": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

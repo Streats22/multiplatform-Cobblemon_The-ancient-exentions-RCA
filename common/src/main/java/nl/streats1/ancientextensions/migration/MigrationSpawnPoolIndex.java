@@ -32,11 +32,16 @@ public final class MigrationSpawnPoolIndex {
 
     public record WeightedSpawn(ResourceLocation speciesId, float weight, Set<ResourceLocation> biomes) {
 
-        public boolean matchesBiome(ResourceLocation biomeId) {
-            if (biomeId == null || biomes.isEmpty()) {
+        public boolean matchesAnyBiome(Collection<ResourceLocation> biomeKeys) {
+            if (biomeKeys.isEmpty()) {
                 return false;
             }
-            return biomes.contains(biomeId);
+            for (ResourceLocation biome : biomes) {
+                if (biomeKeys.contains(biome)) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 
@@ -50,19 +55,35 @@ public final class MigrationSpawnPoolIndex {
     }
 
     /**
+     * Route/mod biome keys used to look up spawn-pool weights for a calendar readout at {@code biomeId}.
+     */
+    public static Set<ResourceLocation> calendarBiomeKeys(MigrationSeason season, ResourceLocation biomeId) {
+        if (biomeId == null) {
+            return Set.of();
+        }
+        if (!MigrationBiomeContext.isVanillaBiome(biomeId)) {
+            return Set.of(biomeId);
+        }
+        return proxyBiomesForVanilla(season, biomeId);
+    }
+
+    /**
      * Species ranked for this biome in the current season (spawn-pool weights).
      */
     public static List<SpawnEstimate> estimateForBiome(MigrationSeason season, ResourceLocation biomeId, int limit) {
+        Set<ResourceLocation> biomeKeys = calendarBiomeKeys(season, biomeId);
+        if (biomeKeys.isEmpty()) {
+            return List.of();
+        }
+
         List<WeightedSpawn> pool = pools().getOrDefault(season, List.of());
         if (pool.isEmpty()) {
             return List.of();
         }
 
-        boolean vanilla = biomeId != null && MigrationBiomeContext.isVanillaBiome(biomeId);
         Map<ResourceLocation, Float> bestWeight = new HashMap<>();
-
         for (WeightedSpawn spawn : pool) {
-            if (vanilla || (biomeId != null && spawn.matchesBiome(biomeId))) {
+            if (spawn.matchesAnyBiome(biomeKeys)) {
                 bestWeight.merge(spawn.speciesId(), spawn.weight(), Math::max);
             }
         }
@@ -73,11 +94,57 @@ public final class MigrationSpawnPoolIndex {
             ranked.add(new SpawnEstimate(entry.getKey(), weight, tierFor(weight)));
         }
 
-        ranked.sort(Comparator.comparingDouble((SpawnEstimate e) -> e.weight()).reversed());
+        ranked.sort(Comparator.comparingDouble((SpawnEstimate estimate) -> estimate.weight()).reversed());
         if (ranked.size() > limit) {
             return List.copyOf(ranked.subList(0, limit));
         }
         return List.copyOf(ranked);
+    }
+
+    public static boolean speciesMatchesCalendarBiomes(
+            ResourceLocation speciesId,
+            MigrationSeason season,
+            ResourceLocation biomeId
+    ) {
+        if (speciesId == null) {
+            return false;
+        }
+        Set<ResourceLocation> biomeKeys = calendarBiomeKeys(season, biomeId);
+        if (biomeKeys.isEmpty()) {
+            return false;
+        }
+        for (WeightedSpawn spawn : pools().getOrDefault(season, List.of())) {
+            if (spawn.speciesId().equals(speciesId) && spawn.matchesAnyBiome(biomeKeys)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static Set<ResourceLocation> proxyBiomesForVanilla(MigrationSeason season, ResourceLocation vanillaBiomeId) {
+        Optional<MigrationSeason> affinity = VanillaSeasonBiomes.affinitySeason(vanillaBiomeId);
+        if (affinity.isEmpty()) {
+            return Set.of();
+        }
+
+        Set<ResourceLocation> affinityBiomes = new LinkedHashSet<>();
+        for (ResourceLocation biome : MigrationBiomeCatalog.biomesForSeason(affinity.get())) {
+            if (MigrationBiomeCatalog.isRoutableModBiome(biome)) {
+                affinityBiomes.add(biome);
+            }
+        }
+        if (affinityBiomes.isEmpty()) {
+            return Set.of();
+        }
+
+        Set<ResourceLocation> routeBiomes = new LinkedHashSet<>(MigrationRoutes.biomesForSeason(season));
+        Set<ResourceLocation> matched = new LinkedHashSet<>();
+        for (ResourceLocation biome : affinityBiomes) {
+            if (routeBiomes.contains(biome)) {
+                matched.add(biome);
+            }
+        }
+        return matched.isEmpty() ? Set.copyOf(affinityBiomes) : Set.copyOf(matched);
     }
 
     private static EstimateTier tierFor(float weight) {

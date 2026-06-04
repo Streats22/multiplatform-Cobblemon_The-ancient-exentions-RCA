@@ -1,0 +1,22 @@
+{
+  "parent": "ancient_extensions:research/tier/naturalist",
+  "display": {
+    "icon": {
+      "id": "ancient_extensions:regional_survey_journal"
+    },
+    "title": {
+      "translate": "ancient_extensions.advancement.tier.field_naturalist.title"
+    },
+    "description": {
+      "translate": "ancient_extensions.advancement.tier.field_naturalist.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "reached_tier": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

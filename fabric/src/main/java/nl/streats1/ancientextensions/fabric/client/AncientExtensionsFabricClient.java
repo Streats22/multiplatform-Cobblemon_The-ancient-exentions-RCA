@@ -7,7 +7,9 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 
 import nl.streats1.ancientextensions.client.*;
+import nl.streats1.ancientextensions.network.ClaimShinyCharmPayload;
 import nl.streats1.ancientextensions.network.ClaimTierRewardPayload;
+import nl.streats1.ancientextensions.network.MigrationWaypointPayload;
 import nl.streats1.ancientextensions.network.SelectSurveyRegionPayload;
 import nl.streats1.ancientextensions.network.TabletActionPayload;
 import nl.streats1.ancientextensions.registry.ModContent;
@@ -18,7 +20,13 @@ public class AncientExtensionsFabricClient implements ClientModInitializer {
     public void onInitializeClient() {
         PayloadTypeRegistry.playC2S().register(SelectSurveyRegionPayload.TYPE, SelectSurveyRegionPayload.STREAM_CODEC);
         PayloadTypeRegistry.playC2S().register(ClaimTierRewardPayload.TYPE, ClaimTierRewardPayload.STREAM_CODEC);
+        PayloadTypeRegistry.playC2S().register(ClaimShinyCharmPayload.TYPE, ClaimShinyCharmPayload.STREAM_CODEC);
         PayloadTypeRegistry.playC2S().register(TabletActionPayload.TYPE, TabletActionPayload.STREAM_CODEC);
+        PayloadTypeRegistry.playS2C().register(MigrationWaypointPayload.TYPE, MigrationWaypointPayload.STREAM_CODEC);
+        ClientPlayNetworking.registerGlobalReceiver(
+                MigrationWaypointPayload.TYPE,
+                (payload, context) -> context.client().execute(() -> MigrationWaypointClient.handle(payload))
+        );
         AncientExtensionsScreens.register(MenuScreens::register);
         PokeballPouchClient.registerItemProperties();
         MigrationRouteCompassClient.registerItemProperties();
@@ -33,6 +41,9 @@ public class AncientExtensionsFabricClient implements ClientModInitializer {
         );
         AncientExtensionsClientHooks.setTierRewardClaimSender(() ->
                 ClientPlayNetworking.send(new ClaimTierRewardPayload(""))
+        );
+        AncientExtensionsClientHooks.setShinyCharmClaimSender(() ->
+                ClientPlayNetworking.send(new ClaimShinyCharmPayload())
         );
         AncientExtensionsClientHooks.setTabletActionSender(action ->
                 ClientPlayNetworking.send(new TabletActionPayload(action))

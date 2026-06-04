@@ -114,6 +114,14 @@ public class RegionalSurveyData {
         survey.markTierRewardClaimed(tier);
     }
 
+    public boolean hasClaimedShinyCharm() {
+        return survey.hasClaimedShinyCharm();
+    }
+
+    public void markShinyCharmClaimed() {
+        survey.markShinyCharmClaimed();
+    }
+
     /**
      * Show the region/town picker on the passport even when origin is already stamped.
      */

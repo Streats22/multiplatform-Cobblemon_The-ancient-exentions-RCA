@@ -23,10 +23,10 @@ public class FieldSurveyCalendarBlock extends Block {
 
     public static final MapCodec<FieldSurveyCalendarBlock> CODEC = simpleCodec(FieldSurveyCalendarBlock::new);
 
-    private static final VoxelShape NORTH = Block.box(0.0, 1.0, 14.0, 16.0, 15.0, 16.0);
-    private static final VoxelShape SOUTH = Block.box(0.0, 1.0, 0.0, 16.0, 15.0, 2.0);
-    private static final VoxelShape WEST = Block.box(14.0, 1.0, 0.0, 16.0, 15.0, 16.0);
-    private static final VoxelShape EAST = Block.box(0.0, 1.0, 0.0, 2.0, 15.0, 16.0);
+    private static final VoxelShape NORTH = Block.box(0.0, 1.0, 0.0, 16.0, 15.0, 2.0);
+    private static final VoxelShape SOUTH = Block.box(0.0, 1.0, 14.0, 16.0, 15.0, 16.0);
+    private static final VoxelShape WEST = Block.box(0.0, 1.0, 0.0, 2.0, 15.0, 16.0);
+    private static final VoxelShape EAST = Block.box(14.0, 1.0, 0.0, 16.0, 15.0, 16.0);
 
     public FieldSurveyCalendarBlock(Properties properties) {
         super(properties);

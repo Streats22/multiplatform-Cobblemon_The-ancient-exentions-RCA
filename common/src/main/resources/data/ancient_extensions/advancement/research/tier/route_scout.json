@@ -1,0 +1,22 @@
+{
+  "parent": "ancient_extensions:research/tier/ecologist",
+  "display": {
+    "icon": {
+      "id": "ancient_extensions:migration_route_chart"
+    },
+    "title": {
+      "translate": "ancient_extensions.advancement.tier.route_scout.title"
+    },
+    "description": {
+      "translate": "ancient_extensions.advancement.tier.route_scout.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "reached_tier": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

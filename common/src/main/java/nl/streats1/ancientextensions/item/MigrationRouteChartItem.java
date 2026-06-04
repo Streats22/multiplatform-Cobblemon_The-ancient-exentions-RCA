@@ -1,6 +1,5 @@
 package nl.streats1.ancientextensions.item;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -38,17 +37,18 @@ public class MigrationRouteChartItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("item.ancient_extensions.migration_route_chart.description")
-                .withStyle(ChatFormatting.GRAY));
-        ItemGuideTooltips.append(
+        ItemGuideTooltips.appendSurveyItem(
                 tooltip,
                 flag,
-                "ancient_extensions.guide.chart_detail1",
-                "ancient_extensions.guide.chart_detail2",
-                "ancient_extensions.guide.chart_trade"
+                "ancient_extensions.guide.role.chart",
+                "item.ancient_extensions.migration_route_chart.description",
+                new String[]{
+                        "ancient_extensions.guide.chart_detail1",
+                        "ancient_extensions.guide.chart_detail2",
+                        "ancient_extensions.guide.chart_trade"
+                },
+                "ancient_extensions.migration_chart.tooltip_use"
         );
-        tooltip.add(Component.translatable("ancient_extensions.migration_chart.tooltip_use")
-                .withStyle(ChatFormatting.DARK_AQUA));
     }
 
     @Override

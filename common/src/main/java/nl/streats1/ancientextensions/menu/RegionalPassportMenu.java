@@ -29,6 +29,12 @@ public class RegionalPassportMenu extends AbstractContainerMenu {
     private final int caughtSpecies;
     private final int researchPoints;
     private final ResearchTier tier;
+    private final boolean shinyCharmEnabled;
+    private final boolean shinyCharmClaimed;
+    private final boolean shinyCharmCanClaim;
+    private final boolean shinyCharmActive;
+    private final int cobblemonOwned;
+    private final int cobblemonTotal;
 
     public RegionalPassportMenu(int containerId, Inventory playerInventory, RegistryFriendlyByteBuf extraData) {
         this(containerId, playerInventory, PassportOpenData.STREAM_CODEC.decode(extraData));
@@ -44,7 +50,13 @@ public class RegionalPassportMenu extends AbstractContainerMenu {
                 data.holderName(),
                 data.caughtSpecies(),
                 data.researchPoints(),
-                data.tier()
+                data.tier(),
+                data.shinyCharmEnabled(),
+                data.shinyCharmClaimed(),
+                data.shinyCharmCanClaim(),
+                data.shinyCharmActive(),
+                data.cobblemonOwned(),
+                data.cobblemonTotal()
         );
     }
 
@@ -57,7 +69,13 @@ public class RegionalPassportMenu extends AbstractContainerMenu {
             String holderName,
             int caughtSpecies,
             int researchPoints,
-            ResearchTier tier
+            ResearchTier tier,
+            boolean shinyCharmEnabled,
+            boolean shinyCharmClaimed,
+            boolean shinyCharmCanClaim,
+            boolean shinyCharmActive,
+            int cobblemonOwned,
+            int cobblemonTotal
     ) {
         super(ModMenuTypes.REGIONAL_PASSPORT, containerId);
         this.stamped = stamped;
@@ -67,22 +85,17 @@ public class RegionalPassportMenu extends AbstractContainerMenu {
         this.caughtSpecies = caughtSpecies;
         this.researchPoints = researchPoints;
         this.tier = tier;
+        this.shinyCharmEnabled = shinyCharmEnabled;
+        this.shinyCharmClaimed = shinyCharmClaimed;
+        this.shinyCharmCanClaim = shinyCharmCanClaim;
+        this.shinyCharmActive = shinyCharmActive;
+        this.cobblemonOwned = cobblemonOwned;
+        this.cobblemonTotal = cobblemonTotal;
     }
 
     public static RegionalPassportMenu forPlayer(int containerId, Inventory inventory, ServerPlayer player) {
-        RegionalSurveyData data = AncientExtensionsContext.get().surveys().get(player);
-        Optional<SurveyRegion> origin = data.getSurveyOrigin();
-        return new RegionalPassportMenu(
-                containerId,
-                inventory,
-                !data.showsPassportSetupScreen(),
-                origin.map(SurveyRegion::getId).orElse(""),
-                data.getSurveyOriginTown().map(SurveyOriginTown::getId).orElse(""),
-                player.getGameProfile().getName(),
-                data.getCaughtSpeciesCount(),
-                data.getResearchPoints(),
-                data.getTier()
-        );
+        PassportOpenData data = PassportOpenData.from(AncientExtensionsContext.get().surveys().get(player), player);
+        return new RegionalPassportMenu(containerId, inventory, data);
     }
 
     public static void writeExtraData(RegistryFriendlyByteBuf buf, RegionalSurveyData data, ServerPlayer player) {
@@ -115,6 +128,30 @@ public class RegionalPassportMenu extends AbstractContainerMenu {
 
     public ResearchTier getTier() {
         return tier;
+    }
+
+    public boolean isShinyCharmEnabled() {
+        return shinyCharmEnabled;
+    }
+
+    public boolean isShinyCharmClaimed() {
+        return shinyCharmClaimed;
+    }
+
+    public boolean canClaimShinyCharm() {
+        return shinyCharmCanClaim;
+    }
+
+    public boolean isShinyCharmActive() {
+        return shinyCharmActive;
+    }
+
+    public int getCobblemonOwned() {
+        return cobblemonOwned;
+    }
+
+    public int getCobblemonTotal() {
+        return cobblemonTotal;
     }
 
     @Override

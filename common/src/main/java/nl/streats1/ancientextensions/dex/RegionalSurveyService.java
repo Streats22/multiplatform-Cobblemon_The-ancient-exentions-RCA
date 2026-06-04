@@ -51,6 +51,7 @@ public final class RegionalSurveyService {
 
         ResearchTier after = data.getTier();
         if (after != before) {
+            ResearchTierAdvancements.onTierChanged(player, before, after);
             player.sendSystemMessage(Component.translatable(
                     "ancient_extensions.dex.tier_up",
                     after.displayName()

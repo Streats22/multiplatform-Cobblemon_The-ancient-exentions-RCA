@@ -40,29 +40,30 @@ public class RegionalPassportItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("item.ancient_extensions.regional_passport.description")
-                .withStyle(ChatFormatting.GRAY));
-        ItemGuideTooltips.append(
+        ItemGuideTooltips.appendRole(tooltip, "ancient_extensions.guide.role.passport");
+        ItemGuideTooltips.appendSummary(tooltip, "item.ancient_extensions.regional_passport.description");
+        ItemGuideTooltips.appendDetails(
                 tooltip,
                 flag,
                 "ancient_extensions.guide.passport_detail1",
-                "ancient_extensions.guide.passport_detail2"
+                "ancient_extensions.guide.passport_detail2",
+                "ancient_extensions.guide.passport_craft"
         );
         Optional<SurveyRegion> fromStack = PassportStackData.readOrigin(stack);
+        tooltip.add(Component.empty());
         if (fromStack.isPresent()) {
             tooltip.add(Component.translatable("ancient_extensions.passport.tooltip_origin")
                     .withStyle(ChatFormatting.GRAY));
-            tooltip.add(fromStack.get().labeledName());
+            tooltip.add(fromStack.get().labeledName().copy().withStyle(ChatFormatting.GREEN));
             PassportStackData.readOriginTown(stack).ifPresent(town ->
                     tooltip.add(Component.translatable("ancient_extensions.passport.tooltip_town", town.displayName())
                             .withStyle(ChatFormatting.GRAY))
             );
         } else {
             tooltip.add(Component.translatable("ancient_extensions.passport.tooltip_unregistered")
-                    .withStyle(ChatFormatting.DARK_AQUA));
+                    .withStyle(ChatFormatting.RED));
         }
-        tooltip.add(Component.translatable("ancient_extensions.passport.tooltip_use")
-                .withStyle(ChatFormatting.DARK_GRAY));
+        ItemGuideTooltips.appendAction(tooltip, "ancient_extensions.passport.tooltip_use");
     }
 
     @Override

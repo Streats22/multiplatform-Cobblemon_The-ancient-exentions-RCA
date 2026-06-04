@@ -65,29 +65,20 @@ public class PokeballPouchItem extends BlockItem {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
         PouchTier tier = PouchTierData.getTier(stack);
-        tooltip.add(Component.translatable("item.ancient_extensions.pokeball_pouch.description")
-                .withStyle(ChatFormatting.GRAY));
-        ItemGuideTooltips.append(
-                tooltip,
-                flag,
-                "ancient_extensions.guide.pouch_detail1"
-        );
+        ItemGuideTooltips.appendRole(tooltip, "ancient_extensions.guide.role.pouch");
+        ItemGuideTooltips.appendSummary(tooltip, "item.ancient_extensions.pokeball_pouch.description");
+        ItemGuideTooltips.appendDetails(tooltip, flag, "ancient_extensions.guide.pouch_detail1");
+        tooltip.add(Component.empty());
         tooltip.add(Component.translatable(
                 "item.ancient_extensions.pokeball_pouch.slots",
                 PouchTierData.getSlotCount(stack)
-        ).withStyle(ChatFormatting.DARK_AQUA));
-        if (tier != PouchTier.POKE) {
-            tooltip.add(Component.translatable("item.ancient_extensions.pokeball_pouch.crafted_with")
-                    .withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.translatable(PouchTierData.getBallId(stack).toLanguageKey())
-                    .withStyle(ChatFormatting.GOLD));
-        } else if (!PouchTierData.getBallId(stack).getPath().equals("poke_ball")) {
+        ).withStyle(ChatFormatting.AQUA));
+        if (tier != PouchTier.POKE || !PouchTierData.getBallId(stack).getPath().equals("poke_ball")) {
             tooltip.add(Component.translatable("item.ancient_extensions.pokeball_pouch.crafted_with")
                     .withStyle(ChatFormatting.GRAY));
             tooltip.add(Component.translatable(PouchTierData.getBallId(stack).toLanguageKey())
                     .withStyle(ChatFormatting.GOLD));
         }
-        tooltip.add(Component.translatable("item.ancient_extensions.pokeball_pouch.place_hint")
-                .withStyle(ChatFormatting.DARK_GRAY));
+        ItemGuideTooltips.appendAction(tooltip, "item.ancient_extensions.pokeball_pouch.place_hint");
     }
 }

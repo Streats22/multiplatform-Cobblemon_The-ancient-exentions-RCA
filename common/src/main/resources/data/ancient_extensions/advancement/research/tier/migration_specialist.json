@@ -1,0 +1,22 @@
+{
+  "parent": "ancient_extensions:research/tier/route_scout",
+  "display": {
+    "icon": {
+      "id": "ancient_extensions:migration_route_chart"
+    },
+    "title": {
+      "translate": "ancient_extensions.advancement.tier.migration_specialist.title"
+    },
+    "description": {
+      "translate": "ancient_extensions.advancement.tier.migration_specialist.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "reached_tier": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

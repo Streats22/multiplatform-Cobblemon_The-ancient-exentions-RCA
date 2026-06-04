@@ -1,6 +1,10 @@
 {
-  "parent": "minecraft:item/block",
-  "textures": {
-    "particle": "ancient_extensions:block/field_survey_sensor"
+  "parent": "ancient_extensions:block/field_survey_sensor",
+  "display": {
+    "gui": {
+      "rotation": [30, 225, 0],
+      "translation": [0, 0.5, 0],
+      "scale": [0.625, 0.625, 0.625]
+    }
   }
 }

@@ -1,0 +1,24 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " B ",
+    "BTB",
+    " R "
+  ],
+  "key": {
+    "B": "create:brass_ingot",
+    "T": "ancient_extensions:field_survey_tablet",
+    "R": "minecraft:redstone"
+  },
+  "result": {
+    "id": "ancient_extensions:field_survey_sensor",
+    "count": 1
+  }
+}

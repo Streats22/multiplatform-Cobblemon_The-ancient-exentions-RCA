@@ -1,0 +1,22 @@
+{
+  "parent": "ancient_extensions:research/tier/master_surveyor",
+  "display": {
+    "icon": {
+      "id": "ancient_extensions:regional_passport"
+    },
+    "title": {
+      "translate": "ancient_extensions.advancement.tier.grand_authority.title"
+    },
+    "description": {
+      "translate": "ancient_extensions.advancement.tier.grand_authority.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "reached_tier": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

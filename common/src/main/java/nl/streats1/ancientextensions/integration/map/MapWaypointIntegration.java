@@ -8,7 +8,8 @@ import net.minecraft.server.level.ServerPlayer;
 import nl.streats1.ancientextensions.util.ModPresence;
 
 /**
- * Optional map mod hooks. JourneyMap reads special bracket text in chat; Xaero has no stable public API.
+ * Optional map mod hooks for the Migration Route Compass.
+ * Xaero's Minimap / World Map is preferred; JourneyMap uses a clickable chat fallback.
  */
 public final class MapWaypointIntegration {
 
@@ -19,9 +20,16 @@ public final class MapWaypointIntegration {
     private MapWaypointIntegration() {
     }
 
+    public static boolean hasXaero() {
+        return ModPresence.isLoaded(XAERO_MINIMAP_MOD_ID) || ModPresence.isLoaded(XAERO_WORLD_MAP_MOD_ID);
+    }
+
+    public static boolean hasJourneyMap() {
+        return ModPresence.isLoaded(JOURNEYMAP_MOD_ID);
+    }
+
     /**
-     * Sends a system message players can click in JourneyMap to create a waypoint.
-     * Always includes plain coordinates for other map mods / F3 users.
+     * Creates a map waypoint when possible and always sends plain coordinates as backup.
      */
     public static void offerWaypoint(ServerPlayer player, BlockPos pos, String label) {
         int y = pos.getY();
@@ -33,7 +41,18 @@ public final class MapWaypointIntegration {
                 pos.getZ()
         );
 
-        if (ModPresence.isLoaded(JOURNEYMAP_MOD_ID)) {
+        if (hasXaero()) {
+            MapWaypointNetworking.sendCreateWaypoint(
+                    player,
+                    player.serverLevel().dimension(),
+                    pos,
+                    label
+            );
+            player.sendSystemMessage(Component.translatable(
+                    "ancient_extensions.compass.waypoint_xaero_created",
+                    label
+            ));
+        } else if (hasJourneyMap()) {
             String jmLink = String.format(
                     "[name:%s, x:%d, y:%d, z:%d]",
                     sanitize(label),
@@ -44,8 +63,6 @@ public final class MapWaypointIntegration {
             player.sendSystemMessage(Component.literal(jmLink));
             player.sendSystemMessage(Component.translatable("ancient_extensions.compass.waypoint_jm_hint")
                     .withStyle(style -> style.withColor(0x55AAFF)));
-        } else if (ModPresence.isLoaded(XAERO_MINIMAP_MOD_ID) || ModPresence.isLoaded(XAERO_WORLD_MAP_MOD_ID)) {
-            player.sendSystemMessage(Component.translatable("ancient_extensions.compass.waypoint_xaero_hint"));
         }
 
         player.sendSystemMessage(coords);

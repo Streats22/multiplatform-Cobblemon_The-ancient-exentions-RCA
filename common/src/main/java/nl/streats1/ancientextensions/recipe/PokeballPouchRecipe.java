@@ -71,7 +71,7 @@ public class PokeballPouchRecipe extends CustomRecipe {
     public NonNullList<Ingredient> jeiIngredients() {
         Ingredient leather = Ingredient.of(Items.LEATHER);
         Ingredient string = Ingredient.of(Items.STRING);
-        Ingredient ball = Ingredient.of(PokeballFilter.COBBLEMON_POKE_BALLS);
+        Ingredient ball = Ingredient.of(PokeballFilter.sampleStacks().stream());
         return NonNullList.of(
                 Ingredient.EMPTY,
                 leather,

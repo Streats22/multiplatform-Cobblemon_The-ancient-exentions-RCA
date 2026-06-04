@@ -7,6 +7,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
 import nl.streats1.ancientextensions.AncientExtensionsContext;
 import nl.streats1.ancientextensions.display.RegionPlayerDisplay;
+import nl.streats1.ancientextensions.dex.ResearchTierAdvancements;
 import nl.streats1.ancientextensions.integration.mca.McaIntegration;
 import nl.streats1.ancientextensions.kit.StarterKitGrant;
 
@@ -24,6 +25,7 @@ public final class PlayerJoinHandlers {
         player.server.execute(() -> {
             StarterKitGrant.tryGrantOnFirstJoin(player);
             RegionPlayerDisplay.refresh(player);
+            ResearchTierAdvancements.syncForPlayer(player, AncientExtensionsContext.get().surveys().get(player).getTier());
             AncientExtensionsContext.get().promptOriginIfNeeded(player);
             McaIntegration.schedulePassportPromptAfterMcaIntro(player.server, player);
         });

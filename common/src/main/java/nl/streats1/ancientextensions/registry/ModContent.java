@@ -26,6 +26,7 @@ public final class ModContent {
     public static BlockEntityType<FieldSurveyMonitorBlockEntity> FIELD_SURVEY_MONITOR_BE;
     public static Block FIELD_SURVEY_CALENDAR_BLOCK;
     public static Item FIELD_SURVEY_TELEMETRY_UPGRADE;
+    public static Item SHINY_CHARM;
 
     private ModContent() {
     }

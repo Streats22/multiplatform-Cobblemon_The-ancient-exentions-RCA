@@ -1,6 +1,7 @@
 package nl.streats1.ancientextensions.neoforge.registry;
 
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.neoforged.bus.api.IEventBus;
@@ -50,11 +51,55 @@ public final class ModItems {
             () -> new RegionalPassportItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON))
     );
 
+    public static final DeferredItem<Item> SHINY_CHARM = ITEMS.register(
+            "shiny_charm",
+            () -> new ShinyCharmItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).fireResistant())
+    );
+
     public static final DeferredItem<Item> POKEBALL_POUCH = ITEMS.register(
             "pokeball_pouch",
             () -> new PokeballPouchItem(
                     ModBlocks.POKEBALL_POUCH.get(),
                     new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)
+            )
+    );
+
+    public static final DeferredItem<BlockItem> FIELD_SURVEY_CALENDAR = ITEMS.register(
+            "field_survey_calendar",
+            () -> new SurveyBlockItem(
+                    ModBlocks.FIELD_SURVEY_CALENDAR.get(),
+                    new Item.Properties(),
+                    "ancient_extensions.guide.role.calendar",
+                    "item.ancient_extensions.field_survey_calendar.description",
+                    "ancient_extensions.guide.field_calendar_action",
+                    "ancient_extensions.guide.field_calendar_detail1",
+                    "ancient_extensions.guide.field_calendar_detail2"
+            )
+    );
+
+    public static final DeferredItem<BlockItem> FIELD_SURVEY_SENSOR = ITEMS.register(
+            "field_survey_sensor",
+            () -> new SurveyBlockItem(
+                    ModBlocks.FIELD_SURVEY_SENSOR.get(),
+                    new Item.Properties(),
+                    "ancient_extensions.guide.role.sensor",
+                    "item.ancient_extensions.field_survey_sensor.description",
+                    "ancient_extensions.guide.field_sensor_action",
+                    "ancient_extensions.guide.field_sensor_detail1",
+                    "ancient_extensions.guide.field_sensor_detail2"
+            )
+    );
+
+    public static final DeferredItem<BlockItem> FIELD_SURVEY_MONITOR = ITEMS.register(
+            "field_survey_monitor",
+            () -> new SurveyBlockItem(
+                    ModBlocks.FIELD_SURVEY_MONITOR.get(),
+                    new Item.Properties(),
+                    "ancient_extensions.guide.role.monitor",
+                    "item.ancient_extensions.field_survey_monitor.description",
+                    "ancient_extensions.guide.field_monitor_action",
+                    "ancient_extensions.guide.field_monitor_detail1",
+                    "ancient_extensions.guide.field_monitor_detail2"
             )
     );
 
@@ -83,6 +128,7 @@ public final class ModItems {
             ModContent.MIGRATION_ROUTE_CHART = MIGRATION_ROUTE_CHART.get();
             ModContent.MIGRATION_ROUTE_COMPASS = MIGRATION_ROUTE_COMPASS.get();
             ModContent.REGIONAL_PASSPORT = REGIONAL_PASSPORT.get();
+            ModContent.SHINY_CHARM = SHINY_CHARM.get();
             ModContent.POKEBALL_POUCH = POKEBALL_POUCH.get();
             if (FIELD_SURVEY_TELEMETRY_UPGRADE != null) {
                 ModContent.FIELD_SURVEY_TELEMETRY_UPGRADE = FIELD_SURVEY_TELEMETRY_UPGRADE.get();

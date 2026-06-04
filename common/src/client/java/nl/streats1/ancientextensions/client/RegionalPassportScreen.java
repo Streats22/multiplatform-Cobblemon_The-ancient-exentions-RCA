@@ -1,6 +1,7 @@
 package nl.streats1.ancientextensions.client;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -106,7 +107,21 @@ public class RegionalPassportScreen extends AbstractContainerScreen<RegionalPass
                 this.selectionStep = SelectionStep.TOWN;
             });
             showSelectionButtons();
+        } else {
+            addShinyCharmButton();
         }
+    }
+
+    private void addShinyCharmButton() {
+        if (!this.menu.isShinyCharmEnabled() || !this.menu.canClaimShinyCharm()) {
+            return;
+        }
+        int x = this.leftPos + (this.imageWidth - ACTION_BTN_W) / 2;
+        int y = this.topPos + FOOTER_BTN_Y;
+        addRenderableWidget(Button.builder(
+                Component.translatable("ancient_extensions.passport.claim_shiny_charm"),
+                button -> AncientExtensionsClientHooks.sendClaimShinyCharm()
+        ).bounds(x, y, ACTION_BTN_W, ACTION_BTN_H).build());
     }
 
     private void showSelectionButtons() {
@@ -420,6 +435,24 @@ public class RegionalPassportScreen extends AbstractContainerScreen<RegionalPass
                 STATS_PANEL_X + 2,
                 STATS_LINE_Y + 10
         );
+
+        if (this.menu.isShinyCharmEnabled() && this.menu.getCobblemonTotal() > 0) {
+            Component dexLine;
+            if (this.menu.isShinyCharmActive()) {
+                dexLine = Component.translatable("ancient_extensions.passport.shiny_charm_active")
+                        .withStyle(ChatFormatting.LIGHT_PURPLE);
+            } else if (this.menu.isShinyCharmClaimed()) {
+                dexLine = Component.translatable("ancient_extensions.passport.shiny_charm_claimed_inactive")
+                        .withStyle(ChatFormatting.GRAY);
+            } else {
+                dexLine = Component.translatable(
+                        "ancient_extensions.passport.shiny_charm_progress",
+                        this.menu.getCobblemonOwned(),
+                        this.menu.getCobblemonTotal()
+                ).withStyle(ChatFormatting.DARK_AQUA);
+            }
+            drawStyledString(graphics, dexLine, STATS_PANEL_X + 2, STATS_LINE_Y + 22);
+        }
 
         GuiTextRender.drawWrappedSoft(
                 this.font,

@@ -14,7 +14,7 @@ import nl.streats1.ancientextensions.dex.RegionalSurveyData;
 import nl.streats1.ancientextensions.integration.mca.McaIntegration;
 
 /**
- * Grants the field kit once per player per world (not craftable).
+ * Grants starter survey items once per player per world. All items can also be crafted.
  */
 public final class StarterKitGrant {
 
@@ -23,7 +23,6 @@ public final class StarterKitGrant {
 
     public static void tryGrantOnFirstJoin(ServerPlayer player) {
         grantJournalIfMissing(player);
-        grantTabletIfMissing(player);
         grantPassportIfMissing(player);
 
         RegionalSurveyData data = AncientExtensionsContext.get().surveys().get(player);
@@ -55,7 +54,6 @@ public final class StarterKitGrant {
         player.sendSystemMessage(Component.translatable("ancient_extensions.kit.welcome"));
         player.sendSystemMessage(Component.translatable("ancient_extensions.kit.welcome_hint"));
         player.sendSystemMessage(Component.translatable("ancient_extensions.journal.welcome"));
-        player.sendSystemMessage(Component.translatable("ancient_extensions.tablet.welcome"));
         if (PassportConfig.openOriginPickerOnJoin()) {
             if (McaIntegration.isLoaded() && PassportConfig.deferOriginPickerForMca()) {
                 player.sendSystemMessage(Component.translatable("ancient_extensions.passport.welcome_mca"));
@@ -86,19 +84,6 @@ public final class StarterKitGrant {
                         surveyData.getSurveyOriginTown().orElse(null)
                 )
         );
-    }
-
-    public static void grantTabletIfMissing(ServerPlayer player) {
-        Item tabletItem = player.registryAccess()
-                .registryOrThrow(Registries.ITEM)
-                .get(AncientExtensionsConstants.id("field_survey_tablet"));
-        if (tabletItem == null || hasItemInInventory(player, tabletItem)) {
-            return;
-        }
-        ItemStack tablet = new ItemStack(tabletItem);
-        if (!player.getInventory().add(tablet)) {
-            player.drop(tablet, false);
-        }
     }
 
     public static void grantJournalIfMissing(ServerPlayer player) {

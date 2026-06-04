@@ -5,6 +5,7 @@ import net.minecraft.server.level.ServerPlayer;
 
 import nl.streats1.ancientextensions.AncientExtensionsContext;
 import nl.streats1.ancientextensions.display.RegionPlayerDisplay;
+import nl.streats1.ancientextensions.dex.ResearchTierAdvancements;
 import nl.streats1.ancientextensions.integration.mca.McaIntegration;
 import nl.streats1.ancientextensions.kit.StarterKitGrant;
 
@@ -18,6 +19,7 @@ public final class PlayerJoinHandlers {
             ServerPlayer player = handler.getPlayer();
             StarterKitGrant.tryGrantOnFirstJoin(player);
             RegionPlayerDisplay.refresh(player);
+            ResearchTierAdvancements.syncForPlayer(player, AncientExtensionsContext.get().surveys().get(player).getTier());
             AncientExtensionsContext.get().promptOriginIfNeeded(player);
             McaIntegration.schedulePassportPromptAfterMcaIntro(server, player);
         }));

@@ -21,7 +21,7 @@ import nl.streats1.ancientextensions.util.ItemGuideTooltips;
 
 /**
  * Points toward the nearest biome on the player's active migration leg (like Explorer's Compass).
- * Sneak + use offers a JourneyMap / map waypoint when those mods are present.
+ * Sneak + use creates an Xaero's map waypoint (or JourneyMap link as fallback).
  */
 public class MigrationRouteCompassItem extends Item {
 
@@ -130,25 +130,25 @@ public class MigrationRouteCompassItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("item.ancient_extensions.migration_route_compass.description")
-                .withStyle(ChatFormatting.GRAY));
-        ItemGuideTooltips.append(
+        ItemGuideTooltips.appendRole(tooltip, "ancient_extensions.guide.role.compass");
+        ItemGuideTooltips.appendSummary(tooltip, "item.ancient_extensions.migration_route_compass.description");
+        ItemGuideTooltips.appendDetails(
                 tooltip,
                 flag,
                 "ancient_extensions.guide.compass_detail1",
                 "ancient_extensions.guide.compass_detail2",
                 "ancient_extensions.guide.compass_detail3"
         );
-        CompassTargetData.read(stack).ifPresent(target -> tooltip.add(
-                Component.translatable(
-                        "ancient_extensions.compass.tooltip_target",
-                        target.biomeLabel(),
-                        target.position().getX(),
-                        target.position().getZ()
-                ).withStyle(ChatFormatting.DARK_AQUA)
-        ));
-        tooltip.add(Component.translatable("ancient_extensions.compass.tooltip_use")
-                .withStyle(ChatFormatting.DARK_AQUA));
+        CompassTargetData.read(stack).ifPresent(target -> {
+            tooltip.add(Component.empty());
+            tooltip.add(Component.translatable(
+                    "ancient_extensions.compass.tooltip_target",
+                    target.biomeLabel(),
+                    target.position().getX(),
+                    target.position().getZ()
+            ).withStyle(ChatFormatting.AQUA));
+        });
+        ItemGuideTooltips.appendAction(tooltip, "ancient_extensions.compass.tooltip_use");
     }
 
     @Override
