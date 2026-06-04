@@ -7,12 +7,9 @@ import nl.streats1.ancientextensions.block.FieldSurveySensorBlock;
 import nl.streats1.ancientextensions.block.PokeballPouchBlock;
 import nl.streats1.ancientextensions.registry.ModContent;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public final class ModBlocks {

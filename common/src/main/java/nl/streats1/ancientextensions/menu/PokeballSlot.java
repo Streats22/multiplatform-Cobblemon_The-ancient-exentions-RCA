@@ -1,8 +1,7 @@
 package nl.streats1.ancientextensions.menu;
 
-import nl.streats1.ancientextensions.registry.ModContent;
-import nl.streats1.ancientextensions.registry.ModContent;
 import nl.streats1.ancientextensions.pouch.PokeballFilter;
+import nl.streats1.ancientextensions.registry.ModContent;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;

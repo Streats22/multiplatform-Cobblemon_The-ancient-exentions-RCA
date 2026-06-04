@@ -10,11 +10,9 @@ import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 
-import java.util.List;
 import java.util.Optional;
 
 public class RegionalPassportScreen extends AbstractContainerScreen<RegionalPassportMenu> {
@@ -157,9 +155,7 @@ public class RegionalPassportScreen extends AbstractContainerScreen<RegionalPass
 
     private void addRegionButtons() {
         SurveyRegion[] regions = SurveyRegion.values();
-        int rows = (regions.length + REGION_COLS - 1) / REGION_COLS;
-        int gridW = REGION_COLS * REGION_BTN_W + (REGION_COLS - 1) * 4;
-        int startX = this.leftPos + (this.imageWidth - gridW) / 2;
+        int startX = this.leftPos + (this.imageWidth - (REGION_COLS * REGION_BTN_W + (REGION_COLS - 1) * 4)) / 2;
         int startY = this.topPos + SELECTION_GRID_Y;
 
         for (int index = 0; index < regions.length; index++) {
@@ -197,9 +193,7 @@ public class RegionalPassportScreen extends AbstractContainerScreen<RegionalPass
         }
 
         var towns = SurveyOriginTown.forRegion(pendingRegion);
-        int rows = (towns.size() + TOWN_COLS - 1) / TOWN_COLS;
-        int gridW = TOWN_COLS * TOWN_BTN_W + (TOWN_COLS - 1) * 4;
-        int startX = this.leftPos + (this.imageWidth - gridW) / 2;
+        int startX = this.leftPos + (this.imageWidth - (TOWN_COLS * TOWN_BTN_W + (TOWN_COLS - 1) * 4)) / 2;
         int startY = this.topPos + SELECTION_GRID_Y;
 
         for (int index = 0; index < towns.size(); index++) {

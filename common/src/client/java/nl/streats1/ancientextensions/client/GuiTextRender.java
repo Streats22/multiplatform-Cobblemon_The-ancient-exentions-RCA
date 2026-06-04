@@ -5,8 +5,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
 
-import java.util.List;
-
 /**
  * Draws {@link Component} text without flattening {@link net.minecraft.ChatFormatting} colors.
  */

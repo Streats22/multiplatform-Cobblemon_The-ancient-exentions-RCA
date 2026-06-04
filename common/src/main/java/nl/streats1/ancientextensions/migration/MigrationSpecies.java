@@ -125,7 +125,7 @@ public final class MigrationSpecies {
     }
 
     public static boolean hasFlyingType(ResourceLocation speciesId) {
-        Species species = PokemonSpecies.INSTANCE.getByIdentifier(speciesId);
+        Species species = PokemonSpecies.getByIdentifier(speciesId);
         if (species == null) {
             return false;
         }

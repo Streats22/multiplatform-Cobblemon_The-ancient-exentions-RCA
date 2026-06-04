@@ -292,12 +292,6 @@ public final class FieldCampPlacer {
         };
     }
 
-    private static void placeIfAir(ServerLevel level, BlockPos pos, BlockState state) {
-        if (level.getBlockState(pos).canBeReplaced()) {
-            level.setBlockAndUpdate(pos, state);
-        }
-    }
-
     private static void placeIfClear(ServerLevel level, BlockPos pos, BlockState state, ServerPlayer builder) {
         if (!level.getBlockState(pos).canBeReplaced()) {
             return;

@@ -1,7 +1,6 @@
 package nl.streats1.ancientextensions.menu;
 
 import nl.streats1.ancientextensions.menu.sync.JournalOpenData;
-import nl.streats1.ancientextensions.menu.MenuOpenHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;

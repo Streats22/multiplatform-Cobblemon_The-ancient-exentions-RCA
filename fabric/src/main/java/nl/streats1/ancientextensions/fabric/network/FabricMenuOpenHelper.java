@@ -25,7 +25,6 @@ public final class FabricMenuOpenHelper {
     ) {
         player.openMenu(new ExtendedScreenHandlerFactory<>() {
             @Override
-            @SuppressWarnings("unchecked")
             public Object getScreenOpeningData(ServerPlayer player) {
                 return syncData;
             }

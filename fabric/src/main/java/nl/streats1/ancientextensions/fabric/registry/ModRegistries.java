@@ -30,7 +30,6 @@ import nl.streats1.ancientextensions.registry.ModRecipeSerializers;
 import nl.streats1.ancientextensions.integration.OptionalIntegrationMods;
 import nl.streats1.ancientextensions.registry.ModContent;
 import nl.streats1.ancientextensions.registry.ModMenuTypes;
-import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -38,6 +37,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 public final class ModRegistries {
@@ -85,10 +85,10 @@ public final class ModRegistries {
         ModContent.POKEBALL_POUCH_BE = Registry.register(
                 BuiltInRegistries.BLOCK_ENTITY_TYPE,
                 id("pokeball_pouch"),
-                FabricBlockEntityTypeBuilder.create(
+                BlockEntityType.Builder.of(
                         PokeballPouchBlockEntity::new,
                         ModContent.POKEBALL_POUCH_BLOCK
-                ).build()
+                ).build(null)
         );
 
         ModMenuTypes.POKEBALL_POUCH = Registry.register(
@@ -211,10 +211,10 @@ public final class ModRegistries {
         ModContent.FIELD_SURVEY_MONITOR_BE = Registry.register(
                 BuiltInRegistries.BLOCK_ENTITY_TYPE,
                 id("field_survey_monitor"),
-                FabricBlockEntityTypeBuilder.create(
+                BlockEntityType.Builder.of(
                         FieldSurveyMonitorBlockEntity::new,
                         ModContent.FIELD_SURVEY_MONITOR_BLOCK
-                ).build()
+                ).build(null)
         );
 
         Registry.register(

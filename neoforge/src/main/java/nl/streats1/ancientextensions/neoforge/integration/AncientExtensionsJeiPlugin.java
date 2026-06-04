@@ -53,7 +53,6 @@ public class AncientExtensionsJeiPlugin implements IModPlugin {
                     }
 
                     @Override
-                    @SuppressWarnings("deprecation")
                     public String getLegacyStringSubtypeInfo(ItemStack stack, UidContext context) {
                         return "";
                     }

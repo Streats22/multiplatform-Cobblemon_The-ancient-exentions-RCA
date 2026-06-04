@@ -6,8 +6,8 @@ import nl.streats1.ancientextensions.client.FieldSurveyMonitorRenderer;
 import nl.streats1.ancientextensions.client.MigrationRouteCompassClient;
 import nl.streats1.ancientextensions.client.PokeballPouchClient;
 import nl.streats1.ancientextensions.registry.ModContent;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.api.ClientModInitializer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import nl.streats1.ancientextensions.network.ClaimTierRewardPayload;
@@ -26,7 +26,7 @@ public class AncientExtensionsFabricClient implements ClientModInitializer {
         PokeballPouchClient.registerItemProperties();
         MigrationRouteCompassClient.registerItemProperties();
         if (ModContent.FIELD_SURVEY_MONITOR_BE != null) {
-            BlockEntityRendererRegistry.register(
+            BlockEntityRenderers.register(
                     ModContent.FIELD_SURVEY_MONITOR_BE,
                     FieldSurveyMonitorRenderer::new
             );
