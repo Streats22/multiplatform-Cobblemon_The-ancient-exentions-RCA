@@ -1,4 +1,4 @@
-package nl.streats1.ancientextensions.client.integration;
+package nl.streats1.ancientextensions.neoforge.integration.jei;
 
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -8,7 +8,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-/** JEI hooks for Ancient Extensions crafting recipes. */
+/** JEI hooks for Ancient Extensions crafting recipes (NeoForge). */
 public final class AncientExtensionsJeiRecipes {
 
     private AncientExtensionsJeiRecipes() {

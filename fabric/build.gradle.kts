@@ -33,7 +33,17 @@ dependencies {
     modImplementation(fabricApi.module("fabric-item-group-api-v1", property("fabric_api_version").toString()))
     modImplementation(fabricApi.module("fabric-rendering-v1", property("fabric_api_version").toString()))
 
-    modCompileOnly("mezz.jei:jei-${property("minecraft_version")}-fabric-api:${property("jei_version")}")
+    val jeiCommonApi =
+        "mezz.jei:jei-${property("minecraft_version")}-common-api:${property("jei_version")}"
+    val jeiFabricApi =
+        "mezz.jei:jei-${property("minecraft_version")}-fabric-api:${property("jei_version")}"
+    fun optionalDev(dep: String) {
+        modCompileOnly(dep)
+        compileOnly(dep)
+        modLocalRuntime(dep)
+    }
+    optionalDev(jeiCommonApi)
+    optionalDev(jeiFabricApi)
     modRuntimeOnly("mezz.jei:jei-${property("minecraft_version")}-fabric:${property("jei_version")}")
 
     //needed for cobblemon

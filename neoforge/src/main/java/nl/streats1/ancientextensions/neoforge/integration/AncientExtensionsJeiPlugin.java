@@ -11,7 +11,7 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
 import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
 import nl.streats1.ancientextensions.AncientExtensionsConstants;
-import nl.streats1.ancientextensions.client.integration.AncientExtensionsJeiRecipes;
+import nl.streats1.ancientextensions.neoforge.integration.jei.AncientExtensionsJeiRecipes;
 import nl.streats1.ancientextensions.neoforge.registry.ModItems;
 import nl.streats1.ancientextensions.pouch.PouchDisplayStacks;
 import nl.streats1.ancientextensions.pouch.PouchTier;

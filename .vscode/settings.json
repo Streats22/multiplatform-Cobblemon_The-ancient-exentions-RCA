@@ -1,0 +1,13 @@
+{
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.import.gradle.enabled": true,
+  "java.import.gradle.wrapper.enabled": true,
+  "java.import.eclipse.enabled": true,
+  "java.import.gradle.offline.enabled": false,
+  "java.import.gradle.annotationProcessing.enabled": true,
+  "java.project.referencedLibraries": [
+    ".gradle/loom-cache/remapped_mods/remapped/com/simibubi/create/**/*.jar",
+    ".gradle/loom-cache/remapped_mods/remapped/maven/modrinth/sophisticated-core*/**/*.jar",
+    ".gradle/loom-cache/remapped_mods/remapped/maven/modrinth/sophisticated-backpacks*/**/*.jar"
+  ]
+}

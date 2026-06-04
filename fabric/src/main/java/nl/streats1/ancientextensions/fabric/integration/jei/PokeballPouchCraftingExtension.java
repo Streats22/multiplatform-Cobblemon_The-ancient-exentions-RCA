@@ -1,4 +1,4 @@
-package nl.streats1.ancientextensions.client.integration;
+package nl.streats1.ancientextensions.fabric.integration.jei;
 
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.ingredient.ICraftingGridHelper;

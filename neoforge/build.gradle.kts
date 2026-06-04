@@ -20,6 +20,8 @@ repositories {
     maven("https://thedarkcolour.github.io/KotlinForForge/")
     maven("https://maven.neoforged.net/releases/")
     maven("https://maven.createmod.net/")
+    maven("https://maven.blamejared.com/")
+    maven("https://api.modrinth.com/maven")
 }
 
 val shadowBundle: Configuration by configurations.creating {
@@ -44,19 +46,34 @@ dependencies {
     }
     shadowBundle(project(":common", configuration = "transformProductionFabric"))
 
-    modCompileOnly("mezz.jei:jei-${property("minecraft_version")}-neoforge-api:${property("jei_version")}")
+    val jeiCommonApi =
+        "mezz.jei:jei-${property("minecraft_version")}-common-api:${property("jei_version")}"
+    val jeiNeoApi =
+        "mezz.jei:jei-${property("minecraft_version")}-neoforge-api:${property("jei_version")}"
+    modCompileOnly(jeiCommonApi)
+    modCompileOnly(jeiNeoApi)
+    compileOnly(jeiCommonApi)
+    compileOnly(jeiNeoApi)
     modRuntimeOnly("mezz.jei:jei-${property("minecraft_version")}-neoforge:${property("jei_version")}")
 
-    modCompileOnly("com.simibubi.create:create-${property("minecraft_version")}:${property("create_version")}:slim") {
-        isTransitive = false
+    val createDep =
+        "com.simibubi.create:create-${property("minecraft_version")}:${property("create_version")}:slim"
+    val sophisticatedCoreDep =
+        "maven.modrinth:sophisticated-core:${property("sophisticated_core_version")}"
+    val sophisticatedBackpacksDep =
+        "maven.modrinth:sophisticated-backpacks:${property("sophisticated_backpacks_version")}"
+
+    fun optionalIntegration(dep: String) {
+        val configure: ExternalModuleDependency.() -> Unit = { isTransitive = false }
+        modCompileOnly(dep, configure)
+        compileOnly(dep, configure)
+        // Dev + IDE classpath (platformSetupLoomIde); not bundled in release jars.
+        modLocalRuntime(dep, configure)
     }
 
-    modCompileOnly("maven.modrinth:sophisticated-core:${property("sophisticated_core_version")}") {
-        isTransitive = false
-    }
-    modCompileOnly("maven.modrinth:sophisticated-backpacks:${property("sophisticated_backpacks_version")}") {
-        isTransitive = false
-    }
+    optionalIntegration(createDep)
+    optionalIntegration(sophisticatedCoreDep)
+    optionalIntegration(sophisticatedBackpacksDep)
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${property("junit_version")}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${property("junit_version")}")
@@ -93,4 +110,5 @@ tasks {
         archiveBaseName.set("${rootProject.property("archives_base_name")}-${project.name}")
         archiveVersion.set("${rootProject.version}")
     }
+
 }

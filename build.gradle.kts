@@ -48,6 +48,43 @@ subprojects {
     }
 }
 
+// Shared IDE classpath wiring + setupIde task for every Loom subproject (:common, :fabric, :neoforge).
+subprojects {
+    plugins.withId("dev.architectury.loom") {
+        afterEvaluate {
+            tasks.register("setupIde") {
+                group = "ide"
+                description = "Generate Eclipse/VS Code metadata for this module."
+                val extra = if (project.name == "common") {
+                    listOf("ensureIdeClientOutputs")
+                } else {
+                    emptyList()
+                }
+                dependsOn(listOf("eclipse", "genEclipseRuns", "vscode") + extra)
+            }
+
+            fun Configuration.extendsOptionalCompileConfigs() {
+                configurations.findByName("modCompileOnly")?.let { extendsFrom(it) }
+                configurations.findByName("compileOnly")?.let { extendsFrom(it) }
+                configurations.findByName("modLocalRuntime")?.let { extendsFrom(it) }
+            }
+
+            configurations.findByName("compileClasspath")?.extendsOptionalCompileConfigs()
+            configurations.findByName("clientCompileClasspath")?.extendsOptionalCompileConfigs()
+        }
+    }
+}
+
+tasks.register("setupIde") {
+    group = "ide"
+    description = "Refresh IDE metadata for :common, :fabric, and :neoforge."
+    dependsOn(
+        ":common:setupIde",
+        ":fabric:setupIde",
+        ":neoforge:setupIde",
+    )
+}
+
 allprojects {
     apply(plugin = "java")
     apply(plugin = "org.jetbrains.kotlin.jvm")

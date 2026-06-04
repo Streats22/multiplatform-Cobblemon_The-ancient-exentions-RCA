@@ -16,11 +16,25 @@ dependencies {
     minecraft("com.mojang:minecraft:${property("minecraft_version")}")
     mappings(loom.officialMojangMappings())
     modImplementation("com.cobblemon:mod:${property("cobblemon_version")}") { isTransitive = false }
-    modCompileOnly("mezz.jei:jei-${property("minecraft_version")}-common-api:${property("jei_version")}")
+
     testImplementation("org.junit.jupiter:junit-jupiter-api:${property("junit_version")}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${property("junit_version")}")
 }
 
 tasks.test {
     useJUnitPlatform()
+}
+
+/** Eclipse/VS Code expect these output dirs; Kotlin client is often empty and client resources may be absent. */
+tasks.register("ensureIdeClientOutputs") {
+    group = "ide"
+    dependsOn("compileClientJava")
+    doLast {
+        layout.buildDirectory.dir("classes/kotlin/client").get().asFile.mkdirs()
+        layout.buildDirectory.dir("resources/client").get().asFile.mkdirs()
+    }
+}
+
+tasks.named("eclipse") {
+    dependsOn("ensureIdeClientOutputs")
 }
