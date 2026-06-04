@@ -1,15 +1,11 @@
 package nl.streats1.ancientextensions;
 
-import nl.streats1.ancientextensions.config.PassportConfig;
-import nl.streats1.ancientextensions.integration.mca.McaIntegration;
-import nl.streats1.ancientextensions.dex.TierRewardService;
-import nl.streats1.ancientextensions.dex.RegionalSurveyService;
-import nl.streats1.ancientextensions.dex.SurveyBackend;
-import nl.streats1.ancientextensions.dex.SurveyOriginService;
-import nl.streats1.ancientextensions.dex.SurveyOriginTown;
-import nl.streats1.ancientextensions.dex.SurveyRegion;
-import nl.streats1.ancientextensions.migration.MigrationService;
 import net.minecraft.server.level.ServerPlayer;
+
+import nl.streats1.ancientextensions.config.PassportConfig;
+import nl.streats1.ancientextensions.dex.*;
+import nl.streats1.ancientextensions.integration.mca.McaIntegration;
+import nl.streats1.ancientextensions.migration.MigrationService;
 
 /**
  * Mod-wide service container, initialized once per platform at startup.
@@ -37,9 +33,12 @@ public final class AncientExtensionsContext {
     private final SurveyOriginService originService;
     private final TierRewardService tierRewardService;
     private final MigrationService migrationService;
-    private OriginEffectsListener originEffects = (player, region, town, announce) -> { };
-    private PassportScreenOpener passportOpener = player -> { };
-    private JournalScreenOpener journalOpener = player -> { };
+    private OriginEffectsListener originEffects = (player, region, town, announce) -> {
+    };
+    private PassportScreenOpener passportOpener = player -> {
+    };
+    private JournalScreenOpener journalOpener = player -> {
+    };
 
     public AncientExtensionsContext(SurveyBackend backend) {
         this.surveyService = new RegionalSurveyService(backend);
@@ -50,22 +49,27 @@ public final class AncientExtensionsContext {
     }
 
     public void setOriginEffects(OriginEffectsListener listener) {
-        this.originEffects = listener != null ? listener : (player, region, town, announce) -> { };
+        this.originEffects = listener != null ? listener : (player, region, town, announce) -> {
+        };
     }
 
     public void setPassportOpener(PassportScreenOpener opener) {
-        this.passportOpener = opener != null ? opener : player -> { };
+        this.passportOpener = opener != null ? opener : player -> {
+        };
     }
 
     public void setJournalOpener(JournalScreenOpener opener) {
-        this.journalOpener = opener != null ? opener : player -> { };
+        this.journalOpener = opener != null ? opener : player -> {
+        };
     }
 
     public void openPassport(ServerPlayer player) {
         passportOpener.open(player);
     }
 
-    /** Opens the origin picker on join when enabled in config and the player has no stamped origin. */
+    /**
+     * Opens the origin picker on join when enabled in config and the player has no stamped origin.
+     */
     public void promptOriginIfNeeded(ServerPlayer player) {
         if (!PassportConfig.openOriginPickerOnJoin()) {
             return;
@@ -78,7 +82,9 @@ public final class AncientExtensionsContext {
         }
     }
 
-    /** Called after MCA Reborn's destiny intro closes (or fallback timer) to open the passport stamp flow. */
+    /**
+     * Called after MCA Reborn's destiny intro closes (or fallback timer) to open the passport stamp flow.
+     */
     public void promptOriginAfterMcaIntro(ServerPlayer player) {
         if (!PassportConfig.openOriginPickerOnJoin()) {
             return;

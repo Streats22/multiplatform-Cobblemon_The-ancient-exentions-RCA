@@ -1,14 +1,17 @@
 package nl.streats1.ancientextensions.neoforge.integration.jei;
 
-import mezz.jei.api.constants.RecipeTypes;
-import mezz.jei.api.registration.IRecipeCatalystRegistration;
-import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
-import nl.streats1.ancientextensions.recipe.PokeballPouchRecipe;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-/** JEI hooks for Ancient Extensions crafting recipes (NeoForge). */
+import mezz.jei.api.constants.RecipeTypes;
+import mezz.jei.api.registration.IRecipeCatalystRegistration;
+import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
+import nl.streats1.ancientextensions.recipe.PokeballPouchRecipe;
+
+/**
+ * JEI hooks for Ancient Extensions crafting recipes (NeoForge).
+ */
 public final class AncientExtensionsJeiRecipes {
 
     private AncientExtensionsJeiRecipes() {

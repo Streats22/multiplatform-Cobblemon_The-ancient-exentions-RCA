@@ -1,13 +1,14 @@
 package nl.streats1.ancientextensions.integration.mca;
 
-import nl.streats1.ancientextensions.AncientExtensionsContext;
-import nl.streats1.ancientextensions.config.PassportConfig;
-import nl.streats1.ancientextensions.util.ModPresence;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffects;
 
 import java.lang.reflect.Method;
+
+import nl.streats1.ancientextensions.AncientExtensionsContext;
+import nl.streats1.ancientextensions.config.PassportConfig;
+import nl.streats1.ancientextensions.util.ModPresence;
 
 /**
  * Optional integration with Minecraft Comes Alive Reborn ({@code mca}).

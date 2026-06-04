@@ -1,19 +1,16 @@
 package nl.streats1.ancientextensions.fabric.client;
 
-import nl.streats1.ancientextensions.client.AncientExtensionsClientHooks;
-import nl.streats1.ancientextensions.client.AncientExtensionsScreens;
-import nl.streats1.ancientextensions.client.FieldSurveyMonitorRenderer;
-import nl.streats1.ancientextensions.client.MigrationRouteCompassClient;
-import nl.streats1.ancientextensions.client.PokeballPouchClient;
-import nl.streats1.ancientextensions.registry.ModContent;
 import net.fabricmc.api.ClientModInitializer;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+
+import nl.streats1.ancientextensions.client.*;
 import nl.streats1.ancientextensions.network.ClaimTierRewardPayload;
 import nl.streats1.ancientextensions.network.SelectSurveyRegionPayload;
 import nl.streats1.ancientextensions.network.TabletActionPayload;
-import net.minecraft.client.gui.screens.MenuScreens;
+import nl.streats1.ancientextensions.registry.ModContent;
 
 public class AncientExtensionsFabricClient implements ClientModInitializer {
 

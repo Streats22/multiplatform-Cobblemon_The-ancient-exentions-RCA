@@ -1,10 +1,11 @@
 package nl.streats1.ancientextensions.dex;
 
-import nl.streats1.ancientextensions.migration.MigrationSeason;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.Optional;
+
+import nl.streats1.ancientextensions.migration.MigrationSeason;
 
 /**
  * Per-player Regional Survey aggregate. Composes {@link SurveyProgress}, {@link KitProgress},
@@ -113,7 +114,9 @@ public class RegionalSurveyData {
         survey.markTierRewardClaimed(tier);
     }
 
-    /** Show the region/town picker on the passport even when origin is already stamped. */
+    /**
+     * Show the region/town picker on the passport even when origin is already stamped.
+     */
     public boolean showsPassportSetupScreen() {
         return isOriginSetupMode() || getSurveyOrigin().isEmpty();
     }

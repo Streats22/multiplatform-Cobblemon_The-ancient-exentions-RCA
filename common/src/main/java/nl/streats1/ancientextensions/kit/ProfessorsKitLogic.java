@@ -1,10 +1,5 @@
 package nl.streats1.ancientextensions.kit;
 
-import nl.streats1.ancientextensions.compat.ComfortsCampCompat;
-import nl.streats1.ancientextensions.compat.LootrCampChestCompat;
-import nl.streats1.ancientextensions.AncientExtensionsContext;
-import nl.streats1.ancientextensions.config.CampConfig;
-import nl.streats1.ancientextensions.dex.RegionalSurveyData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -17,6 +12,12 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 import java.util.Set;
+
+import nl.streats1.ancientextensions.AncientExtensionsContext;
+import nl.streats1.ancientextensions.compat.ComfortsCampCompat;
+import nl.streats1.ancientextensions.compat.LootrCampChestCompat;
+import nl.streats1.ancientextensions.config.CampConfig;
+import nl.streats1.ancientextensions.dex.RegionalSurveyData;
 
 public final class ProfessorsKitLogic {
 
@@ -116,7 +117,9 @@ public final class ProfessorsKitLogic {
         player.teleportTo(player.serverLevel(), x, y, z, Set.of(), yaw, player.getXRot());
     }
 
-    /** Creative and opped players may pitch additional camps for testing. */
+    /**
+     * Creative and opped players may pitch additional camps for testing.
+     */
     public static boolean canRedeployKit(ServerPlayer player) {
         return player.isCreative() || player.hasPermissions(2);
     }

@@ -1,25 +1,11 @@
 package nl.streats1.ancientextensions.command;
 
+import static net.minecraft.commands.Commands.literal;
+
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import nl.streats1.ancientextensions.AncientExtensionsConstants;
-import nl.streats1.ancientextensions.AncientExtensionsContext;
-import nl.streats1.ancientextensions.config.PassportConfig;
-import nl.streats1.ancientextensions.dex.RegionalSurveyData;
-import nl.streats1.ancientextensions.dex.ResearchTier;
-import nl.streats1.ancientextensions.dex.SurveyRegion;
-import nl.streats1.ancientextensions.kit.ProfessorsKitLogic;
-import nl.streats1.ancientextensions.kit.StarterKitGrant;
-import nl.streats1.ancientextensions.migration.MigrationConfig;
-import nl.streats1.ancientextensions.migration.MigrationRoutes;
-import nl.streats1.ancientextensions.migration.MigrationSeason;
-import nl.streats1.ancientextensions.migration.MigrationSeasonClock;
-import nl.streats1.ancientextensions.migration.MigrationBiomeCatalog;
-import nl.streats1.ancientextensions.migration.MigrationBiomeLocator;
-import nl.streats1.ancientextensions.migration.MigrationCalendarSource;
-import nl.streats1.ancientextensions.migration.MigrationRouteTarget;
-import nl.streats1.ancientextensions.integration.map.MapWaypointIntegration;
+
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -29,7 +15,16 @@ import net.minecraft.server.level.ServerPlayer;
 
 import java.util.Optional;
 
-import static net.minecraft.commands.Commands.literal;
+import nl.streats1.ancientextensions.AncientExtensionsConstants;
+import nl.streats1.ancientextensions.AncientExtensionsContext;
+import nl.streats1.ancientextensions.config.PassportConfig;
+import nl.streats1.ancientextensions.dex.RegionalSurveyData;
+import nl.streats1.ancientextensions.dex.ResearchTier;
+import nl.streats1.ancientextensions.dex.SurveyRegion;
+import nl.streats1.ancientextensions.integration.map.MapWaypointIntegration;
+import nl.streats1.ancientextensions.kit.ProfessorsKitLogic;
+import nl.streats1.ancientextensions.kit.StarterKitGrant;
+import nl.streats1.ancientextensions.migration.*;
 
 public final class AncientExtensionsCommands {
 
@@ -260,7 +255,9 @@ public final class AncientExtensionsCommands {
         return 1;
     }
 
-    /** Re-runs the first-join flow: starter items + passport if origin is not set yet. */
+    /**
+     * Re-runs the first-join flow: starter items + passport if origin is not set yet.
+     */
     private static int simulateFirstJoin(ServerPlayer player) {
         StarterKitGrant.tryGrantOnFirstJoin(player);
         var data = AncientExtensionsContext.get().surveys().get(player);

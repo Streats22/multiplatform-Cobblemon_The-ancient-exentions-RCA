@@ -1,7 +1,5 @@
 package nl.streats1.ancientextensions.migration;
 
-import nl.streats1.ancientextensions.AncientExtensionsContext;
-import nl.streats1.ancientextensions.dex.RegionalSurveyData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -10,7 +8,12 @@ import net.minecraft.server.level.ServerPlayer;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Builds a field chart book for the player's current biome and seasonal route. */
+import nl.streats1.ancientextensions.AncientExtensionsContext;
+import nl.streats1.ancientextensions.dex.RegionalSurveyData;
+
+/**
+ * Builds a field chart book for the player's current biome and seasonal route.
+ */
 public final class MigrationRouteChartReport {
 
     private static final int PAGE_CHAR_LIMIT = 220;
@@ -22,7 +25,9 @@ public final class MigrationRouteChartReport {
     private static final ChatFormatting SECTION = ChatFormatting.DARK_AQUA;
     private static final ChatFormatting EMPHASIS = ChatFormatting.DARK_GREEN;
 
-    /** Lines for the migration route chart screen (current biome, legs, species). */
+    /**
+     * Lines for the migration route chart screen (current biome, legs, species).
+     */
     public static List<Component> buildLines(ServerPlayer player) {
         MigrationSeason season = MigrationSeasonClock.currentSeason(player.serverLevel());
         RegionalSurveyData data = AncientExtensionsContext.get().surveys().get(player);

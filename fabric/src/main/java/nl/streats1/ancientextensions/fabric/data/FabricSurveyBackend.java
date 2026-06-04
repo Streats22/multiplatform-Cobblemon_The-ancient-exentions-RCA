@@ -1,8 +1,5 @@
 package nl.streats1.ancientextensions.fabric.data;
 
-import nl.streats1.ancientextensions.AncientExtensionsConstants;
-import nl.streats1.ancientextensions.dex.RegionalSurveyData;
-import nl.streats1.ancientextensions.dex.SurveyBackend;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
@@ -13,6 +10,10 @@ import net.minecraft.world.level.storage.DimensionDataStorage;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
+import nl.streats1.ancientextensions.AncientExtensionsConstants;
+import nl.streats1.ancientextensions.dex.RegionalSurveyData;
+import nl.streats1.ancientextensions.dex.SurveyBackend;
 
 public final class FabricSurveyBackend implements SurveyBackend {
 

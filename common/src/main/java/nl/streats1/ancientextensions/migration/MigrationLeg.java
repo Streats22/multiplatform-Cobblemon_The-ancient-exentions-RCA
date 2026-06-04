@@ -30,12 +30,16 @@ public record MigrationLeg(
         return biomeIds.contains(biomeId);
     }
 
-    /** Human-readable biome list for chat and commands. */
+    /**
+     * Human-readable biome list for chat and commands.
+     */
     public String biomeLabel() {
         return regionsUnexploredLabel();
     }
 
-    /** Short journal line — catch target and biome count without listing every biome. */
+    /**
+     * Short journal line — catch target and biome count without listing every biome.
+     */
     public String journalLegSummary() {
         return requiredCatches() + " migratory catches · " + biomeIds().size() + " route biomes";
     }

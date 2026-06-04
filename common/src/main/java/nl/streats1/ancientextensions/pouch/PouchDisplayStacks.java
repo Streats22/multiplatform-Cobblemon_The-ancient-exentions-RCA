@@ -1,8 +1,9 @@
 package nl.streats1.ancientextensions.pouch;
 
-import nl.streats1.ancientextensions.registry.ModContent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+
+import nl.streats1.ancientextensions.registry.ModContent;
 
 /**
  * Pre-built pouch stacks for creative tabs and recipe viewers.

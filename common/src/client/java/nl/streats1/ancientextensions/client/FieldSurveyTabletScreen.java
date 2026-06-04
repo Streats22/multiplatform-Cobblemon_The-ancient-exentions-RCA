@@ -1,8 +1,5 @@
 package nl.streats1.ancientextensions.client;
 
-import nl.streats1.ancientextensions.AncientExtensionsAssets;
-import nl.streats1.ancientextensions.menu.FieldSurveyTabletMenu;
-import nl.streats1.ancientextensions.network.TabletActionPayload;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
@@ -12,6 +9,10 @@ import net.minecraft.world.entity.player.Inventory;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import nl.streats1.ancientextensions.AncientExtensionsAssets;
+import nl.streats1.ancientextensions.menu.FieldSurveyTabletMenu;
+import nl.streats1.ancientextensions.network.TabletActionPayload;
 
 public class FieldSurveyTabletScreen extends AbstractContainerScreen<FieldSurveyTabletMenu> {
 

@@ -33,7 +33,8 @@ public class PokeballPouchInventory implements Container {
     public static PokeballPouchInventory create(PouchTier tier) {
         return new PokeballPouchInventory(
                 NonNullList.withSize(tier.slotCount(), ItemStack.EMPTY),
-                () -> {}
+                () -> {
+                }
         );
     }
 

@@ -1,7 +1,8 @@
 package nl.streats1.ancientextensions.migration;
 
-import nl.streats1.ancientextensions.integration.sereneseasons.SereneSeasonsIntegration;
 import net.minecraft.server.level.ServerLevel;
+
+import nl.streats1.ancientextensions.integration.sereneseasons.SereneSeasonsIntegration;
 
 /**
  * World calendar for migration seasons. Uses Serene Seasons when installed; otherwise 7 in-game days per season.

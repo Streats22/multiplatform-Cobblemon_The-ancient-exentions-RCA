@@ -14,7 +14,7 @@ import java.util.Optional;
  */
 public final class CartographerChartTrades {
 
-    /** Villager level index: 2 = Journeyman (same tier as vanilla explorer maps). */
+    /** Villager level index 2 (Journeyman), same tier as vanilla explorer maps. */
     public static final int CARTOGRAPHER_LEVEL = 2;
     public static final int EMERALD_COST = 7;
     public static final int MAX_USES = 12;

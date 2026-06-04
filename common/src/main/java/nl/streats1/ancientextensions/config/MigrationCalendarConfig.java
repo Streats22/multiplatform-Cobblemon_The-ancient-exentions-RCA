@@ -10,7 +10,9 @@ public final class MigrationCalendarConfig {
     private MigrationCalendarConfig() {
     }
 
-    /** When Serene Seasons is installed, use its season cycle instead of the 7-day internal calendar. */
+    /**
+     * When Serene Seasons is installed, use its season cycle instead of the 7-day internal calendar.
+     */
     public static boolean useSereneSeasonsWhenPresent() {
         return useSereneSeasonsWhenPresent;
     }

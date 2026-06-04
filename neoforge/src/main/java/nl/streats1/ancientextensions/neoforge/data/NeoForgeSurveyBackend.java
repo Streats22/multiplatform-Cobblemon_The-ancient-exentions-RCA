@@ -1,9 +1,10 @@
 package nl.streats1.ancientextensions.neoforge.data;
 
-import nl.streats1.ancientextensions.dex.RegionalSurveyData;
-import nl.streats1.ancientextensions.dex.SurveyBackend;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
+
+import nl.streats1.ancientextensions.dex.RegionalSurveyData;
+import nl.streats1.ancientextensions.dex.SurveyBackend;
 
 public final class NeoForgeSurveyBackend implements SurveyBackend {
 

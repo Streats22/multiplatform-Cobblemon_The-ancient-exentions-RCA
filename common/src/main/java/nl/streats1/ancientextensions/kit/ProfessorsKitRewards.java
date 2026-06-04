@@ -1,6 +1,5 @@
 package nl.streats1.ancientextensions.kit;
 
-import nl.streats1.ancientextensions.pouch.PokeballFilter;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -11,11 +10,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+
+import nl.streats1.ancientextensions.pouch.PokeballFilter;
 
 /**
  * Starter supplies for the Ancient Professor's Field Kit (Rubius / Cobblemon survey tuning).
@@ -27,7 +24,9 @@ public final class ProfessorsKitRewards {
     public static final int POTION_COUNT = 6;
     public static final int REVIVE_COUNT = 2;
 
-    /** Maximum ball tier for camp chest loot — Ultra and below (no Beast / Master). */
+    /**
+     * Maximum ball tier for camp chest loot — Ultra and below (no Beast / Master).
+     */
     private static final int MAX_BALL_TIER = 3;
 
     private static final Set<ResourceLocation> DENIED_BALLS = Set.of(
@@ -44,12 +43,16 @@ public final class ProfessorsKitRewards {
     private ProfessorsKitRewards() {
     }
 
-    /** Items given directly to the player when the kit is opened (inventory mode). */
+    /**
+     * Items given directly to the player when the kit is opened (inventory mode).
+     */
     public static List<ItemStack> createPlayerStacks(HolderLookup.Provider registries, RandomSource random) {
         return createStarterSupplies(registries, random);
     }
 
-    /** Starter supplies stored in the camp chest. */
+    /**
+     * Starter supplies stored in the camp chest.
+     */
     public static List<ItemStack> createDeployChestStacks(
             HolderLookup.Provider registries,
             RandomSource random,

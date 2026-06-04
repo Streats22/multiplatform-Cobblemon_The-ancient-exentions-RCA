@@ -1,15 +1,16 @@
 package nl.streats1.ancientextensions.menu.sync;
 
-import nl.streats1.ancientextensions.dex.RegionalSurveyData;
-import nl.streats1.ancientextensions.dex.ResearchTier;
-import nl.streats1.ancientextensions.dex.SurveyOriginTown;
-import nl.streats1.ancientextensions.dex.SurveyRegion;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
 
 import java.util.Optional;
+
+import nl.streats1.ancientextensions.dex.RegionalSurveyData;
+import nl.streats1.ancientextensions.dex.ResearchTier;
+import nl.streats1.ancientextensions.dex.SurveyOriginTown;
+import nl.streats1.ancientextensions.dex.SurveyRegion;
 
 public record PassportOpenData(
         boolean stamped,

@@ -1,5 +1,11 @@
 package nl.streats1.ancientextensions.neoforge.integration.jei;
 
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.ingredient.ICraftingGridHelper;
 import mezz.jei.api.recipe.IFocusGroup;
@@ -8,13 +14,10 @@ import nl.streats1.ancientextensions.pouch.PouchDisplayStacks;
 import nl.streats1.ancientextensions.pouch.PouchTier;
 import nl.streats1.ancientextensions.recipe.PokeballPouchRecipe;
 import nl.streats1.ancientextensions.registry.ModContent;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeHolder;
 
-import java.util.ArrayList;
-import java.util.List;
-
-/** Teaches JEI how to draw the real {@link PokeballPouchRecipe} crafting grid. */
+/**
+ * Teaches JEI how to draw the real {@link PokeballPouchRecipe} crafting grid.
+ */
 public final class PokeballPouchCraftingExtension implements ICraftingCategoryExtension<PokeballPouchRecipe> {
 
     private static final int WIDTH = 3;

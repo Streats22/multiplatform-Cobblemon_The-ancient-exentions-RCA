@@ -1,10 +1,5 @@
 package nl.streats1.ancientextensions.field;
 
-import nl.streats1.ancientextensions.migration.MigrationBiomeContext;
-import nl.streats1.ancientextensions.migration.MigrationSeason;
-import nl.streats1.ancientextensions.migration.MigrationSeasonClock;
-import nl.streats1.ancientextensions.migration.MigrationSpawnPoolIndex;
-import nl.streats1.ancientextensions.migration.MigrationSpecies;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -17,7 +12,11 @@ import net.minecraft.world.level.biome.Biome;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Wall calendar readout — spawn estimates from migration pool data (not live telemetry). */
+import nl.streats1.ancientextensions.migration.*;
+
+/**
+ * Wall calendar readout — spawn estimates from migration pool data (not live telemetry).
+ */
 public final class FieldSurveyCalendarReport {
 
     private static final int MAX_SPECIES = 10;

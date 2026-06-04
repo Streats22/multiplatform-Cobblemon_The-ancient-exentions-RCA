@@ -6,7 +6,9 @@ import net.minecraft.world.item.TooltipFlag;
 
 import java.util.List;
 
-/** Shared extended tooltips so players know what each survey item does. */
+/**
+ * Shared extended tooltips so players know what each survey item does.
+ */
 public final class ItemGuideTooltips {
 
     private ItemGuideTooltips() {

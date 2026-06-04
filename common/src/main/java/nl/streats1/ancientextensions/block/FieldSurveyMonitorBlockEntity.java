@@ -1,6 +1,5 @@
 package nl.streats1.ancientextensions.block;
 
-import nl.streats1.ancientextensions.registry.ModContent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -9,6 +8,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
+
+import nl.streats1.ancientextensions.registry.ModContent;
 
 public class FieldSurveyMonitorBlockEntity extends BlockEntity {
 

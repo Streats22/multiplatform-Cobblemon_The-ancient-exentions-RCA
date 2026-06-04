@@ -1,35 +1,5 @@
 package nl.streats1.ancientextensions.fabric.registry;
 
-import nl.streats1.ancientextensions.AncientExtensionsConstants;
-import nl.streats1.ancientextensions.block.FieldSurveyCalendarBlock;
-import nl.streats1.ancientextensions.block.FieldSurveyMonitorBlock;
-import nl.streats1.ancientextensions.block.FieldSurveyMonitorBlockEntity;
-import nl.streats1.ancientextensions.block.FieldSurveySensorBlock;
-import nl.streats1.ancientextensions.block.PokeballPouchBlock;
-import nl.streats1.ancientextensions.block.PokeballPouchBlockEntity;
-import nl.streats1.ancientextensions.item.AncientProfessorsKitItem;
-import nl.streats1.ancientextensions.item.MigrationRouteChartItem;
-import nl.streats1.ancientextensions.item.MigrationRouteCompassItem;
-import nl.streats1.ancientextensions.item.PokeballPouchItem;
-import nl.streats1.ancientextensions.item.RegionalPassportItem;
-import nl.streats1.ancientextensions.item.FieldSurveyTabletItem;
-import nl.streats1.ancientextensions.item.RegionalSurveyJournalItem;
-import nl.streats1.ancientextensions.menu.FieldSurveyCalendarMenu;
-import nl.streats1.ancientextensions.menu.FieldSurveyTabletMenu;
-import nl.streats1.ancientextensions.menu.MigrationRouteChartMenu;
-import nl.streats1.ancientextensions.menu.PokeballPouchMenu;
-import nl.streats1.ancientextensions.menu.RegionalPassportMenu;
-import nl.streats1.ancientextensions.menu.RegionalSurveyJournalMenu;
-import nl.streats1.ancientextensions.menu.sync.ChartOpenData;
-import nl.streats1.ancientextensions.menu.sync.JournalOpenData;
-import nl.streats1.ancientextensions.menu.sync.TabletOpenData;
-import nl.streats1.ancientextensions.menu.sync.PassportOpenData;
-import nl.streats1.ancientextensions.menu.sync.PouchOpenData;
-import nl.streats1.ancientextensions.recipe.PokeballPouchRecipe;
-import nl.streats1.ancientextensions.registry.ModRecipeSerializers;
-import nl.streats1.ancientextensions.integration.OptionalIntegrationMods;
-import nl.streats1.ancientextensions.registry.ModContent;
-import nl.streats1.ancientextensions.registry.ModMenuTypes;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -39,6 +9,16 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import nl.streats1.ancientextensions.AncientExtensionsConstants;
+import nl.streats1.ancientextensions.block.*;
+import nl.streats1.ancientextensions.integration.OptionalIntegrationMods;
+import nl.streats1.ancientextensions.item.*;
+import nl.streats1.ancientextensions.menu.*;
+import nl.streats1.ancientextensions.menu.sync.*;
+import nl.streats1.ancientextensions.recipe.PokeballPouchRecipe;
+import nl.streats1.ancientextensions.registry.ModContent;
+import nl.streats1.ancientextensions.registry.ModMenuTypes;
+import nl.streats1.ancientextensions.registry.ModRecipeSerializers;
 
 public final class ModRegistries {
 

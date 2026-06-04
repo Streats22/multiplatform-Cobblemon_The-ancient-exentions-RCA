@@ -1,5 +1,15 @@
 package nl.streats1.ancientextensions.neoforge;
 
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.config.ModConfigEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
+
 import nl.streats1.ancientextensions.AncientExtensionsConstants;
 import nl.streats1.ancientextensions.AncientExtensionsContext;
 import nl.streats1.ancientextensions.command.AncientExtensionsCommands;
@@ -13,24 +23,10 @@ import nl.streats1.ancientextensions.neoforge.event.CartographerTradeRegistratio
 import nl.streats1.ancientextensions.neoforge.event.CobblemonEventHandlers;
 import nl.streats1.ancientextensions.neoforge.integration.create.CreateCompat;
 import nl.streats1.ancientextensions.neoforge.integration.sophisticated.SophisticatedBackpacksCompat;
-import nl.streats1.ancientextensions.neoforge.registry.ModBlockEntities;
-import nl.streats1.ancientextensions.neoforge.registry.ModBlocks;
-import nl.streats1.ancientextensions.neoforge.registry.ModCreativeTabs;
-import nl.streats1.ancientextensions.neoforge.registry.ModItems;
-import nl.streats1.ancientextensions.neoforge.registry.ModMenus;
-import nl.streats1.ancientextensions.registry.ModRecipeSerializers;
-import nl.streats1.ancientextensions.neoforge.registry.NeoForgeRecipeSerializers;
 import nl.streats1.ancientextensions.neoforge.network.ModNetworking;
 import nl.streats1.ancientextensions.neoforge.network.NeoForgeMenuOpenHelper;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.event.config.ModConfigEvent;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import nl.streats1.ancientextensions.neoforge.registry.*;
+import nl.streats1.ancientextensions.registry.ModRecipeSerializers;
 
 @Mod(AncientExtensionsConstants.MOD_ID)
 public class AncientExtensionsNeoForge {

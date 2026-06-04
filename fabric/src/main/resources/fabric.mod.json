@@ -4,7 +4,9 @@
   "version": "${mod_version}",
   "name": "The Ancient Extensions",
   "description": "Rubius Cobblemon glue mod — Regional Survey, kit, passport, journal, and migration. Requires Cobblemon 1.7.x on Minecraft 1.21.1.",
-  "authors": ["Streats1"],
+  "authors": [
+    "Streats1"
+  ],
   "license": "MIT",
   "icon": "assets/ancient_extensions/icon.png",
   "contact": {
@@ -12,8 +14,12 @@
   },
   "environment": "*",
   "entrypoints": {
-    "main": ["nl.streats1.ancientextensions.fabric.AncientExtensionsFabric"],
-    "client": ["nl.streats1.ancientextensions.fabric.client.AncientExtensionsFabricClient"]
+    "main": [
+      "nl.streats1.ancientextensions.fabric.AncientExtensionsFabric"
+    ],
+    "client": [
+      "nl.streats1.ancientextensions.fabric.client.AncientExtensionsFabricClient"
+    ]
   },
   "depends": {
     "minecraft": "${minecraft_version}",

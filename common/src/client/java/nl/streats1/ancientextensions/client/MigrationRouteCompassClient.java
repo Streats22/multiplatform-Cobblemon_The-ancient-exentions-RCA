@@ -1,8 +1,5 @@
 package nl.streats1.ancientextensions.client;
 
-import nl.streats1.ancientextensions.AncientExtensionsConstants;
-import nl.streats1.ancientextensions.item.CompassTargetData;
-import nl.streats1.ancientextensions.registry.ModContent;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -11,6 +8,10 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+
+import nl.streats1.ancientextensions.AncientExtensionsConstants;
+import nl.streats1.ancientextensions.item.CompassTargetData;
+import nl.streats1.ancientextensions.registry.ModContent;
 
 public final class MigrationRouteCompassClient {
 

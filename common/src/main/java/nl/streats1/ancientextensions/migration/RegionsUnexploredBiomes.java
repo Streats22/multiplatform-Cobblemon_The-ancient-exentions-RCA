@@ -41,7 +41,9 @@ public final class RegionsUnexploredBiomes {
         return biomeId != null && NAMESPACE.equals(biomeId.getNamespace());
     }
 
-    /** Splits a season's biomes evenly across three migration legs. */
+    /**
+     * Splits a season's biomes evenly across three migration legs.
+     */
     public static List<List<ResourceLocation>> partitionForLegs(List<ResourceLocation> biomes) {
         if (biomes.isEmpty()) {
             return List.of(List.of(), List.of(), List.of());
@@ -72,7 +74,9 @@ public final class RegionsUnexploredBiomes {
         return Collections.unmodifiableList(biomes);
     }
 
-    /** Lush / wet overworld biomes plus two cave biomes. */
+    /**
+     * Lush / wet overworld biomes plus two cave biomes.
+     */
     private static List<ResourceLocation> buildSpring() {
         return List.of(
                 id("flower_fields"),
@@ -98,7 +102,9 @@ public final class RegionsUnexploredBiomes {
         );
     }
 
-    /** Hot / tropical overworld biomes plus one cave biome. */
+    /**
+     * Hot / tropical overworld biomes plus one cave biome.
+     */
     private static List<ResourceLocation> buildSummer() {
         return List.of(
                 id("tropical_river"),
@@ -123,7 +129,9 @@ public final class RegionsUnexploredBiomes {
         );
     }
 
-    /** Deciduous / harvest overworld biomes plus one cave biome. */
+    /**
+     * Deciduous / harvest overworld biomes plus one cave biome.
+     */
     private static List<ResourceLocation> buildAutumn() {
         return List.of(
                 id("autumnal_maple_forest"),
@@ -144,7 +152,9 @@ public final class RegionsUnexploredBiomes {
         );
     }
 
-    /** Cold overworld, remaining caves, and all Nether biomes. */
+    /**
+     * Cold overworld, remaining caves, and all Nether biomes.
+     */
     private static List<ResourceLocation> buildWinter() {
         return List.of(
                 id("frozen_tundra"),

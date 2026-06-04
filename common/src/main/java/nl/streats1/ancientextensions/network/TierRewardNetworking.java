@@ -1,11 +1,12 @@
 package nl.streats1.ancientextensions.network;
 
-import nl.streats1.ancientextensions.AncientExtensionsContext;
-import nl.streats1.ancientextensions.dex.ResearchTier;
-import nl.streats1.ancientextensions.menu.JournalMenuOpener;
 import net.minecraft.server.level.ServerPlayer;
 
 import java.util.Optional;
+
+import nl.streats1.ancientextensions.AncientExtensionsContext;
+import nl.streats1.ancientextensions.dex.ResearchTier;
+import nl.streats1.ancientextensions.menu.JournalMenuOpener;
 
 public final class TierRewardNetworking {
 

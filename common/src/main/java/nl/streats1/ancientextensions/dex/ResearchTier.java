@@ -64,7 +64,9 @@ public enum ResearchTier {
         return maxPoints;
     }
 
-    /** RP still needed to reach the next rank, or {@code 0} at max rank. */
+    /**
+     * RP still needed to reach the next rank, or {@code 0} at max rank.
+     */
     public int pointsToNext(int currentPoints) {
         ResearchTier[] tiers = values();
         for (int i = 0; i < tiers.length - 1; i++) {

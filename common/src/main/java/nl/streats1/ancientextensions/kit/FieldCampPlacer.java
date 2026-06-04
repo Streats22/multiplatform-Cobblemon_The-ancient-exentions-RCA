@@ -1,23 +1,25 @@
 package nl.streats1.ancientextensions.kit;
 
-import nl.streats1.ancientextensions.compat.ComfortsCampCompat;
-import nl.streats1.ancientextensions.compat.LootrCampChestCompat;
-import nl.streats1.ancientextensions.config.CampConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.BedBlock;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CampfireBlock;
-import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.AABB;
+
 import java.util.Optional;
+
+import nl.streats1.ancientextensions.compat.ComfortsCampCompat;
+import nl.streats1.ancientextensions.compat.LootrCampChestCompat;
+import nl.streats1.ancientextensions.config.CampConfig;
 
 /**
  * Places a small comfort survey camp from the Ancient Professor's kit.
@@ -26,7 +28,9 @@ import java.util.Optional;
 public final class FieldCampPlacer {
 
     private static final int SEARCH_RADIUS = 5;
-    /** Search up/down from the builder's feet so caves do not snap to the surface. */
+    /**
+     * Search up/down from the builder's feet so caves do not snap to the surface.
+     */
     private static final int VERTICAL_SEARCH = 8;
     private static final int CAMP_FORWARD_MIN = -4;
     private static final int CAMP_FORWARD_MAX = 3;
@@ -167,7 +171,9 @@ public final class FieldCampPlacer {
         placeBanner(level, ridge.above(TENT_HEIGHT), forward);
     }
 
-    /** Bedroll in front of the fire — Comforts sleeping bag, vanilla bed, or decorative carpet. */
+    /**
+     * Bedroll in front of the fire — Comforts sleeping bag, vanilla bed, or decorative carpet.
+     */
     private static void placeBedroll(
             ServerLevel level,
             BlockPos center,

@@ -10,6 +10,13 @@ architectury {
 loom {
     silentMojangMappingsLicense()
     splitEnvironmentSourceSets()
+
+    mods {
+        register("ancient_extensions") {
+            sourceSet(sourceSets.getByName("main"))
+            sourceSet(sourceSets.getByName("client"))
+        }
+    }
 }
 
 dependencies {

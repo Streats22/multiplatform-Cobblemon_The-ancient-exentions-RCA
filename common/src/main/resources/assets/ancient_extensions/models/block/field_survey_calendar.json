@@ -5,15 +5,71 @@
   },
   "elements": [
     {
-      "from": [1, 2, 14.5],
-      "to": [15, 14, 16],
+      "from": [
+        1,
+        2,
+        14.5
+      ],
+      "to": [
+        15,
+        14,
+        16
+      ],
       "faces": {
-        "north": { "uv": [1, 2, 15, 14], "texture": "#calendar" },
-        "south": { "uv": [1, 2, 15, 14], "texture": "#calendar" },
-        "east": { "uv": [0, 2, 2, 14], "texture": "#calendar" },
-        "west": { "uv": [14, 2, 16, 14], "texture": "#calendar" },
-        "up": { "uv": [1, 0, 15, 2], "texture": "#calendar" },
-        "down": { "uv": [1, 14, 15, 16], "texture": "#calendar" }
+        "north": {
+          "uv": [
+            1,
+            2,
+            15,
+            14
+          ],
+          "texture": "#calendar"
+        },
+        "south": {
+          "uv": [
+            1,
+            2,
+            15,
+            14
+          ],
+          "texture": "#calendar"
+        },
+        "east": {
+          "uv": [
+            0,
+            2,
+            2,
+            14
+          ],
+          "texture": "#calendar"
+        },
+        "west": {
+          "uv": [
+            14,
+            2,
+            16,
+            14
+          ],
+          "texture": "#calendar"
+        },
+        "up": {
+          "uv": [
+            1,
+            0,
+            15,
+            2
+          ],
+          "texture": "#calendar"
+        },
+        "down": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": "#calendar"
+        }
       }
     }
   ]

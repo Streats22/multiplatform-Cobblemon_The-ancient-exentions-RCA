@@ -1,12 +1,5 @@
 package nl.streats1.ancientextensions.menu;
 
-import nl.streats1.ancientextensions.AncientExtensionsContext;
-import nl.streats1.ancientextensions.menu.sync.PassportOpenData;
-import nl.streats1.ancientextensions.dex.RegionalSurveyData;
-import nl.streats1.ancientextensions.dex.ResearchTier;
-import nl.streats1.ancientextensions.dex.SurveyOriginTown;
-import nl.streats1.ancientextensions.dex.SurveyRegion;
-import nl.streats1.ancientextensions.registry.ModMenuTypes;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
@@ -15,6 +8,14 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.Optional;
+
+import nl.streats1.ancientextensions.AncientExtensionsContext;
+import nl.streats1.ancientextensions.dex.RegionalSurveyData;
+import nl.streats1.ancientextensions.dex.ResearchTier;
+import nl.streats1.ancientextensions.dex.SurveyOriginTown;
+import nl.streats1.ancientextensions.dex.SurveyRegion;
+import nl.streats1.ancientextensions.menu.sync.PassportOpenData;
+import nl.streats1.ancientextensions.registry.ModMenuTypes;
 
 public class RegionalPassportMenu extends AbstractContainerMenu {
 

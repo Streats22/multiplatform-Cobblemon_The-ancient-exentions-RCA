@@ -1,9 +1,10 @@
 package nl.streats1.ancientextensions.neoforge.config;
 
+import net.neoforged.neoforge.common.ModConfigSpec;
+
 import nl.streats1.ancientextensions.config.CampConfig;
 import nl.streats1.ancientextensions.config.MigrationCalendarConfig;
 import nl.streats1.ancientextensions.config.PassportConfig;
-import net.neoforged.neoforge.common.ModConfigSpec;
 
 public final class NeoForgeCampConfig {
 

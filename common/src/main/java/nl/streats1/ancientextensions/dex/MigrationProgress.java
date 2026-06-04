@@ -1,10 +1,11 @@
 package nl.streats1.ancientextensions.dex;
 
-import nl.streats1.ancientextensions.migration.MigrationSeason;
 import net.minecraft.nbt.CompoundTag;
 
 import java.util.EnumMap;
 import java.util.Map;
+
+import nl.streats1.ancientextensions.migration.MigrationSeason;
 
 /**
  * Seasonal migration route progress.

@@ -1,16 +1,17 @@
 package nl.streats1.ancientextensions.neoforge.registry;
 
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
 import nl.streats1.ancientextensions.AncientExtensionsConstants;
 import nl.streats1.ancientextensions.block.FieldSurveyCalendarBlock;
 import nl.streats1.ancientextensions.block.FieldSurveyMonitorBlock;
 import nl.streats1.ancientextensions.block.FieldSurveySensorBlock;
 import nl.streats1.ancientextensions.block.PokeballPouchBlock;
 import nl.streats1.ancientextensions.registry.ModContent;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredRegister;
 
 public final class ModBlocks {
 

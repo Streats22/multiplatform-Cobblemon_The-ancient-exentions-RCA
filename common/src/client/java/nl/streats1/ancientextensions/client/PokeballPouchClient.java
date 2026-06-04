@@ -1,10 +1,11 @@
 package nl.streats1.ancientextensions.client;
 
+import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.resources.ResourceLocation;
+
 import nl.streats1.ancientextensions.AncientExtensionsConstants;
 import nl.streats1.ancientextensions.pouch.PouchTierData;
 import nl.streats1.ancientextensions.registry.ModContent;
-import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.resources.ResourceLocation;
 
 public final class PokeballPouchClient {
 

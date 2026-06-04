@@ -1,7 +1,5 @@
 package nl.streats1.ancientextensions.item;
 
-import nl.streats1.ancientextensions.AncientExtensionsContext;
-import nl.streats1.ancientextensions.util.ItemGuideTooltips;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -15,6 +13,9 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
+
+import nl.streats1.ancientextensions.AncientExtensionsContext;
+import nl.streats1.ancientextensions.util.ItemGuideTooltips;
 
 public class RegionalSurveyJournalItem extends Item {
 

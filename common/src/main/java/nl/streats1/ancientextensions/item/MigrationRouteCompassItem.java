@@ -1,9 +1,5 @@
 package nl.streats1.ancientextensions.item;
 
-import nl.streats1.ancientextensions.integration.map.MapWaypointIntegration;
-import nl.streats1.ancientextensions.migration.MigrationBiomeLocator;
-import nl.streats1.ancientextensions.migration.MigrationRouteTarget;
-import nl.streats1.ancientextensions.util.ItemGuideTooltips;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -17,6 +13,11 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
+
+import nl.streats1.ancientextensions.integration.map.MapWaypointIntegration;
+import nl.streats1.ancientextensions.migration.MigrationBiomeLocator;
+import nl.streats1.ancientextensions.migration.MigrationRouteTarget;
+import nl.streats1.ancientextensions.util.ItemGuideTooltips;
 
 /**
  * Points toward the nearest biome on the player's active migration leg (like Explorer's Compass).

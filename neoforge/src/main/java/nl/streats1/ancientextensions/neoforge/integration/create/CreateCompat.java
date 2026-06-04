@@ -3,11 +3,13 @@ package nl.streats1.ancientextensions.neoforge.integration.create;
 import com.simibubi.create.api.behaviour.display.DisplaySource;
 import com.simibubi.create.api.behaviour.display.DisplayTarget;
 import com.simibubi.create.api.registry.CreateBuiltInRegistries;
+
+import net.minecraft.core.Registry;
+import net.minecraft.world.level.block.Block;
+
 import nl.streats1.ancientextensions.AncientExtensionsConstants;
 import nl.streats1.ancientextensions.integration.OptionalIntegrationMods;
 import nl.streats1.ancientextensions.registry.ModContent;
-import net.minecraft.core.Registry;
-import net.minecraft.world.level.block.Block;
 
 public final class CreateCompat {
 

@@ -36,7 +36,9 @@ public final class OptionalIntegrationMods {
         return ModLoaderRuntime.isNeoForge() && ModPresence.isLoaded(SOPHISTICATED_BACKPACKS);
     }
 
-    /** Biome routes and spawn filtering — both loaders when the mod is in the pack. */
+    /**
+     * Biome routes and spawn filtering — both loaders when the mod is in the pack.
+     */
     public static boolean hasRegionsUnexplored() {
         return ModPresence.isLoaded(REGIONS_UNEXPLORED);
     }

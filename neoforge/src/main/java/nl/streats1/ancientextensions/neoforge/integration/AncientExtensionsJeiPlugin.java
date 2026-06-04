@@ -1,21 +1,5 @@
 package nl.streats1.ancientextensions.neoforge.integration;
 
-import mezz.jei.api.IModPlugin;
-import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.ingredients.subtypes.ISubtypeInterpreter;
-import mezz.jei.api.ingredients.subtypes.UidContext;
-import mezz.jei.api.registration.IExtraIngredientRegistration;
-import mezz.jei.api.registration.IRecipeCatalystRegistration;
-import mezz.jei.api.registration.IRecipeRegistration;
-import mezz.jei.api.registration.ISubtypeRegistration;
-import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
-import nl.streats1.ancientextensions.AncientExtensionsConstants;
-import nl.streats1.ancientextensions.neoforge.integration.jei.AncientExtensionsJeiRecipes;
-import nl.streats1.ancientextensions.neoforge.registry.ModItems;
-import nl.streats1.ancientextensions.pouch.PouchDisplayStacks;
-import nl.streats1.ancientextensions.pouch.PouchTier;
-import nl.streats1.ancientextensions.pouch.PouchTierData;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -24,6 +8,19 @@ import net.minecraft.world.item.Items;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import mezz.jei.api.IModPlugin;
+import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.ingredients.subtypes.ISubtypeInterpreter;
+import mezz.jei.api.ingredients.subtypes.UidContext;
+import mezz.jei.api.registration.*;
+import nl.streats1.ancientextensions.AncientExtensionsConstants;
+import nl.streats1.ancientextensions.neoforge.integration.jei.AncientExtensionsJeiRecipes;
+import nl.streats1.ancientextensions.neoforge.registry.ModItems;
+import nl.streats1.ancientextensions.pouch.PouchDisplayStacks;
+import nl.streats1.ancientextensions.pouch.PouchTier;
+import nl.streats1.ancientextensions.pouch.PouchTierData;
 
 @JeiPlugin
 public class AncientExtensionsJeiPlugin implements IModPlugin {

@@ -7,13 +7,17 @@ public final class PokeballPouchLayout {
 
     public static final int WIDTH = 176;
     public static final int POUCH_START_X = 8;
-    /** Matches slot art in {@code textures/gui/pokeball_pouch.png}. */
+    /**
+     * Matches slot art in {@code textures/gui/pokeball_pouch.png}.
+     */
     public static final int POUCH_START_Y = 30;
     public static final int PLAYER_INV_GAP = 10;
     public static final int SLOT_STRIDE = 18;
     public static final int MIN_HEIGHT = 166;
 
-    /** Texture UVs for {@code textures/gui/pokeball_pouch.png} (176×166). */
+    /**
+     * Texture UVs for {@code textures/gui/pokeball_pouch.png} (176×166).
+     */
     public static final int TEX_HEADER_H = 17;
     public static final int TEX_SLOT_ROW_Y = 30;
     public static final int TEX_SLOT_ROW_H = 18;
@@ -21,10 +25,14 @@ public final class PokeballPouchLayout {
     public static final int TEX_SLOT_W = 162;
     public static final int TEX_PANEL_X = 6;
     public static final int TEX_PANEL_W = 164;
-    /** Plain leather strip — tile vertically; must not include slot art. */
+    /**
+     * Plain leather strip — tile vertically; must not include slot art.
+     */
     public static final int TEX_PANEL_FILL_Y = 18;
     public static final int TEX_PANEL_FILL_H = 6;
-    /** One 9-slot row; reused for pouch rows, player inventory, and hotbar. */
+    /**
+     * One 9-slot row; reused for pouch rows, player inventory, and hotbar.
+     */
     public static final int TEX_SLOT_TEMPLATE_Y = 26;
     public static final int TEX_FOOTER_Y = 160;
     public static final int TEX_FOOTER_H = 6;

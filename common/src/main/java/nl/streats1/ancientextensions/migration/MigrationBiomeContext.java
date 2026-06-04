@@ -1,15 +1,17 @@
 package nl.streats1.ancientextensions.migration;
 
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.core.Holder;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-/** Resolves player biome context against seasonal migration routes. */
+/**
+ * Resolves player biome context against seasonal migration routes.
+ */
 public final class MigrationBiomeContext {
 
     private MigrationBiomeContext() {
@@ -32,7 +34,9 @@ public final class MigrationBiomeContext {
         return BiomesOPlentyBiomes.isBiomesOPlenty(biomeId);
     }
 
-    /** Leg indices (0-based) where this biome counts for the route (includes vanilla). */
+    /**
+     * Leg indices (0-based) where this biome counts for the route (includes vanilla).
+     */
     public static List<Integer> routeLegIndices(MigrationSeason season, ResourceLocation biomeId) {
         if (biomeId == null) {
             return List.of();

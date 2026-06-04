@@ -9,7 +9,9 @@ import net.minecraft.resources.ResourceLocation;
  */
 public final class AncientExtensionsAssets {
 
-    /** Mod icon for Fabric ({@code fabric.mod.json}) and NeoForge ({@code logoFile}). */
+    /**
+     * Mod icon for Fabric ({@code fabric.mod.json}) and NeoForge ({@code logoFile}).
+     */
     public static final String MOD_ICON_PATH = "assets/ancient_extensions/icon.png";
 
     public static final ResourceLocation GUI_FIELD_SURVEY_TABLET = texture("gui/field_survey_tablet.png");

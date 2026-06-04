@@ -5,29 +5,37 @@ package nl.streats1.ancientextensions.client;
  */
 public final class AncientExtensionsClientHooks {
 
-    private static OriginSelectSender originSelectSender = (regionId, townId) -> { };
-    private static Runnable tierRewardClaimSender = () -> { };
-    private static TabletActionSender tabletActionSender = action -> { };
+    private static OriginSelectSender originSelectSender = (regionId, townId) -> {
+    };
+    private static Runnable tierRewardClaimSender = () -> {
+    };
+    private static TabletActionSender tabletActionSender = action -> {
+    };
 
     private AncientExtensionsClientHooks() {
     }
 
     public static void setOriginSelectSender(OriginSelectSender sender) {
-        originSelectSender = sender != null ? sender : (regionId, townId) -> { };
+        originSelectSender = sender != null ? sender : (regionId, townId) -> {
+        };
     }
 
-    /** @deprecated use {@link #sendSelectOrigin(String, String)} */
+    /**
+     * @deprecated use {@link #sendSelectOrigin(String, String)}
+     */
     @Deprecated
     public static void setRegionSelectSender(OriginSelectSender sender) {
         setOriginSelectSender(sender);
     }
 
     public static void setTierRewardClaimSender(Runnable sender) {
-        tierRewardClaimSender = sender != null ? sender : () -> { };
+        tierRewardClaimSender = sender != null ? sender : () -> {
+        };
     }
 
     public static void setTabletActionSender(TabletActionSender sender) {
-        tabletActionSender = sender != null ? sender : action -> { };
+        tabletActionSender = sender != null ? sender : action -> {
+        };
     }
 
     public static void sendSelectOrigin(String regionId, String townId) {

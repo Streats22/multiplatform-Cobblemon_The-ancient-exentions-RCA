@@ -1,16 +1,17 @@
 package nl.streats1.ancientextensions.kit;
 
-import nl.streats1.ancientextensions.AncientExtensionsConstants;
-import nl.streats1.ancientextensions.dex.PassportInventorySync;
-import nl.streats1.ancientextensions.AncientExtensionsContext;
-import nl.streats1.ancientextensions.config.PassportConfig;
-import nl.streats1.ancientextensions.integration.mca.McaIntegration;
-import nl.streats1.ancientextensions.dex.RegionalSurveyData;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+
+import nl.streats1.ancientextensions.AncientExtensionsConstants;
+import nl.streats1.ancientextensions.AncientExtensionsContext;
+import nl.streats1.ancientextensions.config.PassportConfig;
+import nl.streats1.ancientextensions.dex.PassportInventorySync;
+import nl.streats1.ancientextensions.dex.RegionalSurveyData;
+import nl.streats1.ancientextensions.integration.mca.McaIntegration;
 
 /**
  * Grants the field kit once per player per world (not craftable).

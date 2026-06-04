@@ -4,20 +4,14 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
 import net.minecraft.resources.ResourceLocation;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Parsed migratory spawn pools for calendar estimates (biome + weight), not live world simulation.
@@ -55,7 +49,9 @@ public final class MigrationSpawnPoolIndex {
         POSSIBLE
     }
 
-    /** Species ranked for this biome in the current season (spawn-pool weights). */
+    /**
+     * Species ranked for this biome in the current season (spawn-pool weights).
+     */
     public static List<SpawnEstimate> estimateForBiome(MigrationSeason season, ResourceLocation biomeId, int limit) {
         List<WeightedSpawn> pool = pools().getOrDefault(season, List.of());
         if (pool.isEmpty()) {

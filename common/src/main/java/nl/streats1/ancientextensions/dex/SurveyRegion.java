@@ -36,7 +36,9 @@ public enum SurveyRegion {
         return id;
     }
 
-    /** Two-letter code shown beside the player name in multiplayer. */
+    /**
+     * Two-letter code shown beside the player name in multiplayer.
+     */
     public String getBadgeCode() {
         return badgeCode;
     }
@@ -49,13 +51,17 @@ public enum SurveyRegion {
         return Component.translatable("ancient_extensions.region." + id);
     }
 
-    /** Colored {@code [KT]} tag prefix for tab list and name tags. */
+    /**
+     * Colored {@code [KT]} tag prefix for tab list and name tags.
+     */
     public Component listBadge() {
         return Component.literal("[" + badgeCode + "] ")
                 .withStyle(color);
     }
 
-    /** Badge + region name for menus and books. */
+    /**
+     * Badge + region name for menus and books.
+     */
     public Component labeledName() {
         MutableComponent name = displayName().copy();
         name.setStyle(Style.EMPTY.withColor(color));
@@ -66,7 +72,9 @@ public enum SurveyRegion {
         return Component.translatable("ancient_extensions.region." + id + ".blurb");
     }
 
-    /** Hover text for the origin picker — full region name, code, and blurb. */
+    /**
+     * Hover text for the origin picker — full region name, code, and blurb.
+     */
     public Component passportPickerTooltip() {
         return Component.empty()
                 .append(labeledName())
@@ -74,7 +82,9 @@ public enum SurveyRegion {
                 .append(passportBlurb().copy().withStyle(ChatFormatting.WHITE));
     }
 
-    /** Short label that fits on a region button. */
+    /**
+     * Short label that fits on a region button.
+     */
     public String pickerButtonLabel() {
         return displayName().getString();
     }

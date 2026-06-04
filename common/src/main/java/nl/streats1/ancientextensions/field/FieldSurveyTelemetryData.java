@@ -4,9 +4,12 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
+
 import org.jetbrains.annotations.Nullable;
 
-/** Cached migration readout stored on a backpack upgrade stack (optional SB integration). */
+/**
+ * Cached migration readout stored on a backpack upgrade stack (optional SB integration).
+ */
 public final class FieldSurveyTelemetryData {
 
     private static final String ROOT = "ancient_extensions_field_telemetry";

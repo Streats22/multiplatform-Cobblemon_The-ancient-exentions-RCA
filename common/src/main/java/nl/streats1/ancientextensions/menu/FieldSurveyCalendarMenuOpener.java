@@ -1,6 +1,5 @@
 package nl.streats1.ancientextensions.menu;
 
-import nl.streats1.ancientextensions.menu.sync.ChartOpenData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -9,6 +8,8 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+
+import nl.streats1.ancientextensions.menu.sync.ChartOpenData;
 
 public final class FieldSurveyCalendarMenuOpener {
 

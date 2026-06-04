@@ -1,7 +1,7 @@
 package nl.streats1.ancientextensions.migration;
 
-import nl.streats1.ancientextensions.AncientExtensionsContext;
-import nl.streats1.ancientextensions.dex.RegionalSurveyData;
+import com.mojang.datafixers.util.Pair;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
@@ -9,12 +9,14 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.biome.Biome;
-import com.mojang.datafixers.util.Pair;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
+
+import nl.streats1.ancientextensions.AncientExtensionsContext;
+import nl.streats1.ancientextensions.dex.RegionalSurveyData;
 
 /**
  * Finds the nearest migration-route biome (Explorer's Compass style), using the player's active leg.
@@ -45,7 +47,9 @@ public final class MigrationBiomeLocator {
         );
     }
 
-    /** Sensor / block readout: nearest player within 48 blocks supplies leg progress. */
+    /**
+     * Sensor / block readout: nearest player within 48 blocks supplies leg progress.
+     */
     public static MigrationRouteTarget resolveNear(ServerLevel level, BlockPos pos) {
         MigrationSeason season = MigrationSeasonClock.currentSeason(level);
         Player nearby = level.getNearestPlayer(pos.getX(), pos.getY(), pos.getZ(), 48.0, false);

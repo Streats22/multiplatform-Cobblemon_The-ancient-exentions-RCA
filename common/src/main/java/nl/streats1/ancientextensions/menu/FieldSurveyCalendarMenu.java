@@ -1,8 +1,5 @@
 package nl.streats1.ancientextensions.menu;
 
-import nl.streats1.ancientextensions.field.FieldSurveyCalendarReport;
-import nl.streats1.ancientextensions.menu.sync.ChartOpenData;
-import nl.streats1.ancientextensions.registry.ModMenuTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -14,6 +11,10 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
+
+import nl.streats1.ancientextensions.field.FieldSurveyCalendarReport;
+import nl.streats1.ancientextensions.menu.sync.ChartOpenData;
+import nl.streats1.ancientextensions.registry.ModMenuTypes;
 
 public class FieldSurveyCalendarMenu extends AbstractContainerMenu {
 

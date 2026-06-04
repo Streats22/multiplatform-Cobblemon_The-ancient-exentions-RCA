@@ -1,19 +1,15 @@
 package nl.streats1.ancientextensions.neoforge.registry;
 
-import nl.streats1.ancientextensions.AncientExtensionsConstants;
-import nl.streats1.ancientextensions.menu.FieldSurveyCalendarMenu;
-import nl.streats1.ancientextensions.menu.FieldSurveyTabletMenu;
-import nl.streats1.ancientextensions.menu.MigrationRouteChartMenu;
-import nl.streats1.ancientextensions.menu.PokeballPouchMenu;
-import nl.streats1.ancientextensions.menu.RegionalPassportMenu;
-import nl.streats1.ancientextensions.menu.RegionalSurveyJournalMenu;
-import nl.streats1.ancientextensions.registry.ModMenuTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+
+import nl.streats1.ancientextensions.AncientExtensionsConstants;
+import nl.streats1.ancientextensions.menu.*;
+import nl.streats1.ancientextensions.registry.ModMenuTypes;
 
 public final class ModMenus {
 

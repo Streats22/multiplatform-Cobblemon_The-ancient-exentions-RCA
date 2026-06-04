@@ -1,12 +1,13 @@
 package nl.streats1.ancientextensions.client;
 
-import nl.streats1.ancientextensions.AncientExtensionsAssets;
-import nl.streats1.ancientextensions.dex.SurveyRegion;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+
+import nl.streats1.ancientextensions.AncientExtensionsAssets;
+import nl.streats1.ancientextensions.dex.SurveyRegion;
 
 /**
  * Animated wax seal with region badge code.
@@ -80,7 +81,9 @@ public final class PassportSealRenderer {
         graphics.pose().popPose();
     }
 
-    /** Thin region-colored ring over the embossed gold rim. */
+    /**
+     * Thin region-colored ring over the embossed gold rim.
+     */
     private static void drawRegionAccentRing(GuiGraphics graphics, int accent, float eased) {
         int alpha = (int) (70 * eased);
         if (alpha <= 0) {

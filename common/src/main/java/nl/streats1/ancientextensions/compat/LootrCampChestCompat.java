@@ -3,6 +3,7 @@ package nl.streats1.ancientextensions.compat;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.server.level.ServerLevel;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,13 +1,14 @@
 package nl.streats1.ancientextensions.network;
 
+import net.minecraft.server.level.ServerPlayer;
+
+import java.util.Optional;
+
 import nl.streats1.ancientextensions.AncientExtensionsContext;
 import nl.streats1.ancientextensions.menu.JournalMenuOpener;
 import nl.streats1.ancientextensions.menu.MigrationRouteChartMenuOpener;
 import nl.streats1.ancientextensions.menu.PassportMenuOpener;
 import nl.streats1.ancientextensions.menu.TabletMenuOpener;
-import net.minecraft.server.level.ServerPlayer;
-
-import java.util.Optional;
 
 public final class TabletNetworking {
 

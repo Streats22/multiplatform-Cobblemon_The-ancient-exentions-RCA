@@ -34,7 +34,9 @@ public final class MigrationRoutes {
         return routes().getOrDefault(season, List.of());
     }
 
-    /** All biome IDs featured across every seasonal route (for spawn pools and validation). */
+    /**
+     * All biome IDs featured across every seasonal route (for spawn pools and validation).
+     */
     public static List<ResourceLocation> allFeaturedBiomes() {
         List<ResourceLocation> biomes = new ArrayList<>();
         for (MigrationSeason season : MigrationSeason.values()) {
@@ -45,7 +47,9 @@ public final class MigrationRoutes {
         return List.copyOf(biomes);
     }
 
-    /** Biome IDs for one season (union of its three legs). */
+    /**
+     * Biome IDs for one season (union of its three legs).
+     */
     public static List<ResourceLocation> biomesForSeason(MigrationSeason season) {
         return MigrationBiomeCatalog.biomesForSeason(season);
     }

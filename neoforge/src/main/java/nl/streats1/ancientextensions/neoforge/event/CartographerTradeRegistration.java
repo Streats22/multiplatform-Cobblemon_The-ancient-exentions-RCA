@@ -1,16 +1,17 @@
 package nl.streats1.ancientextensions.neoforge.event;
 
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
+
+import java.util.List;
+
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import nl.streats1.ancientextensions.AncientExtensionsConstants;
 import nl.streats1.ancientextensions.registry.ModContent;
 import nl.streats1.ancientextensions.trade.CartographerChartTrades;
-
-import java.util.List;
 
 @EventBusSubscriber(modid = AncientExtensionsConstants.MOD_ID)
 public final class CartographerTradeRegistration {

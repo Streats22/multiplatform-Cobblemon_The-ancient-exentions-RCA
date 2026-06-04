@@ -1,8 +1,9 @@
 package nl.streats1.ancientextensions.registry;
 
-import nl.streats1.ancientextensions.pouch.PouchDisplayStacks;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+
+import nl.streats1.ancientextensions.pouch.PouchDisplayStacks;
 
 /**
  * All stacks shown in the Ancient Extensions creative tab.

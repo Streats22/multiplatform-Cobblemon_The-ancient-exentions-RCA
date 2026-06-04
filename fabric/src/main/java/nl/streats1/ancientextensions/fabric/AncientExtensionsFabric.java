@@ -1,5 +1,8 @@
 package nl.streats1.ancientextensions.fabric;
 
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+
 import nl.streats1.ancientextensions.AncientExtensionsContext;
 import nl.streats1.ancientextensions.command.AncientExtensionsCommands;
 import nl.streats1.ancientextensions.display.SurveyOriginEffects;
@@ -13,8 +16,6 @@ import nl.streats1.ancientextensions.fabric.network.FabricNetworking;
 import nl.streats1.ancientextensions.fabric.registry.ModCreativeTabs;
 import nl.streats1.ancientextensions.fabric.registry.ModRegistries;
 import nl.streats1.ancientextensions.menu.JournalMenuOpener;
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 
 public class AncientExtensionsFabric implements ModInitializer {
 

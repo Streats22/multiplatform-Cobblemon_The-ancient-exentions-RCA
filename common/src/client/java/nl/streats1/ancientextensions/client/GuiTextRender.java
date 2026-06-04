@@ -5,14 +5,10 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
 
-/**
- * Draws {@link Component} text without flattening {@link net.minecraft.ChatFormatting} colors.
- */
+/** Draws {@link Component} text without flattening per-style chat colors. */
 public final class GuiTextRender {
 
-    /** Default tint — white so per-glyph styles show at full strength. */
     private static final int STYLE_PRESERVING_COLOR = 0xFFFFFFFF;
-    /** Slight black shadow — readable on parchment without a heavy outline. */
     public static final int SLIGHT_BLACK_SHADOW = 0x48000000;
     private static final int GOLD_HALO_INK = 0x38000000;
 

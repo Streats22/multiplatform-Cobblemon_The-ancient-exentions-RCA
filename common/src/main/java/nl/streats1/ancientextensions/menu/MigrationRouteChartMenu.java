@@ -1,8 +1,5 @@
 package nl.streats1.ancientextensions.menu;
 
-import nl.streats1.ancientextensions.migration.MigrationRouteChartReport;
-import nl.streats1.ancientextensions.menu.sync.ChartOpenData;
-import nl.streats1.ancientextensions.registry.ModMenuTypes;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -12,6 +9,10 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
+
+import nl.streats1.ancientextensions.menu.sync.ChartOpenData;
+import nl.streats1.ancientextensions.migration.MigrationRouteChartReport;
+import nl.streats1.ancientextensions.registry.ModMenuTypes;
 
 public class MigrationRouteChartMenu extends AbstractContainerMenu {
 

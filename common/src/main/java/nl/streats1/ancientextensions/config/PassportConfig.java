@@ -11,7 +11,9 @@ public final class PassportConfig {
     private PassportConfig() {
     }
 
-    /** When true, players without a stamped origin are prompted with the passport picker on join. */
+    /**
+     * When true, players without a stamped origin are prompted with the passport picker on join.
+     */
     public static boolean openOriginPickerOnJoin() {
         return openOriginPickerOnJoin;
     }

@@ -2,9 +2,11 @@ package nl.streats1.ancientextensions.neoforge.event;
 
 import com.cobblemon.mod.common.api.events.CobblemonEvents;
 import com.cobblemon.mod.common.api.events.pokemon.PokemonCapturedEvent;
-import nl.streats1.ancientextensions.AncientExtensionsContext;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+
+import nl.streats1.ancientextensions.AncientExtensionsContext;
 
 public final class CobblemonEventHandlers {
 

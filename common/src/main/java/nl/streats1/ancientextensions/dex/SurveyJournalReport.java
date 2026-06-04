@@ -1,11 +1,5 @@
 package nl.streats1.ancientextensions.dex;
 
-import nl.streats1.ancientextensions.AncientExtensionsContext;
-import nl.streats1.ancientextensions.migration.MigrationConfig;
-import nl.streats1.ancientextensions.migration.MigrationLeg;
-import nl.streats1.ancientextensions.migration.MigrationRoutes;
-import nl.streats1.ancientextensions.migration.MigrationSeason;
-import nl.streats1.ancientextensions.migration.MigrationSeasonClock;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
@@ -13,7 +7,6 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.Filterable;
 import net.minecraft.sounds.SoundEvents;
-import nl.streats1.ancientextensions.util.BookGuiHelper;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -21,6 +14,10 @@ import net.minecraft.world.item.component.WrittenBookContent;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import nl.streats1.ancientextensions.AncientExtensionsContext;
+import nl.streats1.ancientextensions.migration.*;
+import nl.streats1.ancientextensions.util.BookGuiHelper;
 
 /**
  * Builds the Regional Survey Journal as a readable written book and optional chat summary.
@@ -42,7 +39,9 @@ public final class SurveyJournalReport {
         player.playSound(SoundEvents.BOOK_PAGE_TURN, 1.0f, 1.0f);
     }
 
-    /** Live journal lines for the in-game field log screen. */
+    /**
+     * Live journal lines for the in-game field log screen.
+     */
     public static List<Component> buildLines(RegionalSurveyData data, MigrationSeason season) {
         return buildContentLines(data, season);
     }

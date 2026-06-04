@@ -2,7 +2,8 @@
 
 This repo has three Gradle modules: **`:common`**, **`:fabric`**, **`:neoforge`**. See [MODULES.md](MODULES.md).
 
-Red errors on `com.simibubi.create.*` or `net.p3pp3rf1y.*` in **`:neoforge` only** mean the Java language server is not using the same classpath as Gradle. Verify with:
+Red errors on `com.simibubi.create.*` or `net.p3pp3rf1y.*` in **`:neoforge` only** mean the Java language server is not
+using the same classpath as Gradle. Verify with:
 
 ```bash
 ./gradlew :common:compileJava :common:compileClientJava :fabric:compileJava :neoforge:compileJava
@@ -17,7 +18,8 @@ Red errors on `com.simibubi.create.*` or `net.p3pp3rf1y.*` in **`:neoforge` only
 ./gradlew setupIde
 ```
 
-This runs `setupIde` on **all three** Loom modules and generates Eclipse + VS Code metadata. For `:common` it also creates `build/classes/kotlin/client` and `build/resources/client` (Eclipse references them even when empty).
+This runs `setupIde` on **all three** Loom modules and generates Eclipse + VS Code metadata. For `:common` it also
+creates `build/classes/kotlin/client` and `build/resources/client` (Eclipse references them even when empty).
 
 If you see **“Project 'common' is missing required library: …/build/classes/kotlin/client”**, run:
 
@@ -27,24 +29,34 @@ If you see **“Project 'common' is missing required library: …/build/classes/
 
 Then **Java: Clean Java Language Server Workspace** → Reload.
 
+If **`:common` client** files show bogus errors (duplicate fields on `GuiTextRender`, syntax errors in Javadoc, “unused”
+imports that are clearly used), Eclipse may have listed `build/classes/java/client` as a library **and** `src/client/java`
+as sources. Re-run `./gradlew :common:eclipse` (or `setupIde`); the `:common` build strips those duplicate entries from
+`.classpath`.
+
 Optional: open `ancient-extensions.code-workspace` instead of the folder.
+
+`:common` uses Loom **split client sources** (`src/client/java`). The `loom.mods` block registers both `main` and `client` for
+`ancient_extensions` so the IDE and Loader treat them as one mod classpath.
 
 3. Command Palette → **Java: Clean Java Language Server Workspace** → Reload.
 4. Wait until **Gradle: Refresh Gradle project** finishes.
 
 ## What Gradle provides
 
-| Code | Optional API | Configuration |
-|------|----------------|-------------|
-| `neoforge/integration/create/*` | Create (slim) | `modCompileOnly` + `compileOnly` + `modLocalRuntime` |
-| `neoforge/integration/sophisticated/*` | Sophisticated Core + Backpacks | same |
-| `neoforge/integration/jei/*` | JEI NeoForge + common API | `compileOnly` |
+| Code                                   | Optional API                   | Configuration                                        |
+|----------------------------------------|--------------------------------|------------------------------------------------------|
+| `neoforge/integration/create/*`        | Create (slim)                  | `modCompileOnly` + `compileOnly` + `modLocalRuntime` |
+| `neoforge/integration/sophisticated/*` | Sophisticated Core + Backpacks | same                                                 |
+| `neoforge/integration/jei/*`           | JEI NeoForge + common API      | `compileOnly`                                        |
 
-`.vscode/settings.json` also lists remapped JAR globs under `.gradle/loom-cache/` as a fallback when Gradle import misses `modCompileOnly`.
+`.vscode/settings.json` also lists remapped JAR globs under `.gradle/loom-cache/` as a fallback when Gradle import
+misses `modCompileOnly`.
 
 ## Path with spaces
 
-This repo lives under `Learning Java/`. If the IDE still fails after `setupIde`, try opening a symlink without spaces, e.g.:
+This repo lives under `Learning Java/`. If the IDE still fails after `setupIde`, try opening a symlink without spaces,
+e.g.:
 
 ```bash
 ln -s "/Users/you/StreatsDesign/Learning Java/multiplatform_Cobblemon_The_ancient_exentions-RCA" ~/ancient-extensions

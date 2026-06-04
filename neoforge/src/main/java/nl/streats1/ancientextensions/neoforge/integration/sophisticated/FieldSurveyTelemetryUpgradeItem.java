@@ -1,26 +1,23 @@
 package nl.streats1.ancientextensions.neoforge.integration.sophisticated;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.p3pp3rf1y.sophisticatedcore.api.IStorageWrapper;
-import net.p3pp3rf1y.sophisticatedbackpacks.Config;
-import net.p3pp3rf1y.sophisticatedcore.upgrades.IUpgradeItem;
-import net.p3pp3rf1y.sophisticatedcore.upgrades.ITickableUpgrade;
-import net.p3pp3rf1y.sophisticatedcore.upgrades.UpgradeItemBase;
-import net.p3pp3rf1y.sophisticatedcore.upgrades.UpgradeType;
-import net.p3pp3rf1y.sophisticatedcore.upgrades.UpgradeWrapperBase;
-import nl.streats1.ancientextensions.field.FieldSurveyTelemetryData;
-import nl.streats1.ancientextensions.field.FieldSurveyWorldSnapshot;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
+import net.p3pp3rf1y.sophisticatedbackpacks.Config;
+import net.p3pp3rf1y.sophisticatedcore.api.IStorageWrapper;
+import net.p3pp3rf1y.sophisticatedcore.upgrades.*;
 
 import java.util.List;
 import java.util.function.Consumer;
+
+import nl.streats1.ancientextensions.field.FieldSurveyTelemetryData;
+import nl.streats1.ancientextensions.field.FieldSurveyWorldSnapshot;
 
 public class FieldSurveyTelemetryUpgradeItem extends UpgradeItemBase<FieldSurveyTelemetryUpgradeItem.Wrapper> {
 

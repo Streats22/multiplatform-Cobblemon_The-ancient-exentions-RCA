@@ -1,11 +1,5 @@
 package nl.streats1.ancientextensions.block;
 
-import nl.streats1.ancientextensions.menu.PokeballPouchMenu;
-import nl.streats1.ancientextensions.registry.ModContent;
-import nl.streats1.ancientextensions.pouch.PokeballPouchContents;
-import nl.streats1.ancientextensions.pouch.PokeballPouchInventory;
-import nl.streats1.ancientextensions.pouch.PouchTier;
-import nl.streats1.ancientextensions.pouch.PouchTierData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -20,7 +14,15 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.Nullable;
+
+import nl.streats1.ancientextensions.menu.PokeballPouchMenu;
+import nl.streats1.ancientextensions.pouch.PokeballPouchContents;
+import nl.streats1.ancientextensions.pouch.PokeballPouchInventory;
+import nl.streats1.ancientextensions.pouch.PouchTier;
+import nl.streats1.ancientextensions.pouch.PouchTierData;
+import nl.streats1.ancientextensions.registry.ModContent;
 
 public class PokeballPouchBlockEntity extends BlockEntity implements MenuProvider {
 

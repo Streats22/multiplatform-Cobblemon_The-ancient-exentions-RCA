@@ -1,17 +1,14 @@
 package nl.streats1.ancientextensions.neoforge.client;
 
-import nl.streats1.ancientextensions.client.AncientExtensionsClientHooks;
-import nl.streats1.ancientextensions.client.FieldSurveyMonitorRenderer;
-import nl.streats1.ancientextensions.client.MigrationRouteCompassClient;
-import nl.streats1.ancientextensions.client.PokeballPouchClient;
-import nl.streats1.ancientextensions.client.AncientExtensionsScreens;
-import nl.streats1.ancientextensions.registry.ModContent;
-import nl.streats1.ancientextensions.network.ClaimTierRewardPayload;
-import nl.streats1.ancientextensions.network.SelectSurveyRegionPayload;
-import nl.streats1.ancientextensions.network.TabletActionPayload;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
+
+import nl.streats1.ancientextensions.client.*;
+import nl.streats1.ancientextensions.network.ClaimTierRewardPayload;
+import nl.streats1.ancientextensions.network.SelectSurveyRegionPayload;
+import nl.streats1.ancientextensions.network.TabletActionPayload;
+import nl.streats1.ancientextensions.registry.ModContent;
 
 public final class AncientExtensionsNeoForgeClient {
 

@@ -29,7 +29,9 @@ public final class ComfortsCampCompat {
         return resolveSleepingBag(WHITE_BAG) != null || resolveSleepingBag(BROWN_BAG) != null;
     }
 
-    /** Places a Comforts sleeping bag (foot + head) when the mod blocks are registered. */
+    /**
+     * Places a Comforts sleeping bag (foot + head) when the mod blocks are registered.
+     */
     public static void placeSleepingBag(
             ServerLevel level,
             BlockPos footPos,

@@ -1,12 +1,13 @@
 package nl.streats1.ancientextensions.neoforge.data;
 
-import nl.streats1.ancientextensions.AncientExtensionsConstants;
 import net.minecraft.nbt.CompoundTag;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 import java.util.function.Supplier;
+
+import nl.streats1.ancientextensions.AncientExtensionsConstants;
 
 public final class ModAttachments {
 

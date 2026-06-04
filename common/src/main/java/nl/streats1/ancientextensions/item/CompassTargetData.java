@@ -8,7 +8,9 @@ import net.minecraft.world.item.component.CustomData;
 
 import java.util.Optional;
 
-/** Persists migration compass bearing target on the item stack. */
+/**
+ * Persists migration compass bearing target on the item stack.
+ */
 public final class CompassTargetData {
 
     private static final String KEY_ACTIVE = "Active";

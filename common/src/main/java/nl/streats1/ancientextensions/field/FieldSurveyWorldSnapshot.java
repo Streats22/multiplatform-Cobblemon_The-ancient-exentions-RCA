@@ -1,12 +1,5 @@
 package nl.streats1.ancientextensions.field;
 
-import nl.streats1.ancientextensions.migration.MigrationBiomeContext;
-import nl.streats1.ancientextensions.migration.MigrationCalendarSource;
-import nl.streats1.ancientextensions.migration.MigrationLeg;
-import nl.streats1.ancientextensions.migration.MigrationRoutes;
-import nl.streats1.ancientextensions.migration.MigrationSeason;
-import nl.streats1.ancientextensions.migration.MigrationSeasonClock;
-import nl.streats1.ancientextensions.migration.MigrationSpecies;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
@@ -16,7 +9,11 @@ import net.minecraft.world.level.biome.Biome;
 
 import java.util.List;
 
-/** In-world field readout at a fixed position (season, biome, route, migratory pool). */
+import nl.streats1.ancientextensions.migration.*;
+
+/**
+ * In-world field readout at a fixed position (season, biome, route, migratory pool).
+ */
 public record FieldSurveyWorldSnapshot(
         MigrationSeason season,
         MigrationCalendarSource calendarSource,

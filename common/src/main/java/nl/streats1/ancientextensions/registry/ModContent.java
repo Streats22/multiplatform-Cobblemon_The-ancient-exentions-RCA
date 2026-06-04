@@ -1,10 +1,11 @@
 package nl.streats1.ancientextensions.registry;
 
-import nl.streats1.ancientextensions.block.FieldSurveyMonitorBlockEntity;
-import nl.streats1.ancientextensions.block.PokeballPouchBlockEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+
+import nl.streats1.ancientextensions.block.FieldSurveyMonitorBlockEntity;
+import nl.streats1.ancientextensions.block.PokeballPouchBlockEntity;
 
 /**
  * Populated by each platform loader when registries are bound.

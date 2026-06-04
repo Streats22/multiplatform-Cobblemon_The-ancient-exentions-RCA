@@ -1,12 +1,15 @@
 package nl.streats1.ancientextensions.network;
 
-import nl.streats1.ancientextensions.AncientExtensionsConstants;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
-/** Empty tier id claims every pending rank reward. */
+import nl.streats1.ancientextensions.AncientExtensionsConstants;
+
+/**
+ * Empty tier id claims every pending rank reward.
+ */
 public record ClaimTierRewardPayload(String tierId) implements CustomPacketPayload {
 
     public static final Type<ClaimTierRewardPayload> TYPE =

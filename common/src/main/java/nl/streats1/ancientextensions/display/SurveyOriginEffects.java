@@ -1,9 +1,10 @@
 package nl.streats1.ancientextensions.display;
 
+import net.minecraft.server.level.ServerPlayer;
+
 import nl.streats1.ancientextensions.dex.PassportInventorySync;
 import nl.streats1.ancientextensions.dex.SurveyOriginTown;
 import nl.streats1.ancientextensions.dex.SurveyRegion;
-import net.minecraft.server.level.ServerPlayer;
 
 /**
  * Server-side follow-up when a survey origin is registered or changed.

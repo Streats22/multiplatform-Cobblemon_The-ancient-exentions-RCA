@@ -1,13 +1,14 @@
 package nl.streats1.ancientextensions.dex;
 
-import nl.streats1.ancientextensions.migration.MigrationLeg;
-import nl.streats1.ancientextensions.migration.MigrationRoutes;
-import nl.streats1.ancientextensions.migration.MigrationSeason;
 import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import nl.streats1.ancientextensions.migration.MigrationLeg;
+import nl.streats1.ancientextensions.migration.MigrationRoutes;
+import nl.streats1.ancientextensions.migration.MigrationSeason;
 
 public final class SurveyGoals {
 
@@ -89,10 +90,10 @@ public final class SurveyGoals {
                 next == null
                         ? Component.empty()
                         : Component.translatable(
-                                "ancient_extensions.journal.progress.rp",
-                                data.getResearchPoints(),
-                                next.minPoints()
-                        )
+                        "ancient_extensions.journal.progress.rp",
+                        data.getResearchPoints(),
+                        next.minPoints()
+                )
         ));
 
         return goals;

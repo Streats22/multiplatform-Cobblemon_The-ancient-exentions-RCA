@@ -1,15 +1,5 @@
 package nl.streats1.ancientextensions.menu;
 
-import nl.streats1.ancientextensions.block.PokeballPouchBlockEntity;
-import nl.streats1.ancientextensions.registry.ModContent;
-import nl.streats1.ancientextensions.menu.sync.PouchOpenData;
-import nl.streats1.ancientextensions.registry.ModMenuTypes;
-import nl.streats1.ancientextensions.pouch.PokeballFilter;
-import nl.streats1.ancientextensions.pouch.PokeballPouchConstants;
-import nl.streats1.ancientextensions.pouch.PokeballPouchLayout;
-import nl.streats1.ancientextensions.pouch.PokeballPouchInventory;
-import nl.streats1.ancientextensions.pouch.PouchTier;
-import nl.streats1.ancientextensions.pouch.PouchTierData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -21,6 +11,12 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+
+import nl.streats1.ancientextensions.block.PokeballPouchBlockEntity;
+import nl.streats1.ancientextensions.menu.sync.PouchOpenData;
+import nl.streats1.ancientextensions.pouch.*;
+import nl.streats1.ancientextensions.registry.ModContent;
+import nl.streats1.ancientextensions.registry.ModMenuTypes;
 
 public class PokeballPouchMenu extends AbstractContainerMenu {
 

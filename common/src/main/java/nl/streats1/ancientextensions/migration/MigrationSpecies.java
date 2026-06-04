@@ -8,17 +8,14 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
 import net.minecraft.resources.ResourceLocation;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.EnumMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Species that count toward migration legs when caught in the correct route biome.
@@ -29,7 +26,9 @@ import java.util.Set;
  */
 public final class MigrationSpecies {
 
-    /** Non-flying species that still count on their season's route (also have dedicated spawns). */
+    /**
+     * Non-flying species that still count on their season's route (also have dedicated spawns).
+     */
     private static final Map<MigrationSeason, Set<ResourceLocation>> SEASONAL_SURVEY = new EnumMap<>(MigrationSeason.class);
     private static final Map<MigrationSeason, List<ResourceLocation>> ROUTE_SPECIES = loadRouteSpecies();
 
@@ -86,12 +85,16 @@ public final class MigrationSpecies {
         return survey != null && survey.contains(speciesId);
     }
 
-    /** Featured non-flying survey species (also listed in {@link #speciesOnRouteForSeason}). */
+    /**
+     * Featured non-flying survey species (also listed in {@link #speciesOnRouteForSeason}).
+     */
     public static Set<ResourceLocation> speciesForSeason(MigrationSeason season) {
         return SEASONAL_SURVEY.getOrDefault(season, Set.of());
     }
 
-    /** Every species in the seasonal migration spawn pool (flying route + survey spawns). */
+    /**
+     * Every species in the seasonal migration spawn pool (flying route + survey spawns).
+     */
     public static List<ResourceLocation> speciesOnRouteForSeason(MigrationSeason season) {
         return ROUTE_SPECIES.getOrDefault(season, List.of());
     }

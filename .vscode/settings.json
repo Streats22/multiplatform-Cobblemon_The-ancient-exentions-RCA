@@ -3,6 +3,7 @@
   "java.import.gradle.enabled": true,
   "java.import.gradle.wrapper.enabled": true,
   "java.import.eclipse.enabled": true,
+  "java.gradle.buildServer.enabled": "on",
   "java.import.gradle.offline.enabled": false,
   "java.import.gradle.annotationProcessing.enabled": true,
   "java.project.referencedLibraries": [

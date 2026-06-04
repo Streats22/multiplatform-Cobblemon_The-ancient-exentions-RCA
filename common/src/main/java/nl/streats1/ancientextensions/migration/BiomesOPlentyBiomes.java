@@ -32,7 +32,9 @@ public final class BiomesOPlentyBiomes {
         return ResourceLocation.fromNamespaceAndPath(NAMESPACE, path);
     }
 
-    /** Lush, wetland, and magical temperate biomes. */
+    /**
+     * Lush, wetland, and magical temperate biomes.
+     */
     private static final List<ResourceLocation> SPRING = List.of(
             id("bayou"),
             id("bog"),
@@ -55,7 +57,9 @@ public final class BiomesOPlentyBiomes {
             id("glowing_grotto")
     );
 
-    /** Hot, arid, and tropical overworld biomes. */
+    /**
+     * Hot, arid, and tropical overworld biomes.
+     */
     private static final List<ResourceLocation> SUMMER = List.of(
             id("tropics"),
             id("rainforest"),
@@ -77,7 +81,9 @@ public final class BiomesOPlentyBiomes {
             id("origin_valley")
     );
 
-    /** Deciduous, highland, and harvest-season temperate biomes. */
+    /**
+     * Deciduous, highland, and harvest-season temperate biomes.
+     */
     private static final List<ResourceLocation> AUTUMN = List.of(
             id("seasonal_forest"),
             id("maple_woods"),
@@ -96,7 +102,9 @@ public final class BiomesOPlentyBiomes {
             id("spider_nest")
     );
 
-    /** Snowy overworld plus nether biomes for the winter front. */
+    /**
+     * Snowy overworld plus nether biomes for the winter front.
+     */
     private static final List<ResourceLocation> WINTER = List.of(
             id("muskeg"),
             id("tundra"),

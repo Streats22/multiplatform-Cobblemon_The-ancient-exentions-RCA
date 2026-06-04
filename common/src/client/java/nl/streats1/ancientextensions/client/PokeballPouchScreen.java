@@ -1,13 +1,14 @@
 package nl.streats1.ancientextensions.client;
 
-import nl.streats1.ancientextensions.AncientExtensionsAssets;
-import nl.streats1.ancientextensions.menu.PokeballPouchMenu;
-import nl.streats1.ancientextensions.pouch.PokeballPouchLayout;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+
+import nl.streats1.ancientextensions.AncientExtensionsAssets;
+import nl.streats1.ancientextensions.menu.PokeballPouchMenu;
+import nl.streats1.ancientextensions.pouch.PokeballPouchLayout;
 
 public class PokeballPouchScreen extends AbstractContainerScreen<PokeballPouchMenu> {
 

@@ -1,10 +1,11 @@
 package nl.streats1.ancientextensions.dex;
 
-import nl.streats1.ancientextensions.config.AncientExtensionsDesign;
-import nl.streats1.ancientextensions.migration.MigrationService;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+
+import nl.streats1.ancientextensions.config.AncientExtensionsDesign;
+import nl.streats1.ancientextensions.migration.MigrationService;
 
 /**
  * Regional Survey — catch-only dex (see {@link AncientExtensionsDesign#DEX_CATCH_ONLY}).

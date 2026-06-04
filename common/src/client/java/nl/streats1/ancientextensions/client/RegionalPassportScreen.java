@@ -1,9 +1,5 @@
 package nl.streats1.ancientextensions.client;
 
-import nl.streats1.ancientextensions.AncientExtensionsAssets;
-import nl.streats1.ancientextensions.dex.SurveyOriginTown;
-import nl.streats1.ancientextensions.dex.SurveyRegion;
-import nl.streats1.ancientextensions.menu.RegionalPassportMenu;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Tooltip;
@@ -14,6 +10,11 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 
 import java.util.Optional;
+
+import nl.streats1.ancientextensions.AncientExtensionsAssets;
+import nl.streats1.ancientextensions.dex.SurveyOriginTown;
+import nl.streats1.ancientextensions.dex.SurveyRegion;
+import nl.streats1.ancientextensions.menu.RegionalPassportMenu;
 
 public class RegionalPassportScreen extends AbstractContainerScreen<RegionalPassportMenu> {
 
@@ -73,9 +74,13 @@ public class RegionalPassportScreen extends AbstractContainerScreen<RegionalPass
 
     private static final float STAMP_ANIMATION_TICKS = 16.0F;
 
-    /** Bright banner gold — paired with a faint ink halo for contrast. */
+    /**
+     * Bright banner gold — paired with a faint ink halo for contrast.
+     */
     private static final int COLOR_HEADER = 0xFFE8C84A;
-    /** Deeper antique gold for step titles (easier to read on parchment). */
+    /**
+     * Deeper antique gold for step titles (easier to read on parchment).
+     */
     private static final int COLOR_TITLE = 0xFF9A6B14;
     private static final int COLOR_RULE = 0xFFC9A227;
 
@@ -289,12 +294,18 @@ public class RegionalPassportScreen extends AbstractContainerScreen<RegionalPass
         graphics.hLine(ruleLeft, ruleRight, SELECTION_HINT_Y - 4, COLOR_RULE);
 
         int y = SELECTION_TITLE_Y;
-        Component title = selectionStep == SelectionStep.TOWN && pendingRegion != null
-                ? Component.translatable("ancient_extensions.passport.gui.choose_town")
-                        .copy().withStyle(ChatFormatting.BOLD).withColor(COLOR_TITLE)
-                : Component.translatable("ancient_extensions.passport.gui.choose_region")
-                        .copy().withStyle(ChatFormatting.BOLD).withColor(COLOR_TITLE);
-        GuiTextRender.drawCenteredGold(this.font, graphics, title, this.imageWidth / 2, y, COLOR_TITLE);
+        GuiTextRender.drawCenteredGold(
+                this.font,
+                graphics,
+                selectionStep == SelectionStep.TOWN && pendingRegion != null
+                        ? Component.translatable("ancient_extensions.passport.gui.choose_town")
+                                .copy().withStyle(ChatFormatting.BOLD).withColor(COLOR_TITLE)
+                        : Component.translatable("ancient_extensions.passport.gui.choose_region")
+                                .copy().withStyle(ChatFormatting.BOLD).withColor(COLOR_TITLE),
+                this.imageWidth / 2,
+                y,
+                COLOR_TITLE
+        );
         y += 12;
 
         if (selectionStep == SelectionStep.TOWN && pendingRegion != null) {

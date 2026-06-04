@@ -1,27 +1,22 @@
 package nl.streats1.ancientextensions.recipe;
 
-import nl.streats1.ancientextensions.pouch.PokeballFilter;
-import nl.streats1.ancientextensions.pouch.PouchTierData;
-import nl.streats1.ancientextensions.registry.ModContent;
-import nl.streats1.ancientextensions.registry.ModRecipeSerializers;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
-/**
- * Craft with any Poké Ball in the center — tier and look follow the ball used.
- * <pre>
- *  LSL
- *  LBL
- * </pre>
- */
+import nl.streats1.ancientextensions.pouch.PokeballFilter;
+import nl.streats1.ancientextensions.pouch.PouchTierData;
+import nl.streats1.ancientextensions.registry.ModContent;
+import nl.streats1.ancientextensions.registry.ModRecipeSerializers;
+
+// Crafting recipe for the pokeball pouch (leather frame, string strap, Cobblemon ball in the center).
 public class PokeballPouchRecipe extends CustomRecipe {
 
     public PokeballPouchRecipe(CraftingBookCategory category) {
@@ -72,9 +67,7 @@ public class PokeballPouchRecipe extends CustomRecipe {
         return ModRecipeSerializers.POKEBALL_POUCH;
     }
 
-    /**
-     * Grid ingredients for recipe books and JEI (row-major 3×3, same layout as {@link #matches}).
-     */
+    // Grid ingredients for recipe books and JEI (row-major 3 by 3 crafting layout).
     public NonNullList<Ingredient> jeiIngredients() {
         Ingredient leather = Ingredient.of(Items.LEATHER);
         Ingredient string = Ingredient.of(Items.STRING);

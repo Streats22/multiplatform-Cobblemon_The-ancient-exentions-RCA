@@ -1,6 +1,7 @@
 package nl.streats1.ancientextensions.block;
 
 import com.mojang.serialization.MapCodec;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
@@ -11,8 +12,10 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import nl.streats1.ancientextensions.integration.OptionalIntegrationMods;
+
 import org.jetbrains.annotations.Nullable;
+
+import nl.streats1.ancientextensions.integration.OptionalIntegrationMods;
 
 public class FieldSurveyMonitorBlock extends BaseEntityBlock {
 

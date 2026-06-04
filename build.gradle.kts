@@ -1,3 +1,4 @@
+import org.gradle.api.Project
 import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.invoke
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -71,8 +72,70 @@ subprojects {
 
             configurations.findByName("compileClasspath")?.extendsOptionalCompileConfigs()
             configurations.findByName("clientCompileClasspath")?.extendsOptionalCompileConfigs()
+
+            tasks.named("eclipse") {
+                doLast {
+                    stripDuplicateClientClasspathEntries(project)
+                    if (project.name == "fabric" || project.name == "neoforge") {
+                        wireEclipseProjectDependency(project, "common")
+                    }
+                }
+            }
         }
     }
+}
+
+/** Loom can list compiled client output as a library while src/client/java is also a source root. */
+fun stripDuplicateClientClasspathEntries(project: Project) {
+    val classpathFile = project.file(".classpath")
+    if (!classpathFile.exists()) {
+        return
+    }
+    val markers = listOf(
+        "/build/classes/java/client",
+        "/build/classes/kotlin/client",
+        "/build/resources/client",
+    )
+    val lines = classpathFile.readLines()
+    val out = mutableListOf<String>()
+    var index = 0
+    while (index < lines.size) {
+        val line = lines[index]
+        if (line.contains("<classpathentry") && markers.any { line.contains(it) }) {
+            index++
+            while (index < lines.size && !lines[index].contains("</classpathentry>")) {
+                index++
+            }
+            if (index < lines.size) {
+                index++
+            }
+            continue
+        }
+        out.add(line)
+        index++
+    }
+    classpathFile.writeText(out.joinToString("\n") + "\n")
+}
+
+fun wireEclipseProjectDependency(project: Project, dependencyProjectName: String) {
+    val projectFile = project.file(".project")
+    if (!projectFile.exists()) {
+        return
+    }
+    val marker = "<projects>"
+    val entry = "\t\t<project>$dependencyProjectName</project>"
+    val text = projectFile.readText()
+    if (text.contains(entry)) {
+        return
+    }
+    val updated = if (text.contains("<projects/>")) {
+        text.replace("<projects/>", "<projects>\n$entry\n\t</projects>")
+    } else if (text.contains(marker) && !text.contains(dependencyProjectName)) {
+        text.replace(marker, "$marker\n$entry")
+    } else {
+        text
+    }
+    projectFile.writeText(updated)
 }
 
 tasks.register("setupIde") {

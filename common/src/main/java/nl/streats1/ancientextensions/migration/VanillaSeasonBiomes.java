@@ -4,7 +4,9 @@ import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
 
-/** Fallback route biomes when no Regions Unexplored / Biomes O' Plenty is installed. */
+/**
+ * Fallback route biomes when no Regions Unexplored / Biomes O' Plenty is installed.
+ */
 public final class VanillaSeasonBiomes {
 
     private static final String NAMESPACE = "minecraft";

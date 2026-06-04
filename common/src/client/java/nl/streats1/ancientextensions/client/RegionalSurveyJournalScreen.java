@@ -1,7 +1,5 @@
 package nl.streats1.ancientextensions.client;
 
-import nl.streats1.ancientextensions.AncientExtensionsAssets;
-import nl.streats1.ancientextensions.menu.RegionalSurveyJournalMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
@@ -11,6 +9,9 @@ import net.minecraft.world.entity.player.Inventory;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import nl.streats1.ancientextensions.AncientExtensionsAssets;
+import nl.streats1.ancientextensions.menu.RegionalSurveyJournalMenu;
 
 public class RegionalSurveyJournalScreen extends AbstractContainerScreen<RegionalSurveyJournalMenu> {
 

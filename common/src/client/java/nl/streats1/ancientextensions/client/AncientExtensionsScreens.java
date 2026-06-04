@@ -1,11 +1,12 @@
 package nl.streats1.ancientextensions.client;
 
-import nl.streats1.ancientextensions.registry.ModMenuTypes;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.gui.screens.inventory.MenuAccess;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.MenuAccess;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
+
+import nl.streats1.ancientextensions.registry.ModMenuTypes;
 
 public final class AncientExtensionsScreens {
 

@@ -3,6 +3,18 @@
     {
       "name": "ancient-extensions (root)",
       "path": "."
+    },
+    {
+      "name": "common",
+      "path": "common"
+    },
+    {
+      "name": "fabric",
+      "path": "fabric"
+    },
+    {
+      "name": "neoforge",
+      "path": "neoforge"
     }
   ],
   "settings": {
@@ -10,6 +22,7 @@
     "java.import.gradle.enabled": true,
     "java.import.gradle.wrapper.enabled": true,
     "java.import.eclipse.enabled": true,
+    "java.gradle.buildServer.enabled": "on",
     "java.project.referencedLibraries": [
       ".gradle/loom-cache/remapped_mods/remapped/com/simibubi/create/**/*.jar",
       ".gradle/loom-cache/remapped_mods/remapped/maven/modrinth/sophisticated-core*/**/*.jar",

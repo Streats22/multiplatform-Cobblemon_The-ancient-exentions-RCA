@@ -1,9 +1,10 @@
 package nl.streats1.ancientextensions.kit;
 
-import nl.streats1.ancientextensions.AncientExtensionsConstants;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+
+import nl.streats1.ancientextensions.AncientExtensionsConstants;
 
 public final class KitAdvancements {
 

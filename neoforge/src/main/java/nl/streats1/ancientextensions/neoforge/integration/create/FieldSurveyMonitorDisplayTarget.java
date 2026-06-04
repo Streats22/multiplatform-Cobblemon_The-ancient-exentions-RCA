@@ -3,11 +3,13 @@ package nl.streats1.ancientextensions.neoforge.integration.create;
 import com.simibubi.create.api.behaviour.display.DisplayTarget;
 import com.simibubi.create.content.redstone.displayLink.DisplayLinkContext;
 import com.simibubi.create.content.redstone.displayLink.target.DisplayTargetStats;
-import nl.streats1.ancientextensions.block.FieldSurveyMonitorBlockEntity;
+
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.List;
+
+import nl.streats1.ancientextensions.block.FieldSurveyMonitorBlockEntity;
 
 public final class FieldSurveyMonitorDisplayTarget extends DisplayTarget {
 

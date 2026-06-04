@@ -1,15 +1,12 @@
 package nl.streats1.ancientextensions.fabric.network;
 
-import nl.streats1.ancientextensions.AncientExtensionsContext;
-import nl.streats1.ancientextensions.menu.PassportMenuOpener;
-import nl.streats1.ancientextensions.network.ClaimTierRewardPayload;
-import nl.streats1.ancientextensions.network.SelectSurveyRegionPayload;
-import nl.streats1.ancientextensions.network.TabletActionPayload;
-import nl.streats1.ancientextensions.network.TabletNetworking;
-import nl.streats1.ancientextensions.network.TierRewardNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.server.level.ServerPlayer;
+
+import nl.streats1.ancientextensions.AncientExtensionsContext;
+import nl.streats1.ancientextensions.menu.PassportMenuOpener;
+import nl.streats1.ancientextensions.network.*;
 
 public final class FabricNetworking {
 

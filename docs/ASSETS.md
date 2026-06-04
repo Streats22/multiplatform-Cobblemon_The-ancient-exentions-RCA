@@ -10,13 +10,16 @@ common/src/main/resources/
 └── pack.mcmeta
 ```
 
-Fabric and NeoForge **do not** ship their own `assets/` or `data/` trees. Both platform JARs embed `:common` via Architectury shadow/remap, so every texture and JSON is identical on both loaders.
+Fabric and NeoForge **do not** ship their own `assets/` or `data/` trees. Both platform JARs embed `:common` via
+Architectury shadow/remap, so every texture and JSON is identical on both loaders.
 
 ## Code references
 
 - GUI textures: `AncientExtensionsAssets` (used by all client screens)
-- Mod icon: `assets/ancient_extensions/icon.png` — referenced in `fabric.mod.json` and `neoforge.mods.toml` as `AncientExtensionsAssets.MOD_ICON_PATH`
+- Mod icon: `assets/ancient_extensions/icon.png` — referenced in `fabric.mod.json` and `neoforge.mods.toml` as
+  `AncientExtensionsAssets.MOD_ICON_PATH`
 
 ## Adding or changing art
 
-Edit or add files under `common/src/main/resources/assets/ancient_extensions/` only. Do not copy assets into `fabric/` or `neoforge/`.
+Edit or add files under `common/src/main/resources/assets/ancient_extensions/` only. Do not copy assets into `fabric/`
+or `neoforge/`.

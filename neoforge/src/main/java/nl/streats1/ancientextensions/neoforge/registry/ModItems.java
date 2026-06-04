@@ -1,23 +1,19 @@
 package nl.streats1.ancientextensions.neoforge.registry;
 
-import nl.streats1.ancientextensions.AncientExtensionsConstants;
-import nl.streats1.ancientextensions.item.AncientProfessorsKitItem;
-import nl.streats1.ancientextensions.item.MigrationRouteChartItem;
-import nl.streats1.ancientextensions.item.MigrationRouteCompassItem;
-import nl.streats1.ancientextensions.item.PokeballPouchItem;
-import nl.streats1.ancientextensions.item.RegionalPassportItem;
-import nl.streats1.ancientextensions.integration.OptionalIntegrationMods;
-import nl.streats1.ancientextensions.item.FieldSurveyTabletItem;
-import nl.streats1.ancientextensions.item.RegionalSurveyJournalItem;
-import nl.streats1.ancientextensions.neoforge.integration.sophisticated.FieldSurveyTelemetryUpgradeItem;
-import nl.streats1.ancientextensions.registry.ModContent;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+
+import org.jetbrains.annotations.Nullable;
+
+import nl.streats1.ancientextensions.AncientExtensionsConstants;
+import nl.streats1.ancientextensions.integration.OptionalIntegrationMods;
+import nl.streats1.ancientextensions.item.*;
+import nl.streats1.ancientextensions.neoforge.integration.sophisticated.FieldSurveyTelemetryUpgradeItem;
+import nl.streats1.ancientextensions.registry.ModContent;
 
 public final class ModItems {
 

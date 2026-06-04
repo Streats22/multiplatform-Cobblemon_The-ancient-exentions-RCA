@@ -1,7 +1,8 @@
 package nl.streats1.ancientextensions.block;
 
-import nl.streats1.ancientextensions.pouch.PouchTier;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+
+import nl.streats1.ancientextensions.pouch.PouchTier;
 
 public final class PokeballPouchBlockState {
 

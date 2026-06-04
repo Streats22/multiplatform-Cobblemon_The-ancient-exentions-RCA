@@ -1,14 +1,17 @@
 package nl.streats1.ancientextensions.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import nl.streats1.ancientextensions.block.FieldSurveyMonitorBlockEntity;
+
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+
 import org.joml.Matrix4f;
+
+import nl.streats1.ancientextensions.block.FieldSurveyMonitorBlockEntity;
 
 public class FieldSurveyMonitorRenderer implements BlockEntityRenderer<FieldSurveyMonitorBlockEntity> {
 

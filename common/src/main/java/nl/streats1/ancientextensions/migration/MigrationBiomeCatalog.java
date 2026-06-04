@@ -1,6 +1,5 @@
 package nl.streats1.ancientextensions.migration;
 
-import nl.streats1.ancientextensions.integration.OptionalIntegrationMods;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
@@ -8,6 +7,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+
+import nl.streats1.ancientextensions.integration.OptionalIntegrationMods;
 
 /**
  * Builds seasonal migration biome lists from optional world-gen mods.
@@ -48,7 +49,9 @@ public final class MigrationBiomeCatalog {
         return biomeId != null && isActiveBiomeNamespace(biomeId.getNamespace());
     }
 
-    /** Namespaces used when filtering spawn-pool biome lists at runtime. */
+    /**
+     * Namespaces used when filtering spawn-pool biome lists at runtime.
+     */
     public static Set<String> activeSpawnNamespaces() {
         Set<String> namespaces = new LinkedHashSet<>();
         namespaces.add("minecraft");

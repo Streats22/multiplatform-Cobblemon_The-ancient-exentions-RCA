@@ -1,13 +1,5 @@
 package nl.streats1.ancientextensions.dex;
 
-import nl.streats1.ancientextensions.AncientExtensionsContext;
-import nl.streats1.ancientextensions.migration.MigrationBiomeCatalog;
-import nl.streats1.ancientextensions.migration.MigrationBiomeContext;
-import nl.streats1.ancientextensions.migration.MigrationLeg;
-import nl.streats1.ancientextensions.migration.MigrationRoutes;
-import nl.streats1.ancientextensions.migration.MigrationSeason;
-import nl.streats1.ancientextensions.migration.MigrationSeasonClock;
-import nl.streats1.ancientextensions.migration.MigrationCalendarSource;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -16,7 +8,12 @@ import net.minecraft.server.level.ServerPlayer;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Compact live dashboard for the Field Survey Tablet. */
+import nl.streats1.ancientextensions.AncientExtensionsContext;
+import nl.streats1.ancientextensions.migration.*;
+
+/**
+ * Compact live dashboard for the Field Survey Tablet.
+ */
 public final class FieldSurveyTabletReport {
 
     private static final int MAX_GOALS = 4;

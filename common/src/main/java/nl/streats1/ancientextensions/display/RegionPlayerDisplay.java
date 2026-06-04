@@ -1,13 +1,14 @@
 package nl.streats1.ancientextensions.display;
 
-import nl.streats1.ancientextensions.AncientExtensionsContext;
-import nl.streats1.ancientextensions.dex.SurveyRegion;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.scores.PlayerTeam;
 import net.minecraft.world.scores.Scoreboard;
 
 import java.util.Optional;
+
+import nl.streats1.ancientextensions.AncientExtensionsContext;
+import nl.streats1.ancientextensions.dex.SurveyRegion;
 
 /**
  * Shows each player's survey origin to others via scoreboard teams (tab list + name tag prefix).

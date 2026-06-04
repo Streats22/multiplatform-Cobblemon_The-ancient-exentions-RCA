@@ -1,6 +1,7 @@
 package nl.streats1.ancientextensions.migration;
 
 import net.minecraft.core.BlockPos;
+
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -19,13 +20,21 @@ public record MigrationRouteTarget(
 ) {
 
     public enum State {
-        /** Player is in the correct leg biome; finish catches here. */
+        /**
+         * Player is in the correct leg biome; finish catches here.
+         */
         ON_ROUTE,
-        /** Compass points toward a matching route biome. */
+        /**
+         * Compass points toward a matching route biome.
+         */
         SEEKING_BIOME,
-        /** All legs done this season. */
+        /**
+         * All legs done this season.
+         */
         ROUTE_COMPLETE,
-        /** No matching biome found within search range. */
+        /**
+         * No matching biome found within search range.
+         */
         NOT_FOUND
     }
 

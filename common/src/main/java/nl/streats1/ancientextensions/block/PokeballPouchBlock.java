@@ -1,10 +1,7 @@
 package nl.streats1.ancientextensions.block;
 
 import com.mojang.serialization.MapCodec;
-import nl.streats1.ancientextensions.menu.MenuOpenHelper;
-import nl.streats1.ancientextensions.menu.sync.PouchOpenData;
-import nl.streats1.ancientextensions.pouch.PouchTier;
-import nl.streats1.ancientextensions.pouch.PouchTierData;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
@@ -15,12 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -29,10 +21,16 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
+
+import nl.streats1.ancientextensions.menu.MenuOpenHelper;
+import nl.streats1.ancientextensions.menu.sync.PouchOpenData;
+import nl.streats1.ancientextensions.pouch.PouchTier;
+import nl.streats1.ancientextensions.pouch.PouchTierData;
 
 public class PokeballPouchBlock extends BaseEntityBlock {
 

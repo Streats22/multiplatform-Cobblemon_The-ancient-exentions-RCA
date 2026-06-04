@@ -1,10 +1,11 @@
 package nl.streats1.ancientextensions.menu;
 
-import nl.streats1.ancientextensions.pouch.PokeballFilter;
-import nl.streats1.ancientextensions.registry.ModContent;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+
+import nl.streats1.ancientextensions.pouch.PokeballFilter;
+import nl.streats1.ancientextensions.registry.ModContent;
 
 public class PokeballSlot extends Slot {
 

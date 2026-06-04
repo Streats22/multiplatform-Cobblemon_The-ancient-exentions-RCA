@@ -3,10 +3,12 @@ package nl.streats1.ancientextensions.neoforge.integration.create;
 import com.simibubi.create.content.redstone.displayLink.DisplayLinkContext;
 import com.simibubi.create.content.redstone.displayLink.source.SingleLineDisplaySource;
 import com.simibubi.create.content.redstone.displayLink.target.DisplayTargetStats;
-import nl.streats1.ancientextensions.migration.MigrationBiomeLocator;
-import nl.streats1.ancientextensions.migration.MigrationRouteTarget;
+
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
+
+import nl.streats1.ancientextensions.migration.MigrationBiomeLocator;
+import nl.streats1.ancientextensions.migration.MigrationRouteTarget;
 
 public final class FieldRouteBearingDisplaySource extends SingleLineDisplaySource {
 

@@ -2,7 +2,8 @@
 
 ## How players get the kit
 
-The mod **automatically gives** `ancient_extensions:ancient_professors_kit` the **first time** a player joins a world (once per save, stored on player data).
+The mod **automatically gives** `ancient_extensions:ancient_professors_kit` the **first time** a player joins a world (
+once per save, stored on player data).
 
 - **Not craftable** (no recipe).
 - **Creative mode:** Ancient Extensions tab (for testing).
@@ -16,20 +17,21 @@ Add to the modpack:
 
 `ancient-extensions-neoforge-0.1.0-SNAPSHOT.jar` (or current build from `neoforge/build/libs/`)
 
-Full dependency matrix (Cobblemon, Regions Unexplored, loader versions, MDK links): [docs/DEPENDENCIES.md](../docs/DEPENDENCIES.md).
+Full dependency matrix (Cobblemon, Regions Unexplored, loader versions, MDK
+links): [docs/DEPENDENCIES.md](../docs/DEPENDENCIES.md).
 
-| Mod | Mod ID | Required |
-|-----|--------|----------|
-| Cobblemon 1.7.3+ | `cobblemon` | Yes |
+| Mod                       | Mod ID               | Required                       |
+|---------------------------|----------------------|--------------------------------|
+| Cobblemon 1.7.3+          | `cobblemon`          | Yes                            |
 | Regions Unexplored 0.5.6+ | `regions_unexplored` | Recommended (migration biomes) |
 
 ## Quest flow (recommended)
 
-| Step | Task type | Details |
-|------|-----------|---------|
-| 1 | **Checklist / advancement** | "Pitch your survey camp" — advancement `ancient_extensions:survey/pitch_field_camp` |
-| 2 | **Catch task** | Catch 3 unique species (Cobblemon quest integration or manual) |
-| 3 | **Optional** | Hint: `/ancientextensions survey` |
+| Step | Task type                   | Details                                                                             |
+|------|-----------------------------|-------------------------------------------------------------------------------------|
+| 1    | **Checklist / advancement** | "Pitch your survey camp" — advancement `ancient_extensions:survey/pitch_field_camp` |
+| 2    | **Catch task**              | Catch 3 unique species (Cobblemon quest integration or manual)                      |
+| 3    | **Optional**                | Hint: `/ancientextensions survey`                                                   |
 
 ## FTB Quests (snippet)
 
@@ -39,8 +41,10 @@ Full dependency matrix (Cobblemon, Regions Unexplored, loader versions, MDK link
 
 ## What the kit does (for quest text)
 
-- Places a **comfort survey camp** — lit campfire, small wool tent, ground bedroll, lectern with briefing, chest with backup supplies
-- Gives **15 randomized Poké Balls** (apricorn, ancient, etc.), **6 potions**, and **2 revives** — plus **Regional Survey Briefing** on the camp lectern
+- Places a **comfort survey camp** — lit campfire, small wool tent, ground bedroll, lectern with briefing, chest with
+  backup supplies
+- Gives **15 randomized Poké Balls** (apricorn, ancient, etc.), **6 potions**, and **2 revives** — plus **Regional
+  Survey Briefing** on the camp lectern
 - **One deploy per player** per world (tracked separately from the login grant)
 
 ## Testing

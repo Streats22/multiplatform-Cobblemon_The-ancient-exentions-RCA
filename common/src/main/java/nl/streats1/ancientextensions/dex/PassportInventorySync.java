@@ -1,10 +1,11 @@
 package nl.streats1.ancientextensions.dex;
 
-import nl.streats1.ancientextensions.AncientExtensionsConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+
+import nl.streats1.ancientextensions.AncientExtensionsConstants;
 
 /**
  * Writes the chosen origin onto every regional passport in the player's inventory.
