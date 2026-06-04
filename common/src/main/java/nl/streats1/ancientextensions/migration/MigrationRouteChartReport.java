@@ -18,6 +18,10 @@ public final class MigrationRouteChartReport {
     private MigrationRouteChartReport() {
     }
 
+    private static final ChatFormatting BODY = ChatFormatting.DARK_GRAY;
+    private static final ChatFormatting SECTION = ChatFormatting.DARK_AQUA;
+    private static final ChatFormatting EMPHASIS = ChatFormatting.DARK_GREEN;
+
     /** Lines for the migration route chart screen (current biome, legs, species). */
     public static List<Component> buildLines(ServerPlayer player) {
         MigrationSeason season = MigrationSeasonClock.currentSeason(player.serverLevel());
@@ -26,6 +30,7 @@ public final class MigrationRouteChartReport {
         ResourceLocation biomeId = MigrationBiomeContext.currentBiomeId(player);
 
         List<Component> lines = new ArrayList<>();
+        appendGuide(lines);
         appendBlock(lines, titleLine(season, data));
         appendBlock(lines, hereLine(biomeId, season, data));
         for (Component legBlock : legBlocks(season, data)) {
@@ -35,6 +40,16 @@ public final class MigrationRouteChartReport {
             appendBlock(lines, speciesBlock);
         }
         return List.copyOf(lines);
+    }
+
+    private static void appendGuide(List<Component> lines) {
+        lines.add(Component.translatable("ancient_extensions.migration_chart.guide_title")
+                .withStyle(SECTION, ChatFormatting.BOLD));
+        for (int i = 1; i <= 4; i++) {
+            lines.add(Component.translatable("ancient_extensions.migration_chart.guide_line" + i)
+                    .withStyle(BODY));
+        }
+        lines.add(Component.empty());
     }
 
     private static void appendBlock(List<Component> lines, Component block) {
@@ -61,7 +76,7 @@ public final class MigrationRouteChartReport {
                         data.getCurrentLegCatches(),
                         data.getMigrationCompletions(season)
                 )
-                .withStyle(ChatFormatting.BLACK);
+                .withStyle(BODY);
     }
 
     private static Component hereLine(ResourceLocation biomeId, MigrationSeason season, RegionalSurveyData data) {
@@ -71,7 +86,7 @@ public final class MigrationRouteChartReport {
 
         if (biomeId == null) {
             return Component.translatable("ancient_extensions.migration_chart.here_unknown")
-                    .withStyle(ChatFormatting.BLACK);
+                    .withStyle(BODY);
         }
         if (MigrationBiomeContext.isVanillaBiome(biomeId)) {
             if (activeLeg >= route.size()) {
@@ -79,14 +94,14 @@ public final class MigrationRouteChartReport {
                                 "ancient_extensions.migration_chart.here_vanilla_done",
                                 biomeName
                         )
-                        .withStyle(ChatFormatting.BLACK);
+                        .withStyle(BODY);
             }
             return Component.translatable(
                             "ancient_extensions.migration_chart.here_vanilla_active",
                             biomeName,
                             activeLeg + 1
                     )
-                    .withStyle(ChatFormatting.BLACK);
+                    .withStyle(EMPHASIS);
         }
 
         List<Integer> legs = MigrationBiomeContext.routeLegIndices(season, biomeId);
@@ -95,7 +110,7 @@ public final class MigrationRouteChartReport {
                             "ancient_extensions.migration_chart.here_off_route",
                             biomeName
                     )
-                    .withStyle(ChatFormatting.BLACK);
+                    .withStyle(BODY);
         }
 
         if (legs.contains(activeLeg) && activeLeg < route.size()) {
@@ -107,7 +122,7 @@ public final class MigrationRouteChartReport {
                             data.getCurrentLegCatches(),
                             leg.requiredCatches()
                     )
-                    .withStyle(ChatFormatting.BLACK);
+                    .withStyle(EMPHASIS);
         }
 
         int nearest = legs.getFirst();
@@ -117,7 +132,7 @@ public final class MigrationRouteChartReport {
                         nearest + 1,
                         activeLeg + 1
                 )
-                .withStyle(ChatFormatting.BLACK);
+                .withStyle(BODY);
     }
 
     private static List<Component> legBlocks(MigrationSeason season, RegionalSurveyData data) {
@@ -148,7 +163,7 @@ public final class MigrationRouteChartReport {
             StringBuilder chunk = new StringBuilder(header);
             for (String line : biomeLines) {
                 if (chunk.length() + line.length() + 1 > PAGE_CHAR_LIMIT) {
-                    blocks.add(Component.literal(chunk.toString()).withStyle(ChatFormatting.BLACK));
+                    blocks.add(Component.literal(chunk.toString()).withStyle(BODY));
                     chunk = new StringBuilder(line);
                 } else {
                     if (!chunk.isEmpty()) {
@@ -157,7 +172,7 @@ public final class MigrationRouteChartReport {
                     chunk.append(line);
                 }
             }
-            blocks.add(Component.literal(chunk.toString()).withStyle(ChatFormatting.BLACK));
+            blocks.add(Component.literal(chunk.toString()).withStyle(BODY));
         }
         return blocks;
     }
@@ -189,7 +204,7 @@ public final class MigrationRouteChartReport {
         if (species.isEmpty()) {
             blocks.add(
                     Component.translatable("ancient_extensions.migration_chart.species_empty", season.displayName())
-                            .withStyle(ChatFormatting.BLACK)
+                            .withStyle(BODY)
             );
             return blocks;
         }
@@ -202,7 +217,7 @@ public final class MigrationRouteChartReport {
         for (ResourceLocation id : species) {
             String name = formatSpecies(id);
             if (chunk.length() + name.length() + 3 > PAGE_CHAR_LIMIT) {
-                blocks.add(Component.literal(chunk.toString()).withStyle(ChatFormatting.BLACK));
+                blocks.add(Component.literal(chunk.toString()).withStyle(BODY));
                 chunk = new StringBuilder(name);
             } else if (chunk.length() == header.length()) {
                 chunk.append('\n').append(name);
@@ -211,7 +226,7 @@ public final class MigrationRouteChartReport {
             }
         }
         if (!chunk.isEmpty()) {
-            blocks.add(Component.literal(chunk.toString()).withStyle(ChatFormatting.BLACK));
+            blocks.add(Component.literal(chunk.toString()).withStyle(BODY));
         }
         return blocks;
     }

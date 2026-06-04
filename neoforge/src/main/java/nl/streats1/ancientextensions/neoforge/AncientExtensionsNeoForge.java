@@ -9,6 +9,7 @@ import nl.streats1.ancientextensions.neoforge.client.AncientExtensionsNeoForgeCl
 import nl.streats1.ancientextensions.neoforge.config.NeoForgeCampConfig;
 import nl.streats1.ancientextensions.neoforge.data.ModAttachments;
 import nl.streats1.ancientextensions.neoforge.data.NeoForgeSurveyBackend;
+import nl.streats1.ancientextensions.neoforge.event.CartographerTradeRegistration;
 import nl.streats1.ancientextensions.neoforge.event.CobblemonEventHandlers;
 import nl.streats1.ancientextensions.neoforge.registry.ModBlockEntities;
 import nl.streats1.ancientextensions.neoforge.registry.ModBlocks;
@@ -60,6 +61,7 @@ public class AncientExtensionsNeoForge {
                 event.enqueueWork(AncientExtensionsNeoForgeClient::initClientHooks));
         ModCreativeTabs.register(modBus);
         NeoForge.EVENT_BUS.addListener(this::registerCommands);
+        NeoForge.EVENT_BUS.register(CartographerTradeRegistration.class);
         CobblemonEventHandlers.register(context);
     }
 

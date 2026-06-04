@@ -5,6 +5,7 @@ import nl.streats1.ancientextensions.item.AncientProfessorsKitItem;
 import nl.streats1.ancientextensions.item.MigrationRouteChartItem;
 import nl.streats1.ancientextensions.item.PokeballPouchItem;
 import nl.streats1.ancientextensions.item.RegionalPassportItem;
+import nl.streats1.ancientextensions.item.FieldSurveyTabletItem;
 import nl.streats1.ancientextensions.item.RegionalSurveyJournalItem;
 import nl.streats1.ancientextensions.registry.ModContent;
 import net.minecraft.core.registries.Registries;
@@ -27,6 +28,11 @@ public final class ModItems {
     public static final DeferredItem<Item> REGIONAL_SURVEY_JOURNAL = ITEMS.register(
             "regional_survey_journal",
             () -> new RegionalSurveyJournalItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON))
+    );
+
+    public static final DeferredItem<Item> FIELD_SURVEY_TABLET = ITEMS.register(
+            "field_survey_tablet",
+            () -> new FieldSurveyTabletItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON))
     );
 
     public static final DeferredItem<Item> MIGRATION_ROUTE_CHART = ITEMS.register(
@@ -59,6 +65,7 @@ public final class ModItems {
         if (event.getRegistryKey().equals(Registries.ITEM)) {
             ModContent.ANCIENT_PROFESSORS_KIT = ANCIENT_PROFESSORS_KIT.get();
             ModContent.REGIONAL_SURVEY_JOURNAL = REGIONAL_SURVEY_JOURNAL.get();
+            ModContent.FIELD_SURVEY_TABLET = FIELD_SURVEY_TABLET.get();
             ModContent.MIGRATION_ROUTE_CHART = MIGRATION_ROUTE_CHART.get();
             ModContent.REGIONAL_PASSPORT = REGIONAL_PASSPORT.get();
             ModContent.POKEBALL_POUCH = POKEBALL_POUCH.get();

@@ -1,6 +1,7 @@
 package nl.streats1.ancientextensions.item;
 
 import nl.streats1.ancientextensions.kit.ProfessorsKitLogic;
+import nl.streats1.ancientextensions.util.ItemGuideTooltips;
 import nl.streats1.ancientextensions.kit.KitAdvancements;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -46,6 +47,12 @@ public class AncientProfessorsKitItem extends Item {
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
         tooltip.add(Component.translatable("item.ancient_extensions.ancient_professors_kit.description")
                 .withStyle(ChatFormatting.GRAY));
+        ItemGuideTooltips.append(
+                tooltip,
+                flag,
+                "ancient_extensions.guide.kit_detail1",
+                "ancient_extensions.guide.kit_detail2"
+        );
         tooltip.add(Component.translatable("ancient_extensions.kit.tooltip_use")
                 .withStyle(ChatFormatting.DARK_AQUA));
     }

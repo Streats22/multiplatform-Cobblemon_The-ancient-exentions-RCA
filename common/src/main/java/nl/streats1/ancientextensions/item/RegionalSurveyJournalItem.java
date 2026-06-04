@@ -1,6 +1,7 @@
 package nl.streats1.ancientextensions.item;
 
 import nl.streats1.ancientextensions.AncientExtensionsContext;
+import nl.streats1.ancientextensions.util.ItemGuideTooltips;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -38,6 +39,12 @@ public class RegionalSurveyJournalItem extends Item {
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
         tooltip.add(Component.translatable("item.ancient_extensions.regional_survey_journal.description")
                 .withStyle(ChatFormatting.GRAY));
+        ItemGuideTooltips.append(
+                tooltip,
+                flag,
+                "ancient_extensions.guide.journal_detail1",
+                "ancient_extensions.guide.journal_detail2"
+        );
         tooltip.add(Component.translatable("ancient_extensions.journal.tooltip_use")
                 .withStyle(ChatFormatting.DARK_AQUA));
     }

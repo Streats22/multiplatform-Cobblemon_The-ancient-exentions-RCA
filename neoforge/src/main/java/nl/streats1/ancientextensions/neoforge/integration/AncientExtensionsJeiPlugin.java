@@ -6,23 +6,21 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.ingredients.subtypes.ISubtypeInterpreter;
 import mezz.jei.api.ingredients.subtypes.UidContext;
 import mezz.jei.api.registration.IExtraIngredientRegistration;
+import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
+import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
 import nl.streats1.ancientextensions.AncientExtensionsConstants;
+import nl.streats1.ancientextensions.client.integration.AncientExtensionsJeiRecipes;
 import nl.streats1.ancientextensions.neoforge.registry.ModItems;
 import nl.streats1.ancientextensions.pouch.PouchDisplayStacks;
 import nl.streats1.ancientextensions.pouch.PouchTier;
 import nl.streats1.ancientextensions.pouch.PouchTierData;
-import nl.streats1.ancientextensions.registry.ModRecipeSerializers;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.CraftingRecipe;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,19 +62,12 @@ public class AncientExtensionsJeiPlugin implements IModPlugin {
     }
 
     @Override
+    public void registerVanillaCategoryExtensions(IVanillaCategoryExtensionRegistration registration) {
+        AncientExtensionsJeiRecipes.registerVanillaExtensions(registration);
+    }
+
+    @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        var level = Minecraft.getInstance().level;
-        if (level == null) {
-            return;
-        }
-
-        List<RecipeHolder<CraftingRecipe>> pouchRecipes = level.getRecipeManager()
-                .getAllRecipesFor(RecipeType.CRAFTING)
-                .stream()
-                .filter(holder -> holder.value().getSerializer() == ModRecipeSerializers.POKEBALL_POUCH)
-                .toList();
-        registration.addRecipes(mezz.jei.api.constants.RecipeTypes.CRAFTING, pouchRecipes);
-
         List<ItemStack> exampleOutputs = new ArrayList<>();
         for (PouchTier tier : PouchTier.values()) {
             exampleOutputs.add(PouchDisplayStacks.tierSample(ModItems.POKEBALL_POUCH.get(), tier));
@@ -109,6 +100,22 @@ public class AncientExtensionsJeiPlugin implements IModPlugin {
                 new ItemStack(Items.STRING),
                 VanillaTypes.ITEM_STACK,
                 Component.translatable("ancient_extensions.jei.pokeball_pouch.strap")
+        );
+
+        registration.addIngredientInfo(
+                new ItemStack(ModItems.FIELD_SURVEY_TABLET.get()),
+                VanillaTypes.ITEM_STACK,
+                Component.translatable("item.ancient_extensions.field_survey_tablet.description"),
+                Component.translatable("ancient_extensions.tablet.tooltip_use")
+        );
+    }
+
+    @Override
+    public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
+        AncientExtensionsJeiRecipes.registerCatalysts(
+                registration,
+                ModItems.POKEBALL_POUCH.get(),
+                ModItems.FIELD_SURVEY_TABLET.get()
         );
     }
 }

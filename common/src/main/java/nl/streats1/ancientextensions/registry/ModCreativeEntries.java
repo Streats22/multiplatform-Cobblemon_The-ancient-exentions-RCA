@@ -15,6 +15,7 @@ public final class ModCreativeEntries {
     public static void acceptAll(java.util.function.Consumer<ItemStack> output) {
         output.accept(new ItemStack(ModContent.ANCIENT_PROFESSORS_KIT));
         output.accept(new ItemStack(ModContent.REGIONAL_SURVEY_JOURNAL));
+        output.accept(new ItemStack(ModContent.FIELD_SURVEY_TABLET));
         output.accept(new ItemStack(ModContent.MIGRATION_ROUTE_CHART));
         output.accept(new ItemStack(ModContent.REGIONAL_PASSPORT));
         acceptPouchVariants(output, ModContent.POKEBALL_POUCH);

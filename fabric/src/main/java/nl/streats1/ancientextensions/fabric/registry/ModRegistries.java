@@ -7,13 +7,16 @@ import nl.streats1.ancientextensions.item.AncientProfessorsKitItem;
 import nl.streats1.ancientextensions.item.MigrationRouteChartItem;
 import nl.streats1.ancientextensions.item.PokeballPouchItem;
 import nl.streats1.ancientextensions.item.RegionalPassportItem;
+import nl.streats1.ancientextensions.item.FieldSurveyTabletItem;
 import nl.streats1.ancientextensions.item.RegionalSurveyJournalItem;
+import nl.streats1.ancientextensions.menu.FieldSurveyTabletMenu;
 import nl.streats1.ancientextensions.menu.MigrationRouteChartMenu;
 import nl.streats1.ancientextensions.menu.PokeballPouchMenu;
 import nl.streats1.ancientextensions.menu.RegionalPassportMenu;
 import nl.streats1.ancientextensions.menu.RegionalSurveyJournalMenu;
 import nl.streats1.ancientextensions.menu.sync.ChartOpenData;
 import nl.streats1.ancientextensions.menu.sync.JournalOpenData;
+import nl.streats1.ancientextensions.menu.sync.TabletOpenData;
 import nl.streats1.ancientextensions.menu.sync.PassportOpenData;
 import nl.streats1.ancientextensions.menu.sync.PouchOpenData;
 import nl.streats1.ancientextensions.recipe.PokeballPouchRecipe;
@@ -89,6 +92,14 @@ public final class ModRegistries {
                         ChartOpenData.STREAM_CODEC
                 )
         );
+        ModMenuTypes.FIELD_SURVEY_TABLET = Registry.register(
+                BuiltInRegistries.MENU,
+                id("field_survey_tablet"),
+                new ExtendedScreenHandlerType<>(
+                        (syncId, inv, data) -> new FieldSurveyTabletMenu(syncId, inv, data),
+                        TabletOpenData.STREAM_CODEC
+                )
+        );
 
         ModContent.ANCIENT_PROFESSORS_KIT = Registry.register(
                 BuiltInRegistries.ITEM,
@@ -99,6 +110,11 @@ public final class ModRegistries {
                 BuiltInRegistries.ITEM,
                 id("regional_survey_journal"),
                 new RegionalSurveyJournalItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON))
+        );
+        ModContent.FIELD_SURVEY_TABLET = Registry.register(
+                BuiltInRegistries.ITEM,
+                id("field_survey_tablet"),
+                new FieldSurveyTabletItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON))
         );
         ModContent.MIGRATION_ROUTE_CHART = Registry.register(
                 BuiltInRegistries.ITEM,

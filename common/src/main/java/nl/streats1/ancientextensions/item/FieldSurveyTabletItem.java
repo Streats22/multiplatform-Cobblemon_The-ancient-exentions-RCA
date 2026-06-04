@@ -1,6 +1,6 @@
 package nl.streats1.ancientextensions.item;
 
-import nl.streats1.ancientextensions.menu.MigrationRouteChartMenuOpener;
+import nl.streats1.ancientextensions.menu.TabletMenuOpener;
 import nl.streats1.ancientextensions.util.ItemGuideTooltips;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -16,9 +16,9 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-public class MigrationRouteChartItem extends Item {
+public class FieldSurveyTabletItem extends Item {
 
-    public MigrationRouteChartItem(Properties properties) {
+    public FieldSurveyTabletItem(Properties properties) {
         super(properties);
     }
 
@@ -29,7 +29,7 @@ public class MigrationRouteChartItem extends Item {
             return InteractionResultHolder.success(stack);
         }
         if (player instanceof ServerPlayer serverPlayer) {
-            MigrationRouteChartMenuOpener.open(serverPlayer);
+            TabletMenuOpener.open(serverPlayer);
             return InteractionResultHolder.success(stack);
         }
         return InteractionResultHolder.pass(stack);
@@ -37,16 +37,15 @@ public class MigrationRouteChartItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("item.ancient_extensions.migration_route_chart.description")
+        tooltip.add(Component.translatable("item.ancient_extensions.field_survey_tablet.description")
                 .withStyle(ChatFormatting.GRAY));
         ItemGuideTooltips.append(
                 tooltip,
                 flag,
-                "ancient_extensions.guide.chart_detail1",
-                "ancient_extensions.guide.chart_detail2",
-                "ancient_extensions.guide.chart_trade"
+                "ancient_extensions.guide.tablet_detail1",
+                "ancient_extensions.guide.tablet_detail2"
         );
-        tooltip.add(Component.translatable("ancient_extensions.migration_chart.tooltip_use")
+        tooltip.add(Component.translatable("ancient_extensions.tablet.tooltip_use")
                 .withStyle(ChatFormatting.DARK_AQUA));
     }
 

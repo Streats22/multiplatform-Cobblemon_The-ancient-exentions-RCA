@@ -3,6 +3,7 @@ package nl.streats1.ancientextensions.item;
 import nl.streats1.ancientextensions.dex.PassportStackData;
 import nl.streats1.ancientextensions.dex.SurveyRegion;
 import nl.streats1.ancientextensions.AncientExtensionsContext;
+import nl.streats1.ancientextensions.util.ItemGuideTooltips;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -40,6 +41,12 @@ public class RegionalPassportItem extends Item {
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
         tooltip.add(Component.translatable("item.ancient_extensions.regional_passport.description")
                 .withStyle(ChatFormatting.GRAY));
+        ItemGuideTooltips.append(
+                tooltip,
+                flag,
+                "ancient_extensions.guide.passport_detail1",
+                "ancient_extensions.guide.passport_detail2"
+        );
         Optional<SurveyRegion> fromStack = PassportStackData.readOrigin(stack);
         if (fromStack.isPresent()) {
             tooltip.add(Component.translatable("ancient_extensions.passport.tooltip_origin")

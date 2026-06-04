@@ -10,6 +10,7 @@ See [docs/DESIGN.md](docs/DESIGN.md) for locked design decisions and [docs/DEPEN
 |--------|----------|
 | **Ancient Professor's Field Kit** | Granted on **first join** to a world (not craftable); right-click to pitch camp + starter supplies; available in **creative** for testing |
 | **Regional Survey** | Catch-only dex: Research Points and tiers from `POKEMON_CAPTURED` |
+| **Field Survey Tablet** | Pocket dashboard on join; shortcuts to journal, passport, route chart, and rank claims |
 | **Seasonal migration** | 3-leg routes per season; migratory species in route biomes; repeatable each season with diminishing RP; additive spawn pools |
 
 ## Commands
@@ -42,5 +43,4 @@ Add `ancient-extensions-neoforge-*.jar` to Rubius Cobblemon. Kit auto-grants on 
 ## Roadmap
 
 - Serene Seasons Plus calendar hook
-- Tier rewards (CobbleDollars, passport item)
-- Field Survey Tablet item
+- CobbleDollars tier rewards (optional economy hook)

@@ -23,8 +23,9 @@ public final class FabricMenuOpenHelper {
             Object syncData,
             MenuOpenHelper.ExtraDataWriter writer
     ) {
-        player.openMenu(new ExtendedScreenHandlerFactory() {
+        player.openMenu(new ExtendedScreenHandlerFactory<>() {
             @Override
+            @SuppressWarnings("unchecked")
             public Object getScreenOpeningData(ServerPlayer player) {
                 return syncData;
             }

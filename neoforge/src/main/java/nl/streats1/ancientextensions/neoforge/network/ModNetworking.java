@@ -4,6 +4,8 @@ import nl.streats1.ancientextensions.AncientExtensionsContext;
 import nl.streats1.ancientextensions.menu.PassportMenuOpener;
 import nl.streats1.ancientextensions.network.ClaimTierRewardPayload;
 import nl.streats1.ancientextensions.network.SelectSurveyRegionPayload;
+import nl.streats1.ancientextensions.network.TabletActionPayload;
+import nl.streats1.ancientextensions.network.TabletNetworking;
 import nl.streats1.ancientextensions.network.TierRewardNetworking;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
@@ -25,6 +27,11 @@ public final class ModNetworking {
                 ClaimTierRewardPayload.TYPE,
                 ClaimTierRewardPayload.STREAM_CODEC,
                 ModNetworking::handleClaimTierReward
+        );
+        registrar.playToServer(
+                TabletActionPayload.TYPE,
+                TabletActionPayload.STREAM_CODEC,
+                ModNetworking::handleTabletAction
         );
     }
 
@@ -48,5 +55,12 @@ public final class ModNetworking {
             return;
         }
         serverPlayer.server.execute(() -> TierRewardNetworking.handleClaim(serverPlayer, payload));
+    }
+
+    private static void handleTabletAction(TabletActionPayload payload, IPayloadContext context) {
+        if (!(context.player() instanceof ServerPlayer serverPlayer)) {
+            return;
+        }
+        serverPlayer.server.execute(() -> TabletNetworking.handle(serverPlayer, payload));
     }
 }

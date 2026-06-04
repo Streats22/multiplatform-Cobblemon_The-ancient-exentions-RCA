@@ -5,6 +5,7 @@ import nl.streats1.ancientextensions.menu.sync.PouchOpenData;
 import nl.streats1.ancientextensions.menu.PokeballPouchMenu;
 import nl.streats1.ancientextensions.pouch.PouchTier;
 import nl.streats1.ancientextensions.pouch.PouchTierData;
+import nl.streats1.ancientextensions.util.ItemGuideTooltips;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -65,6 +66,11 @@ public class PokeballPouchItem extends BlockItem {
         PouchTier tier = PouchTierData.getTier(stack);
         tooltip.add(Component.translatable("item.ancient_extensions.pokeball_pouch.description")
                 .withStyle(ChatFormatting.GRAY));
+        ItemGuideTooltips.append(
+                tooltip,
+                flag,
+                "ancient_extensions.guide.pouch_detail1"
+        );
         tooltip.add(Component.translatable(
                 "item.ancient_extensions.pokeball_pouch.slots",
                 PouchTierData.getSlotCount(stack)

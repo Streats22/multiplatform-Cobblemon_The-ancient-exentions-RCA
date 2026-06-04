@@ -5,11 +5,13 @@ import nl.streats1.ancientextensions.pouch.PouchTierData;
 import nl.streats1.ancientextensions.registry.ModContent;
 import nl.streats1.ancientextensions.registry.ModRecipeSerializers;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
@@ -68,6 +70,32 @@ public class PokeballPouchRecipe extends CustomRecipe {
     @Override
     public RecipeSerializer<?> getSerializer() {
         return ModRecipeSerializers.POKEBALL_POUCH;
+    }
+
+    /**
+     * Grid ingredients for recipe books and JEI (row-major 3×3, same layout as {@link #matches}).
+     */
+    public NonNullList<Ingredient> jeiIngredients() {
+        Ingredient leather = Ingredient.of(Items.LEATHER);
+        Ingredient string = Ingredient.of(Items.STRING);
+        Ingredient ball = Ingredient.of(PokeballFilter.COBBLEMON_POKE_BALLS);
+        return NonNullList.of(
+                Ingredient.EMPTY,
+                leather,
+                string,
+                leather,
+                leather,
+                ball,
+                leather,
+                Ingredient.EMPTY,
+                leather,
+                Ingredient.EMPTY
+        );
+    }
+
+    @Override
+    public NonNullList<Ingredient> getIngredients() {
+        return jeiIngredients();
     }
 
     private static ItemStack getBall(CraftingInput input) {
