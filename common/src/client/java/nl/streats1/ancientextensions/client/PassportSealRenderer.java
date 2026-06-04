@@ -1,6 +1,6 @@
 package nl.streats1.ancientextensions.client;
 
-import nl.streats1.ancientextensions.AncientExtensionsConstants;
+import nl.streats1.ancientextensions.AncientExtensionsAssets;
 import nl.streats1.ancientextensions.dex.SurveyRegion;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -15,10 +15,7 @@ public final class PassportSealRenderer {
 
     public static final int SEAL_SIZE = 56;
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(
-            AncientExtensionsConstants.MOD_ID,
-            "textures/gui/regional_passport.png"
-    );
+    private static final ResourceLocation TEXTURE = AncientExtensionsAssets.GUI_REGIONAL_PASSPORT;
     private static final int SEAL_U = 0;
     private static final int SEAL_V = 200;
     private static final int SEAL_W = 56;

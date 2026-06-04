@@ -31,6 +31,7 @@ dependencies {
     modImplementation(fabricApi.module("fabric-networking-api-v1", property("fabric_api_version").toString()))
     modImplementation(fabricApi.module("fabric-object-builder-api-v1", property("fabric_api_version").toString()))
     modImplementation(fabricApi.module("fabric-item-group-api-v1", property("fabric_api_version").toString()))
+    modImplementation(fabricApi.module("fabric-rendering-v1", property("fabric_api_version").toString()))
 
     modCompileOnly("mezz.jei:jei-${property("minecraft_version")}-fabric-api:${property("jei_version")}")
     modRuntimeOnly("mezz.jei:jei-${property("minecraft_version")}-fabric:${property("jei_version")}")

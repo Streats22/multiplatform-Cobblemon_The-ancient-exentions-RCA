@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 /**
  * One stop on a seasonal migration route.
- * Listed Regions Unexplored biomes count, and any vanilla ({@code minecraft:}) biome counts too
+ * Listed mod biomes count when their mod is loaded; any vanilla ({@code minecraft:}) biome counts too
  * (including when using {@link RegionsUnexploredExpansion}).
  */
 public record MigrationLeg(
@@ -21,13 +21,13 @@ public record MigrationLeg(
         if (biomeId == null) {
             return false;
         }
-        if ("minecraft".equals(biomeId.getNamespace())) {
+        if (MigrationBiomeContext.isVanillaBiome(biomeId)) {
             return true;
         }
-        if (RegionsUnexploredBiomes.isRegionsUnexplored(biomeId)) {
-            return biomeIds.contains(biomeId);
+        if (!MigrationBiomeCatalog.isRoutableModBiome(biomeId)) {
+            return false;
         }
-        return false;
+        return biomeIds.contains(biomeId);
     }
 
     /** Human-readable biome list for chat and commands. */

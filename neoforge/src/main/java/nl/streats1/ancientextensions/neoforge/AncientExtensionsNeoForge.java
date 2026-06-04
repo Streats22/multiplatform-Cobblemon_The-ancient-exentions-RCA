@@ -11,6 +11,8 @@ import nl.streats1.ancientextensions.neoforge.data.ModAttachments;
 import nl.streats1.ancientextensions.neoforge.data.NeoForgeSurveyBackend;
 import nl.streats1.ancientextensions.neoforge.event.CartographerTradeRegistration;
 import nl.streats1.ancientextensions.neoforge.event.CobblemonEventHandlers;
+import nl.streats1.ancientextensions.neoforge.integration.create.CreateCompat;
+import nl.streats1.ancientextensions.neoforge.integration.sophisticated.SophisticatedBackpacksCompat;
 import nl.streats1.ancientextensions.neoforge.registry.ModBlockEntities;
 import nl.streats1.ancientextensions.neoforge.registry.ModBlocks;
 import nl.streats1.ancientextensions.neoforge.registry.ModCreativeTabs;
@@ -26,6 +28,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 
@@ -55,8 +58,13 @@ public class AncientExtensionsNeoForge {
             }
         });
         ModMenus.register(modBus);
+        modBus.addListener((FMLCommonSetupEvent event) -> event.enqueueWork(() -> {
+            CreateCompat.init();
+            SophisticatedBackpacksCompat.init();
+        }));
         modBus.addListener(ModNetworking::register);
         modBus.addListener(AncientExtensionsNeoForgeClient::registerScreens);
+        modBus.addListener(AncientExtensionsNeoForgeClient::registerRenderers);
         modBus.addListener((FMLClientSetupEvent event) ->
                 event.enqueueWork(AncientExtensionsNeoForgeClient::initClientHooks));
         ModCreativeTabs.register(modBus);

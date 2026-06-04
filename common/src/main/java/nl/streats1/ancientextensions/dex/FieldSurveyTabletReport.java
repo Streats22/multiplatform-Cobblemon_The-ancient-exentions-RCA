@@ -1,11 +1,13 @@
 package nl.streats1.ancientextensions.dex;
 
 import nl.streats1.ancientextensions.AncientExtensionsContext;
+import nl.streats1.ancientextensions.migration.MigrationBiomeCatalog;
 import nl.streats1.ancientextensions.migration.MigrationBiomeContext;
 import nl.streats1.ancientextensions.migration.MigrationLeg;
 import nl.streats1.ancientextensions.migration.MigrationRoutes;
 import nl.streats1.ancientextensions.migration.MigrationSeason;
 import nl.streats1.ancientextensions.migration.MigrationSeasonClock;
+import nl.streats1.ancientextensions.migration.MigrationCalendarSource;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -54,6 +56,12 @@ public final class FieldSurveyTabletReport {
         lines.add(Component.empty());
         lines.add(Component.translatable("ancient_extensions.tablet.section_field")
                 .withStyle(ChatFormatting.DARK_AQUA, ChatFormatting.BOLD));
+        lines.add(calendarLine());
+        lines.add(Component.translatable(
+                        "ancient_extensions.tablet.worldgen",
+                        MigrationBiomeCatalog.activeWorldGenLabel()
+                )
+                .withStyle(ChatFormatting.DARK_GRAY));
         lines.add(fieldLine(player, data, season));
 
         lines.add(Component.empty());
@@ -76,6 +84,15 @@ public final class FieldSurveyTabletReport {
         }
 
         return List.copyOf(lines);
+    }
+
+    private static Component calendarLine() {
+        MigrationCalendarSource source = MigrationSeasonClock.calendarSource();
+        return Component.translatable(
+                        "ancient_extensions.tablet.calendar",
+                        source.label()
+                )
+                .withStyle(ChatFormatting.DARK_GRAY);
     }
 
     private static Component fieldLine(ServerPlayer player, RegionalSurveyData data, MigrationSeason season) {

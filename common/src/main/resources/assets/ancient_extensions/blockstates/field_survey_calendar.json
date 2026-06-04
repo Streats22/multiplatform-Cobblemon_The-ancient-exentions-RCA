@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "ancient_extensions:block/field_survey_calendar",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "ancient_extensions:block/field_survey_calendar"
+    },
+    "facing=west": {
+      "model": "ancient_extensions:block/field_survey_calendar",
+      "y": 90
+    },
+    "facing=east": {
+      "model": "ancient_extensions:block/field_survey_calendar",
+      "y": 270
+    }
+  }
+}

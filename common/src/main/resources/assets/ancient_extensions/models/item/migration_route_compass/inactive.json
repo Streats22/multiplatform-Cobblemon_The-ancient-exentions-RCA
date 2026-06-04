@@ -1,0 +1,206 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "ancient_extensions:item/migration_route_compass/inactive_16"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "angle": 0.0
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_16"
+    },
+    {
+      "predicate": {
+        "angle": 0.015625
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_17"
+    },
+    {
+      "predicate": {
+        "angle": 0.046875
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_18"
+    },
+    {
+      "predicate": {
+        "angle": 0.078125
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_19"
+    },
+    {
+      "predicate": {
+        "angle": 0.109375
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_20"
+    },
+    {
+      "predicate": {
+        "angle": 0.140625
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_21"
+    },
+    {
+      "predicate": {
+        "angle": 0.171875
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_22"
+    },
+    {
+      "predicate": {
+        "angle": 0.203125
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_23"
+    },
+    {
+      "predicate": {
+        "angle": 0.234375
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_24"
+    },
+    {
+      "predicate": {
+        "angle": 0.265625
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_25"
+    },
+    {
+      "predicate": {
+        "angle": 0.296875
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_26"
+    },
+    {
+      "predicate": {
+        "angle": 0.328125
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_27"
+    },
+    {
+      "predicate": {
+        "angle": 0.359375
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_28"
+    },
+    {
+      "predicate": {
+        "angle": 0.390625
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_29"
+    },
+    {
+      "predicate": {
+        "angle": 0.421875
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_30"
+    },
+    {
+      "predicate": {
+        "angle": 0.453125
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_31"
+    },
+    {
+      "predicate": {
+        "angle": 0.484375
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_00"
+    },
+    {
+      "predicate": {
+        "angle": 0.515625
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_01"
+    },
+    {
+      "predicate": {
+        "angle": 0.546875
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_02"
+    },
+    {
+      "predicate": {
+        "angle": 0.578125
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_03"
+    },
+    {
+      "predicate": {
+        "angle": 0.609375
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_04"
+    },
+    {
+      "predicate": {
+        "angle": 0.640625
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_05"
+    },
+    {
+      "predicate": {
+        "angle": 0.671875
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_06"
+    },
+    {
+      "predicate": {
+        "angle": 0.703125
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_07"
+    },
+    {
+      "predicate": {
+        "angle": 0.734375
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_08"
+    },
+    {
+      "predicate": {
+        "angle": 0.765625
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_09"
+    },
+    {
+      "predicate": {
+        "angle": 0.796875
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_10"
+    },
+    {
+      "predicate": {
+        "angle": 0.828125
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_11"
+    },
+    {
+      "predicate": {
+        "angle": 0.859375
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_12"
+    },
+    {
+      "predicate": {
+        "angle": 0.890625
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_13"
+    },
+    {
+      "predicate": {
+        "angle": 0.921875
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_14"
+    },
+    {
+      "predicate": {
+        "angle": 0.953125
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_15"
+    },
+    {
+      "predicate": {
+        "angle": 0.984375
+      },
+      "model": "ancient_extensions:item/migration_route_compass/inactive_16"
+    }
+  ]
+}

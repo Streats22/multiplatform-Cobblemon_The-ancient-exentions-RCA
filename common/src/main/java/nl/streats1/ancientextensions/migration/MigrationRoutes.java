@@ -8,25 +8,30 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Migration routes — each leg highlights a partition of Regions Unexplored biomes for the season
- * and also accepts every vanilla Overworld biome ({@code minecraft:*}) for catch credit
- * (including Regions Unexplored: Expansion remodels).
+ * Migration routes — each leg partitions biomes from optional world-gen mods (RU, BOP) when present,
+ * otherwise {@link VanillaSeasonBiomes}. Any vanilla Overworld biome ({@code minecraft:*}) always
+ * counts for catch credit (including Regions Unexplored: Expansion remodels).
  */
 public final class MigrationRoutes {
 
-    private static final Map<MigrationSeason, List<MigrationLeg>> ROUTES = new EnumMap<>(MigrationSeason.class);
+    private static Map<MigrationSeason, List<MigrationLeg>> routes;
 
-    static {
-        for (MigrationSeason season : MigrationSeason.values()) {
-            ROUTES.put(season, buildSeasonRoute(season));
+    private static Map<MigrationSeason, List<MigrationLeg>> routes() {
+        if (routes == null) {
+            Map<MigrationSeason, List<MigrationLeg>> built = new EnumMap<>(MigrationSeason.class);
+            for (MigrationSeason season : MigrationSeason.values()) {
+                built.put(season, buildSeasonRoute(season));
+            }
+            routes = Map.copyOf(built);
         }
+        return routes;
     }
 
     private MigrationRoutes() {
     }
 
     public static List<MigrationLeg> routeFor(MigrationSeason season) {
-        return ROUTES.getOrDefault(season, List.of());
+        return routes().getOrDefault(season, List.of());
     }
 
     /** All biome IDs featured across every seasonal route (for spawn pools and validation). */
@@ -42,12 +47,12 @@ public final class MigrationRoutes {
 
     /** Biome IDs for one season (union of its three legs). */
     public static List<ResourceLocation> biomesForSeason(MigrationSeason season) {
-        return RegionsUnexploredBiomes.forSeason(season);
+        return MigrationBiomeCatalog.biomesForSeason(season);
     }
 
     private static List<MigrationLeg> buildSeasonRoute(MigrationSeason season) {
         List<List<ResourceLocation>> partitions = RegionsUnexploredBiomes.partitionForLegs(
-                RegionsUnexploredBiomes.forSeason(season)
+                MigrationBiomeCatalog.biomesForSeason(season)
         );
         List<MigrationLeg> legs = new ArrayList<>(3);
         legs.add(leg(2, 15, partitions.get(0)));

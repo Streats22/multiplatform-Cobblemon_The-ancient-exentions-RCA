@@ -1,5 +1,6 @@
 package nl.streats1.ancientextensions.client;
 
+import nl.streats1.ancientextensions.menu.FieldSurveyCalendarMenu;
 import nl.streats1.ancientextensions.menu.FieldSurveyTabletMenu;
 import nl.streats1.ancientextensions.menu.MigrationRouteChartMenu;
 import nl.streats1.ancientextensions.menu.PokeballPouchMenu;
@@ -23,6 +24,7 @@ public final class AncientExtensionsScreens {
         registrar.register(ModMenuTypes.REGIONAL_SURVEY_JOURNAL, RegionalSurveyJournalScreen::new);
         registrar.register(ModMenuTypes.MIGRATION_ROUTE_CHART, MigrationRouteChartScreen::new);
         registrar.register(ModMenuTypes.FIELD_SURVEY_TABLET, FieldSurveyTabletScreen::new);
+        registrar.register(ModMenuTypes.FIELD_SURVEY_CALENDAR, FieldSurveyCalendarScreen::new);
     }
 
     @FunctionalInterface

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "ancient_extensions:block/field_survey_monitor"
+    }
+  }
+}

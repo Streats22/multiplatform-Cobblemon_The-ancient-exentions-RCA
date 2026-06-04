@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "ancient_extensions:block/field_survey_monitor"
+  }
+}

@@ -15,6 +15,11 @@ import nl.streats1.ancientextensions.migration.MigrationConfig;
 import nl.streats1.ancientextensions.migration.MigrationRoutes;
 import nl.streats1.ancientextensions.migration.MigrationSeason;
 import nl.streats1.ancientextensions.migration.MigrationSeasonClock;
+import nl.streats1.ancientextensions.migration.MigrationBiomeCatalog;
+import nl.streats1.ancientextensions.migration.MigrationBiomeLocator;
+import nl.streats1.ancientextensions.migration.MigrationCalendarSource;
+import nl.streats1.ancientextensions.migration.MigrationRouteTarget;
+import nl.streats1.ancientextensions.integration.map.MapWaypointIntegration;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -39,6 +44,8 @@ public final class AncientExtensionsCommands {
         LiteralArgumentBuilder<CommandSourceStack> root = literal("ancientextensions")
                 .then(literal("survey").executes(ctx -> showSurvey(ctx.getSource().getPlayerOrException())))
                 .then(literal("migration").executes(ctx -> showMigration(ctx.getSource().getPlayerOrException())))
+                .then(literal("route")
+                        .then(literal("locate").executes(ctx -> locateRoute(ctx.getSource().getPlayerOrException()))))
                 .then(literal("passport").executes(ctx -> openPassport(ctx.getSource().getPlayerOrException())))
                 .then(literal("passport")
                         .then(Commands.argument("player", EntityArgument.player())
@@ -176,6 +183,7 @@ public final class AncientExtensionsCommands {
         int completions = data.getMigrationCompletions(season);
         int nextReward = MigrationConfig.routeCompletionReward(completions);
 
+        MigrationCalendarSource calendar = MigrationSeasonClock.calendarSource();
         player.sendSystemMessage(Component.translatable(
                 "ancient_extensions.command.migration",
                 season.displayName(),
@@ -185,11 +193,55 @@ public final class AncientExtensionsCommands {
                 completions,
                 nextReward
         ));
+        player.sendSystemMessage(Component.translatable(
+                "ancient_extensions.command.migration_calendar",
+                calendar.label()
+        ));
+        player.sendSystemMessage(Component.translatable(
+                "ancient_extensions.command.migration_worldgen",
+                MigrationBiomeCatalog.activeWorldGenLabel()
+        ));
         for (int i = 0; i < route.size(); i++) {
             var leg = route.get(i);
             String marker = i == data.getMigrationLegIndex() ? ">" : " ";
             player.sendSystemMessage(Component.literal(marker + " " + (i + 1) + ". " + leg.biomeLabel()
                     + " (" + leg.requiredCatches() + " migratory catches, +" + leg.bonusResearchPoints() + " RP)"));
+        }
+        return 1;
+    }
+
+    private static int locateRoute(ServerPlayer player) {
+        MigrationRouteTarget target = MigrationBiomeLocator.resolveForPlayer(player);
+        switch (target.state()) {
+            case ON_ROUTE -> player.sendSystemMessage(Component.translatable(
+                    "ancient_extensions.compass.on_route",
+                    target.biomeLabel(),
+                    target.legDisplay(),
+                    target.legCount(),
+                    target.catchesOnLeg(),
+                    target.catchesRequired()
+            ));
+            case SEEKING_BIOME -> {
+                player.sendSystemMessage(Component.translatable(
+                        "ancient_extensions.compass.seeking",
+                        target.biomeLabel(),
+                        target.distanceBlocks(),
+                        target.bearingLabel(),
+                        target.legDisplay(),
+                        target.legCount()
+                ));
+                MapWaypointIntegration.offerWaypoint(
+                        player,
+                        target.position(),
+                        "Migration L" + target.legDisplay()
+                );
+            }
+            case ROUTE_COMPLETE -> player.sendSystemMessage(
+                    Component.translatable("ancient_extensions.compass.route_complete"));
+            case NOT_FOUND -> player.sendSystemMessage(Component.translatable(
+                    "ancient_extensions.compass.not_found",
+                    target.legDisplay(),
+                    target.legCount()));
         }
         return 1;
     }

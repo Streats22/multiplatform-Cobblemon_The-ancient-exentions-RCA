@@ -1,6 +1,6 @@
 package nl.streats1.ancientextensions.client;
 
-import nl.streats1.ancientextensions.AncientExtensionsConstants;
+import nl.streats1.ancientextensions.AncientExtensionsAssets;
 import nl.streats1.ancientextensions.menu.PokeballPouchMenu;
 import nl.streats1.ancientextensions.pouch.PokeballPouchLayout;
 import net.minecraft.client.gui.GuiGraphics;
@@ -11,10 +11,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class PokeballPouchScreen extends AbstractContainerScreen<PokeballPouchMenu> {
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(
-            AncientExtensionsConstants.MOD_ID,
-            "textures/gui/pokeball_pouch.png"
-    );
+    private static final ResourceLocation TEXTURE = AncientExtensionsAssets.GUI_POKEBALL_POUCH;
     private static final int TEX_WIDTH = 176;
     private static final int TEX_HEIGHT = 166;
 

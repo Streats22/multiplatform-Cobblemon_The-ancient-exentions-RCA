@@ -25,6 +25,9 @@
   },
   "recommends": {
     "regions_unexplored": ">=${regions_unexplored_version}",
+    "biomesoplenty": ">=21.1.0",
+    "sereneseasons": "*",
+    "mca": "*",
     "comforts": "*",
     "lootr": "*",
     "jei": "*"

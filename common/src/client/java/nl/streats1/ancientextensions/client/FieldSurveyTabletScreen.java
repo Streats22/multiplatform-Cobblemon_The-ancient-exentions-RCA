@@ -1,6 +1,6 @@
 package nl.streats1.ancientextensions.client;
 
-import nl.streats1.ancientextensions.AncientExtensionsConstants;
+import nl.streats1.ancientextensions.AncientExtensionsAssets;
 import nl.streats1.ancientextensions.menu.FieldSurveyTabletMenu;
 import nl.streats1.ancientextensions.network.TabletActionPayload;
 import net.minecraft.client.gui.GuiGraphics;
@@ -15,10 +15,7 @@ import java.util.List;
 
 public class FieldSurveyTabletScreen extends AbstractContainerScreen<FieldSurveyTabletMenu> {
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(
-            AncientExtensionsConstants.MOD_ID,
-            "textures/gui/field_survey_tablet.png"
-    );
+    private static final ResourceLocation TEXTURE = AncientExtensionsAssets.GUI_FIELD_SURVEY_TABLET;
     private static final int TEX_SIZE = 256;
 
     private static final int CONTENT_X = 28;

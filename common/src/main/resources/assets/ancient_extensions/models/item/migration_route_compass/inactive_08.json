@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "ancient_extensions:item/migration_route_compass/inactive_08"
+  }
+}

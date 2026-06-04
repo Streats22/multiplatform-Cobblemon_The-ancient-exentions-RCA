@@ -4,6 +4,7 @@ import nl.streats1.ancientextensions.AncientExtensionsConstants;
 import nl.streats1.ancientextensions.dex.PassportInventorySync;
 import nl.streats1.ancientextensions.AncientExtensionsContext;
 import nl.streats1.ancientextensions.config.PassportConfig;
+import nl.streats1.ancientextensions.integration.mca.McaIntegration;
 import nl.streats1.ancientextensions.dex.RegionalSurveyData;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -55,7 +56,11 @@ public final class StarterKitGrant {
         player.sendSystemMessage(Component.translatable("ancient_extensions.journal.welcome"));
         player.sendSystemMessage(Component.translatable("ancient_extensions.tablet.welcome"));
         if (PassportConfig.openOriginPickerOnJoin()) {
-            player.sendSystemMessage(Component.translatable("ancient_extensions.passport.welcome"));
+            if (McaIntegration.isLoaded() && PassportConfig.deferOriginPickerForMca()) {
+                player.sendSystemMessage(Component.translatable("ancient_extensions.passport.welcome_mca"));
+            } else {
+                player.sendSystemMessage(Component.translatable("ancient_extensions.passport.welcome"));
+            }
         } else {
             player.sendSystemMessage(Component.translatable("ancient_extensions.passport.welcome_optional"));
         }

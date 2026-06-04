@@ -1,6 +1,7 @@
 package nl.streats1.ancientextensions;
 
 import nl.streats1.ancientextensions.config.PassportConfig;
+import nl.streats1.ancientextensions.integration.mca.McaIntegration;
 import nl.streats1.ancientextensions.dex.TierRewardService;
 import nl.streats1.ancientextensions.dex.RegionalSurveyService;
 import nl.streats1.ancientextensions.dex.SurveyBackend;
@@ -66,6 +67,19 @@ public final class AncientExtensionsContext {
 
     /** Opens the origin picker on join when enabled in config and the player has no stamped origin. */
     public void promptOriginIfNeeded(ServerPlayer player) {
+        if (!PassportConfig.openOriginPickerOnJoin()) {
+            return;
+        }
+        if (McaIntegration.shouldDeferOriginPickerOnJoin(player)) {
+            return;
+        }
+        if (!originService.hasOrigin(surveyService.get(player))) {
+            openPassport(player);
+        }
+    }
+
+    /** Called after MCA Reborn's destiny intro closes (or fallback timer) to open the passport stamp flow. */
+    public void promptOriginAfterMcaIntro(ServerPlayer player) {
         if (!PassportConfig.openOriginPickerOnJoin()) {
             return;
         }

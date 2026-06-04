@@ -22,9 +22,12 @@ See [docs/DESIGN.md](docs/DESIGN.md) for locked design decisions and [docs/DEPEN
 
 ## Development
 
+Shared assets and data live in `common/src/main/resources/` (both Fabric and NeoForge JARs embed `:common`). See [docs/ASSETS.md](docs/ASSETS.md).
+
 ```bash
+./gradlew :fabric:runClient
 ./gradlew :neoforge:runClient
-./gradlew :neoforge:build
+./gradlew :fabric:build :neoforge:build
 ```
 
 Test: join a **new world** (kit in inventory), creative tab **Ancient Extensions**, or `/ancientextensions givekit`.
@@ -39,8 +42,9 @@ Add `ancient-extensions-neoforge-*.jar` to Rubius Cobblemon. Kit auto-grants on 
 |-----|------|
 | [Cobblemon](https://modrinth.com/mod/cobblemon) 1.7.3 | **Required** — capture API, items, spawn pools |
 | [Regions Unexplored](https://modrinth.com/mod/regions-unexplored) 0.5.x | **Recommended** — migration route biomes |
+| [Serene Seasons](https://www.curseforge.com/minecraft/mc-mods/serene-seasons) | **Recommended** — real-world seasons for migration routes |
 
 ## Roadmap
 
-- Serene Seasons Plus calendar hook
 - CobbleDollars tier rewards (optional economy hook)
+- Create-style field sensor + data monitor for live migration readouts

@@ -1,6 +1,6 @@
 package nl.streats1.ancientextensions.client;
 
-import nl.streats1.ancientextensions.AncientExtensionsConstants;
+import nl.streats1.ancientextensions.AncientExtensionsAssets;
 import nl.streats1.ancientextensions.menu.RegionalSurveyJournalMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -14,10 +14,7 @@ import java.util.List;
 
 public class RegionalSurveyJournalScreen extends AbstractContainerScreen<RegionalSurveyJournalMenu> {
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(
-            AncientExtensionsConstants.MOD_ID,
-            "textures/gui/regional_survey_journal.png"
-    );
+    private static final ResourceLocation TEXTURE = AncientExtensionsAssets.GUI_REGIONAL_SURVEY_JOURNAL;
     private static final int TEX_SIZE = 256;
 
     private static final int CONTENT_X = 28;

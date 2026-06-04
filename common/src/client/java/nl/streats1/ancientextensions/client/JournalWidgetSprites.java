@@ -1,15 +1,12 @@
 package nl.streats1.ancientextensions.client;
 
-import nl.streats1.ancientextensions.AncientExtensionsConstants;
+import nl.streats1.ancientextensions.AncientExtensionsAssets;
 import net.minecraft.resources.ResourceLocation;
 
 /** Atlas for journal/chart footer controls (not baked into the main GUI background). */
 public final class JournalWidgetSprites {
 
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(
-            AncientExtensionsConstants.MOD_ID,
-            "textures/gui/regional_survey_journal_widgets.png"
-    );
+    public static final ResourceLocation TEXTURE = AncientExtensionsAssets.GUI_REGIONAL_SURVEY_JOURNAL_WIDGETS;
     public static final int TEX_W = 256;
     public static final int TEX_H = 32;
 

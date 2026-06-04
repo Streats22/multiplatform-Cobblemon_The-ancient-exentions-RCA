@@ -10,3 +10,9 @@
 [passport]
 	#When true, new players without a stamped origin are prompted with the passport region and hometown picker on join. Set false if your server assigns origins itself.
 	openOriginPickerOnJoin = true
+	#When true and Minecraft Comes Alive Reborn (mca) is installed, the passport stamp picker opens after MCA's character/destiny intro instead of on join.
+	deferOriginPickerForMca = true
+
+[migration]
+	#When true and Serene Seasons (sereneseasons) is installed, migration routes follow the world's real season instead of the 7-day internal calendar.
+	useSereneSeasonsWhenPresent = true

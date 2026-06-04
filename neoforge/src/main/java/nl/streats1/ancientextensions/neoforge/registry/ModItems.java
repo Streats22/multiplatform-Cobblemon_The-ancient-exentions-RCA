@@ -3,11 +3,15 @@ package nl.streats1.ancientextensions.neoforge.registry;
 import nl.streats1.ancientextensions.AncientExtensionsConstants;
 import nl.streats1.ancientextensions.item.AncientProfessorsKitItem;
 import nl.streats1.ancientextensions.item.MigrationRouteChartItem;
+import nl.streats1.ancientextensions.item.MigrationRouteCompassItem;
 import nl.streats1.ancientextensions.item.PokeballPouchItem;
 import nl.streats1.ancientextensions.item.RegionalPassportItem;
+import nl.streats1.ancientextensions.integration.OptionalIntegrationMods;
 import nl.streats1.ancientextensions.item.FieldSurveyTabletItem;
 import nl.streats1.ancientextensions.item.RegionalSurveyJournalItem;
+import nl.streats1.ancientextensions.neoforge.integration.sophisticated.FieldSurveyTelemetryUpgradeItem;
 import nl.streats1.ancientextensions.registry.ModContent;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -40,6 +44,11 @@ public final class ModItems {
             () -> new MigrationRouteChartItem(new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON))
     );
 
+    public static final DeferredItem<Item> MIGRATION_ROUTE_COMPASS = ITEMS.register(
+            "migration_route_compass",
+            () -> new MigrationRouteCompassItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON))
+    );
+
     public static final DeferredItem<Item> REGIONAL_PASSPORT = ITEMS.register(
             "regional_passport",
             () -> new RegionalPassportItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON))
@@ -53,10 +62,19 @@ public final class ModItems {
             )
     );
 
+    @Nullable
+    public static DeferredItem<Item> FIELD_SURVEY_TELEMETRY_UPGRADE;
+
     private ModItems() {
     }
 
     public static void register(IEventBus modBus) {
+        if (OptionalIntegrationMods.hasSophisticatedBackpacks()) {
+            FIELD_SURVEY_TELEMETRY_UPGRADE = ITEMS.register(
+                    "field_survey_telemetry_upgrade",
+                    FieldSurveyTelemetryUpgradeItem::new
+            );
+        }
         ITEMS.register(modBus);
         modBus.addListener(ModItems::onRegister);
     }
@@ -67,8 +85,12 @@ public final class ModItems {
             ModContent.REGIONAL_SURVEY_JOURNAL = REGIONAL_SURVEY_JOURNAL.get();
             ModContent.FIELD_SURVEY_TABLET = FIELD_SURVEY_TABLET.get();
             ModContent.MIGRATION_ROUTE_CHART = MIGRATION_ROUTE_CHART.get();
+            ModContent.MIGRATION_ROUTE_COMPASS = MIGRATION_ROUTE_COMPASS.get();
             ModContent.REGIONAL_PASSPORT = REGIONAL_PASSPORT.get();
             ModContent.POKEBALL_POUCH = POKEBALL_POUCH.get();
+            if (FIELD_SURVEY_TELEMETRY_UPGRADE != null) {
+                ModContent.FIELD_SURVEY_TELEMETRY_UPGRADE = FIELD_SURVEY_TELEMETRY_UPGRADE.get();
+            }
         }
     }
 }

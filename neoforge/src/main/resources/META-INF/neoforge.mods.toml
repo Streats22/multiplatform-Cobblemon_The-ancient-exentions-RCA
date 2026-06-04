@@ -13,7 +13,7 @@ seasonal migration hooks, passport/journal/pouch. Requires Cobblemon 1.7.x on Mi
 Recommends Regions Unexplored for migration biome routes, Comforts for camp sleeping bags, and Lootr for per-player camp chests.
 '''
 displayURL = "https://modrinth.com/modpack/rubius-cobblemon"
-logoFile = "icon.png"
+logoFile = "assets/ancient_extensions/icon.png"
 
 [features.ancient_extensions]
 javaVersion = "[21,21.999999)"
@@ -44,11 +44,38 @@ ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.ancient_extensions]]
+modId = "sereneseasons"
+type = "optional"
+reason = "When installed, seasonal migration follows Serene Seasons instead of the internal 7-day calendar."
+versionRange = "[0,)"
+referralUrl = "https://www.curseforge.com/minecraft/mc-mods/serene-seasons"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.ancient_extensions]]
+modId = "mca"
+type = "optional"
+reason = "When installed, the Regional Survey passport stamp opens after MCA's character/destiny intro instead of during join."
+versionRange = "[7.7.0,)"
+referralUrl = "https://www.curseforge.com/minecraft/mc-mods/minecraft-comes-alive-reborn"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.ancient_extensions]]
 modId = "regions_unexplored"
 type = "optional"
-reason = "Migration routes and spawn pools reference Regions Unexplored biomes; vanilla biomes still work without it."
+reason = "When present, migration routes and spawn estimates use Regions Unexplored biomes; otherwise vanilla (and BOP if installed)."
 versionRange = "[${regions_unexplored_version},)"
 referralUrl = "https://modrinth.com/mod/regions-unexplored"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.ancient_extensions]]
+modId = "biomesoplenty"
+type = "optional"
+reason = "When present, migration routes and spawn estimates also use Biomes O' Plenty biomes."
+versionRange = "[21.1.0,)"
+referralUrl = "https://modrinth.com/mod/biomes-o-plenty"
 ordering = "NONE"
 side = "BOTH"
 
@@ -67,5 +94,32 @@ type = "optional"
 reason = "Only used when camp.useLootrCampChest is enabled in config."
 versionRange = "[0,)"
 referralUrl = "https://modrinth.com/mod/lootr"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.ancient_extensions]]
+modId = "create"
+type = "optional"
+reason = "Field Survey Sensor and Monitor are placeable blocks; Create Display Link integration and recipes require Create."
+versionRange = "[6.0.10,6.2.0)"
+referralUrl = "https://modrinth.com/mod/create"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.ancient_extensions]]
+modId = "sophisticatedcore"
+type = "optional"
+reason = "Required at runtime with Sophisticated Backpacks for the Field Survey Telemetry upgrade."
+versionRange = "[1.4.0,)"
+referralUrl = "https://modrinth.com/mod/sophisticated-core"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.ancient_extensions]]
+modId = "sophisticatedbackpacks"
+type = "optional"
+reason = "Field Survey Telemetry backpack upgrade registers only when Sophisticated Backpacks is present (same optional pattern as Create)."
+versionRange = "[3.0.0,)"
+referralUrl = "https://modrinth.com/mod/sophisticated-backpacks"
 ordering = "NONE"
 side = "BOTH"

@@ -19,6 +19,7 @@ repositories {
     maven("https://hub.spigotmc.org/nexus/content/groups/public/")
     maven("https://thedarkcolour.github.io/KotlinForForge/")
     maven("https://maven.neoforged.net/releases/")
+    maven("https://maven.createmod.net/")
 }
 
 val shadowBundle: Configuration by configurations.creating {
@@ -45,6 +46,17 @@ dependencies {
 
     modCompileOnly("mezz.jei:jei-${property("minecraft_version")}-neoforge-api:${property("jei_version")}")
     modRuntimeOnly("mezz.jei:jei-${property("minecraft_version")}-neoforge:${property("jei_version")}")
+
+    modCompileOnly("com.simibubi.create:create-${property("minecraft_version")}:${property("create_version")}:slim") {
+        isTransitive = false
+    }
+
+    modCompileOnly("maven.modrinth:sophisticated-core:${property("sophisticated_core_version")}") {
+        isTransitive = false
+    }
+    modCompileOnly("maven.modrinth:sophisticated-backpacks:${property("sophisticated_backpacks_version")}") {
+        isTransitive = false
+    }
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${property("junit_version")}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${property("junit_version")}")

@@ -17,7 +17,6 @@ dependencies {
     mappings(loom.officialMojangMappings())
     modImplementation("com.cobblemon:mod:${property("cobblemon_version")}") { isTransitive = false }
     modCompileOnly("mezz.jei:jei-${property("minecraft_version")}-common-api:${property("jei_version")}")
-
     testImplementation("org.junit.jupiter:junit-jupiter-api:${property("junit_version")}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${property("junit_version")}")
 }

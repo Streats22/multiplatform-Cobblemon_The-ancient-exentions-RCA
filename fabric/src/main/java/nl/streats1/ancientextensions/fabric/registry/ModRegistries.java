@@ -1,14 +1,20 @@
 package nl.streats1.ancientextensions.fabric.registry;
 
 import nl.streats1.ancientextensions.AncientExtensionsConstants;
+import nl.streats1.ancientextensions.block.FieldSurveyCalendarBlock;
+import nl.streats1.ancientextensions.block.FieldSurveyMonitorBlock;
+import nl.streats1.ancientextensions.block.FieldSurveyMonitorBlockEntity;
+import nl.streats1.ancientextensions.block.FieldSurveySensorBlock;
 import nl.streats1.ancientextensions.block.PokeballPouchBlock;
 import nl.streats1.ancientextensions.block.PokeballPouchBlockEntity;
 import nl.streats1.ancientextensions.item.AncientProfessorsKitItem;
 import nl.streats1.ancientextensions.item.MigrationRouteChartItem;
+import nl.streats1.ancientextensions.item.MigrationRouteCompassItem;
 import nl.streats1.ancientextensions.item.PokeballPouchItem;
 import nl.streats1.ancientextensions.item.RegionalPassportItem;
 import nl.streats1.ancientextensions.item.FieldSurveyTabletItem;
 import nl.streats1.ancientextensions.item.RegionalSurveyJournalItem;
+import nl.streats1.ancientextensions.menu.FieldSurveyCalendarMenu;
 import nl.streats1.ancientextensions.menu.FieldSurveyTabletMenu;
 import nl.streats1.ancientextensions.menu.MigrationRouteChartMenu;
 import nl.streats1.ancientextensions.menu.PokeballPouchMenu;
@@ -21,6 +27,7 @@ import nl.streats1.ancientextensions.menu.sync.PassportOpenData;
 import nl.streats1.ancientextensions.menu.sync.PouchOpenData;
 import nl.streats1.ancientextensions.recipe.PokeballPouchRecipe;
 import nl.streats1.ancientextensions.registry.ModRecipeSerializers;
+import nl.streats1.ancientextensions.integration.OptionalIntegrationMods;
 import nl.streats1.ancientextensions.registry.ModContent;
 import nl.streats1.ancientextensions.registry.ModMenuTypes;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
@@ -39,6 +46,30 @@ public final class ModRegistries {
     }
 
     public static void register() {
+        ModContent.FIELD_SURVEY_CALENDAR_BLOCK = Registry.register(
+                BuiltInRegistries.BLOCK,
+                id("field_survey_calendar"),
+                new FieldSurveyCalendarBlock(
+                        BlockBehaviour.Properties.of()
+                                .strength(0.6f)
+                                .sound(net.minecraft.world.level.block.SoundType.WOOD)
+                                .noOcclusion()
+                )
+        );
+
+        Registry.register(
+                BuiltInRegistries.ITEM,
+                id("field_survey_calendar"),
+                new net.minecraft.world.item.BlockItem(
+                        ModContent.FIELD_SURVEY_CALENDAR_BLOCK,
+                        new net.minecraft.world.item.Item.Properties()
+                )
+        );
+
+        if (OptionalIntegrationMods.hasCreate()) {
+            registerCreateFieldKit();
+        }
+
         ModContent.POKEBALL_POUCH_BLOCK = Registry.register(
                 BuiltInRegistries.BLOCK,
                 id("pokeball_pouch"),
@@ -100,6 +131,14 @@ public final class ModRegistries {
                         TabletOpenData.STREAM_CODEC
                 )
         );
+        ModMenuTypes.FIELD_SURVEY_CALENDAR = Registry.register(
+                BuiltInRegistries.MENU,
+                id("field_survey_calendar"),
+                new ExtendedScreenHandlerType<>(
+                        (syncId, inv, data) -> new FieldSurveyCalendarMenu(syncId, inv, data),
+                        ChartOpenData.STREAM_CODEC
+                )
+        );
 
         ModContent.ANCIENT_PROFESSORS_KIT = Registry.register(
                 BuiltInRegistries.ITEM,
@@ -121,6 +160,11 @@ public final class ModRegistries {
                 id("migration_route_chart"),
                 new MigrationRouteChartItem(new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON))
         );
+        ModContent.MIGRATION_ROUTE_COMPASS = Registry.register(
+                BuiltInRegistries.ITEM,
+                id("migration_route_compass"),
+                new MigrationRouteCompassItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON))
+        );
         ModContent.REGIONAL_PASSPORT = Registry.register(
                 BuiltInRegistries.ITEM,
                 id("regional_passport"),
@@ -139,6 +183,56 @@ public final class ModRegistries {
                 BuiltInRegistries.RECIPE_SERIALIZER,
                 id("pokeball_pouch"),
                 new SimpleCraftingRecipeSerializer<>(PokeballPouchRecipe::new)
+        );
+    }
+
+    private static void registerCreateFieldKit() {
+        ModContent.FIELD_SURVEY_SENSOR_BLOCK = Registry.register(
+                BuiltInRegistries.BLOCK,
+                id("field_survey_sensor"),
+                new FieldSurveySensorBlock(
+                        BlockBehaviour.Properties.of()
+                                .strength(1.2f)
+                                .sound(net.minecraft.world.level.block.SoundType.COPPER)
+                )
+        );
+
+        ModContent.FIELD_SURVEY_MONITOR_BLOCK = Registry.register(
+                BuiltInRegistries.BLOCK,
+                id("field_survey_monitor"),
+                new FieldSurveyMonitorBlock(
+                        BlockBehaviour.Properties.of()
+                                .strength(1.2f)
+                                .sound(net.minecraft.world.level.block.SoundType.COPPER)
+                                .noOcclusion()
+                )
+        );
+
+        ModContent.FIELD_SURVEY_MONITOR_BE = Registry.register(
+                BuiltInRegistries.BLOCK_ENTITY_TYPE,
+                id("field_survey_monitor"),
+                FabricBlockEntityTypeBuilder.create(
+                        FieldSurveyMonitorBlockEntity::new,
+                        ModContent.FIELD_SURVEY_MONITOR_BLOCK
+                ).build()
+        );
+
+        Registry.register(
+                BuiltInRegistries.ITEM,
+                id("field_survey_sensor"),
+                new net.minecraft.world.item.BlockItem(
+                        ModContent.FIELD_SURVEY_SENSOR_BLOCK,
+                        new net.minecraft.world.item.Item.Properties()
+                )
+        );
+
+        Registry.register(
+                BuiltInRegistries.ITEM,
+                id("field_survey_monitor"),
+                new net.minecraft.world.item.BlockItem(
+                        ModContent.FIELD_SURVEY_MONITOR_BLOCK,
+                        new net.minecraft.world.item.Item.Properties()
+                )
         );
     }
 

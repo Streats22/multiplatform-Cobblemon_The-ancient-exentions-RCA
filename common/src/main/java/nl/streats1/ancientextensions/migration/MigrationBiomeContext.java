@@ -28,15 +28,19 @@ public final class MigrationBiomeContext {
         return RegionsUnexploredBiomes.isRegionsUnexplored(biomeId);
     }
 
-    /** Leg indices (0-based) whose RU biome list contains this biome. Empty for unknown/vanilla. */
+    public static boolean isBiomesOPlentyBiome(ResourceLocation biomeId) {
+        return BiomesOPlentyBiomes.isBiomesOPlenty(biomeId);
+    }
+
+    /** Leg indices (0-based) where this biome counts for the route (includes vanilla). */
     public static List<Integer> routeLegIndices(MigrationSeason season, ResourceLocation biomeId) {
-        if (biomeId == null || isVanillaBiome(biomeId)) {
+        if (biomeId == null) {
             return List.of();
         }
         List<MigrationLeg> route = MigrationRoutes.routeFor(season);
         List<Integer> matches = new ArrayList<>();
         for (int index = 0; index < route.size(); index++) {
-            if (route.get(index).biomeIds().contains(biomeId)) {
+            if (route.get(index).matchesBiome(biomeId)) {
                 matches.add(index);
             }
         }

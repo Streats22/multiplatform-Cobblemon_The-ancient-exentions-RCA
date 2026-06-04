@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * Complete Regions Unexplored biome catalog (v0.5.x, 71 biomes).
+ * Only merged into routes when the mod is loaded — see {@link MigrationBiomeCatalog}.
  * {@link RegionsUnexploredExpansion} vanilla remodels are covered via {@code minecraft:*} in {@link MigrationLeg}.
  */
 public final class RegionsUnexploredBiomes {
