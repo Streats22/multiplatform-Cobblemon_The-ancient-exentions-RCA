@@ -43,7 +43,6 @@ public final class ModBlocks {
                     BlockBehaviour.Properties.of()
                             .strength(1.2f)
                             .sound(net.minecraft.world.level.block.SoundType.COPPER)
-                            .noOcclusion()
             )
     );
 

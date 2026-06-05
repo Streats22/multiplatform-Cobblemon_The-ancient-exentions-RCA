@@ -19,6 +19,17 @@ public class FieldSurveyMonitorBlockEntity extends BlockEntity {
         super(ModContent.FIELD_SURVEY_MONITOR_BE, pos, state);
     }
 
+    public void setLineText(int line, String text) {
+        if (line < 0 || line >= lines.length) {
+            return;
+        }
+        String value = text == null ? "" : text;
+        if (!value.equals(lines[line])) {
+            lines[line] = value;
+            setChanged();
+        }
+    }
+
     public void setLine(int line, List<? extends Component> text) {
         if (line < 0 || line >= lines.length) {
             return;

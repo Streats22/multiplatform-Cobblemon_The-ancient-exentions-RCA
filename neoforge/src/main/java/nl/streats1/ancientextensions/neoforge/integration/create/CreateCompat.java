@@ -8,11 +8,15 @@ import com.simibubi.create.api.registry.CreateRegistries;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
 import nl.streats1.ancientextensions.AncientExtensionsConstants;
+import nl.streats1.ancientextensions.field.FieldSurveyPower;
 import nl.streats1.ancientextensions.integration.OptionalIntegrationMods;
+import nl.streats1.ancientextensions.neoforge.registry.ModBlockEntities;
 import nl.streats1.ancientextensions.neoforge.registry.ModBlocks;
 
 public final class CreateCompat {
@@ -30,6 +34,18 @@ public final class CreateCompat {
             return;
         }
         modBus.addListener(CreateCompat::onRegister);
+        modBus.addListener(CreateCompat::onCommonSetup);
+    }
+
+    private static void onCommonSetup(FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            FieldSurveyPower.register(FieldSurveyKineticRequirements::hasShaftPowerFromBelow);
+            ensureBlocksBound();
+        });
+    }
+
+    public static void ensureBlocksBound() {
+        tryBindBlocks();
     }
 
     private static void onRegister(RegisterEvent event) {
@@ -87,6 +103,10 @@ public final class CreateCompat {
         DisplaySource.BY_BLOCK.add(sensor, FieldMigratorySpeciesDisplaySource.INSTANCE);
         DisplaySource.BY_BLOCK.add(sensor, FieldRouteBearingDisplaySource.INSTANCE);
         DisplayTarget.BY_BLOCK.register(monitor, FieldSurveyMonitorDisplayTarget.INSTANCE);
+        BlockEntityType<?> monitorBe = ModBlockEntities.FIELD_SURVEY_MONITOR.get();
+        if (monitorBe != null) {
+            DisplayTarget.BY_BLOCK_ENTITY.register(monitorBe, FieldSurveyMonitorDisplayTarget.INSTANCE);
+        }
         blocksBound = true;
     }
 

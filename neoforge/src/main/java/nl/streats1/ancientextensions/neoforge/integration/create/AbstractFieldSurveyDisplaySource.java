@@ -7,6 +7,7 @@ import com.simibubi.create.content.redstone.displayLink.target.DisplayTargetStat
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 
+import nl.streats1.ancientextensions.field.FieldSurveyStack;
 import nl.streats1.ancientextensions.field.FieldSurveyWorldSnapshot;
 
 abstract class AbstractFieldSurveyDisplaySource extends SingleLineDisplaySource {
@@ -25,6 +26,12 @@ abstract class AbstractFieldSurveyDisplaySource extends SingleLineDisplaySource 
     protected MutableComponent provideLine(DisplayLinkContext context, DisplayTargetStats stats) {
         if (!(context.level() instanceof ServerLevel)) {
             return EMPTY_LINE;
+        }
+        if (!FieldSurveyStack.hasMonitorAbove(context.level(), context.getSourcePos())) {
+            return FieldSurveyKineticRequirements.stackRequiredLine();
+        }
+        if (!FieldSurveyKineticRequirements.hasShaftPowerFromBelow(context.level(), context.getSourcePos())) {
+            return FieldSurveyKineticRequirements.rpmRequiredLine();
         }
         return net.minecraft.network.chat.Component.literal(
                 provideText(FieldSurveyWorldSnapshot.at(context.level(), context.getSourcePos()))

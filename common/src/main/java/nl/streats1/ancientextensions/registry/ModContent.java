@@ -5,6 +5,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import nl.streats1.ancientextensions.block.FieldSurveyMonitorBlockEntity;
+import nl.streats1.ancientextensions.block.FieldSurveySensorBlockEntity;
 import nl.streats1.ancientextensions.block.PokeballPouchBlockEntity;
 
 /**
@@ -22,6 +23,7 @@ public final class ModContent {
     public static Block POKEBALL_POUCH_BLOCK;
     public static BlockEntityType<PokeballPouchBlockEntity> POKEBALL_POUCH_BE;
     public static Block FIELD_SURVEY_SENSOR_BLOCK;
+    public static BlockEntityType<FieldSurveySensorBlockEntity> FIELD_SURVEY_SENSOR_BE;
     public static Block FIELD_SURVEY_MONITOR_BLOCK;
     public static BlockEntityType<FieldSurveyMonitorBlockEntity> FIELD_SURVEY_MONITOR_BE;
     public static Block FIELD_SURVEY_CALENDAR_BLOCK;

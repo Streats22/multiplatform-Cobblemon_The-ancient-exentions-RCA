@@ -194,8 +194,16 @@ public final class ModRegistries {
                         BlockBehaviour.Properties.of()
                                 .strength(1.2f)
                                 .sound(net.minecraft.world.level.block.SoundType.COPPER)
-                                .noOcclusion()
                 )
+        );
+
+        ModContent.FIELD_SURVEY_SENSOR_BE = Registry.register(
+                BuiltInRegistries.BLOCK_ENTITY_TYPE,
+                id("field_survey_sensor"),
+                BlockEntityType.Builder.of(
+                        FieldSurveySensorBlockEntity::new,
+                        ModContent.FIELD_SURVEY_SENSOR_BLOCK
+                ).build(null)
         );
 
         ModContent.FIELD_SURVEY_MONITOR_BE = Registry.register(

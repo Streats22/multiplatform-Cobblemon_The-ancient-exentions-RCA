@@ -8,6 +8,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import nl.streats1.ancientextensions.AncientExtensionsConstants;
 import nl.streats1.ancientextensions.block.FieldSurveyMonitorBlockEntity;
+import nl.streats1.ancientextensions.block.FieldSurveySensorBlockEntity;
 import nl.streats1.ancientextensions.block.PokeballPouchBlockEntity;
 import nl.streats1.ancientextensions.registry.ModContent;
 
@@ -15,6 +16,12 @@ public final class ModBlockEntities {
 
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
             DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, AncientExtensionsConstants.MOD_ID);
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FieldSurveySensorBlockEntity>> FIELD_SURVEY_SENSOR =
+            BLOCK_ENTITIES.register("field_survey_sensor", () -> BlockEntityType.Builder.of(
+                    FieldSurveySensorBlockEntity::new,
+                    ModBlocks.FIELD_SURVEY_SENSOR.get()
+            ).build(null));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FieldSurveyMonitorBlockEntity>> FIELD_SURVEY_MONITOR =
             BLOCK_ENTITIES.register("field_survey_monitor", () -> BlockEntityType.Builder.of(
@@ -39,6 +46,7 @@ public final class ModBlockEntities {
     private static void onRegister(net.neoforged.neoforge.registries.RegisterEvent event) {
         if (event.getRegistryKey().equals(Registries.BLOCK_ENTITY_TYPE)) {
             ModContent.POKEBALL_POUCH_BE = POKEBALL_POUCH.get();
+            ModContent.FIELD_SURVEY_SENSOR_BE = FIELD_SURVEY_SENSOR.get();
             ModContent.FIELD_SURVEY_MONITOR_BE = FIELD_SURVEY_MONITOR.get();
         }
     }

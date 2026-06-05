@@ -7,6 +7,8 @@ import com.simibubi.create.content.redstone.displayLink.target.DisplayTargetStat
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 
+import nl.streats1.ancientextensions.field.FieldSurveyStack;
+import nl.streats1.ancientextensions.field.FieldSurveyStackLines;
 import nl.streats1.ancientextensions.migration.MigrationBiomeLocator;
 import nl.streats1.ancientextensions.migration.MigrationRouteTarget;
 
@@ -32,8 +34,14 @@ public final class FieldRouteBearingDisplaySource extends SingleLineDisplaySourc
         if (!(context.level() instanceof ServerLevel server)) {
             return EMPTY_LINE;
         }
+        if (!FieldSurveyStack.hasMonitorAbove(server, context.getSourcePos())) {
+            return FieldSurveyKineticRequirements.stackRequiredLine();
+        }
+        if (!FieldSurveyKineticRequirements.hasShaftPowerFromBelow(server, context.getSourcePos())) {
+            return FieldSurveyKineticRequirements.rpmRequiredLine();
+        }
         MigrationRouteTarget target = MigrationBiomeLocator.resolveNear(server, context.getSourcePos());
-        return net.minecraft.network.chat.Component.literal(format(target));
+        return net.minecraft.network.chat.Component.literal(FieldSurveyStackLines.formatBearing(target));
     }
 
     @Override
@@ -41,14 +49,4 @@ public final class FieldRouteBearingDisplaySource extends SingleLineDisplaySourc
         return "field_route_bearing";
     }
 
-    private static String format(MigrationRouteTarget target) {
-        return switch (target.state()) {
-            case ON_ROUTE -> "Here · L" + target.legDisplay() + "/" + target.legCount()
-                    + " · " + target.catchesOnLeg() + "/" + target.catchesRequired();
-            case SEEKING_BIOME -> target.distanceBlocks() + "m " + target.bearingLabel()
-                    + " · L" + target.legDisplay() + " · " + target.biomeLabel();
-            case ROUTE_COMPLETE -> "Route complete";
-            case NOT_FOUND -> "No biome in range · L" + target.legDisplay();
-        };
-    }
 }
